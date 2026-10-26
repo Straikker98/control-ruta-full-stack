@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Control y Seguimiento · Ruta Full Stack</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-badge">FS</div>
+    <div>
+      <h1>Ruta Full Stack</h1>
+      <p class="brand-sub">Versión independiente · se alimenta de <strong>respaldo.json</strong></p>
+    </div>
+  </div>
+  <div class="profile-chip" id="profileChip"></div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-view="hoy" class="active">Hoy</button>
+  <button data-view="ruta">Ruta</button>
+  <button data-view="cuaderno">Cuaderno</button>
+  <button data-view="trabajos">Trabajos</button>
+  <button data-view="evaluaciones">Evaluaciones</button>
+  <button data-view="insignias">Insignias</button>
+  <button data-view="perfil">Perfil</button>
+</nav>
+
+<main id="app">
+  <p class="loading">Cargando datos del respaldo…</p>
+</main>
+
+<footer class="foot">
+  <p>Copia independiente de la plataforma de Muse. Los cambios que marques aquí (checklist y respuestas) se guardan solo en este navegador. La calificación del experto y el progreso oficial viven en la app de Muse.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
