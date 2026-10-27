@@ -83,6 +83,7 @@ export async function ejercicios({ w }) {
   view.append(back(`#/tema/${w}`, `Tema ${w}`), heading('Ejercicios guiados', `${info?.title || ''}. Cada ejercicio trae su objetivo, los pasos, el resultado esperado y cómo verificar que quedó bien.`));
   if (!topic || !topic.exercises.length) { view.append(note('warn', 'Los ejercicios de este tema se están preparando.', 'clock')); return view; }
   if (st === 'locked' || st === 'available') { view.append(note('warn', 'Inicia el tema para registrar tus ejercicios.', 'lock')); }
+  view.append(h('a', { class: 'btn sm', href: '#/lab', style: { marginBottom: '16px' } }, icon('play'), 'Abrir el laboratorio para practicar'));
   for (const ex of topic.exercises) {
     const done = !!t.ex?.[ex.n];
     const card = h('section', { class: 'card', style: { marginBottom: '16px' } },

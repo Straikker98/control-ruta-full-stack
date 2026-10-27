@@ -14,6 +14,7 @@ import { cuadernoView } from './views/cuaderno.js';
 import { examenView, repasoView } from './views/examen.js';
 import { insigniasView } from './views/insignias.js';
 import { perfilView, registroView } from './views/perfil.js';
+import { labView } from './views/lab.js';
 
 const ROUTES = [
   [/^(?:hoy)?$/, () => hoy(), 'Hoy', 'hoy'],
@@ -25,6 +26,7 @@ const ROUTES = [
   [/^examen\/(\d+)\/(facil|medio|dificil)$/, (w, lv) => examenView({ w, lv }), 'Examen', 'ruta'],
   [/^repaso$/, () => repasoView(), 'Repaso', 'repaso'],
   [/^insignias$/, () => insigniasView(), 'Insignias', 'insignias'],
+  [/^lab$/, () => labView(), 'Laboratorio', 'lab'],
   [/^registro$/, () => registroView(), 'Registro', 'perfil'],
   [/^perfil$/, () => perfilView(), 'Perfil', 'perfil'],
 ];
