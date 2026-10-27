@@ -27,7 +27,7 @@ Despliegue: GitHub Pages sirve la raíz; el backend se publica con `clasp push` 
 - `apps-script/Code.gs`: backend (doGet/doPost) sobre Google Sheets. Acciones del estudiante sin clave; las del tutor (calificar entregas, leer respaldos) exigen clave en las propiedades del script. `Claves.gs`, `.clasp.json` y `.clasprc.json` están en `.gitignore`: nunca versionarlos. Respaldos automáticos en hoja `Respaldos`.
 - `sw.js`: caché de "cascarón" + contenido, con actualización en segundo plano; nunca intercepta el backend. **Al añadir/renombrar archivos CSS/JS hay que actualizarlos en `SHELL` y subir `VERSION`** para que los clientes se actualicen.
 - `css/`: `tokens.css` (variables, tema claro/oscuro, acentos, color por fase `--ph-N`), `base.css` (todos los componentes), `cuaderno.css`, `lab.css`. `js/fx.js` (confeti, +XP, contadores) y `js/palette.js` (Ctrl+K) son efectos de interfaz; `util.toast` dispara confeti cuando el mensaje contiene `+N XP`.
-- **Avatares:** `js/avatar.js` define `ROSTER` (63 personajes, de menos a más famosos; 4 iniciales y uno por tema completado). El repositorio no incluye ilustraciones con derechos de autor: si hay imagen en `assets/avatars/`, se usa; si no, un avatar geométrico.
+- **Avatares:** `js/avatar.js` define `ROSTER` (63 personajes, de menos a más famosos; 4 iniciales y uno por tema completado). Los retratos de `assets/avatars/` (63, de AniList, uso personal con derechos de autor) se usan si están listados en `index.json`; si no, un avatar geométrico.
 - **Diseño por ancho:** `.view` llega a 1720 px; `.split`, `.cols2`, `.nb-layout` y `.phases` reparten el contenido en columnas en pantallas grandes.
 - Estado extra sincronizado en `store.js`: `notes`, `marks` (Cuaderno) y `cards` (tarjetas propias).
 

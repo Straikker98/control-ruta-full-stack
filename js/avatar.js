@@ -1,6 +1,6 @@
 // Avatares: personajes de anime ordenados de menos a más famosos; se desbloquean al completar temas.
 // Si existe una imagen en assets/avatars/ (listada en index.json), se usa; si no, se dibuja un avatar geométrico.
-// Las ilustraciones originales tienen derechos de autor: este repositorio NO las incluye (ver assets/avatars/LEEME.md).
+// Los retratos de assets/avatars/ vienen de AniList (uso personal; tienen derechos de autor). Ver assets/avatars/LEEME.md.
 export const ROSTER = [
   ['Kirito', 'Sword Art Online'], ['Asuna', 'Sword Art Online'], ['Rem', 'Re:Zero'], ['Megumin', 'KonoSuba'],
   ['Rock Lee', 'Naruto'], ['Kaneki Ken', 'Tokyo Ghoul'], ['Natsu Dragneel', 'Fairy Tail'], ['Erza Scarlet', 'Fairy Tail'],

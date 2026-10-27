@@ -1,5 +1,7 @@
 # Imágenes de avatares
 
+Los 63 retratos actuales se descargaron de AniList (recortados en cuadrado, 256 px) para uso personal. Tienen derechos de autor de sus creadores; si el repositorio es público, quedan públicos.
+
 La app muestra aquí el personaje real si pones su imagen; si no, dibuja un avatar geométrico con su color.
 
 1. Guarda la imagen cuadrada (≥ 256 px, `.webp` o `.png`) con el nombre del personaje en minúsculas y con guiones:

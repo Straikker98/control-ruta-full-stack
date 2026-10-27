@@ -1,7 +1,7 @@
 // Service worker: la app funciona sin conexión.
 // Estrategia: el "cascarón" y el contenido se sirven de caché y se actualizan en segundo plano.
 // Las llamadas al backend (otro origen) nunca se interceptan: el progreso siempre va a la red.
-const VERSION = 'v11';
+const VERSION = 'v12';
 const CACHE = `rfs-${VERSION}`;
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'assets/icon.svg', 'assets/icon-192.png', 'assets/icon-512.png', 'assets/apple-touch-icon.png', 'css/tokens.css', 'css/base.css', 'css/cuaderno.css', 'css/lab.css',
   'js/main.js', 'js/util.js', 'js/icons.js', 'js/content.js', 'js/store.js', 'js/sync.js', 'js/logic.js', 'js/theme.js', 'js/fx.js', 'js/install.js', 'js/badge.js', 'js/views/tarjetas.js', 'js/views/portafolio.js', 'js/palette.js', 'js/avatar.js',
