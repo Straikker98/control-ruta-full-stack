@@ -3,7 +3,7 @@ import { h, clear, toast } from './util.js';
 import { icon } from './icons.js';
 import { state } from './store.js';
 import { applyTheme } from './theme.js';
-import { initSync, pull, hasKey, syncStatus, onSyncStatus } from './sync.js';
+import { initSync, pull, hasKey, syncStatus, onSyncStatus, isPristine } from './sync.js';
 import * as L from './logic.js';
 import { avatar } from './avatar.js';
 import { loading } from './views/ui.js';
@@ -104,13 +104,19 @@ paintTimer(); paintMe();
 document.addEventListener('avatar-changed', paintMe);
 window.addEventListener('hashchange', render);
 if (!location.hash) location.replace('#/hoy');
-render();
 
-// Al abrir: traer datos de la nube y calificaciones del tutor
+// Con clave, se espera (máx. 8 s) a la primera sincronización ANTES de mostrar la app:
+// así nadie toca un estado vacío mientras llega el progreso real de la nube.
 (async () => {
+  if (hasKey()) {
+    root.replaceChildren(loading());
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    await Promise.race([pull(), sleep(8000)]);
+    applyTheme(); paintMe();
+  }
+  render();
   if (!hasKey()) return;
-  const changed = await pull();
-  try { const n = await L.refreshGrades(); if (n) toast(`${n} calificación(es) nueva(s) de tu tutor`, 'ok'); if (n || changed) { applyTheme(); paintMe(); render(); } } catch { if (changed) { applyTheme(); paintMe(); render(); } }
+  try { const n = await L.refreshGrades(); if (n) { toast(`${n} calificación(es) nueva(s) de tu tutor`, 'ok'); render(); } } catch { /* sin conexión: se reintenta al abrir */ }
 })();
 
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {

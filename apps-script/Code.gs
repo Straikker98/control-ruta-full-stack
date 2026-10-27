@@ -168,6 +168,12 @@ function guardarEstado_(req) {
   if (json.length > MAX_JSON) throw new Error('estado demasiado grande');
   var actual = leerEstado_();
   var nuevo = Number(req.actualizado) || Date.now();
+  // Defensa en profundidad: un estado sin progreso nunca sobrescribe uno que sí lo tiene.
+  var conProgreso = function (e) { return !!e && ((e.topics && Object.keys(e.topics).length > 0) || Number(e.xp) > 0); };
+  if (actual.estado && conProgreso(actual.estado) && !conProgreso(req.estado) && !req.forzar) {
+    log_('guardarEstado', 'RECHAZADO: estado vacío sobre estado con progreso');
+    return { guardado: false, estado: actual.estado, actualizado: actual.actualizado, motivo: 'vacio' };
+  }
   // Gana el más reciente: si el servidor tiene datos más nuevos, se devuelven sin sobrescribir.
   if (actual.estado && actual.actualizado > nuevo) {
     return { guardado: false, estado: actual.estado, actualizado: actual.actualizado };
