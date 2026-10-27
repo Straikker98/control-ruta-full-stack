@@ -1,11 +1,634 @@
 {
  "week": 12,
- "estado": "pendiente",
- "sections": [],
- "exercises": [],
+ "estado": "completo",
+ "sections": [
+  {
+   "page": 1,
+   "kind": "heading",
+   "title": "1.1. Calidad visual: la diferencia entre una página que funciona y una página terminada",
+   "body": "Calidad visual es el conjunto de comprobaciones que separa una página que ya hace lo que debe de una página que además se ve cuidada, carga con rapidez y se comporta igual en cualquier pantalla y en papel. Los temas 7 a 11 enseñaron a construir: selectores, layout, adaptación, sistema visual y accesibilidad. Este tema enseña a revisar lo construido con instrumentos y con criterio, antes de darlo por entregado.\n\nLa revisión se apoya en cuatro frentes:\n\n• Inspección: leer con las herramientas del navegador qué reglas se aplican a cada elemento y por qué.\n• Rendimiento: medir cuánto tarda en aparecer el contenido y si algo se mueve mientras carga.\n• Impresión: comprobar que la página también sirve cuando se envía a papel o a PDF.\n• Pulido: alinear, igualar y retirar lo que sobra, comparando siempre un estado antes con un estado después."
+  },
+  {
+   "page": 1,
+   "kind": "definition",
+   "title": "1.2. Qué se entiende por defecto visual",
+   "body": "Definición: un defecto visual es cualquier diferencia entre lo que la página debería mostrar según su sistema visual y lo que realmente muestra, o cualquier comportamiento que perturbe la lectura aunque el código sea válido.\n\n• Un código válido puede producir una interfaz torpe: un margen de 13 px donde el sistema define 16 px, un botón cuyo texto no queda centrado, una imagen que salta al cargar.\n• Los validadores del Tema 3 y las auditorías del Tema 11 no detectan estos defectos: miden estructura y accesibilidad, no armonía.\n• Por eso la calidad visual se comprueba mirando, midiendo y comparando, con un procedimiento repetible y no por impresión."
+  },
+  {
+   "page": 1,
+   "kind": "theory",
+   "title": "1.3. El procedimiento general: medir antes, cambiar después, medir otra vez",
+   "body": "Toda mejora de calidad sigue el mismo ciclo, y saltarse un paso la vuelve inverificable.\n\n• Medir el estado inicial y guardarlo: capturas de pantalla, números de Lighthouse, lista de defectos.\n• Cambiar una sola cosa por vez y confirmar el efecto; si se cambian cinco a la vez no se sabe cuál mejoró o empeoró.\n• Medir de nuevo en las mismas condiciones y comparar con el estado inicial.\n• Anotar el resultado: la comparación antes y después es la evidencia de este tema."
+  },
+  {
+   "page": 1,
+   "kind": "diagram",
+   "title": "Ciclo de una mejora de calidad",
+   "body": "Medir (antes) ──► Cambiar una cosa ──► Medir (después)\n      ▲                                      │\n      └────────── Comparar y anotar ◄────────┘"
+  },
+  {
+   "page": 1,
+   "kind": "warning",
+   "title": "REGLA FUNDAMENTAL",
+   "body": "Sin medida inicial no hay mejora demostrable. Optimizar o pulir a ojo, sin capturas ni números del estado anterior, produce cambios que nadie puede comprobar."
+  },
+  {
+   "page": 2,
+   "kind": "heading",
+   "title": "2.1. DevTools: el taller incluido en el navegador",
+   "body": "Definición: las DevTools (herramientas para desarrolladores) son el conjunto de paneles que trae el navegador para inspeccionar, modificar y medir una página en vivo. Se abren con F12, con Ctrl+Shift+I (Cmd+Option+I en Mac) o con clic derecho sobre un elemento y la opción Inspeccionar.\n\n• Todo cambio hecho en DevTools es temporal: afecta solo a la copia en memoria del navegador y desaparece al recargar. Sirve para probar valores antes de escribirlos en el archivo real.\n• Los paneles que se usan en este tema son Elements, Network, Performance, Lighthouse y la pestaña Rendering; la consola ya se conoce desde el Tema 6.\n• Las DevTools de Chrome y Edge son casi idénticas; Firefox ofrece las suyas con nombres parecidos. Las instrucciones de este tema usan los nombres de Chrome."
+  },
+  {
+   "page": 2,
+   "kind": "table",
+   "title": "Tabla — paneles de DevTools y para qué sirve cada uno",
+   "body": "Panel | Para qué sirve\nElements | Ver el HTML vivo y las reglas CSS aplicadas a cada elemento\nConsole | Leer errores y avisos y ejecutar JavaScript\nNetwork | Ver cada archivo descargado, su peso y su tiempo\nPerformance | Grabar la carga o una interacción y ver dónde se gasta el tiempo\nLighthouse | Auditar rendimiento, accesibilidad y buenas prácticas con una puntuación\nRendering | Simular impresión, modo oscuro, movimiento reducido y resaltar repintados"
+  },
+  {
+   "page": 2,
+   "kind": "theory",
+   "title": "2.2. Panel Elements: de dónde sale cada estilo",
+   "body": "El panel Elements muestra a la izquierda el árbol de HTML y a la derecha la columna Styles con las reglas que alcanzan al elemento seleccionado.\n\n• Las reglas aparecen ordenadas de mayor a menor prioridad según la cascada del Tema 7; la que gana queda arriba.\n• Una declaración tachada perdió ante otra con más especificidad u orden posterior; esa línea tachada explica la mayoría de los casos de «mi estilo no se aplica».\n• Una declaración con un triángulo de aviso es una propiedad o un valor que el navegador no reconoce, casi siempre por un error de escritura.\n• A la derecha de cada regla aparece el archivo y la línea de donde viene, lo que permite ir directo a corregirla en el código real.\n• Cada declaración tiene una casilla para activarla y desactivarla, y cada valor puede editarse con doble clic; con las flechas arriba y abajo cambia en pasos."
+  },
+  {
+   "page": 2,
+   "kind": "theory",
+   "title": "2.3. Computed y el diagrama de la caja",
+   "body": "La pestaña Computed muestra el valor final calculado de cada propiedad, después de resolver cascada, herencia y unidades relativas.\n\n• Allí se confirma, por ejemplo, que 1.5rem terminó siendo 24 px o que un ancho en porcentaje equivale a cierto número de píxeles.\n• Arriba aparece el diagrama del box model del Tema 7 con contenido, padding, borde y margen y sus medidas reales.\n• Pasar el ratón sobre un elemento del árbol lo resalta en la página con colores: azul para el contenido, verde para el padding, naranja para el margen. Es la forma más rápida de ver de dónde sale un espacio inesperado.\n• Marcar «Show all» y filtrar por nombre permite buscar una propiedad concreta como display o line-height."
+  },
+  {
+   "page": 2,
+   "kind": "code",
+   "title": "Probar valores en vivo antes de escribirlos",
+   "body": "```\n/* En Elements, seleccionar el botón y añadir en la regla .btn: */\npadding: 0.75rem 1.25rem;\nborder-radius: 0.5rem;\n\n/* Si se ve bien, copiar los valores al archivo css/styles.css real.\n   Recargar descarta lo probado en DevTools. */\n```"
+  },
+  {
+   "page": 2,
+   "kind": "theory",
+   "title": "2.4. Estados forzados y herramientas de layout",
+   "body": "Los estados :hover, :focus y :active desaparecen al mover el ratón, lo que impide inspeccionarlos. El botón :hov de la columna Styles permite forzarlos sobre el elemento seleccionado y editar sus reglas con calma.\n\n• Sobre un elemento con display: flex o display: grid aparece una insignia en el árbol de Elements; al pulsarla se dibujan en la página las líneas y huecos del layout.\n• La superposición de Grid numera las líneas y nombra las áreas, lo que ayuda a verificar el plano del Tema 8.\n• La superposición de Flexbox muestra el eje principal y el espacio libre repartido.\n• Estas capas no cambian la página: solo la dibujan encima mientras se inspecciona."
+  },
+  {
+   "page": 2,
+   "kind": "warning",
+   "title": "REGLA: lo probado en DevTools no está guardado",
+   "body": "Ningún cambio hecho en DevTools persiste. Cada valor que funcione debe copiarse al archivo real, guardarse, comprobar en el navegador tras una recarga completa (Ctrl+Shift+R) y recién entonces confirmarse con un commit del Tema 5."
+  },
+  {
+   "page": 3,
+   "kind": "heading",
+   "title": "3.1. Rendimiento: lo que la persona siente como rapidez",
+   "body": "Definición: el rendimiento web es la rapidez con la que una página muestra su contenido, responde a las acciones y se mantiene estable mientras carga. No es una cifra única: es lo que una persona percibe desde que pulsa un enlace hasta que puede leer y usar la página.\n\n• Una página lenta pierde lectores: en conexiones móviles medianas, cada segundo de espera aumenta el abandono.\n• La velocidad también es accesibilidad: quien navega con un teléfono modesto o con datos limitados sufre primero el peso excesivo.\n• El peso total (bytes descargados) y el número de archivos son las dos causas más frecuentes de lentitud en un sitio estático como los de este curso."
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.2. Panel Network: cada archivo, su peso y su tiempo",
+   "body": "El panel Network registra cada petición que hace la página: el HTML, cada hoja de estilos, cada script, cada imagen y cada fuente.\n\n• Debe estar abierto antes de recargar la página para que registre la carga completa.\n• Cada fila muestra nombre, estado, tipo, tamaño transferido y tiempo; ordenar por Size deja arriba los archivos más pesados, que son los primeros candidatos a reducir.\n• La barra inferior resume el número de peticiones y los kilobytes transferidos: son los dos números iniciales que se anotan en el estado «antes».\n• El estado 200 indica éxito; 304 indica que el archivo vino de la caché; 404 indica un archivo que no existe, casi siempre por una ruta mal escrita como las del Tema 6.\n• La casilla Disable cache, activa mientras DevTools está abierto, obliga a descargar todo de nuevo y evita medir una página «ya caliente»."
+  },
+  {
+   "page": 3,
+   "kind": "theory",
+   "title": "3.3. Simular una conexión lenta",
+   "body": "Un sitio probado en la red local del computador parece instantáneo y engaña. El menú de estrangulamiento (throttling) del panel Network permite simular conexiones reales.\n\n• La opción Slow 4G imita un teléfono con cobertura mediocre; Fast 4G, una conexión móvil buena.\n• Con la conexión lenta activa, una imagen de 3 MB se vuelve un problema visible: tarda segundos en aparecer.\n• La medición con throttling es la que se compara antes y después; la medición sin él solo sirve para descartar errores."
+  },
+  {
+   "page": 3,
+   "kind": "table",
+   "title": "Tabla — qué mirar en Network y qué decisión provoca",
+   "body": "Señal | Causa probable | Decisión\nUna imagen de varios MB | Foto sin reducir ni comprimir | Redimensionar y exportar en formato moderno\nMuchos archivos pequeños de fuentes | Se piden más pesos de los usados | Dejar solo los pesos necesarios\nEstado 404 | Ruta mal escrita | Corregir la ruta relativa\nArchivo CSS muy grande | Reglas no usadas o duplicadas | Retirar lo que no se usa\nTiempo largo hasta el primer byte | Servidor lejano o lento | Fuera del alcance de un sitio estático"
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.4. Lighthouse: una auditoría automática con puntuación",
+   "body": "Definición: Lighthouse es la herramienta de DevTools que carga la página en condiciones controladas y devuelve puntuaciones de 0 a 100 en cuatro categorías: Performance (rendimiento), Accessibility (accesibilidad), Best Practices (buenas prácticas) y SEO.\n\n• Se abre en el panel Lighthouse, se eligen categorías y dispositivo (Mobile o Desktop) y se pulsa Analyze page load.\n• Verde es 90 a 100, naranja 50 a 89, rojo 0 a 49.\n• El informe lista Oportunidades (cambios con el ahorro estimado) y Diagnósticos (hallazgos sin ahorro calculado), y cada uno se despliega con el detalle de los archivos o elementos afectados.\n• Para resultados comparables se usa siempre la misma ventana, en modo incógnito y sin extensiones, porque las extensiones alteran la medición."
+  },
+  {
+   "page": 3,
+   "kind": "theory",
+   "title": "3.5. Leer una puntuación con criterio",
+   "body": "La puntuación es una guía y no un fin. Los números varían unos puntos entre ejecuciones por la carga del equipo, de modo que se ejecuta tres veces y se anota la mediana.\n\n• Una mejora de uno o dos puntos puede ser ruido; una de diez o más es real.\n• Lighthouse mide en laboratorio, es decir, en una carga simulada. Los datos de personas reales (campo) pueden diferir.\n• Una puntuación de 100 en rendimiento no garantiza que la página se vea bien ni que sea accesible: eso lo cubren las demás comprobaciones del tema."
+  },
+  {
+   "page": 3,
+   "kind": "warning",
+   "title": "REGLA: una sola variable por medición",
+   "body": "Para comparar antes y después, la medición debe repetirse con el mismo dispositivo simulado, la misma conexión, la misma ventana y la misma página. Cambiar dos condiciones a la vez invalida la comparación."
+  },
+  {
+   "page": 4,
+   "kind": "heading",
+   "title": "4.1. Core Web Vitals: tres medidas de la experiencia",
+   "body": "Definición: las Core Web Vitals son tres métricas definidas por Google para describir la experiencia real de carga: LCP (cuándo aparece lo principal), INP (qué tan rápido responde a la interacción) y CLS (cuánto se mueve el contenido mientras carga).\n\n• Los umbrales de «bueno» se evalúan en el percentil 75 de visitas reales: LCP hasta 2,5 segundos, INP hasta 200 milisegundos y CLS hasta 0,1.\n• Lighthouse, en laboratorio, calcula LCP y CLS; el INP exige interacción real y se aproxima con otra métrica llamada TBT.\n• Las tres coinciden con cosas que se ven: si el titular tarda, si el botón no responde, si el texto salta."
+  },
+  {
+   "page": 4,
+   "kind": "table",
+   "title": "Tabla — umbrales de las Core Web Vitals",
+   "body": "Métrica | Qué mide | Bueno | Deficiente\nLCP | Tiempo hasta pintar el elemento más grande visible | hasta 2,5 s | más de 4 s\nINP | Retraso de la respuesta a clics, toques y teclas | hasta 200 ms | más de 500 ms\nCLS | Suma de los saltos inesperados de diseño | hasta 0,1 | más de 0,25"
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.2. LCP: el elemento más grande que aparece",
+   "body": "LCP (Largest Contentful Paint) marca el instante en que se pinta el elemento más grande dentro de la ventana visible: una imagen principal, un bloque de texto grande o un vídeo de portada.\n\n• En una página sin imagen principal, el candidato suele ser el titular o el párrafo de entrada.\n• Un LCP lento casi siempre se debe a una imagen pesada, a una fuente web que tarda o a una hoja de estilos que bloquea la pintura.\n• En el panel Performance, la pista Timings muestra la marca LCP, y al pulsarla se identifica qué elemento fue."
+  },
+  {
+   "page": 4,
+   "kind": "theory",
+   "title": "4.3. INP y TBT: que la página responda",
+   "body": "INP (Interaction to Next Paint) mide la demora entre una acción de la persona y el siguiente cambio visible. Un botón que tarda en mostrar su respuesta se siente roto aunque funcione.\n\n• Las páginas hechas solo de HTML y CSS casi nunca fallan aquí; los problemas aparecen con JavaScript pesado que ocupa el hilo principal.\n• TBT (Total Blocking Time) suma el tiempo que los scripts bloquearon el hilo principal durante la carga; es la métrica de laboratorio que se vigila como sustituto del INP.\n• Regla práctica de los siguientes temas: cargar el script al final o con el atributo `defer` para que no retenga la pintura."
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.4. CLS: el contenido que se mueve solo",
+   "body": "CLS (Cumulative Layout Shift) suma los desplazamientos inesperados de elementos visibles mientras la página carga o cambia.\n\n• El caso típico: se empieza a leer un párrafo, termina de cargar una imagen encima y el texto baja de golpe; la persona pulsa el enlace equivocado.\n• Las causas habituales son imágenes sin dimensiones, anuncios o incrustados sin espacio reservado, fuentes que cambian el tamaño del texto al cargar y contenido insertado por encima de lo ya visible.\n• Un CLS de 0 significa que nada se movió; hasta 0,1 se considera bueno."
+  },
+  {
+   "page": 4,
+   "kind": "warning",
+   "title": "REGLA: reservar espacio antes de que llegue el contenido",
+   "body": "Todo elemento cuyo tamaño depende de un archivo que aún no cargó necesita su espacio reservado de antemano con ancho y alto declarados o con aspect-ratio. Así el navegador deja el hueco y el resto no se desplaza."
+  },
+  {
+   "page": 4,
+   "kind": "theory",
+   "title": "4.5. Grabar con el panel Performance",
+   "body": "El panel Performance graba lo que hace el navegador durante un lapso y lo dibuja en una línea de tiempo.\n\n• El botón de recarga con círculo graba la carga completa de la página y se detiene solo.\n• Arriba aparecen capturas de pantalla en secuencia, que muestran cuándo se vio cada parte; es la prueba visual de lo que la persona esperó.\n• La pista Layout Shifts marca cada salto de diseño con el elemento responsable, lo que permite señalar al culpable del CLS.\n• Para uso diario basta aprender tres cosas: leer las capturas, localizar la marca LCP y localizar los saltos de diseño."
+  },
+  {
+   "page": 5,
+   "kind": "heading",
+   "title": "5.1. Imágenes: la mayor parte del peso de una página",
+   "body": "En casi todo sitio, las imágenes concentran más bytes que el HTML, el CSS y las fuentes juntos. Reducirlas es la mejora de rendimiento de mejor relación esfuerzo-resultado.\n\n• Una foto de cámara o móvil suele medir 3000 px o más de ancho y varios MB; una columna de lectura en pantalla rara vez muestra más de 800 a 1200 px.\n• Mostrar una imagen de 4000 px en un espacio de 400 px descarga diez veces más datos de los que se ven.\n• Tres palancas ordenadas por impacto: dimensiones adecuadas, formato moderno y carga diferida."
+  },
+  {
+   "page": 5,
+   "kind": "table",
+   "title": "Tabla — formatos de imagen y cuándo usar cada uno",
+   "body": "Formato | Mejor para | Observación\nJPEG | Fotografías | Compresión con pérdida, sin transparencia\nPNG | Capturas, logotipos con transparencia | Sin pérdida, pesa mucho en fotos\nWebP | Fotos y gráficos | Menor peso que JPEG y PNG, soportado por todos los navegadores actuales\nAVIF | Fotografías | Aún menor peso, compresión más lenta de generar\nSVG | Iconos, logotipos, ilustraciones simples | Vectorial: pesa poco y escala sin pérdida"
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.2. Dimensiones, ancho y alto en el HTML",
+   "body": "Definición: los atributos `width` y `height` de una etiqueta img declaran las dimensiones intrínsecas de la imagen en píxeles, y el navegador los usa para calcular la proporción y reservar el hueco antes de que el archivo llegue.\n\n• Con ambos atributos presentes y la regla `max-width: 100%; height: auto` del Tema 9, la imagen sigue siendo fluida y a la vez deja de provocar saltos de diseño.\n• Los valores son los del archivo real, no los del espacio en pantalla; solo importa su proporción.\n• Para contenedores de proporción fija, la propiedad `aspect-ratio` hace el mismo trabajo desde CSS."
+  },
+  {
+   "page": 5,
+   "kind": "code",
+   "title": "Imagen con espacio reservado y proporción conservada",
+   "body": "```\n<img src=\"img/portada.webp\" alt=\"Mesa de trabajo con un portátil abierto\"\n     width=\"1200\" height=\"800\">\n\nimg {\n  max-width: 100%;\n  height: auto;\n}\n\n.tarjeta__foto {\n  aspect-ratio: 16 / 9;\n  object-fit: cover;\n  width: 100%;\n}\n```"
+  },
+  {
+   "page": 5,
+   "kind": "theory",
+   "title": "5.3. object-fit: encajar sin deformar",
+   "body": "Cuando una imagen debe llenar un contenedor de proporción distinta a la suya, estirarla la deforma. La propiedad `object-fit` decide cómo se acomoda.\n\n• `cover` llena todo el contenedor y recorta lo que sobra, manteniendo la proporción: lo habitual en tarjetas.\n• `contain` muestra la imagen entera y deja bandas vacías.\n• `object-position` mueve el punto de recorte, por ejemplo `center top` para conservar un rostro en la parte alta.\n• Una imagen deformada, con círculos ovalados o rostros ensanchados, es un defecto visual evidente que esta propiedad evita."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.4. Carga diferida con loading lazy",
+   "body": "El atributo `loading=\"lazy\"` indica al navegador que no descargue una imagen hasta que esté cerca de entrar en la ventana visible.\n\n• Se aplica a las imágenes que quedan por debajo del primer pantallazo.\n• Nunca se aplica a la imagen principal de la parte superior: retrasaría justo el LCP.\n• El atributo `decoding=\"async\"` permite decodificar la imagen sin bloquear el resto de la pintura.\n• Para la imagen principal, `fetchpriority=\"high\"` pide al navegador que la descargue con prioridad."
+  },
+  {
+   "page": 5,
+   "kind": "code",
+   "title": "Imagen principal con prioridad e imágenes inferiores diferidas",
+   "body": "```\n<!-- Parte superior de la página -->\n<img src=\"img/portada.webp\" alt=\"...\" width=\"1200\" height=\"800\"\n     fetchpriority=\"high\">\n\n<!-- Más abajo -->\n<img src=\"img/taller.webp\" alt=\"...\" width=\"800\" height=\"600\"\n     loading=\"lazy\" decoding=\"async\">\n```"
+  },
+  {
+   "page": 5,
+   "kind": "theory",
+   "title": "5.5. Imágenes adaptables con srcset y sizes",
+   "body": "Un teléfono de pantalla estrecha no necesita la versión de 1600 px que usa un monitor ancho. Los atributos `srcset` y `sizes` entregan al navegador varias versiones para que elija la adecuada.\n\n• `srcset` lista los archivos con su ancho real, por ejemplo `img/foto-480.webp 480w`.\n• `sizes` declara qué ancho ocupará la imagen en cada punto de quiebre del Tema 9, por ejemplo `(min-width: 60rem) 50vw, 100vw`.\n• Con esos dos datos el navegador calcula cuál archivo basta según el ancho y la densidad de la pantalla y descarga solo ese."
+  },
+  {
+   "page": 5,
+   "kind": "code",
+   "title": "Una imagen con tres versiones",
+   "body": "```\n<img src=\"img/foto-800.webp\"\n     srcset=\"img/foto-480.webp 480w,\n             img/foto-800.webp 800w,\n             img/foto-1200.webp 1200w\"\n     sizes=\"(min-width: 60rem) 50vw, 100vw\"\n     alt=\"Grupo de estudiantes en el taller\"\n     width=\"1200\" height=\"800\" loading=\"lazy\">\n```"
+  },
+  {
+   "page": 5,
+   "kind": "warning",
+   "title": "REGLA: el texto alternativo y las dimensiones nunca se omiten",
+   "body": "Optimizar no autoriza a quitar `alt` (Tema 11) ni `width` y `height`. Una imagen liviana pero sin alternativa textual, o sin espacio reservado, traslada el defecto de la velocidad a la accesibilidad o a la estabilidad."
+  },
+  {
+   "page": 6,
+   "kind": "heading",
+   "title": "6.1. Fuentes web: bonitas pero costosas",
+   "body": "Cada fuente tipográfica descargada es un archivo que debe llegar antes de pintar el texto con ella. Una familia con cuatro pesos y cursivas puede sumar cientos de kilobytes.\n\n• Se cargan solo los pesos que el sistema visual del Tema 10 usa de verdad: por ejemplo regular y negrita.\n• Los archivos en formato WOFF2 son los más pequeños y los que soportan todos los navegadores actuales.\n• Una pila de fuentes del sistema, como `system-ui, sans-serif`, no descarga nada y se muestra al instante."
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.2. font-display: qué se ve mientras la fuente llega",
+   "body": "Definición: el descriptor `font-display` de la regla @font-face decide qué muestra el navegador mientras la fuente web aún no se ha descargado.\n\n• `swap` pinta de inmediato con una fuente de reserva y cambia a la web al llegar; el texto nunca queda invisible, aunque puede notarse el cambio.\n• `block` oculta el texto un instante a la espera de la fuente: puede dejar la pantalla vacía.\n• `optional` usa la fuente web solo si llega muy rápido; si no, conserva la de reserva sin cambio posterior.\n• Para un sitio de contenido, `swap` es la elección habitual; `optional` elimina el salto si se prefiere estabilidad."
+  },
+  {
+   "page": 6,
+   "kind": "code",
+   "title": "Fuente propia con reserva y sin texto invisible",
+   "body": "```\n@font-face {\n  font-family: \"Inter\";\n  src: url(\"../fonts/inter-regular.woff2\") format(\"woff2\");\n  font-weight: 400;\n  font-style: normal;\n  font-display: swap;\n}\n\nbody {\n  font-family: \"Inter\", system-ui, sans-serif;\n}\n```"
+  },
+  {
+   "page": 6,
+   "kind": "theory",
+   "title": "6.3. Cuando la fuente de reserva y la web difieren",
+   "body": "Al intercambiar una fuente por otra de medidas distintas, las líneas pueden romperse en otro lugar y el texto se desplaza: es una causa frecuente de CLS.\n\n• Elegir como reserva una fuente de proporciones parecidas reduce el salto.\n• El texto del primer pantallazo es el más sensible: es donde la persona ya está leyendo.\n• Una pila bien elegida y un solo peso de más son, normalmente, decisiones más rentables que cualquier ajuste fino."
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.4. CSS que bloquea la pintura",
+   "body": "Una hoja de estilos enlazada en el head bloquea la pintura: el navegador no muestra nada hasta descargarla y procesarla, porque necesita saber cómo se ve cada cosa.\n\n• Esto es correcto y deseable: evita mostrar la página sin estilo.\n• El efecto es negativo cuando el CSS es enorme o está repartido en muchos archivos pequeños, cada uno con su espera.\n• Medidas simples: un solo archivo para el sitio, sin reglas muertas y sin importar hojas con @import dentro de otra hoja, porque encadena descargas."
+  },
+  {
+   "page": 6,
+   "kind": "theory",
+   "title": "6.5. Animaciones baratas y caras",
+   "body": "No todas las propiedades cuestan lo mismo al animarse. Cambiar el tamaño o la posición con `width`, `height`, `top` o `margin` obliga al navegador a recalcular el layout de toda la zona; cambiar `transform` y `opacity` lo evita porque el navegador las compone en una capa aparte.\n\n• Para mover, escalar o girar: `transform` (`translate`, `scale`, `rotate`).\n• Para aparecer o desaparecer: `opacity`.\n• Animar `box-shadow` o `filter` en muchos elementos a la vez es costoso.\n• Respetar la preferencia de movimiento reducido del Tema 11 sigue siendo obligatorio."
+  },
+  {
+   "page": 6,
+   "kind": "code",
+   "title": "Una transición barata y una cara",
+   "body": "```\n/* Barata: solo transform y opacity */\n.tarjeta {\n  transition: transform 0.2s ease, opacity 0.2s ease;\n}\n.tarjeta:hover {\n  transform: translateY(-4px);\n}\n\n/* Cara: obliga a recalcular el layout */\n.tarjeta--mala:hover {\n  margin-top: -4px;\n  height: 320px;\n}\n```"
+  },
+  {
+   "page": 6,
+   "kind": "warning",
+   "title": "REGLA: will-change se usa con cuenta y razón",
+   "body": "La propiedad `will-change` avisa al navegador de un cambio futuro y le hace reservar memoria. Aplicada a muchos elementos «por si acaso» empeora el rendimiento. Solo se justifica tras medir un problema real."
+  },
+  {
+   "page": 7,
+   "kind": "heading",
+   "title": "7.1. Impresión: la pantalla no es el único destino",
+   "body": "Una página se imprime o se guarda como PDF más a menudo de lo que parece: recibos, recetas, instrucciones, programas de un evento. Sin reglas de impresión, el navegador envía al papel la página tal cual, con menús, fondos oscuros y botones que no sirven en papel.\n\n• Imprimir gasta tinta con fondos de color y desperdicia hojas con elementos que no aportan.\n• Una hoja bien resuelta contiene solo el contenido, en texto oscuro sobre fondo blanco, con los enlaces legibles.\n• La comprobación es sencilla y no exige impresora: Ctrl+P abre la vista previa y la opción de guardar como PDF."
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.2. @media print: reglas solo para el papel",
+   "body": "Definición: `@media print` es una media query, como las del Tema 9, cuyas reglas solo se aplican cuando la página se imprime o se exporta a PDF.\n\n• Se escribe al final de la hoja de estilos o en un archivo propio enlazado con `media=\"print\"`.\n• Dentro se ocultan los elementos de interfaz (navegación, botones, formularios de búsqueda) con `display: none`.\n• Se restablecen colores a texto negro sobre fondo blanco y se quitan sombras.\n• Se pasan las unidades de tamaño de texto a puntos (`pt`), la unidad natural del papel, o se conservan rem si el tamaño base es razonable."
+  },
+  {
+   "page": 7,
+   "kind": "code",
+   "title": "Reglas de impresión básicas",
+   "body": "```\n@media print {\n  .barra-nav,\n  .btn,\n  .pie-redes,\n  form[role=\"search\"] {\n    display: none;\n  }\n\n  body {\n    background: #fff;\n    color: #000;\n    font-size: 12pt;\n    line-height: 1.5;\n  }\n\n  * {\n    box-shadow: none !important;\n  }\n}\n```"
+  },
+  {
+   "page": 7,
+   "kind": "theory",
+   "title": "7.3. Mostrar la dirección de los enlaces",
+   "body": "En papel, un enlace subrayado no se puede pulsar y su destino se pierde. Una técnica clásica es añadir la dirección entre paréntesis después del texto del enlace, con `::after` y la función `attr()` del Tema 7.\n\n• Solo se aplica a los enlaces externos para no llenar el texto de rutas internas.\n• La dirección se muestra con tamaño menor para no competir con el contenido."
+  },
+  {
+   "page": 7,
+   "kind": "code",
+   "title": "La dirección del enlace junto al texto",
+   "body": "```\n@media print {\n  a[href^=\"http\"]::after {\n    content: \" (\" attr(href) \")\";\n    font-size: 0.85em;\n    word-break: break-all;\n  }\n}\n```"
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.4. Saltos de página y @page",
+   "body": "El navegador corta el contenido por páginas de forma automática, y puede partir un título de su párrafo o una tarjeta por la mitad. Las propiedades de fragmentación lo evitan.\n\n• `break-inside: avoid` impide que un bloque, como una tarjeta o una fila de tabla, se parta entre dos hojas.\n• `break-after: avoid` en un título evita que quede solo al pie de una hoja sin su párrafo.\n• `break-before: page` fuerza que un bloque empiece en hoja nueva.\n• La regla `@page` define el tamaño y los márgenes de la hoja, por ejemplo `@page { margin: 2cm; }`."
+  },
+  {
+   "page": 7,
+   "kind": "code",
+   "title": "Evitar cortes feos",
+   "body": "```\n@page {\n  size: A4;\n  margin: 2cm;\n}\n\n@media print {\n  h2, h3 {\n    break-after: avoid;\n  }\n  .tarjeta, tr, figure {\n    break-inside: avoid;\n  }\n  .capitulo {\n    break-before: page;\n  }\n}\n```"
+  },
+  {
+   "page": 7,
+   "kind": "theory",
+   "title": "7.5. Probar la impresión sin gastar papel",
+   "body": "Hay dos caminos, y ambos se usan: la vista previa de impresión (Ctrl+P) y la emulación de DevTools.\n\n• En la pestaña Rendering de DevTools (menú de tres puntos, More tools, Rendering), el campo Emulate CSS media type permite elegir print y ver la página normal con las reglas de impresión aplicadas, lo que permite inspeccionar y editar con comodidad.\n• La vista previa final de Ctrl+P es la comprobación definitiva porque aplica también tamaño de hoja y saltos de página.\n• Por defecto el navegador no imprime colores de fondo; si un fondo es indispensable se pide con `print-color-adjust: exact`."
+  },
+  {
+   "page": 7,
+   "kind": "warning",
+   "title": "REGLA: la versión impresa también se revisa",
+   "body": "Una página se da por terminada solo después de revisar su vista previa de impresión: sin menús, con texto legible, sin cortes en medio de tarjetas o tablas y con enlaces identificables."
+  },
+  {
+   "page": 8,
+   "kind": "heading",
+   "title": "8.1. Pulido: lo que el ojo nota sin saber nombrarlo",
+   "body": "Pulir es eliminar las pequeñas inconsistencias que, juntas, hacen que una interfaz parezca improvisada. Casi nunca se perciben una por una: se percibe que «algo no está bien».\n\n• Las causas se agrupan en cinco familias: alineación, espaciado, consistencia, jerarquía y estados.\n• Cada familia tiene una comprobación concreta y repetible, y todas son comparables con el sistema visual del Tema 10.\n• El pulido se hace al final, después de que estructura, layout y accesibilidad funcionan: pulir lo que aún se va a rehacer es trabajo perdido."
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.2. Alineación: bordes que coinciden",
+   "body": "Definición: la alineación es la coincidencia de los bordes de elementos relacionados sobre una misma línea imaginaria, vertical u horizontal.\n\n• Si el texto de una columna empieza a 20 px del borde y el de la siguiente a 23 px, el ojo detecta una pequeña ruptura aunque no pueda medirla.\n• Los títulos, párrafos, botones e imágenes de una misma columna comparten el borde izquierdo.\n• En Flexbox y Grid, la alineación se declara en el contenedor con las propiedades del Tema 8, no con márgenes ajustados a ojo.\n• Una comprobación rápida: en DevTools, activar la superposición del layout y verificar que los elementos caen sobre las mismas líneas."
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.3. Espaciado: una escala y no valores sueltos",
+   "body": "El espaciado coherente sale de una escala fija, como la del Tema 10: por ejemplo 4, 8, 16, 24, 32 y 48 px, expresados en rem y guardados como variables.\n\n• Un valor fuera de la escala, como 13 px o 27 px, es casi siempre un error o un ajuste local que conviene unificar.\n• Los espacios entre grupos distintos deben ser mayores que los espacios dentro de un mismo grupo: es la ley de proximidad, que hace que lo cercano se lea como relacionado.\n• Para encontrar valores sueltos basta buscar en el CSS números como `13px` o `27px` y sustituirlos por una variable."
+  },
+  {
+   "page": 8,
+   "kind": "code",
+   "title": "Escala de espaciado y su uso",
+   "body": "```\nhtml {\n  --espacio-1: 0.25rem;\n  --espacio-2: 0.5rem;\n  --espacio-3: 1rem;\n  --espacio-4: 1.5rem;\n  --espacio-5: 2rem;\n  --espacio-6: 3rem;\n}\n\n.tarjeta { padding: var(--espacio-4); }\n.tarjeta__titulo { margin-bottom: var(--espacio-2); }\n.seccion { margin-block: var(--espacio-6); }\n```"
+  },
+  {
+   "page": 8,
+   "kind": "theory",
+   "title": "8.4. Consistencia: lo igual se ve igual",
+   "body": "Dos elementos que cumplen la misma función deben verse idénticos en toda la página y entre páginas.\n\n• Todos los botones primarios comparten color, radio de borde, relleno y tipografía; todos los enlaces comparten el mismo estilo y el mismo estado de foco.\n• Los radios de borde, las sombras y los pesos de letra salen de un conjunto pequeño y nombrado.\n• Reutilizar una misma clase para elementos equivalentes impide que dos copias del botón diverjan por separado.\n• Un inventario rápido: abrir cada página, recorrer botones, títulos y tarjetas, y anotar cualquier diferencia que no tenga una razón."
+  },
+  {
+   "page": 8,
+   "kind": "table",
+   "title": "Tabla — comprobaciones de pulido y cómo verificarlas",
+   "body": "Familia | Pregunta de control | Cómo verificar\nAlineación | ¿Los bordes de elementos hermanos coinciden? | Superposición de Grid o Flexbox en DevTools\nEspaciado | ¿Todos los valores salen de la escala? | Buscar números sueltos en el CSS\nConsistencia | ¿Los elementos iguales se ven iguales? | Recorrer cada página con una lista de componentes\nJerarquía | ¿Se distingue qué es lo más importante en un vistazo? | Entrecerrar los ojos o desenfocar la captura\nEstados | ¿Hay hover, foco, activo y desactivado en cada control? | Forzar estados con :hov"
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.5. Jerarquía: dónde mira primero el ojo",
+   "body": "La jerarquía visual ordena los elementos por importancia mediante tamaño, peso, color y espacio.\n\n• Debe haber un único foco principal por pantalla: un titular o una acción principal, no tres compitiendo.\n• La prueba de entrecerrar los ojos o aplicar un desenfoque a la captura deja ver solo masas y contrastes: si el elemento más importante no destaca, la jerarquía falla.\n• Una sola acción principal por vista: el botón primario se distingue de los secundarios por relleno y contraste."
+  },
+  {
+   "page": 8,
+   "kind": "warning",
+   "title": "REGLA: un ajuste a ojo se convierte en valor del sistema o se descarta",
+   "body": "Cada corrección de píxeles termina en una variable existente de la escala o en una variable nueva con nombre. Un número suelto en la hoja de estilos es deuda: la próxima persona que edite no sabrá por qué está ahí."
+  },
+  {
+   "page": 9,
+   "kind": "heading",
+   "title": "9.1. Revisar en condiciones reales: anchos, navegadores y preferencias",
+   "body": "Una página que se ve bien en la ventana del equipo de trabajo puede romperse en otro ancho, otro navegador o con otra preferencia del sistema. La revisión recorre esas condiciones de forma ordenada.\n\n• El ancho: del teléfono más estrecho al monitor más ancho.\n• El navegador: al menos dos motores distintos (Chrome o Edge, y Firefox o Safari).\n• Las preferencias: modo oscuro, zoom y movimiento reducido.\n• El contenido real: textos largos, nombres largos y listas vacías, no solo el texto de ejemplo."
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.2. La barra de dispositivos de DevTools",
+   "body": "Definición: la barra de dispositivos (Device Toolbar) de DevTools, que se activa con Ctrl+Shift+M, simula el tamaño, la densidad y el tacto de un teléfono o una tableta dentro de la ventana de escritorio.\n\n• Permite elegir un dispositivo de la lista o escribir un ancho propio arrastrando los bordes de la ventana simulada.\n• Muestra las barras de los puntos de quiebre de las media queries, de modo que se puede saltar de uno a otro con un clic.\n• Es una simulación: no reproduce el motor ni la velocidad de un teléfono real. La verificación final se hace en un dispositivo físico, abriendo la página publicada.\n• Los anchos de control son 320 px, 375 px, 768 px, 1024 px y 1440 px."
+  },
+  {
+   "page": 9,
+   "kind": "theory",
+   "title": "9.3. Qué buscar en cada ancho",
+   "body": "En cada ancho de control se recorre la página de arriba abajo con una lista fija de preguntas.\n\n• ¿Aparece desplazamiento horizontal? Si lo hay, algún elemento supera el ancho disponible; el panel Elements lo localiza al pasar el ratón por el árbol.\n• ¿Se lee el texto sin acercar y sin que se corte?\n• ¿Los objetivos táctiles miden al menos 44 px de lado, como en el Tema 11?\n• ¿Las imágenes conservan su proporción?\n• ¿El orden visual coincide con el orden de lectura?"
+  },
+  {
+   "page": 9,
+   "kind": "code",
+   "title": "Localizar desde la consola el elemento que provoca desplazamiento horizontal",
+   "body": "```\nconst ancho = document.documentElement.clientWidth;\ndocument.querySelectorAll(\"*\").forEach((el) => {\n  if (el.getBoundingClientRect().right > ancho) {\n    console.log(el);\n  }\n});\n```"
+  },
+  {
+   "page": 9,
+   "kind": "theory",
+   "title": "9.4. Simular preferencias del sistema",
+   "body": "La pestaña Rendering de DevTools permite activar sin cambiar la configuración del sistema las preferencias que el CSS puede leer.\n\n• Emulate CSS media feature prefers-color-scheme prueba el modo oscuro y el claro.\n• Emulate CSS media feature prefers-reduced-motion prueba la versión sin animaciones.\n• Paint flashing resalta en verde las zonas que el navegador repinta; si toda la página parpadea al pasar el ratón por un elemento, hay una animación costosa.\n• Layout Shift Regions resalta en azul las zonas que se desplazan, y es la forma visual de encontrar el origen de un CLS."
+  },
+  {
+   "page": 9,
+   "kind": "theory",
+   "title": "9.5. Diferencias entre navegadores",
+   "body": "Los navegadores actuales comparten casi todo el CSS de este curso, pero quedan diferencias en detalles: controles de formulario, barras de desplazamiento, resolución de fuentes y algunas propiedades nuevas.\n\n• El sitio Can I use (caniuse.com) indica, para cada propiedad, en qué versiones de qué navegadores funciona.\n• Una propiedad no soportada se ignora sin romper el resto de la hoja, por lo que la página debe verse correcta incluso sin ella: es la idea de mejora progresiva.\n• La comprobación mínima es abrir la página publicada en el navegador principal y en un segundo con motor distinto."
+  },
+  {
+   "page": 9,
+   "kind": "warning",
+   "title": "REGLA: probar con contenido real y con contenido extremo",
+   "body": "Los textos de ejemplo cortos esconden defectos. Antes de entregar, se prueban un título de tres líneas, un nombre muy largo sin espacios, una lista de cero elementos y una imagen que no carga. Lo que se rompe con esos casos se rompe tarde o temprano con datos reales."
+  },
+  {
+   "page": 10,
+   "kind": "heading",
+   "title": "10.1. El registro antes y después",
+   "body": "Definición: el registro antes y después es el documento que muestra, con evidencia, cómo estaba una página al empezar la revisión y cómo quedó al terminar. Es la evidencia de este tema.\n\n• Contiene capturas en los anchos de control, las cifras de Network y Lighthouse y la lista de defectos de cada estado.\n• Cada cambio se enlaza con el hallazgo que resolvió y con su commit.\n• Lo que no mejoró también se registra, con la razón por la que se dejó así."
+  },
+  {
+   "page": 10,
+   "kind": "list",
+   "title": "Procedimiento de revisión de calidad visual en ocho pasos",
+   "body": "• Paso 1. Publicar o abrir la página en su estado actual y guardar capturas a 375 px, 768 px y 1440 px.\n• Paso 2. Registrar con Network (Disable cache y Slow 4G) el número de peticiones y los kilobytes transferidos.\n• Paso 3. Ejecutar Lighthouse tres veces en modo incógnito y anotar la mediana de rendimiento, accesibilidad, buenas prácticas y SEO.\n• Paso 4. Recorrer la lista de pulido: alineación, espaciado, consistencia, jerarquía y estados, y anotar cada defecto con página y elemento.\n• Paso 5. Revisar los anchos de control y buscar desplazamiento horizontal, cortes y proporciones deformadas.\n• Paso 6. Revisar la vista previa de impresión y anotar cada defecto.\n• Paso 7. Corregir en commits pequeños, un hallazgo por commit, con mensajes claros.\n• Paso 8. Repetir los pasos 1 a 3 en las mismas condiciones y completar la comparación."
+  },
+  {
+   "page": 10,
+   "kind": "code",
+   "title": "Plantilla de un hallazgo del registro",
+   "body": "```\nHallazgo 04\nPágina y elemento: index.html, imagen de portada (.hero__img)\nEstado antes: 2,8 MB, JPEG de 4000 px, sin width ni height; LCP 4,1 s, CLS 0,18\nCausa: imagen sin redimensionar y sin espacio reservado\nCorrección: exportada a WebP de 1200 px, width y height declarados, fetchpriority=\"high\"\nEstado después: 96 KB; LCP 1,7 s, CLS 0\nCommit: Reduce y reserva espacio para la imagen de portada\n```"
+  },
+  {
+   "page": 10,
+   "kind": "table",
+   "title": "Tabla — ejemplo de comparación antes y después",
+   "body": "Medida | Antes | Después\nPeticiones | 24 | 14\nTransferido | 3,4 MB | 420 KB\nLighthouse rendimiento (móvil) | 58 | 96\nLCP | 4,1 s | 1,7 s\nCLS | 0,18 | 0\nDefectos de pulido abiertos | 17 | 2"
+  },
+  {
+   "page": 10,
+   "kind": "theory",
+   "title": "10.2. La revisión crítica: ver con ojos ajenos",
+   "body": "Quien construyó la página ya no la ve: completa lo que falta con lo que sabe. La revisión crítica rompe ese sesgo.\n\n• Mirar la página tras un descanso, o a otra hora, descubre defectos que antes pasaban inadvertidos.\n• Pedir a otra persona que la recorra sin explicaciones y observar dónde duda revela más que cualquier herramienta.\n• Comparar con una referencia de calidad, como una página de un producto bien diseñado, muestra la distancia en alineación, espacio y jerarquía.\n• Las críticas se anotan como hallazgos con evidencia y no como opiniones sueltas."
+  },
+  {
+   "page": 10,
+   "kind": "theory",
+   "title": "10.3. Cuándo parar",
+   "body": "El pulido no tiene fin si no se define un criterio de cierre. Una página se da por revisada cuando se cumple una lista acordada de antemano.\n\n• Rendimiento móvil con Lighthouse de 90 o más, o un motivo registrado para no alcanzarlo.\n• Core Web Vitals de laboratorio en los umbrales buenos.\n• Cero desplazamiento horizontal en los cinco anchos de control.\n• Vista previa de impresión sin elementos de interfaz ni cortes feos.\n• Todos los hallazgos cerrados o justificados."
+  },
+  {
+   "page": 10,
+   "kind": "diagram",
+   "title": "Flujo de cierre de la revisión",
+   "body": "Registro antes ──► Hallazgos priorizados ──► Correcciones en commits pequeños\n                                                    │\n                                                    ▼\n          Registro después ◄── Mismas condiciones ──┘\n                 │\n                 ▼\n          Criterio de cierre cumplido"
+  },
+  {
+   "page": 10,
+   "kind": "warning",
+   "title": "REGLA: no se optimiza lo que no se midió ni se pule lo que aún cambia",
+   "body": "Optimizar sin medida es adivinar, y pulir antes de que estructura, layout y accesibilidad estén terminados obliga a repetir el trabajo. El orden correcto es construir, auditar, corregir, pulir y medir de nuevo."
+  }
+ ],
+ "exercises": [
+  {
+   "n": 1,
+   "title": "Ejercicio 1 · Inspeccionar y corregir estilos en vivo con Elements",
+   "objective": "Usar el panel Elements para explicar de dónde sale cada espacio y cada color de una tarjeta del proyecto, y probar correcciones en vivo antes de llevarlas al archivo.",
+   "steps": [
+    {
+     "hacer": "Abrir la página publicada del proyecto, pulsar clic derecho sobre una tarjeta y elegir Inspeccionar; seleccionar el contenedor de la tarjeta en el árbol.",
+     "esperado": "El contenedor queda resaltado en la página y la columna Styles lista las reglas que lo alcanzan, la ganadora arriba."
+    },
+    {
+     "hacer": "Abrir la pestaña Computed y anotar en una lista el padding, el margen, el ancho y el color de texto calculados, junto con el archivo de donde sale cada regla.",
+     "esperado": "Cada valor tiene un origen identificable en la hoja de estilos del proyecto."
+    },
+    {
+     "hacer": "Buscar en Styles una declaración tachada y escribir en una frase qué regla la venció y por qué.",
+     "esperado": "La razón se explica con la cascada del Tema 7: especificidad u orden."
+    },
+    {
+     "hacer": "Cambiar en vivo el padding de la tarjeta a un valor de la escala de espaciado y el radio de borde a otro valor del sistema; observar el resultado.",
+     "esperado": "La tarjeta cambia al instante, sin recargar."
+    },
+    {
+     "hacer": "Copiar los dos valores al archivo CSS real, guardar, recargar con Ctrl+Shift+R y confirmar que el cambio persiste.",
+     "esperado": "El cambio sobrevive a la recarga; lo que quedó solo en DevTools habría desaparecido."
+    },
+    {
+     "hacer": "Forzar el estado :hov sobre un botón y corregir en vivo su color de fondo en hover.",
+     "esperado": "El estado se inspecciona sin mantener el ratón encima."
+    }
+   ],
+   "example": "Antes: tarjeta con padding de 13px, valor suelto. Después: padding: var(--espacio-4). Commit: Alinea el relleno de las tarjetas con la escala.",
+   "verification": "Hay una lista de al menos cuatro valores explicados con su origen, y al menos dos correcciones guardadas en el archivo y verificadas tras recargar."
+  },
+  {
+   "n": 2,
+   "title": "Ejercicio 2 · Medir el peso y la velocidad de la página (estado antes)",
+   "objective": "Obtener con Network y Lighthouse las cifras iniciales de una página del proyecto y localizar sus tres archivos más pesados.",
+   "steps": [
+    {
+     "hacer": "Abrir la página publicada en una ventana de incógnito, abrir DevTools en el panel Network, marcar Disable cache y elegir Slow 4G.",
+     "esperado": "El panel está listo para registrar una carga completa sin caché."
+    },
+    {
+     "hacer": "Recargar y anotar: número de peticiones, kilobytes transferidos y tiempo de carga.",
+     "esperado": "Quedan tres cifras iniciales escritas."
+    },
+    {
+     "hacer": "Ordenar por Size y anotar los tres archivos más pesados con su tipo.",
+     "esperado": "Lo más pesado suele ser una imagen o una fuente."
+    },
+    {
+     "hacer": "Abrir el panel Lighthouse, elegir Mobile, marcar Performance y Accessibility y ejecutar el análisis tres veces; anotar la mediana de cada categoría.",
+     "esperado": "Se tienen puntuaciones comparables y no un solo número afectado por ruido."
+    },
+    {
+     "hacer": "Leer la sección Oportunidades y anotar las dos con mayor ahorro estimado.",
+     "esperado": "Quedan dos acciones candidatas, ordenadas por impacto."
+    },
+    {
+     "hacer": "Registrar en la pista Performance el valor de LCP y comprobar si hay saltos de diseño en la pista Layout Shifts.",
+     "esperado": "Se conoce el LCP y se sabe si hay CLS distinto de cero."
+    }
+   ],
+   "example": "Antes: 24 peticiones, 3,4 MB, rendimiento móvil 58, LCP 4,1 s, CLS 0,18; los tres más pesados: portada.jpg 2,8 MB, taller.jpg 410 KB, fuente-700.woff2 120 KB.",
+   "verification": "Existe una tabla con las cifras, los tres archivos más pesados y las dos oportunidades principales, y se indica en qué condiciones se midió."
+  },
+  {
+   "n": 3,
+   "title": "Ejercicio 3 · Reducir imágenes y reservar espacio (estado después de rendimiento)",
+   "objective": "Aplicar tamaños adecuados, formato moderno, dimensiones declaradas y carga diferida a las imágenes pesadas detectadas, y comprobar la mejora.",
+   "steps": [
+    {
+     "hacer": "Para cada imagen pesada, decidir el ancho máximo que ocupa en pantalla y exportar una copia a ese ancho, o al doble para pantallas densas, en formato WebP, con una herramienta de edición o un conversor en línea.",
+     "esperado": "Cada copia pesa una fracción del original."
+    },
+    {
+     "hacer": "Reemplazar la ruta en el HTML y añadir width y height con las dimensiones reales de la copia.",
+     "esperado": "La página sigue viéndose igual y el navegador reserva el hueco."
+    },
+    {
+     "hacer": "Verificar que la regla max-width: 100% con height: auto sigue activa para las imágenes.",
+     "esperado": "Las imágenes siguen siendo fluidas en 375 px."
+    },
+    {
+     "hacer": "Añadir loading=\"lazy\" y decoding=\"async\" a las imágenes de debajo del primer pantallazo y fetchpriority=\"high\" a la principal de arriba.",
+     "esperado": "La imagen principal no tiene loading lazy y las inferiores sí."
+    },
+    {
+     "hacer": "Para una imagen de tarjeta, declarar aspect-ratio y object-fit: cover y comprobar con una foto de otra proporción.",
+     "esperado": "La foto llena el espacio sin deformarse."
+    },
+    {
+     "hacer": "Repetir exactamente la medición del Ejercicio 2 y completar la tabla antes y después.",
+     "esperado": "Los kilobytes bajan y el LCP y el CLS mejoran."
+    }
+   ],
+   "example": "Después: 14 peticiones, 420 KB, rendimiento móvil 96, LCP 1,7 s, CLS 0.",
+   "verification": "La tabla muestra una reducción medible, ninguna imagen está deformada ni sin alt y los atributos width y height están en todas las imágenes."
+  },
+  {
+   "n": 4,
+   "title": "Ejercicio 4 · Hoja de impresión para una página del proyecto",
+   "objective": "Escribir las reglas @media print de una página informativa y comprobar el resultado en la vista previa.",
+   "steps": [
+    {
+     "hacer": "Abrir la página con Ctrl+P y anotar tres defectos de la vista previa actual: elementos de interfaz presentes, fondos, cortes.",
+     "esperado": "La lista de defectos de partida está escrita."
+    },
+    {
+     "hacer": "Añadir al final del CSS un bloque @media print que oculte navegación, botones y formularios con display: none.",
+     "esperado": "La vista previa ya no muestra elementos de interfaz."
+    },
+    {
+     "hacer": "Restablecer body a fondo blanco, color negro, font-size de 12pt y line-height de 1.5, y quitar las sombras.",
+     "esperado": "El texto queda oscuro sobre blanco y legible."
+    },
+    {
+     "hacer": "Añadir la dirección de los enlaces externos con ::after y attr(href).",
+     "esperado": "Cada enlace externo muestra su dirección entre paréntesis."
+    },
+    {
+     "hacer": "Declarar @page con márgenes de 2cm y break-inside: avoid en tarjetas y break-after: avoid en h2 y h3.",
+     "esperado": "Ninguna tarjeta se parte entre hojas y ningún título queda solo al pie."
+    },
+    {
+     "hacer": "Confirmar con Emulate CSS media type: print en Rendering y exportar un PDF desde Ctrl+P.",
+     "esperado": "El PDF coincide con la vista emulada."
+    }
+   ],
+   "example": "Antes: 3 hojas con menú y fondo oscuro. Después: 2 hojas con solo contenido y enlaces legibles.",
+   "verification": "El PDF generado no contiene menús ni botones, el texto es negro sobre blanco y no hay tarjetas cortadas."
+  },
+  {
+   "n": 5,
+   "title": "Ejercicio 5 · Auditoría de pulido y registro antes/después",
+   "objective": "Recorrer una página con la lista de pulido, corregir los defectos en commits pequeños y completar el registro con evidencia.",
+   "steps": [
+    {
+     "hacer": "Capturar la página a 375 px, 768 px y 1440 px con la barra de dispositivos y guardar las imágenes como estado «antes».",
+     "esperado": "Hay tres capturas con nombre claro."
+    },
+    {
+     "hacer": "Activar la superposición de Grid o Flexbox y anotar cada elemento cuyos bordes no coincidan con sus hermanos.",
+     "esperado": "Los desajustes de alineación están listados."
+    },
+    {
+     "hacer": "Buscar en el CSS valores de espaciado fuera de la escala y listarlos.",
+     "esperado": "Cada valor suelto tiene su variable de sustitución."
+    },
+    {
+     "hacer": "Recorrer botones, títulos y tarjetas de todas las páginas y anotar las diferencias no justificadas.",
+     "esperado": "Las inconsistencias quedan numeradas."
+    },
+    {
+     "hacer": "Corregir un hallazgo por commit, con mensajes del tipo «Unifica el radio de los botones».",
+     "esperado": "El historial muestra commits pequeños y legibles."
+    },
+    {
+     "hacer": "Repetir las capturas y completar la plantilla del hallazgo con estado antes, después y commit.",
+     "esperado": "Hay al menos ocho hallazgos documentados con evidencia."
+    }
+   ],
+   "example": "Hallazgo: botón de enviar con radio 6px y el de cancelar con 10px. Corrección: ambos con var(--radio-m). Commit: Unifica el radio de los botones.",
+   "verification": "El registro contiene capturas antes y después, la tabla de medidas y los hallazgos enlazados con sus commits."
+  }
+ ],
  "trabajo": {
-  "title": "Trabajo del Tema 12 · Calidad visual",
-  "description": "",
-  "estimated_minutes": 240
+  "title": "Trabajo del Tema 12 · Revisión de calidad visual de un sitio completo",
+  "description": "Situación nueva de este trabajo: los ejercicios inspeccionaron, midieron y pulieron una página con pasos dados. Este trabajo somete EL SITIO COMPLETO DE TU PROYECTO (al menos tres páginas: la portada, la del formulario y una interior) a una revisión de calidad visual sin guía, y entrega el sitio mejorado junto con el registro antes y después.\n\nEntrega aquí el enlace al sitio publicado, el enlace a tu repositorio y el registro (en el propio repositorio, como archivo de texto o página). El trabajo debe demostrar el dominio completo del tema: (1) el estado «antes» con capturas en 375, 768 y 1440 px, cifras de Network con Slow 4G y mediana de tres ejecuciones de Lighthouse móvil; (2) al menos doce hallazgos, cada uno con página y elemento, estado antes, causa, corrección, estado después y commit, repartidos entre rendimiento, pulido, adaptación e impresión; (3) las imágenes del sitio con tamaño adecuado, formato moderno, width y height, carga diferida donde corresponde y prioridad en la principal, sin deformarse ni perder su texto alternativo; (4) las fuentes reducidas a los pesos usados y con font-display, y ninguna animación que mueva propiedades de layout; (5) una hoja de impresión que deje solo contenido legible, con enlaces identificables y sin cortes en medio de tarjetas; (6) una pasada de pulido con alineación, escala de espaciado, consistencia de componentes y jerarquía, sin valores sueltos; (7) la tabla de comparación con mejora medible en peso, rendimiento móvil, LCP y CLS, y el criterio de cierre indicado y cumplido o justificado.\n\nCómo se desbloquea: este trabajo está bloqueado hasta que termines la fundamentación del Tema 12 en el Cuaderno. Cuando lo envíes, se abre la evaluación Fácil de este tema. Califica el experto de 0 a 10, con retroalimentación, en un plazo máximo de 24 horas desde la entrega.",
+  "estimated_minutes": 300
  }
 }

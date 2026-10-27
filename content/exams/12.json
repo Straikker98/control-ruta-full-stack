@@ -1,0 +1,587 @@
+{
+ "week": 12,
+ "levels": {
+  "facil": [
+   {
+    "id": "12-f-01",
+    "prompt": "Has cambiado en el panel Elements el `padding` de una tarjeta y se ve perfecto. ¿Qué ocurre con ese cambio al recargar la página?",
+    "options": [
+     "Se conserva en el navegador hasta que se vacíe la caché, porque DevTools guarda los cambios de estilo en el disco del equipo",
+     "Se escribe automáticamente en el archivo css/styles.css del proyecto siempre que la carpeta esté abierta en el editor",
+     "Desaparece, porque DevTools solo modifica la copia en memoria del navegador y hay que copiar el valor al archivo CSS real",
+     "Se mantiene durante la sesión y solo se pierde al cerrar la pestaña, nunca al recargar la página con F5"
+    ],
+    "answer": 2,
+    "explanation": "Los cambios en DevTools son temporales: afectan a la copia en memoria y se pierden al recargar. Por eso cada valor que funcione se copia al archivo real y se verifica tras una recarga completa."
+   },
+   {
+    "id": "12-f-02",
+    "prompt": "¿Qué panel de DevTools muestra cada archivo descargado por la página con su estado, su tamaño y su tiempo de carga?",
+    "options": [
+     "Network, que registra cada petición (HTML, CSS, scripts, imágenes y fuentes) con su peso y su duración",
+     "Elements, que lista el árbol de HTML vivo y las reglas CSS aplicadas a cada uno de los elementos seleccionados",
+     "Performance, que graba una línea de tiempo con capturas de pantalla, la marca LCP y los saltos de diseño",
+     "Rendering, que simula la impresión, el modo oscuro y el movimiento reducido y resalta los repintados"
+    ],
+    "answer": 0,
+    "explanation": "Network es el panel de las peticiones: nombre, estado, tipo, tamaño y tiempo. Performance graba el comportamiento del navegador, pero no lista archivos con su peso."
+   },
+   {
+    "id": "12-f-03",
+    "prompt": "¿Cuál es el umbral considerado «bueno» para el LCP (Largest Contentful Paint)?",
+    "options": [
+     "Hasta 200 milisegundos, igual que la respuesta a una interacción del usuario con la página",
+     "Hasta 0,1 puntos, que es la suma máxima aceptable de los saltos inesperados del diseño",
+     "Hasta 4 segundos, que es el límite a partir del cual la métrica pasa de naranja a roja en Lighthouse",
+     "Hasta 2,5 segundos"
+    ],
+    "answer": 3,
+    "explanation": "El LCP es bueno hasta 2,5 s; por encima de 4 s es deficiente. Los 200 ms corresponden al INP y el 0,1 al CLS."
+   },
+   {
+    "id": "12-f-04",
+    "prompt": "¿Qué mide el INP (Interaction to Next Paint) y cuál es su umbral bueno?",
+    "options": [
+     "El tiempo hasta pintar el elemento más grande visible de la página; es bueno hasta 2,5 segundos de espera",
+     "La demora entre una acción de la persona (clic, toque, tecla) y el siguiente cambio visible; es buena hasta 200 ms",
+     "La suma de los desplazamientos inesperados del contenido mientras carga; es buena hasta 0,1 de puntuación",
+     "El tiempo total que los scripts bloquearon el hilo principal durante la carga; es bueno hasta 200 segundos"
+    ],
+    "answer": 1,
+    "explanation": "INP mide la respuesta a la interacción y es bueno hasta 200 ms. El tiempo del elemento más grande es LCP y los saltos son CLS; el bloqueo de scripts es TBT, su sustituto de laboratorio."
+   },
+   {
+    "id": "12-f-05",
+    "prompt": "En las Core Web Vitals, ¿qué describe el CLS (Cumulative Layout Shift)?",
+    "options": [
+     "Cuánto tarda en aparecer el contenido principal de la página en pantalla; es bueno hasta 2,5 segundos",
+     "Cuánto se mueve el contenido de forma inesperada mientras la página carga o cambia; es bueno hasta 0,1",
+     "Cuánto pesa en bytes el total de archivos que la página descarga hasta quedar completamente cargada",
+     "Cuántas peticiones simultáneas hace el navegador al servidor durante los primeros segundos de la carga"
+    ],
+    "answer": 1,
+    "explanation": "CLS suma los saltos inesperados de diseño y se considera bueno hasta 0,1. La rapidez de aparición es LCP; peso y peticiones se leen en Network."
+   },
+   {
+    "id": "12-f-06",
+    "prompt": "¿Qué es Lighthouse en las DevTools?",
+    "options": [
+     "Un panel que graba la actividad del navegador y la dibuja en una línea de tiempo con capturas de pantalla, pensado sobre todo para depurar el código de los scripts paso a paso",
+     "Un panel que lista cada archivo descargado con su estado, su tamaño y el tiempo que tardó en llegar",
+     "Una extensión que valida la sintaxis del HTML y del CSS y señala cada etiqueta sin cerrar o mal anidada",
+     "Una auditoría automática que carga la página en condiciones controladas y da puntuaciones de 0 a 100 en Performance, Accessibility, Best Practices y SEO"
+    ],
+    "answer": 3,
+    "explanation": "Lighthouse audita y puntúa cuatro categorías de 0 a 100. Grabar la línea de tiempo es Performance y listar archivos es Network."
+   },
+   {
+    "id": "12-f-07",
+    "prompt": "¿Para qué sirve `fetchpriority=\"high\"` en una etiqueta `img`?",
+    "options": [
+     "Para pedir al navegador que descargue con prioridad la imagen principal de la parte superior y ayudar al LCP",
+     "Para retrasar la descarga de la imagen hasta que esté cerca de entrar en la ventana visible del usuario",
+     "Para declarar las dimensiones reales de la imagen y que el navegador reserve el hueco antes de recibirla",
+     "Para ofrecer al navegador varias versiones del archivo y que elija la más adecuada para cada pantalla"
+    ],
+    "answer": 0,
+    "explanation": "`fetchpriority=\"high\"` sube la prioridad de descarga de la imagen principal. Retrasar es `loading=\"lazy\"`, reservar hueco es `width`/`height` y ofrecer versiones es `srcset`."
+   },
+   {
+    "id": "12-f-08",
+    "prompt": "¿Qué hace `loading=\"lazy\"` en una imagen?",
+    "options": [
+     "Hace que el navegador la descargue antes que el resto de recursos de la página, ideal para la imagen principal de arriba",
+     "Comprime la imagen automáticamente al descargarla para que ocupe menos bytes sin perder nada de calidad visible, sin que la persona tenga que preparar ninguna versión reducida del archivo",
+     "Indica al navegador que no la descargue hasta que esté cerca de entrar en la ventana visible, útil para las imágenes de debajo del primer pantallazo",
+     "Reserva el espacio exacto que ocupará la imagen para que el texto de alrededor no se desplace cuando llegue"
+    ],
+    "answer": 2,
+    "explanation": "`lazy` difiere la descarga hasta que la imagen se acerca a la zona visible. No comprime nada y no se aplica a la imagen principal, porque retrasaría el LCP."
+   },
+   {
+    "id": "12-f-09",
+    "prompt": "¿Para qué se declaran los atributos `width` y `height` en una etiqueta `img`?",
+    "options": [
+     "Para obligar a la imagen a mostrarse siempre exactamente con esa cantidad de píxeles, aunque la pantalla sea más estrecha",
+     "Para que el navegador descargue una versión más pequeña del archivo cuando la pantalla del dispositivo es reducida",
+     "Para que la imagen se recorte automáticamente y llene su contenedor sin deformarse, manteniendo la proporción",
+     "Para que el navegador calcule la proporción y reserve el hueco antes de que llegue el archivo, evitando saltos de diseño"
+    ],
+    "answer": 3,
+    "explanation": "Con las dimensiones el navegador conoce la proporción y deja el hueco, lo que reduce el CLS. Con `max-width: 100%; height: auto` la imagen sigue siendo fluida; el recorte es cosa de `object-fit`."
+   },
+   {
+    "id": "12-f-10",
+    "prompt": "¿Qué efecto tiene `object-fit: cover` sobre una imagen dentro de un contenedor de otra proporción?",
+    "options": [
+     "Muestra la imagen entera dentro del contenedor y deja bandas vacías en los lados que sobran",
+     "Llena todo el contenedor manteniendo la proporción de la imagen y recorta lo que sobra",
+     "Estira la imagen en ambas direcciones hasta ocupar todo el contenedor aunque quede deformada",
+     "Mueve el punto de recorte hacia la parte alta de la imagen para conservar los rostros visibles"
+    ],
+    "answer": 1,
+    "explanation": "`cover` llena y recorta sin deformar. Mostrar la imagen entera con bandas es `contain`, y mover el punto de recorte es `object-position`."
+   },
+   {
+    "id": "12-f-11",
+    "prompt": "¿Qué hace `font-display: swap` en una regla `@font-face`?",
+    "options": [
+     "Oculta el texto durante un instante a la espera de la fuente web, lo que puede dejar la pantalla vacía un momento",
+     "Usa la fuente web solo si llega muy rápido y, si no, conserva la fuente de reserva sin cambiarla después",
+     "Pinta el texto de inmediato con una fuente de reserva y cambia a la fuente web cuando esta llega, de modo que el texto nunca queda invisible",
+     "Descarga la fuente web solo cuando el usuario cambia el idioma del navegador a uno que necesita esa tipografía"
+    ],
+    "answer": 2,
+    "explanation": "`swap` evita el texto invisible mostrando primero la reserva. Ocultar un instante es `block` y conservar la reserva si la web tarda es `optional`."
+   },
+   {
+    "id": "12-f-12",
+    "prompt": "¿Qué formato de archivo de fuente es el más pequeño y lo soportan todos los navegadores actuales?",
+    "options": [
+     "WOFF2",
+     "TTF, el formato de fuentes de escritorio, que se carga igual de ligero que cualquier otro formato web",
+     "SVG, porque al ser vectorial pesa poco y escala sin pérdida, igual que ocurre con los iconos del sitio",
+     "WebP, que es el formato moderno de menor peso que reemplaza a JPEG y PNG en las imágenes de la página"
+    ],
+    "answer": 0,
+    "explanation": "WOFF2 es el formato web de fuentes más compacto y está soportado por todos los navegadores actuales. WebP y SVG son formatos de imagen, no de tipografía."
+   },
+   {
+    "id": "12-f-13",
+    "prompt": "¿Qué propiedades CSS conviene animar porque el navegador las compone en una capa aparte sin recalcular el layout?",
+    "options": [
+     "`width` y `height`, porque el navegador interpola los tamaños sin necesidad de rehacer el diseño de la zona",
+     "`transform` y `opacity`",
+     "`margin` y `top`, ya que mover un elemento con estas propiedades se resuelve directamente en la tarjeta gráfica",
+     "`box-shadow` y `filter`, que son las más baratas porque solo afectan al aspecto y no a la posición de los elementos"
+    ],
+    "answer": 1,
+    "explanation": "`transform` y `opacity` evitan el recálculo del layout. `width`, `height`, `top` y `margin` sí lo provocan, y animar `box-shadow` o `filter` en muchos elementos es costoso."
+   },
+   {
+    "id": "12-f-14",
+    "prompt": "¿Cuándo se aplican las reglas escritas dentro de `@media print`?",
+    "options": [
+     "Siempre que la ventana del navegador mide menos de 600 px de ancho, como ocurre en un teléfono",
+     "Solo cuando la persona activa el modo oscuro en las preferencias de su sistema operativo",
+     "Siempre que la página se abre con DevTools, para poder inspeccionar el diseño con calma",
+     "Solo cuando la página se imprime o se exporta a PDF"
+    ],
+    "answer": 3,
+    "explanation": "`@media print` es una media query de destino: sus reglas solo valen para papel o PDF. Los anchos y el modo oscuro tienen sus propias consultas."
+   },
+   {
+    "id": "12-f-15",
+    "prompt": "¿Qué consigue `break-inside: avoid` aplicado a una tarjeta en la hoja de impresión?",
+    "options": [
+     "Impide que la tarjeta se parta entre dos hojas",
+     "Fuerza que la tarjeta empiece siempre en una hoja nueva, dejando vacío el resto de la hoja anterior",
+     "Evita que un título quede solo al pie de una hoja separado de su párrafo, aunque no hable de la tarjeta",
+     "Define el tamaño de la hoja y los márgenes que se usarán en todas las páginas del documento impreso"
+    ],
+    "answer": 0,
+    "explanation": "`break-inside: avoid` evita cortes dentro de un bloque. Forzar hoja nueva es `break-before: page`, el título huérfano se evita con `break-after: avoid` y el tamaño y márgenes los fija `@page`."
+   },
+   {
+    "id": "12-f-16",
+    "prompt": "¿Qué simula la barra de dispositivos (Device Toolbar) de DevTools, que se activa con Ctrl+Shift+M?",
+    "options": [
+     "El comportamiento exacto de un teléfono físico, incluidos su motor, su velocidad y su memoria, por lo que reemplaza la prueba real",
+     "La impresión de la página en papel, mostrando los saltos de hoja y los márgenes definidos en la regla @page",
+     "El tamaño, la densidad y el tacto de un teléfono o una tableta dentro de la ventana de escritorio, sin reproducir el motor ni la velocidad reales",
+     "Una conexión móvil lenta, limitando la velocidad de descarga de cada archivo para medir el peso de la página"
+    ],
+    "answer": 2,
+    "explanation": "La barra de dispositivos es una simulación de pantalla; la verificación final se hace en un dispositivo real. La conexión lenta se simula con throttling en Network y la impresión con Rendering o Ctrl+P."
+   }
+  ],
+  "medio": [
+   {
+    "id": "12-m-01",
+    "prompt": "Una tarjeta tiene este HTML y CSS, y el texto de debajo salta cuando la imagen termina de cargar:\n```\n<img src=\"img/portada.webp\" alt=\"Mesa de trabajo\">\nimg { max-width: 100%; height: auto; }\n```\nLa imagen real mide 1200 × 800 px. ¿Qué cambio reserva el espacio sin quitar su fluidez?",
+    "options": [
+     "Añadir `loading=\"lazy\"` a la etiqueta para que el navegador espere a conocer su tamaño antes de pintar el texto",
+     "Añadir `width=\"1200\" height=\"800\"` a la etiqueta y mantener la regla `max-width: 100%; height: auto`",
+     "Sustituir la regla por `img { width: 400px; height: 300px; }` para fijar un tamaño en píxeles para todos los anchos",
+     "Quitar la regla `height: auto` y dejar solo `max-width: 100%`, porque así el navegador calcula mejor la altura"
+    ],
+    "answer": 1,
+    "explanation": "Con ancho y alto declarados el navegador conoce la proporción y deja el hueco, y la regla fluida sigue funcionando. `lazy` no reserva espacio y un tamaño fijo en píxeles rompe la adaptación."
+   },
+   {
+    "id": "12-m-02",
+    "prompt": "Esta es la imagen de portada, visible nada más abrir la página:\n```\n<img src=\"img/portada.webp\" alt=\"...\" width=\"1200\" height=\"800\" loading=\"lazy\">\n```\nEl LCP es lento. ¿Qué atributos son los adecuados para esta imagen?",
+    "options": [
+     "Mantener `loading=\"lazy\"` y añadir `decoding=\"async\"`, de modo que el navegador la descargue solo cuando haga falta",
+     "Quitar `width` y `height` para que el navegador no pierda tiempo calculando el hueco antes de pintar la imagen",
+     "Mantener `loading=\"lazy\"` y añadir `fetchpriority=\"high\"`, porque ambos atributos se refuerzan mutuamente",
+     "Quitar `loading=\"lazy\"` y añadir `fetchpriority=\"high\"`, porque es la imagen principal de la parte superior"
+    ],
+    "answer": 3,
+    "explanation": "La imagen principal nunca debe ser diferida, porque `lazy` retrasa justo el LCP; `fetchpriority=\"high\"` le da prioridad. Las dimensiones deben conservarse para evitar CLS."
+   },
+   {
+    "id": "12-m-03",
+    "prompt": "Una imagen ocupa la mitad del ancho de la ventana a partir de 60rem y todo el ancho por debajo. Tiene versiones de 480, 800 y 1200 px. ¿Qué atributo `sizes` es correcto?",
+    "options": [
+     "`sizes=\"(min-width: 60rem) 50vw, 100vw\"` junto a un `srcset` con `480w`, `800w` y `1200w`",
+     "`sizes=\"(min-width: 60rem) 100vw, 50vw\"`, porque el ancho mayor corresponde a la mitad de la ventana",
+     "`sizes=\"480px, 800px, 1200px\"`, listando los tres anchos reales de los archivos disponibles",
+     "`sizes=\"50vw\"` sin condiciones, ya que el navegador ajusta el resto según la densidad de la pantalla"
+    ],
+    "answer": 0,
+    "explanation": "`sizes` declara el ancho que ocupará la imagen en cada punto de quiebre, y con `srcset` el navegador elige el archivo. Los anchos reales de los archivos van en `srcset` con la unidad `w`."
+   },
+   {
+    "id": "12-m-04",
+    "prompt": "Las fotos de una tarjeta tienen proporciones distintas y se ven estiradas:\n```\n.tarjeta__foto { width: 100%; height: 200px; }\n```\n¿Qué declaración las llena sin deformarlas?",
+    "options": [
+     "Añadir `object-fit: fill;` a `.tarjeta__foto`, que ajusta cada imagen al hueco respetando siempre su proporción original",
+     "Añadir `loading=\"lazy\"` en cada etiqueta, para que el navegador redimensione cada foto antes de pintarla",
+     "Añadir `object-fit: cover;` a `.tarjeta__foto`, que recorta lo que sobra y conserva la proporción",
+     "Cambiar `height: 200px` por `height: auto` y `width: 200px`, para que todas las fotos sean cuadradas"
+    ],
+    "answer": 2,
+    "explanation": "`object-fit: cover` mantiene la proporción y recorta. `fill` es el valor por defecto y justamente estira la imagen, y `loading` no tiene relación con la deformación."
+   },
+   {
+    "id": "12-m-05",
+    "prompt": "En una tarjeta con `object-fit: cover`, el rostro de la persona queda cortado por arriba. ¿Qué declaración conserva la parte alta de la foto?",
+    "options": [
+     "`object-fit: contain;`, que muestra la foto entera pero deja bandas vacías en el contenedor",
+     "`aspect-ratio: 1 / 1;`, que cambia la proporción del contenedor y por tanto el punto de recorte",
+     "`object-position: center top;`",
+     "`object-position: center bottom;`, que desplaza el recorte hacia la parte baja de la imagen"
+    ],
+    "answer": 2,
+    "explanation": "`object-position` mueve el punto de recorte; `center top` conserva la parte alta. `contain` deja bandas y cambiar la proporción no controla qué zona se corta."
+   },
+   {
+    "id": "12-m-06",
+    "prompt": "Se quiere cargar una fuente propia sin que el texto quede invisible mientras llega. ¿Qué regla es correcta?",
+    "options": [
+     "`@font-face { font-family: \"Inter\"; src: url(\"../fonts/inter-regular.woff2\") format(\"woff2\"); font-display: swap; }`",
+     "`@font-face { font-family: \"Inter\"; src: url(\"../fonts/inter-regular.woff2\") format(\"woff2\"); font-display: block; }`",
+     "`body { font-family: \"Inter\"; font-display: swap; }`, ya que el descriptor se escribe en la regla del cuerpo",
+     "`@font-face { font-family: \"Inter\"; src: url(\"../fonts/inter-regular.ttf\"); font-weight: swap; }`"
+    ],
+    "answer": 0,
+    "explanation": "`font-display` es un descriptor de `@font-face`, y `swap` muestra la reserva al instante. `block` oculta el texto a la espera de la fuente y no es un valor de `font-weight`."
+   },
+   {
+    "id": "12-m-07",
+    "prompt": "Se quiere que una tarjeta se eleve 4 px al pasar el ratón con una transición suave y barata. ¿Qué código es el adecuado?",
+    "options": [
+     "`.tarjeta { transition: margin-top 0.2s ease; } .tarjeta:hover { margin-top: -4px; }`",
+     "`.tarjeta { transition: height 0.2s ease; } .tarjeta:hover { height: 324px; }`, aumentando la altura de la tarjeta",
+     "`.tarjeta:hover { top: -4px; }`, que sube la tarjeta usando el posicionamiento sin necesidad de transición",
+     "`.tarjeta { transition: transform 0.2s ease; } .tarjeta:hover { transform: translateY(-4px); }`"
+    ],
+    "answer": 3,
+    "explanation": "`transform` se compone en una capa aparte y no recalcula el layout. `margin-top`, `height` y `top` obligan a recalcularlo en cada fotograma."
+   },
+   {
+    "id": "12-m-08",
+    "prompt": "Al imprimir, la página muestra el menú y los botones. ¿Qué bloque los oculta solo en el papel?",
+    "options": [
+     "`.barra-nav, .btn { display: none; }`, escrito fuera de cualquier media query al final de la hoja",
+     "`@media print { .barra-nav, .btn { display: none; } }`",
+     "`@media screen { .barra-nav, .btn { display: none; } }`, que oculta los elementos de interfaz al imprimir",
+     "`@media print { .barra-nav, .btn { opacity: 0; } }`, que deja el hueco y evita que el contenido se mueva"
+    ],
+    "answer": 1,
+    "explanation": "Dentro de `@media print`, `display: none` quita los elementos del papel. Fuera de esa consulta también desaparecerían en pantalla, y `screen` es el destino contrario."
+   },
+   {
+    "id": "12-m-09",
+    "prompt": "Se quiere que al imprimir cada enlace externo muestre su dirección entre paréntesis tras el texto. ¿Qué regla lo logra?",
+    "options": [
+     "`@media print { a[href^=\"http\"]::after { content: \" (\" attr(href) \")\"; } }`",
+     "`@media print { a[href^=\"http\"]::before { content: attr(\"http\"); } }`, que antepone el protocolo del enlace",
+     "`@media print { a { display: block; } }`, porque mostrado como bloque el enlace imprime su dirección completa",
+     "`@media print { a[href]::after { content: href; } }`, que lee el atributo directamente sin ninguna función"
+    ],
+    "answer": 0,
+    "explanation": "El pseudoelemento `::after` con `content` y la función `attr(href)` inserta la dirección tras el texto. `content: href` no es válido y `display: block` no imprime la dirección."
+   },
+   {
+    "id": "12-m-10",
+    "prompt": "Las filas de una tabla se parten entre dos hojas al imprimir. ¿Qué regla evita el corte?",
+    "options": [
+     "`@media print { tr, .tarjeta { break-before: page; } }`, que fuerza a cada fila a empezar en hoja nueva",
+     "`@media print { tr, .tarjeta { break-after: avoid; } }`, que impide la separación respecto al bloque siguiente",
+     "`@media print { tr, .tarjeta { break-inside: avoid; } }`",
+     "`@page { break-inside: avoid; }`, que se aplica a toda la hoja y mantiene unidos los bloques"
+    ],
+    "answer": 2,
+    "explanation": "`break-inside: avoid` evita que un bloque se parta. `break-before: page` fuerza hojas nuevas y `break-after: avoid` solo protege la unión con lo que sigue."
+   },
+   {
+    "id": "12-m-11",
+    "prompt": "Un título `h2` queda solo al pie de una hoja y su párrafo en la siguiente. ¿Qué regla de impresión lo corrige?",
+    "options": [
+     "`@media print { h2, h3 { break-before: page; } }`, que hace que cada título empiece una hoja nueva",
+     "`@media print { h2, h3 { break-after: avoid; } }`",
+     "`@media print { h2, h3 { break-inside: avoid; } }`, que impide partir el título por dentro",
+     "`@page { margin: 0; }`, que elimina los márgenes para que el título quepa en la hoja anterior"
+    ],
+    "answer": 1,
+    "explanation": "`break-after: avoid` mantiene el título unido a lo que viene después. `break-inside` solo protege el interior del bloque, y quitar márgenes no garantiza nada."
+   },
+   {
+    "id": "12-m-12",
+    "prompt": "Se quiere imprimir en A4 con 2 cm de margen en todos los lados. ¿Qué regla lo declara?",
+    "options": [
+     "`@media print { page { size: A4; margin: 2cm; } }`, usando un selector de elemento llamado page",
+     "`body { page-size: A4; padding: 2cm; }`, porque el relleno del cuerpo define el margen de la hoja impresa",
+     "`@media print { body { width: 21cm; margin: 2cm; } }`, que fija el ancho del cuerpo al de la hoja",
+     "`@page { size: A4; margin: 2cm; }`"
+    ],
+    "answer": 3,
+    "explanation": "`@page` define el tamaño y los márgenes de la hoja. Un selector `page` no existe y el ancho o relleno del `body` no sustituyen a la hoja."
+   },
+   {
+    "id": "12-m-13",
+    "prompt": "La escala de espaciado es `--espacio-2: 0.5rem; --espacio-3: 1rem; --espacio-4: 1.5rem`. ¿Qué declaración para el relleno de una tarjeta respeta el sistema?",
+    "options": [
+     "`.tarjeta { padding: 27px; }`, porque cae entre dos valores de la escala y queda equilibrado",
+     "`.tarjeta { padding: 13px; }`, porque es un valor impar que evita parecer demasiado rígido",
+     "`.tarjeta { padding: var(--espacio-4); }`",
+     "`.tarjeta { padding: calc(1rem + 3px); }`, que añade un pequeño ajuste a ojo sobre la escala"
+    ],
+    "answer": 2,
+    "explanation": "Los valores salen de la escala y se guardan como variables. Un número suelto como 13 o 27 px es deuda: nadie sabrá por qué está ahí."
+   },
+   {
+    "id": "12-m-14",
+    "prompt": "Se quiere localizar desde la consola qué elementos provocan desplazamiento horizontal:\n```\nconst ancho = document.documentElement.clientWidth;\ndocument.querySelectorAll(\"*\").forEach((el) => {\n  if (/* condición */) console.log(el);\n});\n```\n¿Qué condición selecciona los elementos que superan el ancho disponible?",
+    "options": [
+     "`el.getBoundingClientRect().right > ancho`",
+     "`el.getBoundingClientRect().height > ancho`, que compara la altura de cada elemento con el ancho de la ventana",
+     "`el.children.length > ancho`, que cuenta los hijos de cada elemento para ver si hay demasiados",
+     "`el.getBoundingClientRect().top > ancho`, que mide a qué distancia vertical empieza cada elemento"
+    ],
+    "answer": 0,
+    "explanation": "Un elemento desborda cuando su borde derecho pasa del ancho disponible. Altura, número de hijos y posición vertical no tienen que ver con el desplazamiento horizontal."
+   },
+   {
+    "id": "12-m-15",
+    "prompt": "Se va a registrar el estado «antes» en Network. ¿Qué configuración da una medición comparable con la del «después»?",
+    "options": [
+     "Abrir la página con la caché activa y la red local sin limitar, porque así se mide el rendimiento real del servidor",
+     "Medir el estado antes con Slow 4G y el estado después con Fast 4G, para ver si la mejora se nota en una red mejor",
+     "Abrir DevTools justo después de cargar la página y ordenar por tiempo, ya que las peticiones se conservan en el registro",
+     "Abrir DevTools en una ventana de incógnito, marcar Disable cache, elegir Slow 4G y recargar con el panel ya abierto, repitiendo lo mismo después"
+    ],
+    "answer": 3,
+    "explanation": "Para comparar hay que variar solo lo que se cambia y medir en las mismas condiciones: sin caché, con la misma conexión y con Network abierto antes de recargar."
+   },
+   {
+    "id": "12-m-16",
+    "prompt": "Una página mide LCP 2,2 s, INP 180 ms y CLS 0,15. Según los umbrales de las Core Web Vitals, ¿qué métrica no alcanza el nivel «bueno»?",
+    "options": [
+     "El LCP, porque 2,2 segundos supera el límite de 2 segundos que se exige a las páginas modernas",
+     "El CLS, porque el umbral bueno llega hasta 0,1 y esta página marca 0,15",
+     "El INP, porque 180 ms queda demasiado cerca del límite y se considera deficiente por precaución",
+     "Ninguna de las tres métricas falla, porque todas quedan por debajo de los valores de la columna Deficiente"
+    ],
+    "answer": 1,
+    "explanation": "LCP bueno llega a 2,5 s e INP a 200 ms, así que ambos cumplen. El CLS de 0,15 supera 0,1, aunque aún no llega a deficiente (más de 0,25)."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "12-d-01",
+    "prompt": "Al abrir un artículo, la persona empieza a leer un párrafo y, cuando termina de cargar una foto situada encima, el texto baja de golpe y pulsa el enlace equivocado. La etiqueta es `<img src=\"foto.webp\" alt=\"...\">` sin más atributos. ¿Cuál es la causa y el mejor arreglo?",
+    "options": [
+     "La imagen se descarga con poca prioridad, lo que causa un LCP alto; hay que añadirle `fetchpriority=\"high\"`, sin necesidad de tocar nada más en el HTML ni en el CSS",
+     "La imagen pesa demasiado para la conexión, lo que causa un INP alto; hay que convertirla a otro formato",
+     "La imagen carga demasiado pronto y compite con el texto; hay que añadirle `loading=\"lazy\"` para retrasarla",
+     "La imagen no tiene espacio reservado, lo que causa un CLS alto; hay que declarar `width` y `height` (o `aspect-ratio`)"
+    ],
+    "answer": 3,
+    "explanation": "Sin dimensiones el navegador no sabe qué hueco dejar, así que el contenido se desplaza al llegar el archivo: es un salto de diseño (CLS). `fetchpriority` o `lazy` no reservan espacio."
+   },
+   {
+    "id": "12-d-02",
+    "prompt": "El LCP de una página mide 4,3 s. La imagen principal, visible nada más entrar, es un WebP de 1200 px con `loading=\"lazy\"`. ¿Cuál es el diagnóstico más probable?",
+    "options": [
+     "El formato WebP es más lento de decodificar que JPEG, por lo que conviene volver a exportarla como JPEG",
+     "El atributo `loading=\"lazy\"` retrasa la descarga justo del elemento que define el LCP; hay que quitarlo y añadir `fetchpriority=\"high\"`",
+     "La imagen mide 1200 px y debería medir 4000 px para que el navegador la pinte con más calidad",
+     "El LCP depende del servidor en exclusiva y en un sitio estático no hay nada que corregir en el HTML"
+    ],
+    "answer": 1,
+    "explanation": "La imagen visible en el primer pantallazo nunca debe diferirse: `lazy` la retrasa y empeora el LCP. WebP pesa menos que JPEG y 1200 px es un tamaño razonable."
+   },
+   {
+    "id": "12-d-03",
+    "prompt": "En el panel Elements, una declaración `color: #1a1a1a;` aparece tachada y el texto sigue saliendo gris. ¿Qué indica?",
+    "options": [
+     "Que el navegador no reconoce el valor del color por un error de escritura y lo ignora por completo, sin necesidad de revisar ninguna otra regla de la hoja de estilos",
+     "Que la declaración está desactivada en DevTools y volverá a aplicarse en cuanto se recargue la página",
+     "Que otra regla con más especificidad u orden posterior ganó la cascada; hay que mirar la regla que queda arriba en Styles",
+     "Que la propiedad se hereda desde el elemento padre y por eso nunca puede aplicarse sobre el hijo"
+    ],
+    "answer": 2,
+    "explanation": "Una declaración tachada perdió ante otra con mayor especificidad u orden posterior. Un valor no reconocido se marca con un triángulo de aviso, no tachado."
+   },
+   {
+    "id": "12-d-04",
+    "prompt": "Al ejecutar Lighthouse móvil tres veces el rendimiento marca 71, 74 y 72. Tras un pequeño cambio de CSS, otras tres ejecuciones dan 73, 72 y 74. ¿Qué conclusión es correcta?",
+    "options": [
+     "No se puede afirmar que haya mejorado: la diferencia de uno o dos puntos cae dentro del ruido entre ejecuciones",
+     "Hay una mejora clara de 2 puntos, porque la mediana pasó de 72 a 73 y el cambio fue evidentemente positivo",
+     "Hay un empeoramiento, porque una de las ejecuciones posteriores marcó 72 y esa es menor que la mejor de antes",
+     "La medición no vale, porque Lighthouse solo se puede ejecutar una vez y repetirla invalida todos los resultados"
+    ],
+    "answer": 0,
+    "explanation": "Los números varían unos puntos entre ejecuciones, por eso se usa la mediana; una mejora de uno o dos puntos puede ser ruido y una de diez o más es real."
+   },
+   {
+    "id": "12-d-05",
+    "prompt": "Una página de 3,4 MB tarda varios segundos en móvil. Network muestra tres fotos JPEG de 4000 px de ancho que se muestran en columnas de 400 px. ¿Cuál es el mejor arreglo?",
+    "options": [
+     "Redimensionar las fotos al ancho que ocupan (o al doble para pantallas densas), exportarlas en WebP y declarar `width` y `height`",
+     "Añadir `max-width: 100%` a las imágenes, porque así el navegador descarga solo los píxeles que caben en la columna, sin necesidad de cambiar nada más en el HTML ni en el CSS",
+     "Subir el nivel de compresión del servidor y mantener los archivos originales de 4000 px para conservar la calidad",
+     "Mantener los JPEG y añadir `loading=\"lazy\"` a todas ellas, porque así dejan de contar en el peso de la página"
+    ],
+    "answer": 0,
+    "explanation": "El CSS solo escala lo ya descargado: el peso se reduce redimensionando y usando un formato moderno. `lazy` retrasa la descarga pero no reduce los bytes de las fotos visibles."
+   },
+   {
+    "id": "12-d-06",
+    "prompt": "Con Paint flashing activado, al pasar el ratón por una tarjeta toda la página parpadea en verde y la animación va a tirones. El CSS es:\n```\n.tarjeta:hover { margin-top: -4px; height: 320px; }\n```\n¿Cuál es la causa y el arreglo?",
+    "options": [
+     "La animación usa `transform`, que es la propiedad cara; hay que sustituirla por `margin` y `height`, sin necesidad de modificar nada más en la hoja de estilos",
+     "Falta `will-change` en todos los elementos de la página; hay que aplicarlo a todos «por si acaso»",
+     "Animar `margin` y `height` obliga a recalcular el layout; hay que usar `transform` y `opacity` en la transición",
+     "El problema es del servidor, porque el repintado de la página depende de la rapidez con que responda"
+    ],
+    "answer": 2,
+    "explanation": "Las propiedades de layout fuerzan recálculo y repintado de la zona; `transform` y `opacity` se componen aparte. `will-change` masivo empeora el rendimiento."
+   },
+   {
+    "id": "12-d-07",
+    "prompt": "En una conexión lenta, los titulares de la página no se ven durante un par de segundos y luego aparecen de golpe. El CSS tiene:\n```\n@font-face { font-family: \"Inter\"; src: url(\"inter.woff2\") format(\"woff2\"); font-display: block; }\n```\n¿Qué conviene cambiar?",
+    "options": [
+     "Cambiar `font-display: block` por `optional`, para que el texto se oculte hasta que la fuente web esté descargada",
+     "Cambiar `font-display: block` por `swap`, para que se pinte la fuente de reserva mientras llega la web",
+     "Cambiar el formato `woff2` por TTF, porque los navegadores pintan antes el texto con fuentes de escritorio",
+     "Quitar la pila de reserva `system-ui, sans-serif`, para que el navegador no tenga dudas sobre qué fuente usar"
+    ],
+    "answer": 1,
+    "explanation": "`block` oculta el texto a la espera de la fuente; `swap` lo muestra de inmediato con la reserva. `optional` tampoco oculta el texto, pero no es la solución pedida."
+   },
+   {
+    "id": "12-d-08",
+    "prompt": "Tras cargar la fuente web, los párrafos del primer pantallazo cambian de salto de línea y el texto se desplaza (CLS 0,14). La fuente de reserva es muy distinta en medidas. ¿Qué mejora reduce el salto sin retirar la fuente web?",
+    "options": [
+     "Añadir más pesos de la fuente web, para que el navegador tenga más opciones de tipografía al repintar el texto, sin necesidad de cambiar nada más en el HTML ni en el CSS",
+     "Aplicar `loading=\"lazy\"` a la hoja de estilos, para que el cambio de fuente ocurra cuando nadie esté leyendo",
+     "Ocultar el texto con `display: none` hasta que la fuente web termine de cargar y mostrarlo entonces de golpe",
+     "Elegir una fuente de reserva de proporciones parecidas a la web, o usar `font-display: optional` para que no haya cambio posterior"
+    ],
+    "answer": 3,
+    "explanation": "El salto viene de que las medidas de las dos fuentes difieren; una reserva parecida lo reduce, y `optional` evita el cambio. Más pesos aumentan la descarga y `loading` no es un atributo de CSS."
+   },
+   {
+    "id": "12-d-09",
+    "prompt": "Al exportar a PDF desde Ctrl+P, la página sale con el menú, los botones y un fondo oscuro que gasta tinta. El CSS solo tiene reglas de pantalla. ¿Qué falta?",
+    "options": [
+     "Un bloque `@media screen` con `display: none` para esos elementos, porque el PDF se genera desde la vista de pantalla",
+     "Un bloque `@media print` que oculte los elementos de interfaz, ponga texto negro sobre fondo blanco y quite las sombras",
+     "Un atributo `loading=\"lazy\"` en el menú y en los botones, para que el navegador no los incluya en el documento",
+     "Un `@font-face` con `font-display: swap`, porque el fondo oscuro depende de la fuente que se haya cargado en el momento"
+    ],
+    "answer": 1,
+    "explanation": "Sin reglas de impresión el navegador envía la página tal cual. `@media print` permite ocultar interfaz y restablecer colores; `screen` es el destino contrario."
+   },
+   {
+    "id": "12-d-10",
+    "prompt": "En la vista previa de impresión, algunas tarjetas aparecen partidas: la mitad en una hoja y la otra mitad en la siguiente. ¿Cuál es el mejor arreglo?",
+    "options": [
+     "Añadir `break-before: page` a todas las tarjetas, para que cada una empiece una hoja nueva sin importar su altura",
+     "Reducir el `font-size` a `8pt` en todo el documento, hasta que ninguna tarjeta quede en el borde de una hoja",
+     "Añadir `break-after: avoid` a los títulos `h2`, ya que eso mantiene juntas todas las partes de cada tarjeta",
+     "Añadir `break-inside: avoid` a las tarjetas dentro de `@media print`"
+    ],
+    "answer": 3,
+    "explanation": "`break-inside: avoid` impide partir un bloque. `break-before: page` malgastaría hojas y `break-after: avoid` protege la unión de un título con lo que sigue, no el interior de la tarjeta."
+   },
+   {
+    "id": "12-d-11",
+    "prompt": "Un desarrollador añade esta regla y, al imprimir, los enlaces externos muestran su dirección pero un enlace `<a href=\"contacto.html\">` no:\n```\n@media print { a[href^=\"http\"]::after { content: \" (\" attr(href) \")\"; } }\n```\n¿Cómo se explica?",
+    "options": [
+     "Es el comportamiento previsto: el selector `^=\"http\"` solo alcanza a enlaces cuyo `href` empieza por http, es decir, los externos",
+     "Es un error del navegador, porque `attr(href)` solo funciona con los enlaces que están dentro de `@media print`, y por eso el atributo no debería usarse nunca en reglas de impresión",
+     "Es un fallo de `::after`, que no se puede aplicar a enlaces relativos y exige usar siempre `::before` con ellos",
+     "Es un fallo de `content`, que solo admite una cadena fija de texto y nunca el valor de un atributo del elemento"
+    ],
+    "answer": 0,
+    "explanation": "El selector de atributo `[href^=\"http\"]` filtra por el inicio del valor: lo que no empieza por http (rutas internas) queda fuera, a propósito para no llenar el texto de rutas internas."
+   },
+   {
+    "id": "12-d-12",
+    "prompt": "Al probar en 375 px aparece una barra de desplazamiento horizontal, pero no en 1440 px. ¿Cuál es el siguiente paso más razonable?",
+    "options": [
+     "Añadir `overflow-x: hidden` al `body` y dar por resuelto el problema, ya que a simple vista no se ve nada raro",
+     "Cambiar el dispositivo simulado por uno más ancho, ya que la barra de dispositivos suele inventar desbordamientos",
+     "Localizar el elemento que supera el ancho disponible, por ejemplo recorriendo el árbol en Elements o con un script en la consola, y corregir su ancho",
+     "Reducir el `font-size` de todo el documento a la mitad hasta que desaparezca la barra de desplazamiento"
+    ],
+    "answer": 2,
+    "explanation": "Un desplazamiento horizontal indica que algún elemento supera el ancho; hay que encontrarlo y corregirlo. Ocultar el desborde lo esconde sin resolverlo y la simulación es fiable en este aspecto."
+   },
+   {
+    "id": "12-d-13",
+    "prompt": "Antes: Network con Fast 4G en una ventana normal con extensiones, rendimiento Lighthouse 58. Después de optimizar: Network con Slow 4G en incógnito, rendimiento 91. ¿Qué problema tiene esta comparación?",
+    "options": [
+     "Ninguno: una puntuación mayor después siempre demuestra que los cambios funcionaron, sea cual sea la condición, y por tanto la comparación es válida aunque cambien la red y la ventana",
+     "Que se midió la segunda vez en incógnito, ya que Lighthouse solo da resultados válidos en ventanas normales",
+     "Que 91 se considera naranja en Lighthouse y por tanto el resultado no puede compararse con el de 58",
+     "Cambiaron varias condiciones a la vez (conexión, ventana y extensiones), así que la mejora no se puede atribuir con seguridad a los cambios hechos"
+    ],
+    "answer": 3,
+    "explanation": "Para comparar, la medición se repite con el mismo dispositivo, conexión, ventana y página. Además 90 a 100 es verde, y el incógnito sin extensiones es lo recomendado."
+   },
+   {
+    "id": "12-d-14",
+    "prompt": "Una página de dos secciones se ve «bien» pero se percibe improvisada. Al entrecerrar los ojos, el título, un botón secundario y una imagen compiten con la misma fuerza y no destaca nada. ¿Qué familia de pulido falla y cómo se corrige?",
+    "options": [
+     "La alineación: hay que ajustar los márgenes de cada elemento a ojo hasta que todos los bordes coincidan exactamente, y por eso lo único que falta es medir de nuevo la página",
+     "La jerarquía: debe haber un único foco principal por pantalla, diferenciando la acción principal de las secundarias por tamaño, peso, color y espacio",
+     "La consistencia: hay que usar el mismo tamaño y color para el título, el botón y la imagen en toda la página",
+     "El espaciado: hay que aumentar todos los márgenes por igual para que los tres elementos queden más separados"
+    ],
+    "answer": 1,
+    "explanation": "Si nada destaca, falla la jerarquía; se corrige dando un foco principal. Igualar el tamaño y color de todo empeoraría el problema."
+   },
+   {
+    "id": "12-d-15",
+    "prompt": "En el PDF generado no salen los colores de fondo de una cabecera que sí son indispensables para leer el texto blanco que contiene. ¿Por qué sucede y qué hace falta?",
+    "options": [
+     "Las reglas `@media print` anulan siempre `background`; hay que moverlo al HTML con el atributo `bgcolor`",
+     "El PDF no admite colores, porque el formato solo guarda texto negro sobre fondo blanco sin ninguna excepción",
+     "El navegador no imprime colores de fondo por defecto; hay que pedirlo con `print-color-adjust: exact` en ese elemento",
+     "El fondo se pierde porque falta `@page { size: A4; }`; sin tamaño declarado no se imprime ningún color"
+    ],
+    "answer": 2,
+    "explanation": "Por defecto los navegadores omiten los fondos al imprimir para ahorrar tinta; `print-color-adjust: exact` los fuerza cuando son indispensables."
+   },
+   {
+    "id": "12-d-16",
+    "prompt": "En Elements, junto a la declaración `colour: #1a1a1a;` de una regla aparece un triángulo de aviso y el texto no cambia de color. ¿Qué indica y cuál es el arreglo?",
+    "options": [
+     "Que el navegador no reconoce la propiedad por un error de escritura; hay que corregirla a `color`",
+     "Que otra regla con más especificidad le ganó en la cascada; hay que subir la especificidad del selector",
+     "Que el valor hexadecimal es demasiado oscuro y se descarta; hay que usar un color con más contraste",
+     "Que la declaración está desactivada en DevTools; hay que marcar su casilla para que se vuelva a aplicar"
+    ],
+    "answer": 0,
+    "explanation": "El triángulo marca una propiedad o valor no reconocido, casi siempre por un error de escritura. Una declaración que pierde la cascada aparece tachada, sin triángulo."
+   }
+  ]
+ }
+}
