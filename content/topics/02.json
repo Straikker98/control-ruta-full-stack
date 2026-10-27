@@ -12,25 +12,25 @@
    "page": 1,
    "kind": "warning",
    "title": "REGLA FUNDAMENTAL",
-   "body": "Todo lo que se ve en una página llegó como RESPUESTA a una PETICIÓN que el navegador hizo. Nada aparece por arte de magia: si algo no carga, una petición falló, tardó demasiado o devolvió otra cosa. Aprende a mirar las peticiones y encontrarás los errores."
+   "body": "Todo lo que se ve en una página llegó como RESPUESTA a una PETICIÓN que el navegador hizo. Nada aparece por arte de magia: si algo no carga, una **petición** falló, tardó demasiado o devolvió otra cosa. Aprende a mirar las peticiones y encontrarás los errores."
   },
   {
    "page": 1,
    "kind": "definition",
    "title": "1.2. El viaje completo en una mirada",
-   "body": "El viaje tiene seis momentos:\n\n• Se escribe una URL o se hace clic en un enlace: el navegador descompone esa dirección en sus partes.\n• DNS traduce el nombre del servidor a una dirección IP, porque los computadores se ubican con números, no con nombres.\n• El navegador envía una petición HTTP (o HTTPS, cifrada) al servidor de esa IP.\n• El servidor procesa la petición y devuelve una respuesta: un código de estado, unas cabeceras y un cuerpo (normalmente HTML).\n• El navegador lee ese HTML, descubre que necesita más recursos (CSS, imágenes, scripts) y los pide con nuevas peticiones.\n• Con todo en la mano, el navegador construye la página y la dibuja en la pantalla."
+   "body": "El viaje tiene seis momentos:\n\n• Se escribe una **URL** o se hace clic en un enlace: el navegador descompone esa dirección en sus partes.\n• **DNS** traduce el nombre del **servidor** a una dirección **IP**, porque los computadores se ubican con números, no con nombres.\n• El navegador envía una **petición** **HTTP** (o **HTTPS**, cifrada) al servidor de esa IP.\n• El servidor procesa la petición y devuelve una **respuesta**: un **código de estado**, unas cabeceras y un cuerpo (normalmente HTML).\n• El navegador lee ese HTML, descubre que necesita más recursos (CSS, imágenes, scripts) y los pide con nuevas peticiones.\n• Con todo en la mano, el navegador construye la página y la dibuja en la pantalla."
   },
   {
    "page": 1,
    "kind": "diagram",
    "title": "El viaje de una página",
-   "body": "Escribes la URL ──► DNS traduce el nombre a una IP\n        ▼\nNavegador ──► Petición HTTP ──► Servidor\n        ▲                            │\n        └──── Respuesta (HTML) ◄─────┘\n        ▼\nEl navegador lee el HTML, pide CSS, imágenes y scripts,\ny dibuja la página en la pantalla"
+   "body": "Escribes la **URL** ──► **DNS** traduce el nombre a una **IP**\n        ▼\nNavegador ──► Petición **HTTP** ──► Servidor\n        ▲                            │\n        └──── Respuesta (HTML) ◄─────┘\n        ▼\nEl navegador lee el HTML, pide CSS, imágenes y scripts,\ny dibuja la página en la pantalla"
   },
   {
    "page": 2,
    "kind": "definition",
    "title": "2.1. La URL: la dirección completa de un recurso",
-   "body": "Definición: una URL (Uniform Resource Locator, localizador uniforme de recursos) es la dirección completa de un recurso en la web. No solo dice «qué página»: dice con qué protocolo se habla, a qué servidor, por qué puerta, qué recurso exacto, con qué datos extra y hasta a qué punto interno de la página saltar.\n\nLeer una URL sin esfuerzo es una habilidad profesional: en ella se ven la estructura de un sitio, los datos que viajan visibles y, muchas veces, la causa de un error antes de abrir cualquier herramienta."
+   "body": "Definición: una **URL** (Uniform Resource Locator, localizador uniforme de recursos) es la dirección completa de un recurso en la web. No solo dice «qué página»: dice con qué protocolo se habla, a qué **servidor**, por qué puerta, qué recurso exacto, con qué datos extra y hasta a qué punto interno de la página saltar.\n\nLeer una URL sin esfuerzo es una habilidad profesional: en ella se ven la estructura de un sitio, los datos que viajan visibles y, muchas veces, la causa de un error antes de abrir cualquier herramienta."
   },
   {
    "page": 2,
@@ -42,43 +42,43 @@
    "page": 2,
    "kind": "table",
    "title": "Tabla comparativa — las partes de la URL",
-   "body": "Parte | Qué decide | Si falta o está mal\nProtocolo | Cómo se habla con el servidor: http o https | Sin protocolo válido no hay petición\nDominio | A qué servidor va la petición, con nombre legible | Un error de tipeo te lleva a otro sitio o a ninguno\nPuerto | En qué puerta del servidor escucha el servicio | La puerta equivocada: nadie responde\nRuta | Qué recurso se pide dentro del servidor | Ruta mala o cambiada: error 404\nParámetros | Datos extra para filtrar, buscar o identificar | Cambian el contenido sin cambiar de página\nFragmento | Un salto interno dentro de la misma página | Lo resuelve el navegador; no viaja al servidor"
+   "body": "Parte | Qué decide | Si falta o está mal\nProtocolo | Cómo se habla con el **servidor**: http o https | Sin protocolo válido no hay **petición**\nDominio | A qué servidor va la petición, con nombre legible | Un error de tipeo te lleva a otro sitio o a ninguno\nPuerto | En qué puerta del servidor escucha el servicio | La puerta equivocada: nadie responde\nRuta | Qué recurso se pide dentro del servidor | Ruta mala o cambiada: error 404\nParámetros | Datos extra para filtrar, buscar o identificar | Cambian el contenido sin cambiar de página\nFragmento | Un salto interno dentro de la misma página | Lo resuelve el navegador; no viaja al servidor"
   },
   {
    "page": 2,
    "kind": "warning",
    "title": "REGLA CRÍTICA DE LA URL",
-   "body": "El fragmento (#...) NUNCA llega al servidor: lo resuelve el navegador en local. Los parámetros (?...) SÍ viajan y quedan guardados en historiales y registros del servidor: nunca pongas contraseñas ni datos sensibles dentro de una URL."
+   "body": "El fragmento (#...) NUNCA llega al **servidor**: lo resuelve el navegador en local. Los parámetros (?...) SÍ viajan y quedan guardados en historiales y registros del servidor: nunca pongas contraseñas ni datos sensibles dentro de una **URL**."
   },
   {
    "page": 3,
    "kind": "definition",
    "title": "3.1. DNS: la guía telefónica de internet",
-   "body": "Definición: el DNS (Domain Name System, sistema de nombres de dominio) es el servicio que traduce nombres que las personas recuerdan (ejemplo.com) a direcciones IP, que son los números con los que los computadores se encuentran en la red.\n\nFunciona como la guía telefónica: la búsqueda se hace por nombre y la guía devuelve el número. El navegador no puede abrir ninguna conexión hasta tener la IP del servidor: por eso la resolución DNS es siempre el primer paso del viaje, aunque casi nunca lo veas."
+   "body": "Definición: el **DNS** (Domain Name System, sistema de nombres de dominio) es el servicio que traduce nombres que las personas recuerdan (ejemplo.com) a direcciones **IP**, que son los números con los que los computadores se encuentran en la red.\n\nFunciona como la guía telefónica: la búsqueda se hace por nombre y la guía devuelve el número. El navegador no puede abrir ninguna conexión hasta tener la IP del **servidor**: por eso la resolución DNS es siempre el primer paso del viaje, aunque casi nunca lo veas."
   },
   {
    "page": 3,
    "kind": "theory",
    "title": "3.2. Resolución de nombres, paso a paso",
-   "body": "Cuando se pide un dominio que no está en memoria, pasa esto, en orden:\n\n1. Caché propia: el navegador y el sistema operativo revisan si ya resolvieron ese nombre hace poco. Si la respuesta guardada sigue vigente, se usa y no se pregunta nada más.\n2. Servidor recursivo: si no hay caché, se pregunta al servidor DNS configurado en la red (normalmente el del proveedor de internet). Su trabajo es buscar la respuesta.\n3. Raíz y extensión: el recursivo pregunta primero a los servidores raíz, que lo remiten a los servidores de la extensión (.com, .co, .org…).\n4. Servidor del dominio: la extensión remite al servidor DNS autoritativo de ese dominio, que es quien tiene la respuesta oficial.\n5. Respuesta con TTL: vuelve la dirección IP junto con un TTL (tiempo de vida): cuánto tiempo puede guardarse esa respuesta en caché antes de volver a preguntar."
+   "body": "Cuando se pide un dominio que no está en memoria, pasa esto, en orden:\n\n1. Caché propia: el navegador y el sistema operativo revisan si ya resolvieron ese nombre hace poco. Si la **respuesta** guardada sigue vigente, se usa y no se pregunta nada más.\n2. Servidor recursivo: si no hay caché, se pregunta al **servidor** **DNS** configurado en la red (normalmente el del proveedor de internet). Su trabajo es buscar la respuesta.\n3. Raíz y extensión: el recursivo pregunta primero a los servidores raíz, que lo remiten a los servidores de la extensión (.com, .co, .org…).\n4. Servidor del dominio: la extensión remite al servidor DNS autoritativo de ese dominio, que es quien tiene la respuesta oficial.\n5. Respuesta con TTL: vuelve la dirección **IP** junto con un TTL (tiempo de vida): cuánto tiempo puede guardarse esa respuesta en caché antes de volver a preguntar."
   },
   {
    "page": 3,
    "kind": "diagram",
    "title": "Resolución DNS",
-   "body": "Navegador: ¿qué IP tiene ejemplo.com?\n        │\n        ▼\nCaché local ──► si no está ──► Servidor DNS recursivo\n                                      │\n              raíz ──► extensión .com ──► DNS del dominio\n                                      │\n        La IP vuelve ◄────────────────┘\n        (y se guarda en caché por el tiempo del TTL)"
+   "body": "Navegador: ¿qué **IP** tiene ejemplo.com?\n        │\n        ▼\nCaché local ──► si no está ──► Servidor **DNS** recursivo\n                                      │\n              raíz ──► extensión .com ──► DNS del dominio\n                                      │\n        La IP vuelve ◄────────────────┘\n        (y se guarda en caché por el tiempo del TTL)"
   },
   {
    "page": 3,
    "kind": "warning",
    "title": "OJO CON LA CACHÉ DNS",
-   "body": "Si un sitio cambia de servidor y «sigue saliendo el viejo», casi siempre es caché DNS con el TTL aún vigente, no un error tuyo ni del sitio. Por eso los cambios de dominio «tardan en propagarse»: cada caché renueva a su ritmo."
+   "body": "Si un sitio cambia de **servidor** y «sigue saliendo el viejo», casi siempre es caché **DNS** con el TTL aún vigente, no un error tuyo ni del sitio. Por eso los cambios de dominio «tardan en propagarse»: cada caché renueva a su ritmo."
   },
   {
    "page": 4,
    "kind": "definition",
    "title": "4.1. HTTP: el idioma entre navegador y servidor",
-   "body": "Definición: HTTP (HyperText Transfer Protocol, protocolo de transferencia de hipertexto) es el idioma con el que un cliente (el navegador) y un servidor conversan. Es un protocolo de petición y respuesta: el cliente siempre habla primero y el servidor solo responde; nunca al revés.\n\nDos rasgos que explican casi todo lo demás del tema:\n\n• Es un protocolo de texto: peticiones y respuestas se pueden leer con los ojos, línea por línea. Por eso DevTools puede mostrártelas tal cual.\n• Es un protocolo sin estado (stateless): cada petición llega como si fuera la primera; el servidor no recuerda nada entre una y otra. Más adelante se explica cómo las cookies y las sesiones resuelven eso."
+   "body": "Definición: **HTTP** (HyperText Transfer Protocol, protocolo de transferencia de hipertexto) es el idioma con el que un **cliente** (el navegador) y un **servidor** conversan. Es un protocolo de **petición** y **respuesta**: el cliente siempre habla primero y el servidor solo responde; nunca al revés.\n\nDos rasgos que explican casi todo lo demás del tema:\n\n• Es un protocolo de texto: peticiones y respuestas se pueden leer con los ojos, línea por línea. Por eso DevTools puede mostrártelas tal cual.\n• Es un protocolo sin estado (stateless): cada petición llega como si fuera la primera; el servidor no recuerda nada entre una y otra. Más adelante se explica cómo las cookies y las sesiones resuelven eso."
   },
   {
    "page": 4,
@@ -102,49 +102,49 @@
    "page": 5,
    "kind": "definition",
    "title": "5.2. HTTPS: lo mismo que HTTP, pero cifrado y con identidad",
-   "body": "Definición: HTTPS es HTTP viajando dentro de un canal cifrado llamado TLS. El contenido de peticiones y respuestas es el mismo; lo que cambia es el transporte, y cambia tres cosas decisivas:\n\n• Confidencialidad: quien esté en el camino (una red wifi pública, por ejemplo) ve que hablas con un servidor, pero no puede leer lo que viaja.\n• Integridad: si alguien en el camino altera los datos, el cifrado lo detecta y la conexión se rechaza.\n• Identidad: el servidor presenta un certificado que demuestra que es quien dice ser; el navegador lo verifica antes de enviar nada y muestra el candado solo si todo cuadra.\n\nCon HTTP, en cambio, todo viaja en texto plano: legible y modificable por cualquiera que esté en el camino. Por eso los navegadores marcan los sitios HTTP como «No seguro»."
+   "body": "Definición: **HTTPS** es **HTTP** viajando dentro de un canal cifrado llamado TLS. El contenido de peticiones y respuestas es el mismo; lo que cambia es el transporte, y cambia tres cosas decisivas:\n\n• Confidencialidad: quien esté en el camino (una red wifi pública, por ejemplo) ve que hablas con un **servidor**, pero no puede leer lo que viaja.\n• Integridad: si alguien en el camino altera los datos, el cifrado lo detecta y la conexión se rechaza.\n• Identidad: el servidor presenta un certificado que demuestra que es quien dice ser; el navegador lo verifica antes de enviar nada y muestra el candado solo si todo cuadra.\n\nCon HTTP, en cambio, todo viaja en texto plano: legible y modificable por cualquiera que esté en el camino. Por eso los navegadores marcan los sitios HTTP como «No seguro»."
   },
   {
    "page": 5,
    "kind": "warning",
    "title": "REGLA CRÍTICA DE SEGURIDAD",
-   "body": "Contraseñas y datos sensibles SOLO por HTTPS. Si una página pide datos personales y el navegador dice «No seguro», esos datos viajan en texto plano: no los envíes. Y como desarrollador, la regla es la inversa: nunca publiques con HTTP algo que pida datos de personas."
+   "body": "Contraseñas y datos sensibles SOLO por **HTTPS**. Si una página pide datos personales y el navegador dice «No seguro», esos datos viajan en texto plano: no los envíes. Y como desarrollador, la regla es la inversa: nunca publiques con **HTTP** algo que pida datos de personas."
   },
   {
    "page": 6,
    "kind": "table",
    "title": "6.1. Tabla — familias de códigos de estado",
-   "body": "Familia | Significado | Ejemplos y su lectura\n1xx | Informativo: petición recibida, sigue el proceso | Rara vez se ven directamente\n2xx | Éxito: el servidor hizo lo pedido | 200 OK · 201 Creado · 204 Sin contenido\n3xx | Redirección: el recurso está en otra parte | 301 Permanente · 302 Temporal · 304 Sin cambios (usa la caché)\n4xx | Error del cliente: la petición está mal | 400 Inválida · 401 Sin autenticar · 403 Prohibido · 404 No encontrado\n5xx | Error del servidor: falló por dentro | 500 Error interno · 503 Servicio no disponible"
+   "body": "Familia | Significado | Ejemplos y su lectura\n1xx | Informativo: **petición** recibida, sigue el proceso | Rara vez se ven directamente\n2xx | Éxito: el **servidor** hizo lo pedido | 200 OK · 201 Creado · 204 Sin contenido\n3xx | Redirección: el recurso está en otra parte | 301 Permanente · 302 Temporal · 304 Sin cambios (usa la caché)\n4xx | Error del **cliente**: la petición está mal | 400 Inválida · 401 Sin autenticar · 403 Prohibido · 404 No encontrado\n5xx | Error del servidor: falló por dentro | 500 Error interno · 503 Servicio no disponible"
   },
   {
    "page": 6,
    "kind": "theory",
    "title": "6.2. Los códigos que vas a ver a diario",
-   "body": "• 200 OK: la petición salió bien y la respuesta trae el recurso. Es el código de casi todo lo que funciona.\n• 301 y 302: «eso ya no vive aquí». El navegador sigue automáticamente la nueva dirección que trae la cabecera Location. 301 es mudanza definitiva; 302, temporal.\n• 304 No modificado: el servidor confirma que la copia en caché sigue buena; no vuelve a enviar el cuerpo. Es la caché ahorrando un viaje.\n• 400 Petición inválida: el servidor no entiende o rechaza los datos enviados (un formulario con un campo mal formado, por ejemplo).\n• 401 frente a 403, la diferencia que más se confunde: 401 es «no sé quién eres, identifícate» (falta iniciar sesión); 403 es «se sabe quién es el cliente y aun así no hay permiso».\n• 404 No encontrado: la ruta no existe en ese servidor. La causa típica en el código: una ruta relativa mal escrita o un archivo que cambió de nombre.\n• 500 Error interno: el servidor recibió una petición válida y su propio código falló al procesarla. El detalle del error vive en el servidor, no en el navegador."
+   "body": "• 200 OK: la **petición** salió bien y la **respuesta** trae el recurso. Es el código de casi todo lo que funciona.\n• 301 y 302: «eso ya no vive aquí». El navegador sigue automáticamente la nueva dirección que trae la cabecera Location. 301 es mudanza definitiva; 302, temporal.\n• 304 No modificado: el **servidor** confirma que la copia en caché sigue buena; no vuelve a enviar el cuerpo. Es la caché ahorrando un viaje.\n• 400 Petición inválida: el servidor no entiende o rechaza los datos enviados (un formulario con un campo mal formado, por ejemplo).\n• 401 frente a 403, la diferencia que más se confunde: 401 es «no sé quién eres, identifícate» (falta iniciar sesión); 403 es «se sabe quién es el **cliente** y aun así no hay permiso».\n• 404 No encontrado: la ruta no existe en ese servidor. La causa típica en el código: una ruta relativa mal escrita o un archivo que cambió de nombre.\n• 500 Error interno: el servidor recibió una petición válida y su propio código falló al procesarla. El detalle del error vive en el servidor, no en el navegador."
   },
   {
    "page": 6,
    "kind": "warning",
    "title": "¿DE QUIÉN ES LA CULPA?",
-   "body": "4xx: el problema está del lado de quien pide — la ruta no existe, falta permiso o el dato es inválido. 5xx: el servidor recibió la petición y falló por dentro. Esa sola distinción te dice dónde buscar primero y te ahorra horas de depuración a ciegas."
+   "body": "4xx: el problema está del lado de quien pide — la ruta no existe, falta permiso o el dato es inválido. 5xx: el **servidor** recibió la **petición** y falló por dentro. Esa sola distinción te dice dónde buscar primero y te ahorra horas de depuración a ciegas."
   },
   {
    "page": 7,
    "kind": "definition",
    "title": "7.1. Cabeceras: los datos sobre los datos",
-   "body": "Definición: las cabeceras (headers) son los metadatos de una petición o una respuesta: líneas con formato Nombre: valor que viajan antes del cuerpo y le dicen a la otra parte cosas sobre el intercambio — qué tipo de contenido es, cuánto mide, en qué idioma se prefiere, si se puede guardar en caché o quién está pidiendo.\n\nNo se ven en la página, pero la controlan: la mitad de los comportamientos «raros» de la web (una página que no se actualiza, una descarga que llega como texto, una sesión que se cierra) se explican leyendo las cabeceras correctas."
+   "body": "Definición: las cabeceras (headers) son los metadatos de una **petición** o una **respuesta**: líneas con formato Nombre: valor que viajan antes del cuerpo y le dicen a la otra parte cosas sobre el intercambio — qué tipo de contenido es, cuánto mide, en qué idioma se prefiere, si se puede guardar en caché o quién está pidiendo.\n\nNo se ven en la página, pero la controlan: la mitad de los comportamientos «raros» de la web (una página que no se actualiza, una descarga que llega como texto, una sesión que se cierra) se explican leyendo las cabeceras correctas."
   },
   {
    "page": 7,
    "kind": "code",
    "title": "Cabeceras reales de cada intercambio",
-   "body": "En la PETICIÓN (las envía el navegador):\n\n```\nHost: tienda.ejemplo.com          a qué dominio va\nUser-Agent: Mozilla/5.0 …          qué navegador pide\nAccept: text/html                  qué formatos acepta\nCookie: sesion=abc123              el identificador guardado\n```\n\nEn la RESPUESTA (las envía el servidor):\n\n```\nContent-Type: text/html            qué ES el cuerpo\nContent-Length: 4821               cuánto mide, en bytes\nCache-Control: max-age=3600        cachéalo por 1 hora\nSet-Cookie: sesion=abc123          guarda esta cookie\nLocation: /nueva-ruta              a dónde redirigir (con un 3xx)\n```"
+   "body": "En la PETICIÓN (las envía el navegador):\n\n```\nHost: tienda.ejemplo.com          a qué dominio va\nUser-Agent: Mozilla/5.0 …          qué navegador pide\nAccept: text/html                  qué formatos acepta\nCookie: sesion=abc123              el identificador guardado\n```\n\nEn la RESPUESTA (las envía el **servidor**):\n\n```\nContent-Type: text/html            qué ES el cuerpo\nContent-Length: 4821               cuánto mide, en bytes\nCache-Control: max-age=3600        cachéalo por 1 hora\nSet-Cookie: sesion=abc123          guarda esta **cookie**\nLocation: /nueva-ruta              a dónde redirigir (con un 3xx)\n```"
   },
   {
    "page": 7,
    "kind": "table",
    "title": "Tabla — cabeceras clave y qué controlan",
-   "body": "Cabecera | Viaja en | Qué controla\nContent-Type | Respuesta | Qué tipo de contenido es el cuerpo: HTML, JSON, imagen\nCache-Control | Respuesta | Si el navegador puede guardar copia y por cuánto tiempo\nSet-Cookie | Respuesta | Ordena al navegador guardar una cookie para ese dominio\nCookie | Petición | Devuelve al servidor las cookies guardadas de ese dominio\nAuthorization | Petición | La credencial o token de quien pide\nLocation | Respuesta | La URL destino de una redirección (respuestas 3xx)"
+   "body": "Cabecera | Viaja en | Qué controla\nContent-Type | Respuesta | Qué tipo de contenido es el cuerpo: HTML, JSON, imagen\nCache-Control | Respuesta | Si el navegador puede guardar copia y por cuánto tiempo\nSet-Cookie | Respuesta | Ordena al navegador guardar una **cookie** para ese dominio\nCookie | Petición | Devuelve al **servidor** las cookies guardadas de ese dominio\nAuthorization | Petición | La credencial o token de quien pide\nLocation | Respuesta | La **URL** destino de una redirección (respuestas 3xx)"
   },
   {
    "page": 8,
@@ -156,61 +156,61 @@
    "page": 8,
    "kind": "diagram",
    "title": "Cómo se dibuja una página",
-   "body": "La respuesta HTML llega al navegador\n        ▼\nHTML ──► DOM            CSS ──► CSSOM\n        └────────┬─────────┘\n                 ▼\n   Árbol de render ──► Layout (dónde va cada cosa)\n                 ▼\n   Pintura: los píxeles aparecen en la pantalla"
+   "body": "La **respuesta** HTML llega al navegador\n        ▼\nHTML ──► DOM            CSS ──► CSSOM\n        └────────┬─────────┘\n                 ▼\n   Árbol de render ──► Layout (dónde va cada cosa)\n                 ▼\n   Pintura: los píxeles aparecen en la pantalla"
   },
   {
    "page": 8,
    "kind": "theory",
    "title": "8.2. Los recursos secundarios y el orden de carga",
-   "body": "La primera respuesta casi nunca es la página completa: es el HTML, que funciona como una lista de encargos. Al leerlo, el navegador descubre etiquetas que apuntan a otros recursos — la hoja de estilos, los scripts, las imágenes, las fuentes — y lanza una petición nueva por cada uno. Por eso una sola «página» son en realidad decenas de peticiones.\n\nConsecuencias prácticas:\n• El CSS citado en la cabeza del documento bloquea el primer pintado hasta descargarse: sin estilos, el navegador no pinta para no mostrar la página «desnuda» un instante y luego saltar.\n• Las imágenes no bloquean la lectura del HTML: la página se arma y las imágenes van llegando a sus huecos.\n• Si un recurso secundario falla (un 404 en una imagen o en el CSS), la página principal sigue viva pero coja: por eso «la página carga» y «la página carga bien» son dos diagnósticos distintos."
+   "body": "La primera **respuesta** casi nunca es la página completa: es el HTML, que funciona como una lista de encargos. Al leerlo, el navegador descubre etiquetas que apuntan a otros recursos — la hoja de estilos, los scripts, las imágenes, las fuentes — y lanza una **petición** nueva por cada uno. Por eso una sola «página» son en realidad decenas de peticiones.\n\nConsecuencias prácticas:\n• El CSS citado en la cabeza del documento bloquea el primer pintado hasta descargarse: sin estilos, el navegador no pinta para no mostrar la página «desnuda» un instante y luego saltar.\n• Las imágenes no bloquean la lectura del HTML: la página se arma y las imágenes van llegando a sus huecos.\n• Si un recurso secundario falla (un 404 en una imagen o en el CSS), la página principal sigue viva pero coja: por eso «la página carga» y «la página carga bien» son dos diagnósticos distintos."
   },
   {
    "page": 9,
    "kind": "definition",
    "title": "9.1. Caché: la copia que ahorra el viaje",
-   "body": "Definición: la caché del navegador es un almacén local donde se guardan copias de recursos ya descargados (imágenes, CSS, scripts, fuentes) para no volver a pedirlos en la siguiente visita. Quién manda sobre ella es el servidor, con la cabecera Cache-Control y los tiempos de vida que declara para cada recurso.\n\nCómo se cruza con lo ya explicado en este tema:\n• Segunda visita con caché vigente: el navegador puede ni siquiera preguntar (la fila sale en Network como «from memory/disk cache»), o preguntar «¿sigue buena mi copia?» y recibir un 304 sin cuerpo.\n• Recarga normal: respeta la caché. Recarga forzada (Ctrl + Shift + R): ignora la caché y lo pide todo de nuevo. Cuando «el cambio no se ve», la primera sospecha es esta: lo que se ve es la copia guardada, no el archivo nuevo."
+   "body": "Definición: la caché del navegador es un almacén local donde se guardan copias de recursos ya descargados (imágenes, CSS, scripts, fuentes) para no volver a pedirlos en la siguiente visita. Quién manda sobre ella es el **servidor**, con la cabecera Cache-Control y los tiempos de vida que declara para cada recurso.\n\nCómo se cruza con lo ya explicado en este tema:\n• Segunda visita con caché vigente: el navegador puede ni siquiera preguntar (la fila sale en Network como «from memory/disk cache»), o preguntar «¿sigue buena mi copia?» y recibir un 304 sin cuerpo.\n• Recarga normal: respeta la caché. Recarga forzada (Ctrl + Shift + R): ignora la caché y lo pide todo de nuevo. Cuando «el cambio no se ve», la primera sospecha es esta: lo que se ve es la copia guardada, no el archivo nuevo."
   },
   {
    "page": 9,
    "kind": "definition",
    "title": "9.2. Cookies y sesiones: memoria para un protocolo sin memoria",
-   "body": "HTTP no tiene estado: cada petición llega como si fuera la primera y el servidor, por sí solo, no sabe que se trata de la misma persona de hace un segundo. La web resuelve eso con dos piezas:\n\n• Cookie: un pequeño papelito de texto que el servidor entrega en una respuesta con la cabecera Set-Cookie. El navegador lo guarda por dominio y lo devuelve automáticamente en cada petición siguiente a ese dominio, con la cabecera Cookie.\n• Sesión: los datos de verdad (la identidad, el carrito, los permisos) quedan guardados en el servidor. La cookie solo transporta el identificador de la sesión, una clave sin significado propio, que el servidor usa para encontrar los datos.\n\nAsí se «sigue conectado» al pasar de página en página: no es que el servidor recuerde a la persona, es que el navegador le presenta el identificador en cada petición y él reconstruye el contexto."
+   "body": "**HTTP** no tiene estado: cada **petición** llega como si fuera la primera y el **servidor**, por sí solo, no sabe que se trata de la misma persona de hace un segundo. La web resuelve eso con dos piezas:\n\n• Cookie: un pequeño papelito de texto que el servidor entrega en una **respuesta** con la cabecera Set-Cookie. El navegador lo guarda por dominio y lo devuelve automáticamente en cada petición siguiente a ese dominio, con la cabecera Cookie.\n• Sesión: los datos de verdad (la identidad, el carrito, los permisos) quedan guardados en el servidor. La **cookie** solo transporta el identificador de la sesión, una clave sin significado propio, que el servidor usa para encontrar los datos.\n\nAsí se «sigue conectado» al pasar de página en página: no es que el servidor recuerde a la persona, es que el navegador le presenta el identificador en cada petición y él reconstruye el contexto."
   },
   {
    "page": 9,
    "kind": "warning",
    "title": "REGLA DE ORO DE LAS COOKIES",
-   "body": "La cookie NO guarda la contraseña ni los datos: guarda un identificador. Quien robe ese identificador puede suplantar a la persona sin conocer su contraseña. Por eso las sesiones serias viajan solo por HTTPS, caducan con el tiempo y se invalidan al cerrar sesión."
+   "body": "La **cookie** NO guarda la contraseña ni los datos: guarda un identificador. Quien robe ese identificador puede suplantar a la persona sin conocer su contraseña. Por eso las sesiones serias viajan solo por **HTTPS**, caducan con el tiempo y se invalidan al cerrar sesión."
   },
   {
    "page": 10,
    "kind": "definition",
    "title": "10.1. DevTools Network: la radiografía de la página",
-   "body": "La pestaña Network de DevTools registra cada petición que hace la página, en vivo: es la herramienta que convierte todo este tema en algo observable. Ábrela ANTES de recargar, porque solo registra lo que pasa mientras está abierta.\n\nQué mirar en cada fila:\n• Name y URL: qué se pidió y a qué dirección exacta.\n• Status: el código de estado de la respuesta. Las filas en rojo y los 4xx/5xx son la primera pista.\n• Type: qué clase de recurso es (document, stylesheet, script, img, font, fetch/xhr).\n• Size y Time: cuánto pesó y cuánto tardó; ahí se cazan los recursos lentos o gigantes.\n• Waterfall: la franja de tiempo de cada petición; muestra qué esperó a qué y dónde se fue el tiempo de carga.\n\nY en el detalle de una petición: Headers (la petición y la respuesta tal cual viajaron), Preview/Response (el cuerpo recibido) y Timing (el desglose: espera, DNS, conexión, descarga). El flujo de trabajo permanente: algo falla → Network se abre → se busca la fila roja o el código raro → se lee su petición y su respuesta → el eslabón roto aparece."
+   "body": "La pestaña Network de DevTools registra cada **petición** que hace la página, en vivo: es la herramienta que convierte todo este tema en algo observable. Ábrela ANTES de recargar, porque solo registra lo que pasa mientras está abierta.\n\nQué mirar en cada fila:\n• Name y **URL**: qué se pidió y a qué dirección exacta.\n• Status: el **código de estado** de la **respuesta**. Las filas en rojo y los 4xx/5xx son la primera pista.\n• Type: qué clase de recurso es (document, stylesheet, script, img, font, fetch/xhr).\n• Size y Time: cuánto pesó y cuánto tardó; ahí se cazan los recursos lentos o gigantes.\n• Waterfall: la franja de tiempo de cada petición; muestra qué esperó a qué y dónde se fue el tiempo de carga.\n\nY en el detalle de una petición: Headers (la petición y la respuesta tal cual viajaron), Preview/Response (el cuerpo recibido) y Timing (el desglose: espera, **DNS**, conexión, descarga). El flujo de trabajo permanente: algo falla → Network se abre → se busca la fila roja o el código raro → se lee su petición y su respuesta → el eslabón roto aparece."
   },
   {
    "page": 11,
    "kind": "list",
    "title": "Práctica previa · Network y nslookup, paso a paso",
-   "body": "Apertura correcta de Network: un sitio conocido se abre en el navegador, se pulsa `F12`, se entra a la pestaña Network y SOLO entonces se recarga la página. → La lista se llena desde el principio y la primera fila es el documento HTML principal; si la recarga ocurre antes de abrir la pestaña, las primeras peticiones no quedan registradas.\nLectura de una fila de Network: la primera fila se lee por columnas, en orden: nombre del recurso, código de estado, tipo y tiempo. → Con esa lectura se puede decir qué se pidió, qué respondió el servidor y cuánto tardó, que es lo que los ejercicios piden con esta pestaña.\nApertura del detalle de una petición: un clic sobre la fila principal abre su detalle, en la sección Headers. → Allí aparecen el método (`GET`), la URL completa, el código de estado y las cabeceras de la respuesta, cada una con su valor real.\nResolución de un nombre con la terminal: en la terminal se ejecuta `nslookup` con un dominio conocido. → La respuesta trae el servidor DNS que respondió y la dirección IP del dominio: la traducción de nombre a número, ejecutada paso a paso.\nFiltrado de la lista: los filtros de Network (`Img`, `CSS`, `JS`) se activan de uno en uno. → La lista muestra solo ese tipo de recurso y permite contar cuántas peticiones de cada tipo hace una sola página.\nActivación y desactivación de la caché: la opción `Disable cache` se marca y la página se recarga; después se desmarca y la página se recarga dos veces. → Con la caché activa, parte de las filas sale de memoria o responde 304; desactivada, todo vuelve a pedirse al servidor.\nError 404 forzado: a la dirección del sitio se le añade una ruta inventada y la página se carga. → Network registra la petición con código 404 y la pantalla muestra el error del sitio: así se ve el error que los ejercicios piden localizar."
+   "body": "Apertura correcta de Network: un sitio conocido se abre en el navegador, se pulsa `F12`, se entra a la pestaña Network y SOLO entonces se recarga la página. → La lista se llena desde el principio y la primera fila es el documento HTML principal; si la recarga ocurre antes de abrir la pestaña, las primeras peticiones no quedan registradas.\nLectura de una fila de Network: la primera fila se lee por columnas, en orden: nombre del recurso, **código de estado**, tipo y tiempo. → Con esa lectura se puede decir qué se pidió, qué respondió el **servidor** y cuánto tardó, que es lo que los ejercicios piden con esta pestaña.\nApertura del detalle de una **petición**: un clic sobre la fila principal abre su detalle, en la sección Headers. → Allí aparecen el método (`GET`), la **URL** completa, el código de estado y las cabeceras de la **respuesta**, cada una con su valor real.\nResolución de un nombre con la terminal: en la terminal se ejecuta `nslookup` con un dominio conocido. → La respuesta trae el servidor **DNS** que respondió y la dirección **IP** del dominio: la traducción de nombre a número, ejecutada paso a paso.\nFiltrado de la lista: los filtros de Network (`Img`, `CSS`, `JS`) se activan de uno en uno. → La lista muestra solo ese tipo de recurso y permite contar cuántas peticiones de cada tipo hace una sola página.\nActivación y desactivación de la caché: la opción `Disable cache` se marca y la página se recarga; después se desmarca y la página se recarga dos veces. → Con la caché activa, parte de las filas sale de memoria o responde 304; desactivada, todo vuelve a pedirse al servidor.\nError 404 forzado: a la dirección del sitio se le añade una ruta inventada y la página se carga. → Network registra la petición con código 404 y la pantalla muestra el error del sitio: así se ve el error que los ejercicios piden localizar."
   },
   {
    "page": 11,
    "kind": "list",
    "title": "Ejercicios concretos del Tema 2 · Etapa 2: Práctica",
-   "body": "Ejercicio 1 · Disecciona tres URLs: se toman tres enlaces reales de uso diario (una noticia, un producto y un video) y se escribe de cada uno protocolo, subdominio, dominio, puerto visible o por defecto, ruta, parámetros y fragmento si lo tiene; termina explicando qué cambiaría si borraras los parámetros.\nEjercicio 2 · Sigue una resolución DNS: con `nslookup` en la terminal consulta el dominio de la institución y el de un diario conocido; se anota la IP que devuelve cada uno y qué servidor DNS respondió.\nEjercicio 3 · Radiografía en Network: DevTools → Network se abre en tres sitios distintos y se registra la petición principal y cinco recursos de cada uno: nombre, código de estado, tipo y tiempo; marca cuáles vinieron de la caché.\nEjercicio 4 · Caza el error: fuerza un 404 escribiendo una ruta inventada sobre un sitio conocido y registra qué muestra Network (código, tipo y tiempo) y qué es lo que ve el usuario en pantalla.\nEjercicio 5 · GET contra POST: con un ejemplo real de cada uno, se escribe qué datos viajan en la URL en un GET y cuáles viajan en el cuerpo en un POST, y por qué una contraseña jamás debe viajar en un GET.\nEjercicio 6 · El viaje completo: el diagrama del tema es la cadena (URL → DNS → petición → respuesta → render, con caché y cookies donde actúan), y cada tramo lleva su explicación con palabras propias."
+   "body": "Ejercicio 1 · Disecciona tres URLs: se toman tres enlaces reales de uso diario (una noticia, un producto y un video) y se escribe de cada uno protocolo, subdominio, dominio, **puerto** visible o por defecto, ruta, parámetros y fragmento si lo tiene; termina explicando qué cambiaría si borraras los parámetros.\nEjercicio 2 · Sigue una resolución **DNS**: con `nslookup` en la terminal consulta el dominio de la institución y el de un diario conocido; se anota la **IP** que devuelve cada uno y qué **servidor** DNS respondió.\nEjercicio 3 · Radiografía en Network: DevTools → Network se abre en tres sitios distintos y se registra la **petición** principal y cinco recursos de cada uno: nombre, **código de estado**, tipo y tiempo; marca cuáles vinieron de la caché.\nEjercicio 4 · Caza el error: fuerza un 404 escribiendo una ruta inventada sobre un sitio conocido y registra qué muestra Network (código, tipo y tiempo) y qué es lo que ve el usuario en pantalla.\nEjercicio 5 · GET contra POST: con un ejemplo real de cada uno, se escribe qué datos viajan en la **URL** en un GET y cuáles viajan en el cuerpo en un POST, y por qué una contraseña jamás debe viajar en un GET.\nEjercicio 6 · El viaje completo: el diagrama del tema es la cadena (URL → DNS → petición → **respuesta** → render, con caché y cookies donde actúan), y cada tramo lleva su explicación con palabras propias."
   },
   {
    "page": 12,
    "kind": "list",
    "title": "11.1. El flujo completo",
-   "body": "Una URL se escribe o se hace clic en un enlace: el navegador la descompone en protocolo, dominio, ruta, parámetros y fragmento.\nDNS traduce el dominio a una dirección IP; si hay una respuesta en caché y vigente, ni siquiera pregunta.\nEl navegador abre la conexión — con TLS, si es HTTPS — y envía la petición: método, ruta, cabeceras y cuerpo si lo hay.\nEl servidor procesa la petición y responde: código de estado, cabeceras y cuerpo.\nEl navegador lee el cuerpo: construye el DOM y el CSSOM, pide los recursos secundarios que faltan y pinta la página.\nEn cada petición nueva, las cookies devuelven el identificador de sesión y la caché evita repetir viajes innecesarios."
+   "body": "Una **URL** se escribe o se hace clic en un enlace: el navegador la descompone en protocolo, dominio, ruta, parámetros y fragmento.\n**DNS** traduce el dominio a una dirección **IP**; si hay una **respuesta** en caché y vigente, ni siquiera pregunta.\nEl navegador abre la conexión — con TLS, si es **HTTPS** — y envía la **petición**: método, ruta, cabeceras y cuerpo si lo hay.\nEl **servidor** procesa la petición y responde: **código de estado**, cabeceras y cuerpo.\nEl navegador lee el cuerpo: construye el DOM y el CSSOM, pide los recursos secundarios que faltan y pinta la página.\nEn cada petición nueva, las cookies devuelven el identificador de sesión y la caché evita repetir viajes innecesarios."
   },
   {
    "page": 12,
    "kind": "warning",
    "title": "REGLAS CRÍTICAS DE CIERRE",
-   "body": "• Si algo no carga, no se adivina: Network muestra qué petición falló y con qué código.\n• 4xx es error del cliente y 5xx es error del servidor.\n• El fragmento no viaja al servidor y los parámetros sí: lo que se pone en una URL exige cuidado siempre.\n• HTTPS no es opcional cuando hay datos de personas."
+   "body": "• Si algo no carga, no se adivina: Network muestra qué **petición** falló y con qué código.\n• 4xx es error del **cliente** y 5xx es error del **servidor**.\n• El fragmento no viaja al servidor y los parámetros sí: lo que se pone en una **URL** exige cuidado siempre.\n• **HTTPS** no es opcional cuando hay datos de personas."
   }
  ],
  "exercises": [
