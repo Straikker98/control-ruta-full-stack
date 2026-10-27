@@ -1,0 +1,587 @@
+{
+ "week": 11,
+ "levels": {
+  "facil": [
+   {
+    "id": "11-f-01",
+    "prompt": "¿Qué significan las siglas POUR, los cuatro principios de WCAG?",
+    "options": [
+     "Preciso, Ordenado, Uniforme y Responsivo, que describen el diseño visual de una interfaz bien cuidada",
+     "Público, Opcional, Universal y Reutilizable, que describen la licencia y el alcance del contenido",
+     "Perceptible, Operable, Comprensible y Robusto",
+     "Perceptible, Optimizado, Usable y Rápido, que miden sobre todo el rendimiento de la página"
+    ],
+    "answer": 2,
+    "explanation": "POUR agrupa los criterios de WCAG en cuatro principios sobre cómo debe poder percibirse, operarse, entenderse y procesarse el contenido por tecnologías distintas."
+   },
+   {
+    "id": "11-f-02",
+    "prompt": "¿Qué nivel de conformidad de WCAG suele exigir la mayoría de leyes y contratos como objetivo mínimo?",
+    "options": [
+     "A, porque cubre todos los criterios y es el nivel más completo y estricto de todos",
+     "AAA, porque es el único nivel que garantiza que cualquier persona pueda usar el sitio",
+     "AA",
+     "Ninguno: WCAG es solo una recomendación estética y no define niveles de conformidad"
+    ],
+    "answer": 2,
+    "explanation": "A es el mínimo básico y AAA el más estricto, pero no es alcanzable para todo contenido. AA es el objetivo habitual y razonable."
+   },
+   {
+    "id": "11-f-03",
+    "prompt": "¿Para qué sirven los landmarks (regiones) como `<nav>`, `<main>` o `<footer>`?",
+    "options": [
+     "Permiten a un lector de pantalla saltar directamente entre las grandes zonas de la página",
+     "Sirven únicamente para aplicar estilos distintos a cada zona sin necesidad de usar clases CSS",
+     "Sirven para que el navegador cargue cada región por separado y la página rinda más rápido",
+     "Sirven para reservar la zona que luego rellenará JavaScript cuando se renderice la interfaz"
+    ],
+    "answer": 0,
+    "explanation": "Los landmarks exponen la estructura de la página a las tecnologías de apoyo, que ofrecen listas de regiones para navegar rápido."
+   },
+   {
+    "id": "11-f-04",
+    "prompt": "¿Cuántos `<h1>` debería tener una página, según lo recomendado en accesibilidad?",
+    "options": [
+     "Uno por cada sección, para que cada bloque tenga su propio título principal visible",
+     "Ninguno, porque el título ya lo da `<title>` y los encabezados empiezan en `<h2>`",
+     "Uno, que identifica el tema principal de la página",
+     "Tantos como se quiera, mientras el tamaño visual de cada uno sea el mismo"
+    ],
+    "answer": 2,
+    "explanation": "Un único h1 da un punto de partida claro a quien navega por encabezados; el resto de la jerarquía cuelga de él sin saltarse niveles."
+   },
+   {
+    "id": "11-f-05",
+    "prompt": "¿Qué hace el atributo `lang` en `<html lang=\"es\">`?",
+    "options": [
+     "Traduce automáticamente la página al idioma indicado cuando el navegador lo detecta distinto",
+     "Define la codificación de caracteres para que las tildes y la ñ se vean sin errores",
+     "Indica el idioma del contenido para que el lector de pantalla use la pronunciación correcta",
+     "Limita el sitio a visitantes de países donde se habla ese idioma, bloqueando al resto"
+    ],
+    "answer": 2,
+    "explanation": "Sin lang el lector puede leer español con voz inglesa. La codificación se declara con meta charset y nada se traduce solo."
+   },
+   {
+    "id": "11-f-06",
+    "prompt": "¿Para qué sirve un enlace «saltar al contenido» (skip link) al inicio de la página?",
+    "options": [
+     "Para llevar al usuario al final de la página y que vea de inmediato el pie con los datos de contacto",
+     "Para saltarse la cabecera y el menú con el teclado y llegar directo al contenido principal",
+     "Para reiniciar la posición de la página en el inicio cuando se ha desplazado mucho hacia abajo",
+     "Para omitir una animación de introducción que de otro modo bloquearía la carga del contenido"
+    ],
+    "answer": 1,
+    "explanation": "Sin él, cada visita obligaría a tabular por todo el menú. Suele ser el primer elemento enfocable y puede mostrarse solo al recibir foco."
+   },
+   {
+    "id": "11-f-07",
+    "prompt": "¿Cuál es un texto de enlace accesible?",
+    "options": [
+     "«Haz clic aquí», porque indica de forma clara la acción que debe realizar quien lo lee",
+     "«Leer más», porque es corto y encaja bien en cualquier tarjeta del listado de noticias",
+     "«https://sitio.com/informe», porque muestra la dirección exacta a la que se va a navegar",
+     "«Descargar el informe anual 2025 (PDF)»"
+    ],
+    "answer": 3,
+    "explanation": "El texto debe tener sentido fuera de contexto, ya que los lectores listan los enlaces. «Aquí» o «leer más» repetidos no dicen a dónde llevan."
+   },
+   {
+    "id": "11-f-08",
+    "prompt": "¿Cuál de estos elementos es enfocable con teclado de forma nativa?",
+    "options": [
+     "`<button>`",
+     "`<div onclick=\"abrir()\">`, porque tiene un manejador de clic asociado y por tanto es interactivo",
+     "`<span class=\"boton\">`, porque el estilo lo hace parecer un botón para cualquier usuario",
+     "`<p tabindex=\"-1\">`, porque tiene tabindex y por eso entra en el orden normal del Tab"
+    ],
+    "answer": 0,
+    "explanation": "Button, a con href, input, select y textarea son enfocables y activables con teclado sin trabajo extra. El tabindex -1 solo permite foco programático."
+   },
+   {
+    "id": "11-f-09",
+    "prompt": "¿Qué efecto tiene `tabindex=\"0\"` en un elemento?",
+    "options": [
+     "Lo coloca el primero de la página en el orden de tabulación, antes que cualquier otro elemento",
+     "Lo saca del orden de tabulación pero permite enfocarlo con JavaScript mediante `focus()`",
+     "Impide que reciba foco por completo, incluso si se llama a `focus()` desde el código",
+     "Lo incluye en el orden natural de tabulación según su posición en el DOM"
+    ],
+    "answer": 3,
+    "explanation": "tabindex 0 inserta el elemento en el orden natural. Lo que lo quita del Tab pero permite foco programático es -1."
+   },
+   {
+    "id": "11-f-10",
+    "prompt": "¿Para qué se usa `tabindex=\"-1\"`?",
+    "options": [
+     "Para colocar el elemento al final del orden de tabulación, después de todos los demás",
+     "Para desactivar el elemento, de modo que ni el teclado ni el ratón puedan interactuar con él",
+     "Para que el navegador resalte el elemento con un contorno de foco más grueso de lo normal",
+     "Para dar foco por código a un elemento sin que entre en el orden de Tab"
+    ],
+    "answer": 3,
+    "explanation": "Es útil para mover el foco a un encabezado o a un diálogo con JavaScript. No desactiva nada."
+   },
+   {
+    "id": "11-f-11",
+    "prompt": "¿Qué es una trampa de teclado?",
+    "options": [
+     "Un atajo de teclado que dispara una acción destructiva sin pedir confirmación al usuario",
+     "Un campo de formulario que solo acepta teclas numéricas y rechaza el resto de caracteres",
+     "Un menú que solo se abre con el teclado y no responde a clics de ratón ni a toques",
+     "Un componente en el que el foco entra pero no se puede salir usando solo el teclado"
+    ],
+    "answer": 3,
+    "explanation": "Es un fallo grave de operabilidad. El diálogo modal contiene el foco a propósito, pero siempre ofrece salida con Esc o un botón."
+   },
+   {
+    "id": "11-f-12",
+    "prompt": "¿Qué selector aplica estilo de foco solo cuando el navegador considera que hay que mostrarlo (p. ej. navegación con teclado)?",
+    "options": [
+     "`:focus-within`, que se activa cuando el elemento o algún descendiente recibe el foco",
+     "`:focus-visible`",
+     "`:hover`, que se activa cuando el puntero está encima del elemento con el ratón",
+     "`:active`, que se activa mientras se mantiene pulsado el botón del ratón sobre el elemento"
+    ],
+    "answer": 1,
+    "explanation": "focus-visible evita el aro tras un clic de ratón pero lo mantiene para teclado. focus-within mira al contenedor con un descendiente enfocado."
+   },
+   {
+    "id": "11-f-13",
+    "prompt": "¿Cuál es la relación de contraste mínima de WCAG AA para texto normal?",
+    "options": [
+     "4,5:1",
+     "3:1, que es el valor exigido para cualquier texto sin importar su tamaño",
+     "7:1, que es el valor mínimo que se pide en el nivel AA para todo el texto",
+     "2:1, que basta si el texto está en negrita y tiene un tamaño de al menos 14 px"
+    ],
+    "answer": 0,
+    "explanation": "Para texto normal AA pide 4,5:1; el 3:1 es para texto grande y componentes de interfaz; el 7:1 es de AAA."
+   },
+   {
+    "id": "11-f-14",
+    "prompt": "¿Qué regla de WCAG sobre el color se debe cumplir en un formulario con errores?",
+    "options": [
+     "Usar siempre rojo para los errores, porque es el color que todo el mundo reconoce",
+     "No usar solo el color para el estado: añadir además texto o un icono",
+     "Evitar cualquier color en los mensajes de error, ya que el color siempre es inaccesible",
+     "Usar únicamente un borde rojo, ya que es suficiente si el contraste con el fondo es alto"
+    ],
+    "answer": 1,
+    "explanation": "Una persona con daltonismo o con pantalla en escala de grises no distinguiría el estado. El color puede acompañar, pero no ser la única señal."
+   },
+   {
+    "id": "11-f-15",
+    "prompt": "¿Qué valor de `alt` corresponde a una imagen puramente decorativa?",
+    "options": [
+     "`alt=\"imagen\"`, para que el lector avise de que hay una imagen en ese punto",
+     "`alt=\"\"` (vacío)",
+     "Sin el atributo `alt`, porque lo decorativo no necesita ningún atributo especial",
+     "`alt=\"decorativa\"`, para que el usuario sepa que puede ignorar esa imagen"
+    ],
+    "answer": 1,
+    "explanation": "Con alt vacío el lector la omite. Sin el atributo, muchos lectores leen el nombre del archivo, lo que es peor."
+   },
+   {
+    "id": "11-f-16",
+    "prompt": "Según la primera regla de ARIA, ¿qué conviene hacer?",
+    "options": [
+     "Usar un elemento HTML nativo con la semántica deseada antes que añadir ARIA a un genérico",
+     "Añadir siempre roles ARIA a todos los elementos, para que la semántica sea explícita",
+     "Usar ARIA en lugar de HTML nativo, porque ARIA ofrece más control sobre la accesibilidad",
+     "Evitar el uso de ARIA en cualquier circunstancia, porque está obsoleto y es desaconsejado"
+    ],
+    "answer": 0,
+    "explanation": "ARIA solo cambia lo que se anuncia: no añade teclado ni foco. Un `button` ya trae rol, foco y activación con Enter y Espacio."
+   }
+  ],
+  "medio": [
+   {
+    "id": "11-m-01",
+    "prompt": "Este botón abre un menú:\n```html\n<button id=\"b\" aria-controls=\"m\">Menú</button>\n<ul id=\"m\" hidden>…</ul>\n```\nSi el script lo abre y lo cierra, ¿qué atributo falta para anunciar su estado?",
+    "options": [
+     "`aria-expanded` en el botón, con \"true\" o \"false\" según esté abierto o cerrado",
+     "`aria-hidden=\"true\"` en el botón, para que el lector sepa que el menú está cerrado",
+     "`aria-live=\"polite\"` en la lista, para que se lea cada vez que aparezca el menú",
+     "`aria-current=\"true\"` en el botón, para indicar que es el elemento activo del grupo"
+    ],
+    "answer": 0,
+    "explanation": "aria-expanded comunica si el elemento que controla está desplegado. aria-hidden lo ocultaría del árbol de accesibilidad."
+   },
+   {
+    "id": "11-m-02",
+    "prompt": "En la navegación, el enlace de la página donde está el usuario se marca así:\n```html\n<a href=\"/precios\" class=\"activo\">Precios</a>\n```\n¿Cómo se comunica también a los lectores de pantalla?",
+    "options": [
+     "Añadiendo `aria-selected=\"true\"`, que sirve para marcar la página actual en un menú",
+     "Añadiendo `aria-live=\"assertive\"`, para que se anuncie el cambio de página al cargar",
+     "Añadiendo `role=\"link\"`, porque sin él el lector no reconoce el enlace como activo",
+     "Añadiendo `aria-current=\"page\"` al enlace"
+    ],
+    "answer": 3,
+    "explanation": "La clase solo cambia el aspecto. aria-current=\"page\" expone cuál es la página actual; el role=link ya es implícito en `a`."
+   },
+   {
+    "id": "11-m-03",
+    "prompt": "Un contador de carrito se actualiza por JavaScript:\n```html\n<span id=\"n\">0</span> artículos\n```\n¿Qué hace que el cambio se anuncie sin mover el foco?",
+    "options": [
+     "Añadir `aria-hidden=\"true\"` al contador, para que el lector no lo duplique",
+     "Añadir `tabindex=\"0\"` al span, para que el usuario deba tabular hasta él y lo lea",
+     "Añadir `aria-describedby=\"n\"` al propio span, para que se describa a sí mismo al cambiar",
+     "Declarar el contenedor como región viva: `aria-live=\"polite\"`"
+    ],
+    "answer": 3,
+    "explanation": "Las regiones vivas anuncian cambios de contenido. polite espera a que el lector termine; assertive interrumpe y se reserva para urgencias."
+   },
+   {
+    "id": "11-m-04",
+    "prompt": "Este campo no tiene etiqueta asociada:\n```html\n<label>Correo</label>\n<input type=\"email\" id=\"c\">\n```\n¿Cuál es el arreglo correcto?",
+    "options": [
+     "Poner `placeholder=\"Correo\"` en el input y borrar el label, que pasa a ser innecesario",
+     "Enlazarla: `<label for=\"c\">Correo</label>`",
+     "Añadir `title=\"Correo\"` al label, ya que el atributo title lo vincula con el campo",
+     "Poner `aria-hidden=\"true\"` en el label, para evitar que el lector lo lea dos veces"
+    ],
+    "answer": 1,
+    "explanation": "for con el id del input da al campo su nombre accesible y amplía el área de clic. El placeholder desaparece al escribir y no sustituye a una etiqueta."
+   },
+   {
+    "id": "11-m-05",
+    "prompt": "Un grupo de botones de radio muestra solo la pregunta en un `<p>`:\n```html\n<p>Tipo de envío</p>\n<input type=\"radio\" name=\"e\"> Normal\n<input type=\"radio\" name=\"e\"> Express\n```\n¿Qué estructura lo agrupa correctamente?",
+    "options": [
+     "Envolver los radios en un `<div>` con la clase `grupo` y estilar la pregunta en negrita",
+     "Poner `aria-live=\"polite\"` en el `<p>`, para que el lector anuncie la pregunta",
+     "Envolver los radios en `<fieldset>` y usar `<legend>Tipo de envío</legend>`",
+     "Añadir `tabindex=\"0\"` al `<p>`, para que el foco pase primero por la pregunta"
+    ],
+    "answer": 2,
+    "explanation": "fieldset/legend hace que el lector anuncie la pregunta junto a cada opción. Un div con clase solo da forma visual."
+   },
+   {
+    "id": "11-m-06",
+    "prompt": "Un campo pide datos personales:\n```html\n<label for=\"t\">Teléfono</label>\n<input id=\"t\" type=\"tel\">\n```\n¿Qué atributo ayuda a rellenarlo automáticamente?",
+    "options": [
+     "`autocomplete=\"tel\"`",
+     "`aria-autocomplete=\"tel\"`, que le dice al navegador que rellene el campo con el teléfono guardado",
+     "`name=\"autofill\"`, ya que ese nombre activa el relleno automático en todos los navegadores",
+     "`placeholder=\"tel\"`, porque el navegador lo interpreta como una pista para rellenar"
+    ],
+    "answer": 0,
+    "explanation": "autocomplete con un token estándar (WCAG 1.3.5) ayuda a quienes tienen dificultades motrices o cognitivas. aria-autocomplete es otra cosa, para widgets de sugerencias."
+   },
+   {
+    "id": "11-m-07",
+    "prompt": "Un error de validación aparece bajo el campo:\n```html\n<input id=\"e\" type=\"email\">\n<p id=\"err\">Escribe un correo válido</p>\n```\n¿Cómo se asocia el mensaje al campo?",
+    "options": [
+     "`aria-describedby=\"err\"` en el input (y `aria-invalid=\"true\"` cuando falle)",
+     "`aria-labelledby=\"err\"` en el input, porque así el mensaje sustituye al nombre del campo",
+     "`aria-hidden=\"true\"` en el párrafo, para que el lector lo lea solo desde el campo",
+     "`role=\"tooltip\"` en el párrafo, porque ese rol lo vincula automáticamente al campo anterior"
+    ],
+    "answer": 0,
+    "explanation": "describedby añade una descripción al nombre accesible sin reemplazarlo. labelledby cambiaría el nombre del campo por el del error."
+   },
+   {
+    "id": "11-m-08",
+    "prompt": "Este icono es un botón sin texto:\n```html\n<button><svg>…</svg></button>\n```\n¿Cómo se le da un nombre accesible?",
+    "options": [
+     "Con `alt=\"Cerrar\"` en el botón, porque alt asigna nombre a cualquier elemento",
+     "Con `title=\"\"` vacío en el svg, porque así el lector lo reconoce como interactivo",
+     "Con `aria-hidden=\"true\"` en el botón, para que el lector lo anuncie por su rol",
+     "Con `aria-label=\"Cerrar\"` en el botón (o texto visualmente oculto dentro)"
+    ],
+    "answer": 3,
+    "explanation": "Sin nombre, el lector dice solo «botón». alt solo vale para imágenes y entradas de imagen; aria-hidden quitaría el botón del árbol."
+   },
+   {
+    "id": "11-m-09",
+    "prompt": "Una ola de fondo se añade así:\n```html\n<img src=\"ola.svg\" alt=\"ola azul decorativa en la parte inferior\">\n```\n¿Qué corrección aplica?",
+    "options": [
+     "Dejar el `alt` descriptivo, porque cuanto más detallado sea, más accesible resulta",
+     "Usar `alt=\"\"`, porque la imagen no aporta información",
+     "Quitar el atributo `alt`, ya que los lectores omiten solos las imágenes sin él",
+     "Cambiar a `alt=\"imagen\"`, que es la forma estándar de avisar de una imagen decorativa"
+    ],
+    "answer": 1,
+    "explanation": "El texto alternativo debe cumplir una función. Lo decorativo se silencia con alt vacío; quitarlo hace que algunos lectores lean el nombre del archivo."
+   },
+   {
+    "id": "11-m-10",
+    "prompt": "Un botón se estiliza así:\n```css\nbutton:focus { outline: none; }\n```\n¿Qué problema crea y cómo se arregla?",
+    "options": [
+     "Quita el indicador de foco al teclado; se arregla con un estilo visible como `button:focus-visible { outline: 3px solid #1a4fd6; }`",
+     "No crea problema alguno, porque el borde del botón ya indica el foco por sí mismo en cualquier navegador",
+     "Solo afecta a quienes usan ratón, así que no hace falta sustituir el contorno por otra cosa",
+     "Rompe el orden de tabulación; se arregla añadiendo `tabindex=\"1\"` a todos los botones"
+    ],
+    "answer": 0,
+    "explanation": "Sin indicador visible quien usa teclado no sabe dónde está (WCAG 2.4.7). Se puede ocultar para el ratón pero ofreciendo un estilo con focus-visible."
+   },
+   {
+    "id": "11-m-11",
+    "prompt": "Una página tiene estos tabindex:\n```html\n<a href=\"/a\" tabindex=\"3\">A</a>\n<a href=\"/b\">B</a>\n<a href=\"/c\" tabindex=\"1\">C</a>\n```\n¿En qué orden tabula el navegador?",
+    "options": [
+     "A, B y C, porque el orden de tabulación siempre sigue el orden del DOM e ignora el tabindex",
+     "A, C y B: los valores positivos se atienden en el orden en que aparecen en el DOM",
+     "C, A y B: los positivos van primero (de menor a mayor) y luego el resto en orden del DOM",
+     "B, C y A: primero los elementos sin tabindex y luego los que tienen un valor positivo"
+    ],
+    "answer": 2,
+    "explanation": "Los tabindex positivos saltan por delante de todo y generan un orden confuso, por eso se evitan: se reordena el DOM en vez de eso."
+   },
+   {
+    "id": "11-m-12",
+    "prompt": "Un modal se abre con este JS, pero el foco sigue detrás:\n```js\nmodal.hidden = false;\n```\n¿Qué falta para accesibilidad con teclado?",
+    "options": [
+     "Añadir `tabindex=\"5\"` al modal para que tabule antes que el resto de la página",
+     "Añadir `aria-live=\"assertive\"` a `body`, para que se lea el contenido del modal",
+     "Mover el foco al diálogo al abrir y devolverlo al botón que lo abrió al cerrar",
+     "Nada: el navegador lleva solo el foco al primer elemento visible nuevo que aparezca"
+    ],
+    "answer": 2,
+    "explanation": "El foco no se mueve solo al mostrar contenido. Hay que gestionarlo y, al cerrar, devolverlo al disparador para no perder la posición."
+   },
+   {
+    "id": "11-m-13",
+    "prompt": "En CSS se fija el texto así:\n```css\nhtml { font-size: 14px; }\nh1 { font-size: 24px; }\n```\nQuien aumenta el tamaño de letra del navegador no ve cambios. ¿Qué cambio lo respeta?",
+    "options": [
+     "Cambiar a `px` más grandes, ya que los píxeles siempre se escalan con el zoom del navegador",
+     "Definir tamaños en `rem` (p. ej. `h1 { font-size: 1.5rem; }`) y dejar la base en 100 %",
+     "Añadir `user-scalable=no` en el meta viewport para controlar mejor la escala",
+     "Usar `vw` solo en los títulos, porque se ajustan al ancho y nunca dependen del usuario"
+    ],
+    "answer": 1,
+    "explanation": "Los px fijados en html ignoran la preferencia de tamaño de letra; rem parte de la base del usuario. Bloquear el zoom además vulnera WCAG."
+   },
+   {
+    "id": "11-m-14",
+    "prompt": "Estos enlaces pequeños del pie miden 16×16 px sin separación:\n```css\n.pie a { display:inline-block; width:16px; height:16px; margin:0; }\n```\n¿Qué criterio de WCAG 2.2 AA incumple y cómo se corrige?",
+    "options": [
+     "Contraste mínimo de 4,5:1; se corrige oscureciendo el color de fondo del pie de página",
+     "Reflow a 400 %; se corrige pasando el pie a una sola columna con `flex-wrap`",
+     "Tamaño mínimo del objetivo (24×24 px); se corrige con `min-width: 24px; min-height: 24px;`",
+     "Foco visible; se corrige añadiendo `outline: none` a los enlaces para que no se solapen"
+    ],
+    "answer": 2,
+    "explanation": "WCAG 2.2 (2.5.8) pide objetivos de al menos 24×24 px CSS, o suficiente separación. Un objetivo mayor también ayuda con el temblor o pantallas táctiles."
+   },
+   {
+    "id": "11-m-15",
+    "prompt": "Una animación de entrada se declara así:\n```css\n.hero { animation: deslizar 1.2s ease; }\n```\n¿Cómo se respeta a quien pide menos movimiento en su sistema?",
+    "options": [
+     "Con `@media (prefers-color-scheme: dark) { .hero { animation: none; } }`, que detecta esa preferencia",
+     "Con `@media (hover: none) { .hero { animation: none; } }`, que apaga la animación en táctiles",
+     "Con `animation-duration: 0s` en todos los casos, porque nadie necesita ver animaciones",
+     "Con `@media (prefers-reduced-motion: reduce) { .hero { animation: none; } }`"
+    ],
+    "answer": 3,
+    "explanation": "prefers-reduced-motion refleja la opción del sistema operativo. Las otras consultas miden tema o tipo de puntero, no el movimiento."
+   },
+   {
+    "id": "11-m-16",
+    "prompt": "Un enlace interno y su destino:\n```html\n<a href=\"#com\">Ir a comentarios</a>\n<section id=\"com\"><h2>Comentarios</h2></section>\n```\nEn algunos navegadores el foco no se mueve al saltar. ¿Qué mejora ayuda?",
+    "options": [
+     "Dar `tabindex=\"0\"` a la sección, para que aparezca en el orden de Tab de todos modos",
+     "Darle `tabindex=\"-1\"` al destino y llamar a `focus()` tras el salto",
+     "Quitar el `id` del destino y usar el atributo `name` en la sección para la ancla",
+     "Poner `aria-hidden=\"true\"` en el resto de la página mientras dure el salto"
+    ],
+    "answer": 1,
+    "explanation": "Un elemento no interactivo solo recibe foco programático con tabindex -1. Con 0 se añadiría innecesariamente al orden de tabulación."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "11-d-01",
+    "prompt": "Al ampliar la página al 200 % en un móvil, el usuario debe desplazarse en horizontal para leer cada línea. ¿Cuál es la causa más probable?",
+    "options": [
+     "Anchos fijos en px en contenedores (p. ej. `width: 960px`) que impiden reajustar el contenido",
+     "Falta `lang` en el elemento html, lo que impide que el navegador reajuste el texto al ampliar",
+     "Se usó rem para los tamaños de letra, y rem desactiva el reajuste del diseño cuando el usuario amplía la página",
+     "El contraste del texto es inferior a 4,5:1, lo que obliga al navegador a ensanchar la página para compensar"
+    ],
+    "answer": 0,
+    "explanation": "El reflow (WCAG 1.4.10) exige que el contenido se adapte a 320 px de ancho equivalente sin scroll en dos dimensiones. Los anchos rígidos lo rompen."
+   },
+   {
+    "id": "11-d-02",
+    "prompt": "Una persona con lector de pantalla oye solo «botón» al llegar a un icono. El código es `<button><i class=\"ico-x\"></i></button>`. ¿Qué falla?",
+    "options": [
+     "Falta `role=\"button\"` en el elemento, y por eso el lector lo anuncia de forma incompleta",
+     "Falta `tabindex=\"0\"` en el botón, y por ello el lector no puede decir cuál es su función ni su estado",
+     "El icono usa una clase CSS, y los lectores no pueden leer ningún elemento que dependa de clases de estilo",
+     "El botón no tiene nombre accesible, porque el icono es una fuente o fondo sin texto alternativo"
+    ],
+    "answer": 3,
+    "explanation": "El rol ya existe por ser `button`; lo que falta es el nombre. Se corrige con aria-label o texto oculto visualmente."
+   },
+   {
+    "id": "11-d-03",
+    "prompt": "Un menú desplegable hecho con `<div>` se abre con clic, pero quien usa teclado no puede llegar a él con Tab. ¿Cuál es el mejor arreglo?",
+    "options": [
+     "Añadir `role=\"button\"` y `aria-label` al div, con lo que el teclado funcionará de inmediato",
+     "Añadir `tabindex=\"-1\"` al div, para que quede disponible al pulsar la tecla Tab en el orden normal de la página",
+     "Sustituir el `div` por un `<button>` que gestione el despliegue, con `aria-expanded`",
+     "Añadir `onmouseover` al div, para que el menú se abra también al pasar el puntero y así quede cubierto el teclado"
+    ],
+    "answer": 2,
+    "explanation": "El rol ARIA no da foco ni activación con Enter/Espacio. Un button nativo lo trae todo; es lo que dice la primera regla de ARIA."
+   },
+   {
+    "id": "11-d-04",
+    "prompt": "Los títulos de la página salen como `<h1>`, `<h4>`, `<h2>` según el tamaño visual deseado. Un usuario de lector que navega por encabezados se pierde. ¿Causa y arreglo?",
+    "options": [
+     "Faltan los landmarks; basta con envolver cada encabezado en un `<nav>` para que el lector los ordene por nivel",
+     "Se eligen los niveles por apariencia; hay que usar una jerarquía lógica y dar el tamaño con CSS",
+     "Hay demasiados `h1`; se arregla convirtiendo todos los encabezados en `h2` para igualar el nivel de todos",
+     "El lector ignora los encabezados HTML; hay que usar `role=\"heading\"` en todos los `div` de la página"
+    ],
+    "answer": 1,
+    "explanation": "El nivel expresa estructura, no tamaño. El aspecto se controla con CSS."
+   },
+   {
+    "id": "11-d-05",
+    "prompt": "Tras un envío fallido, aparece un mensaje rojo sobre el formulario, pero un usuario ciego no se entera. El HTML es `<div class=\"err\">Revisa los campos</div>` insertado por JS. ¿Qué lo causa?",
+    "options": [
+     "El mensaje se inserta dinámicamente sin región viva ni foco, así que el lector no lo anuncia",
+     "El color rojo no tiene suficiente contraste, y por eso el lector se niega a leer en voz alta un texto tan poco visible",
+     "La clase `err` está reservada por el navegador, y el lector ignora cualquier elemento que la use en la página",
+     "Falta `lang` en el div, y sin él el lector no lee mensajes que cambian en la página"
+    ],
+    "answer": 0,
+    "explanation": "Un cambio de DOM no se anuncia solo. Se resuelve con role=\"alert\"/aria-live o moviendo el foco al resumen de errores."
+   },
+   {
+    "id": "11-d-06",
+    "prompt": "En un formulario, el único indicador de campo con error es el color rojo del borde. Una persona con daltonismo dice que no distingue cuáles fallan. ¿Qué se incumple?",
+    "options": [
+     "Contraste de texto: hay que subir el borde a 7:1 y quedará resuelto en todos los casos, también para el daltonismo",
+     "Foco visible: el borde rojo debería ser un contorno de foco más grueso y con mayor separación del campo",
+     "Reflow: el formulario debería pasar a una sola columna en pantallas estrechas para que se lea mejor",
+     "Uso del color: no se debe transmitir información solo con el color; hay que añadir texto o símbolo"
+    ],
+    "answer": 3,
+    "explanation": "El criterio 1.4.1 pide una señal adicional al color. Subir el contraste no ayuda a quien no distingue el tono."
+   },
+   {
+    "id": "11-d-07",
+    "prompt": "Un diálogo se abre, pero con Tab el foco escapa a la página de fondo y no se vuelve con facilidad. ¿Cuál es el diagnóstico?",
+    "options": [
+     "Hay una trampa de teclado: el foco queda atrapado dentro del diálogo y no puede salir nunca",
+     "Falta `tabindex=\"1\"` en el diálogo, para que sea siempre el primero de la página en el orden de Tab",
+     "El modal no contiene el foco: falta confinarlo (con `<dialog>` modal o `inert` en el fondo) y devolverlo al cerrar",
+     "El diálogo debería tener `aria-live=\"assertive\"`, y con eso el foco se mantendrá dentro"
+    ],
+    "answer": 2,
+    "explanation": "Es lo contrario de una trampa: el foco se escapa. Un modal debe contener el foco y ofrecer salida con Esc."
+   },
+   {
+    "id": "11-d-08",
+    "prompt": "Al pulsar Tab por un formulario, el foco salta de un lado a otro de forma caótica. El CSS usa `order` en flex y posiciones absolutas para recolocar campos. ¿Causa?",
+    "options": [
+     "El orden visual difiere del orden del DOM, y el foco sigue el DOM; hay que reordenar el HTML",
+     "El navegador ordena el foco por el tamaño del elemento, así que hay que igualar los tamaños de todos los campos",
+     "Falta `tabindex=\"0\"` en todos los campos, y eso provoca que el navegador elija un orden aleatorio",
+     "El foco sigue el orden de las reglas CSS, así que hay que reescribir y reordenar toda la hoja de estilo"
+    ],
+    "answer": 0,
+    "explanation": "Tab sigue el DOM, no la posición. Un orden de foco que no coincide con el visual vulnera WCAG 2.4.3."
+   },
+   {
+    "id": "11-d-09",
+    "prompt": "Un auditor señala que un enlace «Perfil» del menú tiene `aria-hidden=\"true\"`: el lector no lo anuncia, pero Tab sí aterriza en él. ¿Qué ocurre?",
+    "options": [
+     "aria-hidden desactiva el elemento por completo, también para el teclado, así que el auditor se equivoca",
+     "aria-hidden quita el elemento del árbol de accesibilidad pero lo deja enfocable: un foco fantasma que debe eliminarse",
+     "aria-hidden solo oculta el elemento a la vista, y por eso el lector aún debería leerlo con normalidad",
+     "Es el comportamiento correcto, porque aria-hidden es la forma estándar de ocultar enlaces secundarios"
+    ],
+    "answer": 1,
+    "explanation": "Nunca pongas aria-hidden en algo enfocable: el foco aterriza en algo que el lector no anuncia. Para ocultar de verdad se usa `hidden` o `inert`."
+   },
+   {
+    "id": "11-d-10",
+    "prompt": "Un sitio usa texto gris claro `#999` sobre blanco (contraste ≈ 2,8:1) y pasa una auditoría automática. ¿Qué conclusión es correcta?",
+    "options": [
+     "Cumple AA, porque 2,8:1 supera el mínimo de 3:1 que se pide para cualquier texto",
+     "Cumple AA, porque el contraste solo se exige en texto grande o en negrita y no en el cuerpo del texto",
+     "No cumple, pero basta con ampliar la fuente a 14 px para que pase automáticamente",
+     "No cumple AA para texto normal (4,5:1); la herramienta no lo detectó, y hay que oscurecer el gris"
+    ],
+    "answer": 3,
+    "explanation": "Con 2,8:1 no se llega ni al 3:1 de texto grande. Además, las herramientas automáticas cubren solo parte de los criterios."
+   },
+   {
+    "id": "11-d-11",
+    "prompt": "Al hacer zoom de texto al 200 %, un botón con altura fija recorta el texto. El código es `.btn { height: 32px; overflow: hidden; }`. ¿Cómo se corrige?",
+    "options": [
+     "Aumentar la altura fija a 48 px, que bastará para cualquier tamaño de letra que el usuario elija",
+     "Añadir `aria-label` al botón, y así el texto recortado se anuncia entero y el problema deja de existir",
+     "Quitar la altura fija y usar `min-height` con `padding` relativo, sin recortar el texto",
+     "Añadir `user-scalable=no` en el meta viewport para evitar que el texto crezca"
+    ],
+    "answer": 2,
+    "explanation": "Alturas fijas con overflow rompen al crecer el texto (WCAG 1.4.4/1.4.12). Un valor mayor sigue siendo fijo y falla con más zoom."
+   },
+   {
+    "id": "11-d-12",
+    "prompt": "Un lector no anuncia ninguna etiqueta para este campo: `<input type=\"text\" name=\"buscar\" id=\"buscar\">`, sin label ni aria-label. ¿Cuál es el diagnóstico?",
+    "options": [
+     "El lector toma el `id` como nombre del campo, así que lo anunciaría como «buscar»",
+     "El input no tiene nombre accesible: `name` e `id` no cuentan, y hay que añadir un `<label for>`",
+     "El tipo `text` implica el nombre accesible «texto», que es válido y suficiente para cumplir AA en el formulario",
+     "Basta con `name=\"buscar\"`, porque el lector lo usa como nombre accesible por defecto en todos los casos"
+    ],
+    "answer": 1,
+    "explanation": "El nombre accesible sale de label, aria-label/labelledby o, en último recurso, title/placeholder. id y name no cuentan."
+   },
+   {
+    "id": "11-d-13",
+    "prompt": "En una auditoría, un hallazgo es que quien usa teclado no puede completar la compra porque el botón «Pagar» no es enfocable. ¿Qué gravedad se le asigna y por qué?",
+    "options": [
+     "Baja: afecta a pocas personas y la compra puede hacerse con el ratón",
+     "Informativa: es una mejora deseable que se puede planificar con calma para otro trimestre del año",
+     "Crítica o alta: bloquea una tarea esencial a un grupo de usuarios sin alternativa",
+     "Baja: el botón se ve correctamente y la apariencia es lo que importa a la mayoría de la gente"
+    ],
+    "answer": 2,
+    "explanation": "La gravedad se mide por el impacto: bloquear una tarea clave sin vía alternativa es de las peores. «Con el ratón» no es alternativa para quien no puede usarlo."
+   },
+   {
+    "id": "11-d-14",
+    "prompt": "Una herramienta automática da 0 errores, pero un recorrido manual con teclado revela que no se ve dónde está el foco y que un menú atrapa el teclado. ¿Qué lección aplica?",
+    "options": [
+     "Las herramientas automáticas detectan solo una parte; hay que complementar con revisión manual con teclado y lector",
+     "La herramienta es la prueba definitiva de conformidad, así que los hallazgos manuales son falsas alarmas",
+     "El teclado no forma parte de WCAG, que se centra solo en lectores de pantalla y en el contraste",
+     "Cero errores significa conformidad AAA, y los problemas manuales pertenecen al nivel A"
+    ],
+    "answer": 0,
+    "explanation": "Las pruebas automáticas cubren una fracción de los criterios (foco, orden y trampas requieren revisión humana). Por eso la auditoría incluye pasos manuales."
+   },
+   {
+    "id": "11-d-15",
+    "prompt": "Un usuario con lector oye «Enlace, aquí» doce veces al listar los enlaces de la página de noticias. ¿Cuál es el problema y la solución?",
+    "options": [
+     "Hay demasiados enlaces; basta con ponerles `tabindex=\"-1\"` para que el lector los omita",
+     "El texto de enlace carece de contexto; se escribe un texto descriptivo propio de cada destino",
+     "Falta `lang`; con el idioma declarado el lector elegirá por sí mismo un texto mejor para cada enlace",
+     "Los enlaces deberían ser botones, porque un botón siempre tiene un nombre más descriptivo que un enlace"
+    ],
+    "answer": 1,
+    "explanation": "Los lectores listan enlaces fuera de contexto. Cada uno debe explicar su destino (WCAG 2.4.4)."
+   },
+   {
+    "id": "11-d-16",
+    "prompt": "Tras añadir `<div role=\"button\">Guardar</div>`, el equipo asegura que ya es accesible, pero Enter y Espacio no lo activan. ¿Qué explica el fallo?",
+    "options": [
+     "El rol button exige mayúsculas en el texto interno y un icono, así que Guardar debe cambiarse",
+     "Falta `aria-live=\"polite\"`, y sin él el rol button no admite ninguna activación por teclado",
+     "Los lectores desactivan el teclado en los roles ARIA y obligan a usar solo el ratón o el toque",
+     "ARIA solo cambia la semántica: hay que añadir `tabindex=\"0\"` y manejadores de teclado, o mejor usar `<button>`"
+    ],
+    "answer": 3,
+    "explanation": "ARIA no añade comportamiento. De ahí la primera regla: preferir el elemento nativo que ya trae foco y teclado."
+   }
+  ]
+ }
+}

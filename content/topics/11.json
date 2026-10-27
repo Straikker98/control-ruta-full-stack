@@ -1,11 +1,547 @@
 {
  "week": 11,
- "estado": "pendiente",
- "sections": [],
- "exercises": [],
+ "estado": "completo",
+ "sections": [
+  {
+   "page": 1,
+   "kind": "heading",
+   "title": "1.1. Accesibilidad: que cualquier persona pueda usar la página",
+   "body": "Accesibilidad web es la práctica de construir páginas que puedan percibir, entender, recorrer y operar personas con capacidades distintas, y también personas en situaciones adversas: una pantalla con reflejo de sol, un brazo enyesado, una conexión lenta o un ratón dañado.\n\n• Discapacidad visual: ceguera, baja visión, daltonismo. Se apoya en lectores de pantalla, zoom y alto contraste.\n• Discapacidad motriz: temblor, parálisis, amputación. Se apoya en el teclado, en interruptores y en control por voz.\n• Discapacidad auditiva: sordera total o parcial. Necesita subtítulos y transcripciones.\n• Discapacidad cognitiva: dislexia, déficit de atención, memoria limitada. Necesita lenguaje claro, orden predecible y pocas distracciones.\n• Situaciones temporales y circunstanciales: una mano ocupada con un bebé, luz intensa, ruido, cansancio."
+  },
+  {
+   "page": 1,
+   "kind": "definition",
+   "title": "1.2. Los cuatro principios: perceptible, operable, comprensible, robusto",
+   "body": "Definición: las Pautas de Accesibilidad para el Contenido Web (WCAG, publicadas por el W3C) se organizan en cuatro principios, conocidos por sus siglas en inglés como POUR.\n\n• Perceptible: la información se presenta de formas que la persona puede percibir con al menos un sentido. Ejemplo: toda imagen con significado tiene texto alternativo.\n• Operable: todo lo interactivo se maneja sin depender de un ratón, con tiempo suficiente y sin provocar molestias físicas. Ejemplo: todo enlace y botón se alcanza con el teclado.\n• Comprensible: el contenido y el funcionamiento son predecibles y claros. Ejemplo: un error de formulario dice qué falló y cómo corregirlo.\n• Robusto: el código es interpretable por navegadores y tecnologías de apoyo actuales y futuras. Ejemplo: HTML semántico válido en lugar de contenedores genéricos."
+  },
+  {
+   "page": 1,
+   "kind": "table",
+   "title": "Tabla — niveles de conformidad de WCAG",
+   "body": "Nivel | Qué exige | Uso habitual\nA | Lo mínimo imprescindible; sin esto hay barreras totales | Punto de partida\nAA | Contraste suficiente, foco visible, errores descritos, zoom hasta 200 % | Meta de la industria y de la mayoría de leyes\nAAA | Contraste reforzado, lenguaje simplificado, sin límites de tiempo | Aspiracional; no se exige a un sitio completo"
+  },
+  {
+   "page": 1,
+   "kind": "theory",
+   "title": "1.3. WCAG 2.2 y la meta AA",
+   "body": "La versión vigente es WCAG 2.2 (octubre de 2023, norma ISO/IEC 40500:2025). Mantiene los criterios de la 2.1 y añade nueve, entre ellos el foco no oculto, el tamaño mínimo del objetivo táctil (24 por 24 píxeles CSS), los movimientos de arrastre con alternativa y la autenticación accesible.\n\n• La meta práctica de un sitio profesional es el nivel AA completo.\n• Cumplir las pautas no es un estado final: se audita, se corrige y se vuelve a auditar cada vez que el sitio cambia.\n• Una buena parte de la accesibilidad se obtiene gratis al escribir HTML semántico (Tema 3), formularios con etiquetas (Tema 4) y un sistema visual coherente (Tema 10)."
+  },
+  {
+   "page": 1,
+   "kind": "warning",
+   "title": "REGLA FUNDAMENTAL",
+   "body": "La accesibilidad se construye desde el inicio, no se pega al final. Corregir una página terminada cuesta mucho más que escribirla bien, y una herramienta automática sola detecta apenas una parte de los problemas: el resto exige probar a mano con teclado y con ojos críticos."
+  },
+  {
+   "page": 2,
+   "kind": "heading",
+   "title": "2.1. Estructura semántica: el esqueleto que leen las tecnologías de apoyo",
+   "body": "Un lector de pantalla no ve el diseño: recorre el árbol del documento y anuncia lo que encuentra. Una persona ciega suele navegar saltando entre encabezados, regiones y enlaces, de modo que la estructura es su mapa.\n\n• Los elementos semánticos (header, nav, main, footer, section, article, aside) crean regiones llamadas landmarks (puntos de referencia) que se pueden listar y saltar.\n• Un div o un span no dice nada de su función: sin semántica, la página es una lista plana de texto.\n• Cada elemento nativo ya trae rol, nombre, estado y comportamiento de teclado incorporados. Reconstruirlos con contenedores genéricos obliga a programar todo eso a mano."
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.2. Landmarks y encabezados",
+   "body": "Definición: un landmark es una región con nombre que el lector de pantalla ofrece como atajo de navegación; los encabezados h1 a h6 forman el índice del documento.\n\n• Debe existir un único main por página y exactamente un h1.\n• Los niveles de encabezado no se saltan: después de un h2 viene un h3, no un h5. Elegir un encabezado por su tamaño visual y no por su nivel rompe el índice.\n• Si hay dos nav en la misma página, cada uno lleva un nombre propio con aria-label para distinguirlos."
+  },
+  {
+   "page": 2,
+   "kind": "code",
+   "title": "Esqueleto accesible de una página",
+   "body": "```\n<!doctype html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <title>Eventos del mes · Comité Rural</title>\n</head>\n<body>\n  <a class=\"saltar\" href=\"#contenido\">Saltar al contenido</a>\n  <header>\n    <nav aria-label=\"Principal\"> ... </nav>\n  </header>\n  <main id=\"contenido\">\n    <h1>Eventos del mes</h1>\n    <section> <h2>Esta semana</h2> ... </section>\n  </main>\n  <footer> ... </footer>\n</body>\n</html>\n```"
+  },
+  {
+   "page": 2,
+   "kind": "theory",
+   "title": "2.3. Idioma y título de la página",
+   "body": "• El atributo lang del elemento html le indica al lector de pantalla con qué voz y reglas de pronunciación leer. Sin él, un texto en español puede leerse con acento inglés y resultar incomprensible.\n• Un fragmento en otro idioma dentro del texto lleva su propio lang, por ejemplo un término en inglés.\n• El elemento title es lo primero que se anuncia al abrir la página. Debe ser único por página y empezar por lo específico: «Eventos del mes · Comité Rural», no «Página 2»."
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.4. El enlace para saltar al contenido",
+   "body": "Definición: el skip link es un enlace, el primer elemento enfocable de la página, que lleva directamente al main y evita recorrer toda la navegación en cada página nueva.\n\n• Quien usa teclado debería pulsar Tab decenas de veces para pasar un menú extenso; el enlace lo resuelve con una pulsación.\n• Puede permanecer oculto fuera de pantalla y aparecer solo al recibir el foco, sin ocultarse con display none (que lo quitaría del orden de tabulación)."
+  },
+  {
+   "page": 2,
+   "kind": "code",
+   "title": "Skip link que aparece al recibir foco",
+   "body": "```\n.saltar {\n  position: absolute;\n  left: 0.5rem;\n  top: -4rem;            /* fuera de la pantalla */\n  background: #ffffff;\n  color: #1a1a1a;\n  padding: 0.5rem 1rem;\n  border-radius: 0.5rem;\n  z-index: 100;\n}\n.saltar:focus {\n  top: 0.5rem;           /* entra en pantalla al tabular */\n}\n```"
+  },
+  {
+   "page": 2,
+   "kind": "theory",
+   "title": "2.5. Texto de enlace con sentido propio",
+   "body": "Los lectores de pantalla pueden listar todos los enlaces de la página fuera de contexto. Un listado de «Leer más», «Haz clic aquí», «Leer más» no sirve de nada.\n\n• Un enlace describe su destino por sí mismo: «Descargar el calendario de eventos (PDF)».\n• Dos enlaces que llevan a destinos distintos no comparten el mismo texto.\n• El enlace se reconoce también por algo distinto al color: subrayado por defecto, que solo se retira si otra señal visible lo reemplaza."
+  },
+  {
+   "page": 3,
+   "kind": "heading",
+   "title": "3.1. Teclado: la prueba de operabilidad más barata y reveladora",
+   "body": "Todo lo que se hace con un ratón debe poder hacerse con el teclado. Dependen de él personas con discapacidad motriz, usuarios de lectores de pantalla, quienes usan interruptores o control por voz, y cualquiera con el ratón averiado.\n\n• Tab avanza al siguiente elemento interactivo; Mayús + Tab retrocede.\n• Enter activa enlaces y botones; Espacio activa botones, casillas y desplaza la página.\n• Las flechas mueven la selección dentro de grupos de opciones y listas.\n• Escape cierra diálogos y menús desplegados."
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.2. Elementos nativos enfocables",
+   "body": "Definición: un elemento enfocable es el que puede recibir el foco del teclado; el navegador los incluye en el orden de tabulación sin ninguna configuración adicional.\n\n• Son enfocables de fábrica: a con href, button, input, select, textarea, summary y los elementos con atributo tabindex.\n• No lo son: div, span, p, img, li. Un div con un evento de clic funciona con ratón, pero el teclado nunca llega a él.\n• Un button hace lo que un div con roles, tabindex y manejadores de teclado intentaría imitar, y lo hace sin fallos."
+  },
+  {
+   "page": 3,
+   "kind": "code",
+   "title": "El mismo control, bien y mal construido",
+   "body": "```\n<!-- Mal: invisible para teclado y lector de pantalla -->\n<div class=\"boton\" onclick=\"enviar()\">Enviar</div>\n\n<!-- Bien: nativo, enfocable, se activa con Enter y Espacio -->\n<button type=\"button\" class=\"boton\">Enviar</button>\n```\n\nEl segundo cuesta menos, es más corto y trae el nombre «Enviar» y el rol «botón» listos para el lector de pantalla."
+  },
+  {
+   "page": 3,
+   "kind": "warning",
+   "title": "REGLA: botón actúa, enlace navega",
+   "body": "Si el control cambia algo en la misma página (abrir un menú, enviar un formulario, mostrar un panel), es un button. Si lleva a otra dirección, es un a con href. Usar un enlace con href vacío como botón, o un botón para navegar, confunde a quien depende de la voz del lector de pantalla."
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.3. tabindex: tres valores, un solo uso peligroso",
+   "body": "Definición: tabindex es el atributo que controla si un elemento entra en el orden de tabulación y en qué lugar.\n\n• tabindex=\"0\": el elemento entra en el orden natural, según su posición en el HTML. Se usa con excepción, para componentes personalizados.\n• tabindex=\"-1\": el elemento no se alcanza con Tab, pero se le puede dar el foco desde código. Sirve para mover el foco a un título o a un mensaje de error.\n• tabindex positivo (1, 2, 3): fuerza un orden propio y rompe el orden del documento. Está prohibido en la práctica."
+  },
+  {
+   "page": 3,
+   "kind": "theory",
+   "title": "3.4. El orden de tabulación sigue al orden del HTML",
+   "body": "El orden en que se recorre la página con Tab es el orden en que aparecen los elementos en el código, no su posición visual.\n\n• Reordenar con CSS (order en Flexbox, posiciones en Grid, posicionamiento absoluto) cambia lo que se ve pero no el recorrido, y el foco empieza a saltar por la pantalla de forma incoherente.\n• La corrección es escribir el HTML en el orden de lectura y usar CSS solo para la presentación.\n• Los elementos ocultos con display none o visibility hidden salen del orden de tabulación; los desplazados fuera de pantalla con posición negativa no, y quedan como «trampas» invisibles."
+  },
+  {
+   "page": 3,
+   "kind": "theory",
+   "title": "3.5. Trampas de teclado",
+   "body": "Una trampa de teclado ocurre cuando el foco entra a un componente y no puede salir con el teclado. Es un fallo de nivel A.\n\n• Aparece en ventanas modales mal hechas, en reproductores incrustados y en editores de texto enriquecido.\n• Un diálogo modal correcto mantiene el foco dentro mientras está abierto, se cierra con Escape y devuelve el foco al elemento que lo abrió.\n• El elemento nativo dialog abierto con showModal() ya gestiona gran parte de esto."
+  },
+  {
+   "page": 4,
+   "kind": "heading",
+   "title": "4.1. Foco visible: saber dónde se está",
+   "body": "Definición: el indicador de foco es la marca visual que muestra qué elemento recibirá la próxima pulsación del teclado. Sin él, navegar con teclado es caminar a ciegas.\n\n• Los navegadores traen un contorno por defecto. Es feo para muchos diseños, pero funciona.\n• El criterio AA de WCAG exige que el foco sea visible en todo elemento operable.\n• WCAG 2.2 añade que el elemento enfocado no debe quedar totalmente tapado por otros, como una barra fija superior o un aviso de cookies."
+  },
+  {
+   "page": 4,
+   "kind": "warning",
+   "title": "REGLA: nunca outline none sin reemplazo",
+   "body": "La declaración outline: none (o outline: 0) sin otro indicador equivalente es la causa más común de fallo de accesibilidad por teclado. Si se quita el contorno por estética, hay que declarar otro indicador igual de visible en el mismo selector. Quitarlo sin reemplazo deja a toda persona de teclado sin referencia."
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.2. :focus-visible, la pseudoclase correcta",
+   "body": "Definición: :focus-visible aplica estilos de foco solo cuando el navegador decide que el indicador es útil, es decir, al navegar con teclado, y no al hacer clic con el ratón sobre un botón.\n\n• :focus se aplica siempre que el elemento tiene foco, incluso tras un clic.\n• :focus-visible resuelve el viejo conflicto entre diseñadores («el contorno afea el botón») y usuarios de teclado («necesito verlo»).\n• :focus-within aplica al contenedor cuando cualquier hijo tiene foco; sirve para resaltar una tarjeta o un campo completo."
+  },
+  {
+   "page": 4,
+   "kind": "code",
+   "title": "Indicador de foco con tokens del sistema visual",
+   "body": "```\n:root {\n  --foco: #0b57d0;\n}\n\n:focus-visible {\n  outline: 3px solid var(--foco);\n  outline-offset: 3px;\n  border-radius: 0.25rem;\n}\n\n.tarjeta:focus-within {\n  box-shadow: 0 0 0 3px var(--foco);\n}\n```\n\n• outline-offset separa el contorno del borde del elemento y lo hace legible sobre fondos de color.\n• Una definición global con :focus-visible cubre todos los elementos de la página."
+  },
+  {
+   "page": 4,
+   "kind": "theory",
+   "title": "4.3. Criterios de un buen indicador de foco",
+   "body": "• Contraste de al menos 3 a 1 contra los colores adyacentes (el fondo y el propio elemento).\n• Grosor de al menos 2 píxeles CSS; 3 es una cifra segura.\n• Debe distinguirse del estado de hover: son señales independientes, porque el teclado no tiene puntero.\n• Un solo cambio de color sutil (de gris claro a gris un poco más claro) no cumple: el indicador debe notarse sin esfuerzo."
+  },
+  {
+   "page": 5,
+   "kind": "heading",
+   "title": "5.1. Contraste: leer sin esfuerzo",
+   "body": "Definición: la relación de contraste es un número entre 1:1 (sin diferencia) y 21:1 (negro sobre blanco) que mide la diferencia de luminosidad entre el color del texto y el de su fondo.\n\n• La luminosidad relativa de cada color se calcula a partir de sus componentes rojo, verde y azul; la relación es (L1 + 0,05) / (L2 + 0,05), con L1 la luminosidad del color más claro.\n• No se calcula a mano: se usan herramientas (el selector de color de las herramientas de desarrollo, Lighthouse, calculadoras de contraste).\n• Importa a quien tiene baja visión, pero también a cualquiera con una pantalla poco brillante o bajo el sol."
+  },
+  {
+   "page": 5,
+   "kind": "table",
+   "title": "Tabla — umbrales de contraste de WCAG AA",
+   "body": "Elemento | Relación mínima | Observación\nTexto normal | 4,5 a 1 | Menos de 24 px, o de 18,66 px en negrita\nTexto grande | 3 a 1 | 24 px o más, o 18,66 px en negrita o más\nComponentes de interfaz | 3 a 1 | Bordes de campos, iconos con significado, indicador de foco\nTexto decorativo o inactivo | Sin exigencia | Botón deshabilitado, logotipos"
+  },
+  {
+   "page": 5,
+   "kind": "warning",
+   "title": "REGLA: el gris claro sobre blanco casi siempre falla",
+   "body": "Los grises de moda para textos secundarios y placeholders, como #999999 sobre blanco (2,8 a 1), no alcanzan 4,5 a 1. Para texto de lectura sobre fondo blanco, un gris de #595959 es el más claro que aprueba. Antes de aceptar un color en un sistema visual, se mide su relación contra cada fondo en el que aparece."
+  },
+  {
+   "page": 5,
+   "kind": "code",
+   "title": "Pares de color medidos y su resultado",
+   "body": "```\nTexto #1a1a1a sobre #ffffff  → 17,4 a 1  aprueba AA y AAA\nTexto #595959 sobre #ffffff  →  7,0 a 1  aprueba AA y AAA\nTexto #767676 sobre #ffffff  →  4,5 a 1  aprueba AA justo\nTexto #999999 sobre #ffffff  →  2,8 a 1  FALLA\nTexto #ffffff sobre #0b57d0  →  6,9 a 1  aprueba AA\nTexto #ffffff sobre #4f9cf9  →  2,7 a 1  FALLA\n```\n\nCada valor se verifica con una calculadora antes de usarse; las cifras exactas varían unas décimas según la herramienta."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.2. No transmitir información solo con color",
+   "body": "Definición: el criterio de uso del color exige que el color no sea el único medio de señalar un estado, una instrucción o una diferencia.\n\n• Aproximadamente 1 de cada 12 hombres tiene alguna forma de daltonismo; el rojo y el verde son los colores más confundidos.\n• Un campo con error marcado solo con borde rojo no lo percibe quien no distingue el rojo. Se añade un icono, un texto («Error: falta el correo») y un cambio de borde distinto del color.\n• Un gráfico con series de colores se acompaña de etiquetas directas, patrones o formas distintas.\n• Un enlace dentro de un párrafo se distingue por subrayado, no únicamente por ser azul."
+  },
+  {
+   "page": 5,
+   "kind": "theory",
+   "title": "5.3. Modo oscuro y alto contraste",
+   "body": "• El modo oscuro no garantiza contraste: hay que medir otra vez cada par de colores del tema oscuro.\n• El blanco puro sobre negro puro puede cansar y producir halo en personas con astigmatismo; un gris muy claro sobre un gris muy oscuro suele leerse mejor.\n• La media query prefers-color-scheme detecta la preferencia del sistema; prefers-contrast detecta si la persona pidió más contraste."
+  },
+  {
+   "page": 6,
+   "kind": "heading",
+   "title": "6.1. Alternativas textuales para lo que no es texto",
+   "body": "Definición: el atributo alt es el texto que reemplaza a una imagen cuando no puede verse, y es lo que el lector de pantalla anuncia en su lugar.\n\n• Una imagen con información lleva un alt que transmite esa información, no una descripción literal de cada píxel.\n• Una imagen puramente decorativa lleva alt vacío (alt=\"\"): el lector de pantalla la omite por completo.\n• Un alt ausente es peor que uno vacío: el lector anuncia el nombre del archivo, algo como «IMG_4032 punto jpg»."
+  },
+  {
+   "page": 6,
+   "kind": "table",
+   "title": "Tabla — qué escribir en alt según el tipo de imagen",
+   "body": "Tipo de imagen | Valor de alt | Ejemplo\nInformativa | Lo que comunica | alt=\"Estudiantes sembrando café en una finca de Chinchiná\"\nDecorativa | Vacío | alt=\"\"\nEnlace con solo imagen | El destino del enlace | alt=\"Ir al inicio\"\nGráfico con datos | Conclusión principal, con tabla cerca | alt=\"Las ventas subieron 30 % en marzo\"\nImagen con texto | El mismo texto de la imagen | alt=\"Inscripciones abiertas hasta el 30\""
+  },
+  {
+   "page": 6,
+   "kind": "theory",
+   "title": "6.2. Redacción de un buen texto alternativo",
+   "body": "• Conciso: lo normal es una frase corta; si hace falta más, se desarrolla en el texto cercano o en una figcaption.\n• Sin «imagen de» ni «foto de»: el lector ya anuncia que es una imagen.\n• Sin repetir lo que ya dice el texto contiguo: si el pie de foto ya lo describe, el alt puede quedar vacío.\n• Pensado para el contexto: una misma foto de un perro lleva alt distinto en una tienda de mascotas y en una nota sobre vacunación."
+  },
+  {
+   "page": 6,
+   "kind": "code",
+   "title": "Imagen informativa, decorativa y dentro de un enlace",
+   "body": "```\n<img src=\"siembra.jpg\" alt=\"Estudiantes sembrando café en una finca\">\n\n<img src=\"adorno.svg\" alt=\"\" role=\"presentation\">\n\n<a href=\"/\">\n  <img src=\"logo.svg\" alt=\"Comité Rural, ir al inicio\">\n</a>\n\n<figure>\n  <img src=\"grafico.png\" alt=\"Barras: las inscripciones subieron de 40 a 70\">\n  <figcaption>Inscripciones por mes, enero a marzo.</figcaption>\n</figure>\n```"
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.3. Nombre accesible de botones e iconos",
+   "body": "Definición: el nombre accesible es el texto que una tecnología de apoyo anuncia para un control. Se calcula, en orden de prioridad, a partir de aria-labelledby, aria-label, el contenido, el label asociado y el atributo title.\n\n• Un botón que solo contiene un icono no tiene nombre: el lector anuncia «botón» y nada más.\n• Se corrige con texto visualmente oculto o con aria-label. El nombre debe describir la acción: «Cerrar menú», no «X».\n• Un icono SVG decorativo dentro de un botón con texto lleva aria-hidden=\"true\" para no leerse dos veces."
+  },
+  {
+   "page": 6,
+   "kind": "code",
+   "title": "Botón de icono con nombre y clase para texto solo de lector",
+   "body": "```\n<button type=\"button\" aria-label=\"Cerrar menú\">\n  <svg aria-hidden=\"true\" width=\"24\" height=\"24\"> ... </svg>\n</button>\n\n<button type=\"button\">\n  <svg aria-hidden=\"true\"> ... </svg>\n  <span class=\"solo-lector\">Descargar el calendario</span>\n</button>\n\n.solo-lector {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  overflow: hidden;\n  clip-path: inset(50%);\n  white-space: nowrap;\n}\n```"
+  },
+  {
+   "page": 7,
+   "kind": "heading",
+   "title": "7.1. ARIA: un complemento, no un sustituto",
+   "body": "Definición: ARIA (Accessible Rich Internet Applications) es un conjunto de atributos que añaden roles, estados y propiedades a elementos cuando el HTML nativo no alcanza.\n\n• ARIA solo cambia lo que se anuncia: no añade comportamiento. Un div con role=\"button\" sigue sin recibir foco ni responder a Enter.\n• Mal usada, daña: una página con ARIA incorrecta suele ser menos accesible que una sin ARIA."
+  },
+  {
+   "page": 7,
+   "kind": "warning",
+   "title": "PRIMERA REGLA DE ARIA",
+   "body": "Si existe un elemento HTML nativo con el significado y el comportamiento necesarios, se usa ese en lugar de reutilizar otro elemento y añadirle ARIA. Un button, un a, un input, un details o un dialog valen más que cualquier role puesto sobre un div."
+  },
+  {
+   "page": 7,
+   "kind": "table",
+   "title": "Tabla — los atributos ARIA más usados",
+   "body": "Atributo | Función | Ejemplo\naria-label | Da un nombre directo cuando no hay texto visible | aria-label=\"Cerrar\"\naria-labelledby | Toma el nombre de otro elemento por su id | aria-labelledby=\"titulo\"\naria-describedby | Agrega una descripción complementaria | aria-describedby=\"ayuda\"\naria-expanded | Indica si un control desplegable está abierto | aria-expanded=\"true\"\naria-current | Marca el elemento actual de un conjunto | aria-current=\"page\"\naria-hidden | Oculta el elemento de las tecnologías de apoyo | aria-hidden=\"true\"\naria-live | Anuncia cambios dinámicos | aria-live=\"polite\""
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.2. Estados que cambian con JavaScript",
+   "body": "Definición: un estado ARIA refleja una condición que cambia mientras la página está abierta, como abierto o cerrado, seleccionado o actual. El valor debe actualizarse desde JavaScript cada vez que el estado cambie.\n\n• aria-expanded va en el botón que abre o cierra un panel, no en el panel.\n• aria-current=\"page\" marca el enlace de la página actual en una navegación.\n• Un estado que no se actualiza es peor que no declararlo: anuncia lo contrario de lo que ocurre."
+  },
+  {
+   "page": 7,
+   "kind": "code",
+   "title": "Botón que despliega un menú, con su estado",
+   "body": "```\n<button type=\"button\" id=\"abrir\" aria-expanded=\"false\" aria-controls=\"menu\">\n  Menú\n</button>\n<ul id=\"menu\" hidden> ... </ul>\n\n<script>\n  const boton = document.querySelector('#abrir');\n  const menu = document.querySelector('#menu');\n  boton.addEventListener('click', () => {\n    const abierto = boton.getAttribute('aria-expanded') === 'true';\n    boton.setAttribute('aria-expanded', String(!abierto));\n    menu.hidden = abierto;\n  });\n</script>\n```"
+  },
+  {
+   "page": 7,
+   "kind": "theory",
+   "title": "7.3. Regiones vivas: anunciar lo que cambia solo",
+   "body": "• Un cambio de contenido que ocurre sin que la persona haga nada (un mensaje de «Guardado», un contador, un error que aparece) no se anuncia solo: el lector de pantalla no lo nota.\n• aria-live=\"polite\" espera a que el lector termine lo que dice y luego anuncia el cambio. Es el valor normal.\n• aria-live=\"assertive\" (o role=\"alert\") interrumpe de inmediato; se reserva para errores graves.\n• La región viva debe existir en el HTML antes de que cambie su contenido; si se inserta ya con el texto, a menudo no se anuncia."
+  },
+  {
+   "page": 7,
+   "kind": "warning",
+   "title": "REGLA: aria-hidden nunca sobre algo enfocable",
+   "body": "Un elemento con aria-hidden=\"true\" que sigue siendo enfocable con Tab queda en un limbo: el teclado llega a él y el lector de pantalla no dice nada. Lo oculto para tecnologías de apoyo tampoco debe poder recibir foco."
+  },
+  {
+   "page": 8,
+   "kind": "heading",
+   "title": "8.1. Formularios accesibles: cada campo con su etiqueta",
+   "body": "Un formulario es el punto donde más usuarios abandonan y donde más barreras se acumulan. Lo ya aprendido en el Tema 4 es la base: aquí se completa con criterios de accesibilidad.\n\n• Todo campo tiene un label visible asociado con for e id. El placeholder no es una etiqueta: desaparece al escribir y suele tener bajo contraste.\n• Un clic en el label lleva el foco al campo, lo que agranda el área de pulsación.\n• Los grupos de opciones (radios, casillas) se agrupan con fieldset y legend, para que el lector anuncie la pregunta junto con cada opción."
+  },
+  {
+   "page": 8,
+   "kind": "code",
+   "title": "Campo con etiqueta, ayuda y autocompletado",
+   "body": "```\n<div class=\"campo\">\n  <label for=\"correo\">Correo electrónico</label>\n  <input id=\"correo\" name=\"correo\" type=\"email\"\n         autocomplete=\"email\" required\n         aria-describedby=\"correo-ayuda\">\n  <p id=\"correo-ayuda\" class=\"ayuda\">Se usa solo para confirmar la inscripción.</p>\n</div>\n\n<fieldset>\n  <legend>Jornada preferida</legend>\n  <label><input type=\"radio\" name=\"jornada\" value=\"m\"> Mañana</label>\n  <label><input type=\"radio\" name=\"jornada\" value=\"t\"> Tarde</label>\n</fieldset>\n```"
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.2. Mensajes de error que ayudan",
+   "body": "Definición: un mensaje de error accesible identifica el campo con problema, dice en texto qué salió mal y sugiere cómo corregirlo.\n\n• Debe estar asociado al campo con aria-describedby y marcar el campo con aria-invalid=\"true\".\n• Debe aparecer en texto, no solo con color rojo (regla del uso del color).\n• El tono es claro y sin culpar: «Escribe un correo con arroba, como nombre@correo.com», no «Entrada inválida».\n• Al enviar con errores, el foco se mueve al primer campo con error o a un resumen de errores al inicio del formulario."
+  },
+  {
+   "page": 8,
+   "kind": "code",
+   "title": "Campo con error asociado y anunciado",
+   "body": "```\n<label for=\"edad\">Edad</label>\n<input id=\"edad\" name=\"edad\" type=\"number\"\n       aria-invalid=\"true\" aria-describedby=\"edad-error\">\n<p id=\"edad-error\" class=\"error\" role=\"alert\">\n  Error: la edad debe ser un número entre 10 y 99.\n</p>\n\n.error { color: #b3261e; }\ninput[aria-invalid=\"true\"] {\n  border: 2px solid #b3261e;\n}\n```"
+  },
+  {
+   "page": 8,
+   "kind": "table",
+   "title": "Tabla — los estados de un control y cómo se distinguen",
+   "body": "Estado | Cómo se señala sin depender del color | Quién lo percibe\nReposo | Borde visible de 3 a 1 de contraste | Todos\nFoco | Contorno grueso con desplazamiento | Teclado\nHover | Cambio de fondo o subrayado | Ratón\nDeshabilitado | Atributo disabled y apariencia atenuada | Todos y lector\nError | Icono, texto y borde distinto | Todos y lector\nÉxito | Icono y texto «Guardado» | Todos y lector"
+  },
+  {
+   "page": 8,
+   "kind": "theory",
+   "title": "8.3. Tiempo, autocompletado y entradas redundantes",
+   "body": "• autocomplete con los valores estándar (name, email, tel, street-address) ayuda a personas con dificultades motrices o de memoria, y es criterio AA.\n• WCAG 2.2 pide no obligar a escribir otra vez información que la persona ya entregó en el mismo proceso.\n• Un límite de tiempo (una sesión que expira) se avisa y se permite extender.\n• Un captcha que dependa solo de reconocer imágenes o de resolver un acertijo es una barrera: se ofrece una alternativa."
+  },
+  {
+   "page": 9,
+   "kind": "heading",
+   "title": "9.1. Jerarquía visual y legibilidad",
+   "body": "Definición: la jerarquía visual es el orden en que el ojo percibe los elementos de una página, definido por tamaño, peso, color y espacio. Si coincide con la jerarquía del HTML, tanto la persona que ve como la que escucha reciben el mismo orden de importancia.\n\n• Un solo elemento principal por pantalla; las acciones secundarias pesan menos.\n• Texto de lectura de 16 px como mínimo, con una altura de línea de 1,5 y líneas de entre 45 y 75 caracteres.\n• Párrafos alineados a la izquierda: el texto justificado crea ríos de espacio que dificultan la lectura a personas con dislexia.\n• Un mensaje importante se distingue por posición, tamaño y texto, no solo por un color vistoso."
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.2. Zoom y texto ampliable",
+   "body": "Definición: el criterio de cambio de tamaño del texto exige que el contenido se pueda ampliar hasta el 200 % sin perder información ni funciones; el de reajuste (reflow) exige que, a 400 % de zoom, no aparezca desplazamiento horizontal.\n\n• Los tamaños se declaran en rem, no en px, para que respeten la preferencia de tamaño de letra del navegador.\n• Un diseño responsive (Tema 9) con mobile-first cumple casi siempre el reflow: a 400 % de zoom el navegador se comporta como una pantalla de 320 px.\n• Bloquear el zoom con user-scalable=no o maximum-scale=1 en la etiqueta viewport es un fallo."
+  },
+  {
+   "page": 9,
+   "kind": "theory",
+   "title": "9.3. Tamaño de los objetivos táctiles",
+   "body": "• WCAG 2.2 exige un objetivo mínimo de 24 por 24 píxeles CSS (nivel AA), salvo que el espacio alrededor compense.\n• La recomendación de diseño es 44 por 44 píxeles (Apple) o 48 por 48 (Material): evita errores de pulsación con el pulgar.\n• Los enlaces demasiado pegados en una lista obligan a acertar con precisión; se separan con padding, no con márgenes del texto."
+  },
+  {
+   "page": 9,
+   "kind": "code",
+   "title": "Control con área de pulsación cómoda",
+   "body": "```\nbody { font-size: 1rem; line-height: 1.5; }\n\n.boton, nav a {\n  display: inline-flex;\n  align-items: center;\n  min-height: 2.75rem;       /* 44 px */\n  min-width: 2.75rem;\n  padding: 0.5rem 1rem;\n}\n\np { max-width: 70ch; text-align: left; }\n```"
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.4. Movimiento y preferencias del sistema",
+   "body": "Definición: las media queries de preferencias permiten respetar la configuración del sistema operativo de la persona.\n\n• prefers-reduced-motion: reduce indica que la persona pidió menos animación; las animaciones grandes pueden provocar mareo o crisis en personas con trastornos vestibulares.\n• Nada que parpadee más de tres veces por segundo: puede provocar convulsiones en personas con epilepsia fotosensible.\n• Contenido que se mueve o se actualiza solo durante más de 5 segundos (un carrusel automático) ofrece un botón para pausarlo."
+  },
+  {
+   "page": 9,
+   "kind": "code",
+   "title": "Reducir el movimiento si el sistema lo pide",
+   "body": "```\n.tarjeta { transition: transform 0.3s ease; }\n.tarjeta:hover { transform: translateY(-4px); }\n\n@media (prefers-reduced-motion: reduce) {\n  * {\n    animation: none !important;\n    transition: none !important;\n    scroll-behavior: auto !important;\n  }\n}\n```"
+  },
+  {
+   "page": 9,
+   "kind": "theory",
+   "title": "9.5. Diseño inclusivo: lo accesible beneficia a todos",
+   "body": "• Los subtítulos, pensados para personas sordas, se usan en el bus sin audio; el contraste, pensado para baja visión, ayuda bajo el sol.\n• Un buen enfoque parte de los extremos: si algo funciona para quien tiene el uso más limitado, funciona mejor para todos.\n• La inclusión también cubre el lenguaje: frases cortas, palabras de uso común, siglas explicadas la primera vez y botones que dicen lo que hacen."
+  },
+  {
+   "page": 10,
+   "kind": "heading",
+   "title": "10.1. Auditoría manual: el método",
+   "body": "Definición: una auditoría de accesibilidad es una revisión sistemática de una página contra los criterios de WCAG AA, que combina herramientas automáticas y pruebas manuales, y termina en una lista de hallazgos con su corrección.\n\n• Las herramientas automáticas detectan entre 30 y 40 % de los problemas: falta de alt, contraste insuficiente, campos sin label.\n• El resto exige probar a mano: orden de tabulación, foco visible, sentido del texto alternativo, mensajes de error, zoom.\n• Una auditoría se repite después de corregir para confirmar que los arreglos funcionan y no rompieron otra cosa."
+  },
+  {
+   "page": 10,
+   "kind": "list",
+   "title": "Procedimiento de auditoría en siete pasos",
+   "body": "• Paso 1. Pasada automática: Lighthouse (pestaña Lighthouse de las herramientas de desarrollo del navegador) con la categoría Accessibility, y la extensión axe DevTools. Se anotan los fallos.\n• Paso 2. Teclado: se deja el ratón, se pulsa Tab desde el inicio y se recorre la página completa; se verifica orden, foco visible, que nada quede inalcanzable y que ninguna trampa atrape el foco.\n• Paso 3. Estructura: se revisan los encabezados (un h1, niveles sin saltos), los landmarks y el atributo lang.\n• Paso 4. Contraste y color: se miden los pares de color del texto, los bordes de los campos y el indicador de foco; se comprueba que ningún estado dependa solo del color.\n• Paso 5. Imágenes y controles: cada imagen tiene un alt coherente, cada botón de icono tiene nombre y cada campo, su label.\n• Paso 6. Zoom y adaptación: se amplía al 200 % y al 400 %, y se comprueba que no hay pérdida de contenido ni desplazamiento horizontal.\n• Paso 7. Lector de pantalla: se recorre la página con NVDA en Windows (gratuito), VoiceOver en Mac e iPhone, o TalkBack en Android, y se verifica que lo anunciado tenga sentido."
+  },
+  {
+   "page": 10,
+   "kind": "table",
+   "title": "Tabla — herramientas de auditoría y para qué sirve cada una",
+   "body": "Herramienta | Qué revisa | Costo\nLighthouse | Informe automático con puntaje y fallos | Incluida en el navegador\naxe DevTools | Fallos detallados con enlace a la regla | Extensión gratuita\nÁrbol de accesibilidad de DevTools | Nombre, rol y estado de cada elemento | Incluida en el navegador\nWAVE | Superposición visual de errores y alertas | Extensión gratuita\nNVDA | Lectura real con lector de pantalla | Gratuita (Windows)\nSelector de color de DevTools | Relación de contraste de un par de colores | Incluida en el navegador"
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.2. Registrar un hallazgo",
+   "body": "Definición: un hallazgo es una entrada de la auditoría que describe un problema de forma que otra persona pueda reproducirlo y corregirlo sin preguntar.\n\n• Cada hallazgo lleva: dónde está (página y elemento), qué ocurre, a quién afecta, el criterio de WCAG incumplido, la gravedad y la corrección propuesta.\n• La gravedad se ordena por impacto: bloqueante (impide completar una tarea), serio (dificulta mucho), moderado (molesta) y menor.\n• Se corrigen primero los bloqueantes: la ruta de inscripción rota para el teclado pesa más que un alt mejorable."
+  },
+  {
+   "page": 10,
+   "kind": "code",
+   "title": "Plantilla de un hallazgo y su corrección",
+   "body": "```\nHallazgo 3\nDónde:       página de inscripción, botón «Enviar»\nQué ocurre:  es un div con onclick; Tab no llega a él\nAfecta a:    teclado y lector de pantalla\nCriterio:    2.1.1 Teclado (A) y 4.1.2 Nombre, rol, valor (A)\nGravedad:    bloqueante\nCorrección:  <button type=\"submit\">Enviar</button>\nVerificado:  Tab llega al botón; Enter envía el formulario\n```"
+  },
+  {
+   "page": 10,
+   "kind": "theory",
+   "title": "10.3. Corregir, volver a probar y mantener",
+   "body": "• Cada corrección se hace en un commit pequeño con un mensaje claro, como en el Tema 5: «Accesibilidad: botón enviar pasa a button».\n• Tras corregir se repite la prueba que reveló el problema, no solo la herramienta automática.\n• Se vuelve a pasar el informe completo y se compara con el inicial para demostrar la mejora con cifras.\n• La accesibilidad se mantiene: cada componente nuevo pasa por la lista de siete pasos antes de publicarse."
+  },
+  {
+   "page": 10,
+   "kind": "warning",
+   "title": "REGLA: una puntuación de 100 no es sinónimo de accesible",
+   "body": "Un resultado de 100 en Lighthouse solo indica que no se detectó ningún fallo automático. No prueba que el orden de tabulación sea lógico, que los textos alternativos tengan sentido ni que el sitio se entienda con un lector de pantalla. La prueba manual con teclado y lector de pantalla sigue siendo obligatoria."
+  },
+  {
+   "page": 10,
+   "kind": "diagram",
+   "title": "Ciclo de una auditoría",
+   "body": "Pasada automática ──► Prueba de teclado ──► Prueba con lector de pantalla\n        ▼\nRegistro de hallazgos por gravedad\n        ▼\nCorrección en commits pequeños ──► Nueva prueba ──► Informe comparado"
+  }
+ ],
+ "exercises": [
+  {
+   "n": 1,
+   "title": "Ejercicio 1 · Recorrido completo con solo el teclado",
+   "objective": "Recorrer con solo el teclado una página ya publicada del proyecto (la de los temas 3 a 10) y anotar cada obstáculo antes de corregir nada.",
+   "steps": [
+    {
+     "hacer": "Abrir la página publicada del proyecto, desconectar físicamente el ratón o no tocarlo, y pulsar Tab desde el inicio de la página hasta volver al principio.",
+     "esperado": "Cada pulsación mueve el foco a un elemento interactivo; se anota en una lista el orden real en que se visitan."
+    },
+    {
+     "hacer": "Anotar para cada elemento visitado si el indicador de foco se ve con claridad y, en la misma lista, los elementos interactivos que nunca recibieron foco.",
+     "esperado": "La lista muestra, al menos, qué elementos no se alcanzan y cuáles no muestran foco."
+    },
+    {
+     "hacer": "Activar con Enter cada enlace y con Espacio cada botón del recorrido, y abrir y cerrar con el teclado cualquier menú que exista.",
+     "esperado": "Todo lo que se hace con el ratón se logra también con el teclado; lo que no, queda anotado."
+    },
+    {
+     "hacer": "Comparar el orden de tabulación con el orden visual de la pantalla y marcar cada salto incoherente.",
+     "esperado": "Los saltos del foco por la pantalla quedan señalados con su causa probable (orden del HTML distinto del visual)."
+    }
+   ],
+   "example": "Hallazgos de ejemplo: «El menú se abre solo con clic (es un div)», «El botón Enviar no muestra contorno», «Tab salta del pie de página al encabezado».",
+   "verification": "Existe una lista escrita de al menos cinco observaciones del recorrido, cada una con el elemento y lo que ocurre."
+  },
+  {
+   "n": 2,
+   "title": "Ejercicio 2 · Foco visible y enlace para saltar al contenido",
+   "objective": "Declarar un indicador de foco global con :focus-visible y añadir un enlace de salto al contenido principal.",
+   "steps": [
+    {
+     "hacer": "En la hoja de estilos, definir la variable --foco en :root con un azul de contraste suficiente sobre el fondo de la página.",
+     "esperado": "La variable existe y puede usarse en cualquier regla."
+    },
+    {
+     "hacer": "Escribir la regla :focus-visible con outline de 3px, outline-offset de 3px y el color de la variable.",
+     "esperado": "Al pulsar Tab, todos los enlaces, botones y campos muestran un contorno grueso."
+    },
+    {
+     "hacer": "Buscar en la hoja de estilos cualquier outline: none o outline: 0 existente y reemplazarlo por el indicador anterior o eliminarlo.",
+     "esperado": "No queda ninguna regla que quite el contorno sin reemplazo."
+    },
+    {
+     "hacer": "Añadir como primer elemento del body el enlace «Saltar al contenido» hacia el id del main, y darle el estilo que lo mantiene fuera de pantalla hasta recibir foco.",
+     "esperado": "Con la primera pulsación de Tab aparece el enlace; con Enter el foco pasa al contenido principal."
+    }
+   ],
+   "example": "Con el enlace enfocado y Enter, la siguiente pulsación de Tab llega al primer enlace o campo dentro del main, no al menú.",
+   "verification": "Recorrer la página con Tab muestra siempre un indicador visible y el enlace de salto funciona."
+  },
+  {
+   "n": 3,
+   "title": "Ejercicio 3 · Medir y corregir el contraste",
+   "objective": "Medir los pares de color de texto y fondo del sistema visual del Tema 10 y corregir los que no alcanzan AA.",
+   "steps": [
+    {
+     "hacer": "Listar en una tabla los pares de color usados: texto principal, texto secundario, enlaces, botón primario y su texto, bordes de campos, mensajes de error.",
+     "esperado": "La tabla tiene una fila por par, con el valor hexadecimal de ambos colores."
+    },
+    {
+     "hacer": "Medir cada par con el selector de color de las herramientas de desarrollo o con una calculadora de contraste, y escribir la relación junto a cada fila.",
+     "esperado": "Cada fila tiene su cifra, por ejemplo 4,6 a 1."
+    },
+    {
+     "hacer": "Marcar los pares que no cumplen (4,5 a 1 para texto normal; 3 a 1 para texto grande y bordes de componentes) y oscurecer o aclarar el color hasta que cumplan.",
+     "esperado": "Los pares corregidos suben de umbral y se actualizan en las variables del sistema visual."
+    },
+    {
+     "hacer": "Comprobar que ningún estado dependa solo del color: añadir texto o icono al estado de error y subrayado a los enlaces dentro de párrafos.",
+     "esperado": "Cada estado se distingue por al menos dos señales."
+    }
+   ],
+   "example": "Antes: texto secundario #999999 sobre blanco (2,8 a 1). Después: #595959 (7,0 a 1) guardado en la variable --texto-suave.",
+   "verification": "Todos los pares de la tabla tienen una relación igual o superior a su umbral AA."
+  },
+  {
+   "n": 4,
+   "title": "Ejercicio 4 · Textos alternativos y nombres de controles",
+   "objective": "Revisar imágenes, iconos y botones de una página y dejar cada uno con un nombre accesible correcto.",
+   "steps": [
+    {
+     "hacer": "Listar todas las imágenes de la página y clasificar cada una en informativa, decorativa o dentro de un enlace.",
+     "esperado": "Cada imagen tiene una clasificación escrita."
+    },
+    {
+     "hacer": "Escribir el alt de cada imagen informativa en una frase corta, dejar alt vacío en las decorativas y poner el destino en las imágenes que son enlaces.",
+     "esperado": "Ninguna imagen queda sin atributo alt."
+    },
+    {
+     "hacer": "Identificar los botones que solo contienen un icono y darles nombre con aria-label o con texto solo para lector.",
+     "esperado": "Cada botón tiene un nombre que describe su acción."
+    },
+    {
+     "hacer": "Abrir el árbol de accesibilidad de las herramientas de desarrollo, seleccionar una imagen y un botón de icono, y leer el nombre y el rol que calcula el navegador.",
+     "esperado": "El nombre que muestra el panel coincide con el que se escribió."
+    }
+   ],
+   "example": "Logo dentro de enlace: alt=\"Comité Rural, ir al inicio\". Botón de cierre: aria-label=\"Cerrar menú\".",
+   "verification": "No hay imágenes sin alt ni controles sin nombre en el árbol de accesibilidad."
+  },
+  {
+   "n": 5,
+   "title": "Ejercicio 5 · Formulario accesible con errores anunciados",
+   "objective": "Dejar un formulario del proyecto con etiquetas, ayudas, autocompletado y mensajes de error asociados.",
+   "steps": [
+    {
+     "hacer": "Comprobar que cada campo tiene un label con for e id coincidentes, y agrupar los radios con fieldset y legend.",
+     "esperado": "Al hacer clic en cada etiqueta, el foco pasa a su campo."
+    },
+    {
+     "hacer": "Añadir autocomplete con el valor estándar a los campos de nombre y correo, y un texto de ayuda enlazado con aria-describedby.",
+     "esperado": "El navegador ofrece autocompletar y el árbol de accesibilidad muestra la descripción."
+    },
+    {
+     "hacer": "Programar o simular un error: marcar el campo con aria-invalid=\"true\" y mostrar un mensaje en texto asociado con aria-describedby y role=\"alert\".",
+     "esperado": "El mensaje aparece, se ve con icono y texto, y el lector lo anunciaría."
+    },
+    {
+     "hacer": "Mover el foco al primer campo con error al intentar enviar con datos incorrectos.",
+     "esperado": "Tras enviar mal, el foco queda en el primer campo con error."
+    }
+   ],
+   "example": "Mensaje de referencia: «Error: escribe un correo con arroba, como nombre@correo.com».",
+   "verification": "El formulario se completa y se corrige solo con el teclado y cada error se explica con texto."
+  },
+  {
+   "n": 6,
+   "title": "Ejercicio 6 · Auditoría final con informe comparado",
+   "objective": "Auditar una página con los siete pasos del procedimiento, corregir los hallazgos y comparar el antes y el después.",
+   "steps": [
+    {
+     "hacer": "Pasar Lighthouse (categoría Accessibility) y axe DevTools a la página original y guardar la puntuación y la lista de fallos.",
+     "esperado": "Hay un registro inicial con cifras."
+    },
+    {
+     "hacer": "Completar los pasos de teclado, estructura, contraste, imágenes, zoom al 200 % y 400 %, y lector de pantalla, anotando cada hallazgo con la plantilla.",
+     "esperado": "Hay al menos ocho hallazgos con dónde, qué, criterio y gravedad."
+    },
+    {
+     "hacer": "Corregir primero los bloqueantes y seguir hasta los menores, con un commit por corrección.",
+     "esperado": "El historial de Git muestra los commits de accesibilidad."
+    },
+    {
+     "hacer": "Repetir la pasada automática y la prueba manual de cada hallazgo corregido.",
+     "esperado": "Cada hallazgo corregido se verifica con su prueba original."
+    }
+   ],
+   "example": "Informe comparado de ejemplo: Lighthouse pasó de 72 a 100; ocho hallazgos corregidos; dos menores quedaron anotados para la siguiente revisión.",
+   "verification": "El informe final muestra la puntuación inicial, la final y la verificación manual de cada corrección."
+  }
+ ],
  "trabajo": {
-  "title": "Trabajo del Tema 11 · Accesibilidad",
-  "description": "",
-  "estimated_minutes": 240
+  "title": "Trabajo del Tema 11 · Auditoría de accesibilidad de un sitio completo",
+  "description": "Situación nueva de este trabajo: los ejercicios auditaron y corrigieron una página con una lista de comprobación guiada. Este trabajo audita EL SITIO COMPLETO DE TU PROYECTO (al menos tres páginas distintas: la portada, la página del formulario y una página interior) sin pasos dados, y entrega el informe y el sitio corregido.\n\nEntrega aquí el enlace al sitio publicado, el enlace a tu repositorio y el informe de auditoría (en el propio repositorio, como archivo de texto o página). El trabajo debe demostrar el dominio completo del tema: (1) un informe con al menos doce hallazgos, cada uno con página y elemento, qué ocurre, a quién afecta, criterio de WCAG, gravedad y corrección, ordenados de bloqueante a menor; (2) el recorrido con solo teclado de las tres páginas sin trampas, con orden de tabulación coherente con el orden visual, indicador de foco con :focus-visible de contraste al menos 3 a 1 y enlace para saltar al contenido; (3) una tabla de contraste con todos los pares de color del sistema visual, todos en AA, y ningún estado señalado solo con color; (4) estructura semántica correcta: lang, title único por página, un h1, niveles sin saltos y landmarks, e imágenes y botones de icono con nombre accesible adecuado; (5) el formulario con labels, autocomplete y errores en texto asociados al campo; (6) la pasada de Lighthouse y axe antes y después, y una prueba con lector de pantalla (NVDA, VoiceOver o TalkBack) descrita en un párrafo; (7) las correcciones hechas en commits pequeños con mensajes claros.\n\nCómo se desbloquea: este trabajo está bloqueado hasta que termines la fundamentación del Tema 11 en el Cuaderno. Cuando lo envíes, se abre la evaluación Fácil de este tema. Califica el experto de 0 a 10, con retroalimentación, en un plazo máximo de 24 horas desde la entrega.",
+  "estimated_minutes": 300
  }
 }
