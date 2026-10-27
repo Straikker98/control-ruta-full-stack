@@ -1,0 +1,587 @@
+{
+ "week": 9,
+ "levels": {
+  "facil": [
+   {
+    "id": "09-f-01",
+    "prompt": "¿Qué es el viewport en una página responsive?",
+    "options": [
+     "El ancho total del documento, incluida la parte que queda fuera de la ventana y obliga a desplazar la página",
+     "La imagen principal de la cabecera",
+     "El área visible contra la que se compone la página en cada dispositivo",
+     "El menú que aparece en pantallas pequeñas"
+    ],
+    "answer": 2,
+    "explanation": "El viewport es la ventana visible, medida en píxeles CSS, y es el ancho contra el que se compone el layout y se evalúan las media queries. No es el ancho total del documento, que puede ser mayor si hay desbordamiento."
+   },
+   {
+    "id": "09-f-02",
+    "prompt": "¿Qué significa trabajar mobile-first?",
+    "options": [
+     "Escribir primero la base de pantalla pequeña y añadir las formas mayores con media queries",
+     "Diseñar el sitio primero en un teléfono real, probarlo allí y después copiar ese mismo diseño a la versión de escritorio",
+     "Ocultar con `display: none` el contenido que no cabe en el móvil",
+     "Usar solo medidas en porcentaje en toda la hoja"
+    ],
+    "answer": 0,
+    "explanation": "Mobile-first es una estrategia de escritura de la hoja: base sin condición para el ancho menor y consultas `min-width` que añaden. No consiste en ocultar contenido ni en una unidad concreta."
+   },
+   {
+    "id": "09-f-03",
+    "prompt": "Una media query dice `@media (min-width: 768px)`. ¿Cuándo se aplican sus reglas?",
+    "options": [
+     "Solo exactamente a 768px",
+     "Cuando el ancho es de 768px o menos",
+     "Siempre: `min-width` no limita nada",
+     "Cuando el ancho del viewport es de 768px o más"
+    ],
+    "answer": 3,
+    "explanation": "`min-width` pregunta si el viewport mide al menos ese valor: es falsa por debajo y verdadera desde 768px sin techo. La opción «o menos» describe `max-width`."
+   },
+   {
+    "id": "09-f-04",
+    "prompt": "¿Cuándo aparece desbordamiento horizontal en una página?",
+    "options": [
+     "Cuando el contenido de la página es muy largo y la persona debe desplazarla hacia abajo para leerlo completo",
+     "Cuando alguna parte del contenido es más ancha que el viewport y obliga a desplazar la página de lado",
+     "Cuando una imagen tarda en cargar y la página se queda esperando",
+     "Cuando se usan demasiadas media queries en la misma hoja"
+    ],
+    "answer": 1,
+    "explanation": "El desbordamiento horizontal ocurre por un elemento o suma de anchos mayor que el viewport. La longitud vertical o la carga lenta no tienen relación con el ancho."
+   },
+   {
+    "id": "09-f-05",
+    "prompt": "La media query de 1200px está escrita ANTES que la de 768px, y ambas cambian la misma propiedad con la misma especificidad. En una pantalla de 1300px, ¿cuál de las dos gana y por qué?",
+    "options": [
+     "La de 1200px: al ser la consulta de número mayor se considera más específica y se impone a la de 768px sin importar el orden en que estén escritas",
+     "Ninguna: cuando dos media queries se cumplen a la vez, se anulan entre sí",
+     "La de 768px: a 1300px se cumplen las dos consultas y, a igualdad de especificidad, la cascada la decide la última escrita",
+     "La de 1200px: gana siempre la primera escrita en la hoja"
+    ],
+    "answer": 2,
+    "explanation": "Una media query no pesa más que la misma regla fuera de ella: decide la cascada, y en empate gana la última. Por eso el orden debe ser ascendente: base, 768px, 1200px."
+   },
+   {
+    "id": "09-f-06",
+    "prompt": "¿Cuál es la verificación responsive completa de una página?",
+    "options": [
+     "Recorrer 360px, 768px y 1200px sin desbordamiento horizontal, repitiendo la prueba con contenido extremo: título largo, texto sin espacios e imagen grande",
+     "Mirarla una vez en el computador de trabajo y darla por buena si se ve ordenada, ya que si funciona en ese ancho el navegador adapta solo el resto de los anchos y contenidos",
+     "Bajar el zoom del navegador al 50% y comprobar que todo se hace pequeño",
+     "Probarla solo con el texto corto de ejemplo, que es el contenido normal"
+    ],
+    "answer": 0,
+    "explanation": "La prueba se repite igual en los tres anchos y con el contenido extremo, porque el contenido amable nunca desborda y el extremo es el que llega a producción."
+   },
+   {
+    "id": "09-f-07",
+    "prompt": "¿Qué línea del `head` hace que un teléfono componga la página contra su ancho real?",
+    "options": [
+     "`<meta charset=\"utf-8\">`",
+     "`<meta name=\"description\" content=\"width=device-width\">`",
+     "`<link rel=\"stylesheet\" href=\"movil.css\">`",
+     "`<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">`"
+    ],
+    "answer": 3,
+    "explanation": "La etiqueta `meta` con nombre `viewport` fija el ancho al del dispositivo y la escala inicial a 1. `charset` solo declara la codificación y un `link` a una hoja no indica nada sobre el viewport."
+   },
+   {
+    "id": "09-f-08",
+    "prompt": "Si una página no declara la línea del viewport, ¿qué hace un navegador móvil?",
+    "options": [
+     "Compone la página con el ancho real del teléfono, porque los navegadores móviles detectan solos que el sitio es adaptable",
+     "Supone una página de escritorio, usa un viewport de 980px y la encoge con zoom de alejamiento",
+     "Se niega a mostrar la página hasta que se declare la línea",
+     "Aplica automáticamente todas las media queries de `max-width`"
+    ],
+    "answer": 1,
+    "explanation": "Sin la instrucción, el móvil asume 980px y reduce el resultado: la página se ve entera pero con texto diminuto. No adivina el ancho real por sí mismo."
+   },
+   {
+    "id": "09-f-09",
+    "prompt": "¿Qué pregunta responde `@media (max-width: 600px)`?",
+    "options": [
+     "Si el viewport mide al menos 600px",
+     "Si la pantalla física del aparato mide 600px de ancho exacto",
+     "Si el viewport mide como máximo 600px",
+     "Si el contenedor principal mide como máximo 600px"
+    ],
+    "answer": 2,
+    "explanation": "`max-width` es verdadera por debajo del valor y falsa al superarlo, y compara el ancho del viewport en píxeles CSS, no el de un contenedor ni el tamaño físico del aparato."
+   },
+   {
+    "id": "09-f-10",
+    "prompt": "¿Para qué sirve el tipo de medio `screen` en `@media screen and (min-width: 768px)`?",
+    "options": [
+     "Dirige la consulta a la presentación en pantalla; `print` sería la impresión",
+     "Obliga a que la pantalla mida exactamente 768px",
+     "Activa el modo de pantalla completa del navegador",
+     "Sustituye al conector `and`, que pasa a ser opcional"
+    ],
+    "answer": 0,
+    "explanation": "El tipo de medio indica a quién va dirigida la presentación. No cambia el valor comparado ni sustituye al conector; si se omite, la consulta vale para todos los medios."
+   },
+   {
+    "id": "09-f-11",
+    "prompt": "¿Con qué criterio se elige un punto de corte (breakpoint)?",
+    "options": [
+     "Copiando los anchos de los modelos de teléfono más vendidos",
+     "Usando siempre múltiplos de 100px, por orden",
+     "Declarando uno nuevo por cada dispositivo o modelo de teléfono que se quiera soportar según el catálogo del fabricante",
+     "Observando en qué ancho el contenido empieza a fallar al estrechar la ventana"
+    ],
+    "answer": 3,
+    "explanation": "El criterio es el contenido, no el catálogo de dispositivos: las consultas por modelo caducan con el siguiente aparato. Cada punto de corte añade pruebas y mantenimiento."
+   },
+   {
+    "id": "09-f-12",
+    "prompt": "¿Qué técnica adapta el PESO de una imagen al ancho que va a ocupar?",
+    "options": [
+     "`max-width: 100%` junto con `height: auto`, que hacen que la imagen se presente al ancho de su contenedor y reducen el archivo descargado",
+     "`srcset` junto con `sizes`, que ofrecen versiones del archivo entre las que el navegador elige",
+     "`overflow-x: auto` sobre el contenedor de la imagen",
+     "`width: 100%` aplicado a todas las imágenes"
+    ],
+    "answer": 1,
+    "explanation": "`srcset` y `sizes` permiten descargar la versión que alcanza. La regla fluida adapta la presentación, no el peso: el archivo completo se descarga igual."
+   },
+   {
+    "id": "09-f-13",
+    "prompt": "¿Cuándo se considera que un viewport está en orientación `portrait`?",
+    "options": [
+     "Cuando mide exactamente lo mismo de alto que de ancho",
+     "Cuando el aparato es un teléfono, sin importar cómo se sostenga",
+     "Cuando mide más de alto que de ancho",
+     "Cuando el ancho supera los 768px"
+    ],
+    "answer": 2,
+    "explanation": "`portrait` es el viewport más alto que ancho y `landscape` el caso contrario. Se pregunta por la forma del viewport, no por el tipo de aparato."
+   },
+   {
+    "id": "09-f-14",
+    "prompt": "¿Qué permite `overflow-wrap: break-word` en la caja de un texto?",
+    "options": [
+     "Que una palabra que no cabe entera en la línea se parta por donde quepa",
+     "Que todas las palabras se partan siempre, aunque quepan",
+     "Que la caja esconda lo que sobra con barras de desplazamiento",
+     "Que el navegador reduzca automáticamente el tamaño de la fuente"
+    ],
+    "answer": 0,
+    "explanation": "Es un permiso de emergencia: solo actúa sobre la palabra que no cabe, y las normales nunca se parten. No recorta, no desplaza y no cambia la fuente."
+   },
+   {
+    "id": "09-f-15",
+    "prompt": "En un contenedor con `max-width: 72rem`, ¿qué efecto tiene `margin: 0 auto`?",
+    "options": [
+     "Fija el ancho del contenedor en 72rem en todos los anchos, obligando a los viewports menores de 1152px a desplazarse en horizontal para verlo completo",
+     "Elimina el relleno lateral del contenedor",
+     "Hace que el contenedor ocupe siempre el ancho completo del viewport",
+     "Reparte el sobrante lateral a partes iguales y centra el contenedor cuando el viewport supera el techo"
+    ],
+    "answer": 3,
+    "explanation": "Los márgenes laterales automáticos reparten lo que el viewport pasa del techo, mitad a cada lado. El ancho lo limita `max-width`, no los márgenes."
+   },
+   {
+    "id": "09-f-16",
+    "prompt": "¿Cuál es el orden obligatorio de las capas en una hoja mobile-first?",
+    "options": [
+     "Primero la consulta de 1200px, luego la de 768px y al final la base, porque lo más específico del escritorio debe declararse primero",
+     "Primero la base, luego la consulta de 768px y después la de 1200px, de menor a mayor ancho mínimo",
+     "Primero las consultas en cualquier orden y la base al final",
+     "Da igual el orden, porque la cascada solo mira la especificidad"
+    ],
+    "answer": 1,
+    "explanation": "En empate de especificidad gana lo último escrito, así que cada capa mayor debe ir después de la anterior para ganarle. El orden sí importa."
+   }
+  ],
+  "medio": [
+   {
+    "id": "09-m-01",
+    "prompt": "Un teléfono abre la página y la muestra como si fuera la versión de escritorio, reducida y obligando a hacer zoom. La página no declara la línea del viewport. ¿Qué corrige esa línea?",
+    "options": [
+     "Que el teléfono componga la página contra su ancho real, para que la base móvil y las consultas trabajen sobre ese ancho",
+     "El tamaño de las imágenes, que pasan a ser fluidas porque el navegador las reduce hasta el ancho del teléfono sin ninguna regla más, y por eso deja de hacerse zoom",
+     "El color de la barra del navegador en el teléfono",
+     "La velocidad de carga en redes móviles"
+    ],
+    "answer": 0,
+    "explanation": "La línea del viewport cambia contra qué ancho se compone la página (de 980px supuestos a los reales). No afecta a la carga ni a las imágenes por sí misma."
+   },
+   {
+    "id": "09-m-02",
+    "prompt": "Una imagen de 1200px de ancho vive en una columna de 360px y desborda la página en el teléfono. ¿Qué regla la hace fluida?",
+    "options": [
+     "`width: 1200px` con `overflow: hidden` sobre la página",
+     "`display: none` en pantallas pequeñas",
+     "`height: 360px` fija para que quepa en la columna",
+     "`max-width: 100%` y `height: auto`: nunca más ancha que su contenedor y sin deformarse"
+    ],
+    "answer": 3,
+    "explanation": "La pareja `max-width: 100%` + `height: auto` limita el ancho al del contenedor y recalcula el alto conservando la proporción. Ocultar la imagen o recortar la página no la adapta."
+   },
+   {
+    "id": "09-m-03",
+    "prompt": "Trabajando mobile-first, alguien escribió la base del diseño dentro de `@media (max-width: 600px)`. ¿Qué problema trae eso?",
+    "options": [
+     "Ninguno: es otra forma de escribir exactamente lo mismo, pues el resultado depende solo del orden de las reglas y no de dónde esté la condición",
+     "La base debe ir sin media query; con ella encerrada en `max-width`, fuera de ese rango la página queda sin diseño base",
+     "Las media queries no aceptan `max-width` en hojas modernas",
+     "El teléfono ignora las media queries con `max-width`"
+    ],
+    "answer": 1,
+    "explanation": "La base es la capa sin condición que vale en todos los anchos y sirve de red de seguridad. Encerrarla en una consulta acotada deja los anchos mayores sin ella."
+   },
+   {
+    "id": "09-m-04",
+    "prompt": "A partir de 768px, el lateral de la página debe pasar a estar junto al contenido en vez de debajo. ¿Dónde se declara ese cambio?",
+    "options": [
+     "En la base, cambiando el orden del HTML",
+     "En una segunda hoja de estilos exclusiva para tabletas",
+     "Dentro de `@media (min-width: 768px)`, que aplica sus reglas desde ese ancho sin tocar la base",
+     "Con una clase que se añade a mano al abrir la página"
+    ],
+    "answer": 2,
+    "explanation": "El cambio de forma por ancho es trabajo de una consulta `min-width`. Cambiar el orden del HTML altera el documento, que no debe cambiar con el ancho."
+   },
+   {
+    "id": "09-m-05",
+    "prompt": "En 360px, una dirección de correo larguísima sin espacios rompe el ancho de su tarjeta. ¿Cuál es la corrección que pide el tema?",
+    "options": [
+     "Declarar `overflow-wrap: break-word` en la caja del texto para que la palabra se parta si no cabe",
+     "Tapar el problema con `overflow-x: hidden` en toda la página, de modo que la tarjeta recorte la dirección sin necesidad de partirla",
+     "Reducir la fuente de toda la página a 10px",
+     "Quitar la dirección de la página en pantallas estrechas"
+    ],
+    "answer": 0,
+    "explanation": "El permiso de corte se declara en la caja del texto y deja la página sin desbordamiento. `overflow-x: hidden` solo recorta, y reducir la fuente o quitar contenido no corrige la medida."
+   },
+   {
+    "id": "09-m-06",
+    "prompt": "¿Por qué la verificación del tema recorre 360px, 768px y 1200px, y no solo el ancho del teléfono de quien desarrolla?",
+    "options": [
+     "Por costumbre: si la página se ve bien en el ancho del teléfono de quien desarrolla, los demás anchos se componen igual y no hace falta recorrerlos",
+     "Porque el navegador solo permite emular tres anchos",
+     "Porque en otros anchos la página no se puede abrir",
+     "Porque son la base móvil, el salto intermedio y el escritorio: cada uno tiene una forma declarada que hay que comprobar"
+    ],
+    "answer": 3,
+    "explanation": "Cada ancho promete una forma distinta (columna única, segunda columna, contenedor centrado) y un fallo puede vivir solo en uno de ellos."
+   },
+   {
+    "id": "09-m-07",
+    "prompt": "Dada la hoja `.parrilla { grid-template-columns: 1fr; }`, `@media (min-width: 768px) { .parrilla { grid-template-columns: 1fr 1fr; } }` y `@media (min-width: 1200px) { .parrilla { grid-template-columns: 1fr 1fr 1fr; } }`, ¿cuántas columnas tiene la parrilla en un viewport de 1000px?",
+    "options": [
+     "Una, porque la base es la que manda en todos los anchos",
+     "Dos, porque solo la consulta de 768px está activa y gana a la base por ir después",
+     "Tres, porque 1000px se acerca más a 1200px que a 768px",
+     "Cinco, porque las columnas declaradas en las tres capas activas se suman en lugar de sustituirse entre sí"
+    ],
+    "answer": 1,
+    "explanation": "A 1000px se cumple `min-width: 768px` pero no `min-width: 1200px`. La consulta de 768px gana a la base por ir después; las columnas no se suman, se reemplaza la declaración."
+   },
+   {
+    "id": "09-m-08",
+    "prompt": "Un diseño de tableta debe aplicarse solo entre 768px y 1199px, y en ningún otro ancho. ¿Qué consulta lo expresa?",
+    "options": [
+     "`@media (min-width: 768px) or (min-width: 1199px)`",
+     "`@media (max-width: 768px) and (min-width: 1199px)`",
+     "`@media (min-width: 768px) and (max-width: 1199px)`",
+     "`@media (min-width: 1199px) and (max-width: 768px)`"
+    ],
+    "answer": 2,
+    "explanation": "Para declarar una franja se combinan con `and` un mínimo y un máximo. En las demás opciones el mínimo mayor que el máximo o el `or` producen condiciones imposibles o sin techo."
+   },
+   {
+    "id": "09-m-09",
+    "prompt": "Un contenedor se declara con `max-width: 72rem; margin: 0 auto; padding: 0 1rem;` con la raíz por defecto de 16px. ¿Cuánto mide y cómo se coloca en un viewport de 1400px?",
+    "options": [
+     "Mide 1152px y queda centrado, con el sobrante repartido a los lados",
+     "Mide 1400px, porque `max-width` no limita nunca",
+     "Mide 72px y queda pegado a la izquierda",
+     "Mide 1152px y queda pegado a la izquierda, porque `auto` solo funciona con `width`"
+    ],
+    "answer": 0,
+    "explanation": "72 × 16 = 1152px es el techo; los márgenes laterales automáticos reparten el sobrante a partes iguales. El `max-width` limita pero no impone, y `margin: 0 auto` centra."
+   },
+   {
+    "id": "09-m-10",
+    "prompt": "Una tabla de ocho columnas obliga a desplazar toda la página en 360px. ¿Qué corrección conserva la tabla legible sin que la página se mueva?",
+    "options": [
+     "Aplicar `overflow-x: hidden` al `body`, de modo que la página deje de desplazarse en horizontal y la tabla se vea completa aunque no quepa",
+     "Aplicar `font-size: 4px` a la tabla para que quepa",
+     "Cambiar la tabla por una imagen del mismo ancho",
+     "Envolver la tabla en un contenedor con `overflow-x: auto`, de modo que el desplazamiento quede dentro de su franja"
+    ],
+    "answer": 3,
+    "explanation": "El desplazamiento interno y confinado es legítimo: la página mide el viewport y la tabla se recorre en su franja. Ocultar el desbordamiento corta columnas y una fuente minúscula es ilegible."
+   },
+   {
+    "id": "09-m-11",
+    "prompt": "Una barra de enlaces con `display: flex; flex-wrap: wrap;` ya pasa a una segunda línea en el teléfono. ¿Hace falta una media query para ese comportamiento?",
+    "options": [
+     "Sí: sin una media query de ancho `flex-wrap` no se evalúa en el teléfono y los ítems seguirían en una sola línea apretada",
+     "No: la envoltura deja caer los ítems a la siguiente línea por sí sola cuando dejan de caber",
+     "Sí: solo una consulta puede decidir cuántos ítems caben por línea",
+     "No, pero únicamente si se usa `flex-direction: row-reverse`"
+    ],
+    "answer": 1,
+    "explanation": "`flex-wrap: wrap` resuelve por sí mismo cuántos ítems caben por línea. La consulta se reserva para cambios de forma, como la dirección del grupo."
+   },
+   {
+    "id": "09-m-12",
+    "prompt": "Se quiere que un menú se lea en columna en el teléfono y en fila desde 768px. ¿Cuál es la forma mobile-first correcta?",
+    "options": [
+     "`.menu { flex-direction: row; }` en la base y `@media (min-width: 768px) { .menu { flex-direction: column; } }`, que es el orden desktop-first del mismo diseño",
+     "`.menu { flex-direction: column; }` solo dentro de `@media (max-width: 768px)`, sin base",
+     "`.menu { display: flex; flex-direction: column; }` en la base y `@media (min-width: 768px) { .menu { flex-direction: row; } }`",
+     "`.menu { flex-wrap: wrap; }` en la base y ninguna otra regla, porque la envoltura cambia la dirección"
+    ],
+    "answer": 2,
+    "explanation": "El cambio de dirección es decisión de consulta: la base es la columna y el `min-width` añade la fila. La envoltura no cambia la dirección y la primera opción es el orden desktop-first."
+   },
+   {
+    "id": "09-m-13",
+    "prompt": "En 767px, ¿qué ocurre con las reglas de `@media (min-width: 768px)`?",
+    "options": [
+     "No están activas: se encienden justo al llegar a 768px y desde ahí se acumulan a la base",
+     "Están activas, porque 767px redondea a 768px",
+     "Están activas solo en orientación apaisada",
+     "No están activas, y tampoco lo estarán en 768px sino desde 769px"
+    ],
+    "answer": 0,
+    "explanation": "El ancho exacto del punto de corte ya cumple `min-width`: en 768px la consulta está activa y en 767px todavía no. No hay redondeo ni dependencia de la orientación."
+   },
+   {
+    "id": "09-m-14",
+    "prompt": "Una tarjeta muestra su botón de acción solo al pasar el ratón por encima (`:hover`). ¿Qué problema trae en un teléfono y cuál es la solución?",
+    "options": [
+     "Ninguno: el navegador móvil convierte todo toque en un `hover` permanente, así que el botón aparece al tocar la tarjeta y se mantiene visible",
+     "El botón se ve, pero con otra tipografía; se arregla con una consulta de `orientation`",
+     "El botón solo falla en 360px; en 768px el tacto ya admite `hover`",
+     "Con el dedo no existe el gesto previo al toque, así que el botón es inalcanzable; debe rediseñarse para existir también al tacto"
+    ],
+    "answer": 3,
+    "explanation": "Lo que solo se revela al `hover` no puede ser contenido esencial. La consulta `hover` queda para refinar la experiencia con ratón, no para esconder cosas al tacto."
+   },
+   {
+    "id": "09-m-15",
+    "prompt": "Se oculta la navegación con `display: none` en el teléfono para ahorrar espacio. ¿Cuál es el efecto real?",
+    "options": [
+     "Solo desaparece visualmente: el teclado y los lectores de pantalla siguen accediendo al contenido, porque `display: none` solo afecta al pintado",
+     "La navegación desaparece también para el teclado y los lectores de pantalla, quedando inalcanzable en el aparato más usado",
+     "Es la forma recomendada, porque el contenido no cambia con el ancho",
+     "Solo afecta al orden de lectura, no a la accesibilidad"
+    ],
+    "answer": 1,
+    "explanation": "`display: none` retira la pieza de la vista, del teclado y de los lectores de pantalla. En esta ruta el contenido esencial no se oculta en ningún ancho: se reorganiza."
+   },
+   {
+    "id": "09-m-16",
+    "prompt": "En una imagen se declara `sizes=\"(min-width: 768px) 50vw, 100vw\"`. ¿Qué información da?",
+    "options": [
+     "Que la imagen mide siempre 50 píxeles de ancho en escritorio y todo el viewport por debajo de 768px",
+     "Que el navegador debe ocultar la imagen por debajo de 768px",
+     "Que la imagen ocupa la mitad del viewport desde 768px y todo el ancho por debajo",
+     "Que el archivo pesa la mitad en pantallas mayores"
+    ],
+    "answer": 2,
+    "explanation": "`sizes` declara cuánto del viewport ocupa la imagen en cada franja; el navegador lo cruza con `srcset` y descarga la menor versión que alcanza. No impone tamaños ni oculta nada."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "09-d-01",
+    "prompt": "Diagnóstico: en una pantalla de 1300px, la página muestra la forma de 768px y no la de escritorio. Las dos media queries cambian la misma propiedad con la misma especificidad, y en la hoja la de 1200px está escrita ANTES que la de 768px. ¿Cuál es la causa?",
+    "options": [
+     "La pantalla no llega a 1300px reales, por lo que solo se cumple la consulta de 768px y la de 1200px queda desactivada por completo hasta que se amplíe la ventana",
+     "La media query de 1200px necesita `!important` para que el navegador la tome en cuenta",
+     "El navegador solo aplica una media query por hoja de estilos",
+     "Las consultas deben ir en orden ascendente: a 1300px se cumplen las dos y, en empate de especificidad, gana la última escrita (la de 768px)"
+    ],
+    "answer": 3,
+    "explanation": "Las consultas `min-width` se acumulan y no se apagan al crecer; entre las activas decide la cascada, y en empate gana la última. Reordenar a base, 768px, 1200px lo corrige sin `!important`."
+   },
+   {
+    "id": "09-d-02",
+    "prompt": "Diagnóstico: la página «pasó» la revisión en 360px con el contenido de ejemplo, pero al publicar el título real y una imagen grande aparece desplazamiento horizontal. ¿Qué falló en la verificación?",
+    "options": [
+     "Nada: con títulos largos el desplazamiento horizontal es normal y se resuelve pidiendo a quien lee que gire el teléfono a apaisado para ver la línea completa",
+     "La prueba se hizo con contenido amable; debe hacerse con el contenido extremo (título más largo, texto sin espacios, imagen más grande)",
+     "El teléfono de la prueba era de otra marca",
+     "Faltó probar también en un monitor 4K"
+    ],
+    "answer": 1,
+    "explanation": "El contenido de muestra nunca desborda y el extremo es el que llega a producción. El desplazamiento horizontal de la página nunca es normal y no depende de la marca."
+   },
+   {
+    "id": "09-d-03",
+    "prompt": "Análisis: para «quitar» el desplazamiento horizontal, alguien puso `overflow-x: hidden` en el `body` y lo dio por resuelto. ¿Cuál es el juicio del tema?",
+    "options": [
+     "Es correcto: si la página ya no se desplaza de lado, el problema desapareció, porque lo que el visitante no ve no puede fallar en ningún ancho de pantalla",
+     "Funciona, pero solo en la base móvil y no en las consultas",
+     "Es tapar el síntoma: el elemento sigue sin caber y su contenido queda cortado o inalcanzable; hay que corregir la medida del que desborda",
+     "Solo está mal por ir en el `body`; en el `html` sí sería una corrección válida"
+    ],
+    "answer": 2,
+    "explanation": "`overflow-x: hidden` recorta el contenido sobrante y deja el error de medida declarado, listo para el siguiente ancho. Cambiar el elemento donde se pone no lo convierte en una corrección."
+   },
+   {
+    "id": "09-d-04",
+    "prompt": "Diagnóstico de base: el contenedor principal declara `width: 1140px` «para que se vea como en el diseño». En escritorio se ve centrado, pero en 360px la página entera obliga a desplazar de lado. ¿Cuál es el error de planteamiento?",
+    "options": [
+     "Un ancho de estructura fijo en píxeles en la base rompe los anchos menores; el contenedor debe ser fluido, con `max-width` como tope",
+     "El número debió ser 1200px",
+     "El teléfono no admite contenedores con ancho en píxeles",
+     "Falta una media query que se active exactamente en 1140px"
+    ],
+    "answer": 0,
+    "explanation": "El `width` impone, el `max-width` limita sin imponer. Con `max-width: 72rem; margin: 0 auto` el contenedor mide 360px en el teléfono y se detiene en su tope; no se necesita consulta."
+   },
+   {
+    "id": "09-d-05",
+    "prompt": "Diagnóstico de imagen: con la regla fluida aplicada a medias (solo `max-width: 100%`, sin `height: auto`, y con una altura fija heredada), las fotos se ven aplastadas. ¿Qué falta y por qué?",
+    "options": [
+     "Subir la resolución de las fotos, porque la baja calidad las aplasta",
+     "Quitar el `max-width`, que es lo que encoge el ancho",
+     "Declarar el ancho de las fotos en `rem`",
+     "`height: auto`: sin él la altura queda fija mientras el ancho se reduce y la imagen se deforma"
+    ],
+    "answer": 3,
+    "explanation": "El alto debe recalcularse desde el ancho presentado para conservar la proporción. La resolución afecta a la nitidez, no a la forma; quitar `max-width` devolvería el desbordamiento."
+   },
+   {
+    "id": "09-d-06",
+    "prompt": "Diagnóstico fino: la página no tiene ningún elemento más ancho que su contenedor, pero al darle al contenedor principal `width: 100vw` apareció desplazamiento horizontal en escritorio. ¿Cómo se explica?",
+    "options": [
+     "`100vw` y `100%` son siempre equivalentes, así que el desbordamiento es un fallo del navegador que se corrige actualizándolo o desactivando la barra lateral de la ventana",
+     "`100vw` incluye el ancho de la barra de desplazamiento vertical, así que el contenedor queda más ancho que el espacio útil; el ancho se declara en porcentaje de su padre",
+     "La barra de desplazamiento nunca ocupa espacio en el layout",
+     "El problema es el nivel de zoom del navegador"
+    ],
+    "answer": 1,
+    "explanation": "`vw` se mide contra la ventana completa, no contra el espacio disponible del contenedor. Un porcentaje se calcula contra el ancho del padre y no tiene ese exceso."
+   },
+   {
+    "id": "09-d-07",
+    "prompt": "Síntoma: la hoja tiene, al principio, `@media (min-width: 768px) { .tarjeta { padding: 2rem; } }` y, al final, `.tarjeta { padding: 0.5rem; }` de la base. La consulta «no hace nada» en 800px. ¿Cuál es la causa?",
+    "options": [
+     "Las reglas dentro de una media query pesan menos que las de fuera por definición, y por eso la consulta necesita un selector más específico para ganar siempre",
+     "`min-width: 768px` solo se evalúa al cargar la página y no al cambiar el ancho",
+     "La regla de base escrita al final tiene igual especificidad y va después, así que tapa a la consulta en todos los anchos; la base debe ir antes",
+     "El valor en `rem` no puede usarse dentro de una consulta"
+    ],
+    "answer": 2,
+    "explanation": "La consulta solo decide si la regla existe; entre las reglas que existen manda la cascada, y en empate gana la última. Una regla de base al final tapa a las consultas anteriores."
+   },
+   {
+    "id": "09-d-08",
+    "prompt": "Síntoma: en 360px la barra de dispositivos muestra la misma composición de dos columnas que en 768px. La hoja tiene `@media (max-width: 768px) { .pagina { grid-template-columns: 14rem 1fr; } }`. ¿Cuál es la causa y la corrección?",
+    "options": [
+     "La pregunta está escrita con `max-width`, que se cumple también en 360px; se reescribe con `min-width: 768px` y la base queda en una columna",
+     "La consulta es correcta; el error está en que 360px es demasiado pequeño para emular y la barra de DevTools aplica la consulta de 768px por defecto",
+     "La consulta necesita el tipo `print` para limitarse a pantallas pequeñas",
+     "El valor `14rem` debe sustituirse por `14px`"
+    ],
+    "answer": 0,
+    "explanation": "Con `max-width` la condición es verdadera por debajo del valor, es decir, también en 360px. La tabla de síntomas del tema lo resuelve con `min-width` y la base de una columna."
+   },
+   {
+    "id": "09-d-09",
+    "prompt": "Una galería usa `grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr))` y, para «ayudar», se añadió `@media (min-width: 768px) { .parrilla { grid-template-columns: 1fr 1fr 1fr; } }`. En 800px las tarjetas quedan de unos 250px de ancho, aplastadas. ¿Cuál es el mejor arreglo?",
+    "options": [
+     "Mantener la consulta de 768px y añadir otra en 1200px con cuatro columnas fijas, para que cada ancho tenga su reparto declarado de forma explícita",
+     "Cambiar `1fr` por `300px` dentro de la consulta",
+     "Añadir `overflow-x: hidden` a la parrilla para recortar el sobrante",
+     "Retirar la consulta: fija las columnas y desactiva la regla automática, que ya protegía el mínimo de 16rem"
+    ],
+    "answer": 3,
+    "explanation": "La parrilla con `auto-fit` y `minmax` ya es adaptable sin consultas; fijar columnas en 768px la desactiva y el mínimo legible deja de protegerse. Un ancho en píxeles o recortar solo agravan el problema."
+   },
+   {
+    "id": "09-d-10",
+    "prompt": "Una página mobile-first usa `<img srcset=\"foto-480.jpg 480w, foto-1600.jpg 1600w\" sizes=\"100vw\">` pero la hoja no tiene regla para `img`. En 360px aparece desplazamiento horizontal. ¿Por qué ocurre?",
+    "options": [
+     "`sizes=\"100vw\"` obliga a que la imagen mida más que el viewport, ya que el valor 100vw se interpreta como el ancho del archivo y no como el del viewport",
+     "`srcset` solo adapta el peso: sin `max-width: 100%` la imagen puede presentarse a su ancho natural e imponer su ancho",
+     "El navegador siempre descarga la versión mayor del `srcset` en móviles",
+     "Falta el atributo `alt`, sin el cual la imagen no cabe"
+    ],
+    "answer": 1,
+    "explanation": "`srcset` y `sizes` eligen qué archivo descargar, pero la presentación la gobierna la regla fluida. Sin ella la imagen seleccionada puede seguir más ancha que su contenedor."
+   },
+   {
+    "id": "09-d-11",
+    "prompt": "El desplazamiento horizontal solo aparece entre 500px y 700px, y las capturas en 360px, 768px y 1200px salen limpias. ¿Qué paso del procedimiento faltó?",
+    "options": [
+     "Añadir un cuarto punto de corte en 600px antes de diagnosticar nada, para que la franja intermedia tenga su propia consulta y su propia captura de verificación",
+     "Repetir la captura de 360px con otra imagen de muestra",
+     "Barrer la franja intermedia arrastrando el ancho poco a poco, donde viven desbordamientos que ninguna captura oficial visita",
+     "Cambiar `overflow-x` del `body` a `hidden` solo en esa franja"
+    ],
+    "answer": 2,
+    "explanation": "Los tres anchos oficiales no cubren los anchos intermedios; hay que barrer entre ellos. Un punto de corte nuevo solo se justifica si la observación del contenido lo pide, y ocultar el desbordamiento no lo corrige."
+   },
+   {
+    "id": "09-d-12",
+    "prompt": "Una caja tiene `width: 100%; padding: 1.5rem; border: 2px solid` y sobresale del contenedor en 360px. No hay más reglas de ancho. ¿Cuál es la causa y la corrección?",
+    "options": [
+     "La caja mide el 100 % más relleno y borde por usar `content-box`; se corrige con `box-sizing: border-box`",
+     "El porcentaje se calcula contra la ventana y no contra el contenedor; debe usarse `vw`",
+     "El `padding` en `rem` no se admite en móviles; debe pasarse a píxeles",
+     "El borde de 2px es demasiado grueso y debe eliminarse"
+    ],
+    "answer": 0,
+    "explanation": "Con `content-box`, `width: 100%` define solo el contenido y el relleno y el borde se suman fuera. Con `border-box` quedan dentro de la medida. El porcentaje sí se mide contra el padre."
+   },
+   {
+    "id": "09-d-13",
+    "prompt": "Un titular con `font-size: 48px` desborda en 360px cuando contiene una palabra larga. ¿Cuál es la corrección coherente con mobile-first?",
+    "options": [
+     "Mantener `48px` en la base y reducirlo con una consulta `max-width` para cada modelo de teléfono, ya que la base de escritorio es la referencia del diseño",
+     "Aplicar `overflow-x: hidden` al encabezado para recortar la palabra",
+     "Pasar el titular a `5vw` sin ningún tope, para que crezca con la pantalla",
+     "Declarar en la base un tamaño en `rem` que quepa en el teléfono y subir el tamaño dentro de las consultas de 768px y 1200px"
+    ],
+    "answer": 3,
+    "explanation": "La tipografía también es mobile-first: la base cabe en el teléfono y los tamaños mayores entran donde el ancho los admite. Un `vw` sin tope crece sin medida en monitores grandes y recortar corta texto."
+   },
+   {
+    "id": "09-d-14",
+    "prompt": "En DevTools, a 360px, el `body` mide 360px pero una `tarjeta` mide 410px y una `imagen` mide 340px. Se sospecha de la imagen y de la tarjeta. ¿Cuál es el culpable y cómo se procede?",
+    "options": [
+     "La imagen, por ser lo más pesado de la página",
+     "La tarjeta: es la que pasa del viewport; se corrige su regla de medida y se repite la prueba en los tres anchos",
+     "Ninguna: los elementos hijos no pueden desbordar al `body`",
+     "Las dos por igual, porque cualquier sospechoso es culpable"
+    ],
+    "answer": 1,
+    "explanation": "El criterio decisivo es comparar el ancho del elemento con el del viewport: el que lo pasa es el culpable y los demás son inocentes en ese ancho. Tras corregir, la prueba completa se repite."
+   },
+   {
+    "id": "09-d-15",
+    "prompt": "Una hoja desktop-first deja el layout de tres columnas en la base y lo deshace con `@media (max-width: 1199px)` y `@media (max-width: 767px)`. Si en un teléfono la consulta de 767px no se aplica por un error de sintaxis, ¿qué se ve y qué enseña eso?",
+    "options": [
+     "Se ve una columna limpia, porque el teléfono ignora la base de escritorio y aplica por defecto la última regla declarada en el archivo, que es siempre la más pequeña",
+     "Se ve la consulta de 1199px aplicada, que ya es suficiente para el teléfono",
+     "Se ve la base de escritorio, que en el teléfono se encoge o desborda; en mobile-first, si una consulta falla, queda la base pequeña que funciona",
+     "Se ve una página en blanco, porque una consulta rota invalida toda la hoja"
+    ],
+    "answer": 2,
+    "explanation": "En desktop-first la red de seguridad es el escritorio, que no sirve en 360px; en mobile-first es la base móvil. Una consulta descartada no invalida el resto de la hoja."
+   },
+   {
+    "id": "09-d-16",
+    "prompt": "Un equipo oculta con `display: none` un bloque lateral en 360px y reaparece en 768px, para pasar la prueba de «sin desbordamiento». Visto el principio del tema, ¿cuál es el juicio?",
+    "options": [
+     "Se evita el desbordamiento retirando contenido, y el documento cambia con el ancho; debe reorganizarse (apilarse) y no ocultarse",
+     "Es válido: el criterio de la prueba es solo que no haya desplazamiento horizontal, sin importar qué contenido se retire para lograrlo mientras reaparezca en 768px",
+     "Es válido si el bloque lateral es menos importante que el contenido principal",
+     "Es inválido solo porque `display: none` es más lento que `visibility: hidden`"
+    ],
+    "answer": 0,
+    "explanation": "Lo que cambia por ancho es la forma, nunca el documento: el contenido y su orden de lectura son los mismos en los tres anchos. Ocultar contenido esencial lo retira también del teclado y de los lectores."
+   }
+  ]
+ }
+}

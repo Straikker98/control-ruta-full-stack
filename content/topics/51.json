@@ -1,0 +1,11 @@
+{
+ "week": 51,
+ "estado": "pendiente",
+ "sections": [],
+ "exercises": [],
+ "trabajo": {
+  "title": "Trabajo del Tema 51 · CI/CD con GitHub Actions",
+  "description": "",
+  "estimated_minutes": 240
+ }
+}

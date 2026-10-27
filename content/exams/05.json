@@ -1,0 +1,587 @@
+{
+ "week": 5,
+ "levels": {
+  "facil": [
+   {
+    "id": "05-f-01",
+    "prompt": "¿Cuál es la diferencia entre Git y GitHub?",
+    "options": [
+     "Son el mismo programa con dos nombres distintos: Git es la versión que se instala en Windows y GitHub la que se instala en Linux y macOS, con idéntico funcionamiento",
+     "Git es el sistema de control de versiones que vive en el computador; GitHub es un servicio en la nube que aloja repositorios Git y añade colaboración",
+     "GitHub es el programa que registra los commits y Git es la página web donde se consultan",
+     "Git sirve para un solo archivo y GitHub para proyectos completos con varias carpetas"
+    ],
+    "answer": 1,
+    "explanation": "Git funciona entero en local, sin internet; GitHub es solo uno de los alojamientos posibles y aporta pull requests e issues. Pensar que GitHub es quien registra los commits mezcla las dos capas."
+   },
+   {
+    "id": "05-f-02",
+    "prompt": "Un cambio acaba de pasar por `git add`. ¿En qué zona está?",
+    "options": [
+     "En la zona de trabajo, igual que antes de `git add`",
+     "Ya guardado en el historial del repositorio, dentro de `.git`",
+     "Subido al repositorio remoto en GitHub",
+     "En la zona de preparación (staging), lista para entrar al próximo commit"
+    ],
+    "answer": 3,
+    "explanation": "`git add` mueve el cambio de la zona de trabajo al staging; aún no es historia hasta el `git commit`, y menos aún está en GitHub."
+   },
+   {
+    "id": "05-f-03",
+    "prompt": "¿Para qué se ejecuta `git status` antes de tocar nada?",
+    "options": [
+     "Para ver en qué rama se está, qué archivos cambiaron y en qué estado está cada uno",
+     "Para guardar en un solo commit todos los cambios pendientes de la zona de trabajo, sin tener que usar antes `git add` ni revisar nada",
+     "Para conectar el repositorio local con GitHub por primera vez",
+     "Para borrar el historial y dejar la zona de trabajo limpia"
+    ],
+    "answer": 0,
+    "explanation": "`status` solo informa: compara las tres zonas y no cambia nada. Guardar cambios es trabajo de `add` y `commit`."
+   },
+   {
+    "id": "05-f-04",
+    "prompt": "¿Qué ocurre si se borra la carpeta `.git` de un proyecto?",
+    "options": [
+     "Nada grave: Git vuelve a crear la carpeta sola la próxima vez que se abre la terminal dentro del proyecto y restaura los commits desde la caché del usuario",
+     "El proyecto se sube automáticamente a GitHub como respaldo",
+     "Se pierde todo el historial: los archivos quedan, pero ya no hay commits ni ramas",
+     "Solo se pierden las ramas, pero los commits se conservan"
+    ],
+    "answer": 2,
+    "explanation": "La carpeta `.git` es el repositorio completo (commits, ramas y configuración local). Sin ella la carpeta vuelve a ser común, sin papelera."
+   },
+   {
+    "id": "05-f-05",
+    "prompt": "¿Cómo debe ser un buen mensaje de commit según la convención del tema?",
+    "options": [
+     "Un texto largo y detallado que enumere todo lo trabajado durante el día, para que quien lo lea no tenga que abrir el código",
+     "Una palabra genérica como «cambios» o «update» para abreviar",
+     "Una primera línea corta, en imperativo, que describe un solo cambio completo",
+     "Solo el nombre del archivo modificado, sin más explicación"
+    ],
+    "answer": 2,
+    "explanation": "El mensaje debe poder completar «si aplico este commit, el proyecto…». Los mensajes genéricos o la lista del día delatan un commit gigante."
+   },
+   {
+    "id": "05-f-06",
+    "prompt": "¿Cuál es el recorrido correcto de un cambio desde que se edita un archivo hasta que queda en GitHub?",
+    "options": [
+     "Editar → `git add` → `git commit` → `git push`",
+     "Editar → `git commit` para guardar el archivo → `git add` para publicarlo → `git push` para cerrar",
+     "Editar → `git push` → `git commit`, porque Git prepara todo solo",
+     "`git push` → `git add` → `git commit` → editar"
+    ],
+    "answer": 0,
+    "explanation": "El commit solo toma lo que está en staging, así que `add` va antes; y `push` publica commits que ya existen, por lo que va al final."
+   },
+   {
+    "id": "05-f-07",
+    "prompt": "¿Para qué sirve trabajar en una rama y hacer `merge` al terminar?",
+    "options": [
+     "Para borrar el historial de la rama principal y reescribirlo con los cambios nuevos, de modo que quede una sola línea de historia",
+     "Para subir el repositorio a GitHub sin necesidad de hacer commits",
+     "Para duplicar la carpeta del proyecto y trabajar en dos copias del código",
+     "Para desarrollar un cambio aislado sin tocar la rama principal y unirlo a ella cuando está listo"
+    ],
+    "answer": 3,
+    "explanation": "Una rama es una línea de historia paralela, no una copia de carpetas; mantiene `main` presentable hasta que lo nuevo funciona."
+   },
+   {
+    "id": "05-f-08",
+    "prompt": "¿Qué comando fija el nombre que firmará los commits en toda la máquina?",
+    "options": [
+     "`git init --name \"Tu Nombre\"`",
+     "`git config --global user.name \"Tu Nombre\"`",
+     "`git commit --author-global \"Tu Nombre\" --todos-los-proyectos`",
+     "`git remote add user.name \"Tu Nombre\"`"
+    ],
+    "answer": 1,
+    "explanation": "La identidad se guarda con `git config`; la opción `--global` la aplica a todos los proyectos del usuario. `init` y `remote` tienen otras funciones."
+   },
+   {
+    "id": "05-f-09",
+    "prompt": "Un proyecto ya existe en GitHub y se quiere trabajar en él desde el computador. ¿Qué comando corresponde?",
+    "options": [
+     "`git clone <url-del-repositorio>`",
+     "`git init` dentro de una carpeta vacía y luego copiar los archivos",
+     "`git fetch` en una carpeta cualquiera",
+     "`git pull origin` antes de haber creado ninguna carpeta"
+    ],
+    "answer": 0,
+    "explanation": "`clone` trae el repositorio completo con su historia y deja `origin` conectado. Un proyecto clonado ya es repositorio: no se inicializa."
+   },
+   {
+    "id": "05-f-10",
+    "prompt": "¿Qué contiene un commit?",
+    "options": [
+     "Únicamente las líneas que cambiaron en el último archivo editado",
+     "Una copia comprimida de la carpeta de trabajo completa, sin autor, sin fecha y sin mensaje, guardada fuera de la carpeta del proyecto",
+     "Una fotografía completa del proyecto con lo preparado, su autor, la fecha, un mensaje y un hash único",
+     "Una lista de archivos pendientes de preparar con `git add`"
+    ],
+    "answer": 2,
+    "explanation": "El commit es una instantánea del proyecto, identificada por su hash. No es solo el archivo tocado ni una lista de pendientes."
+   },
+   {
+    "id": "05-f-11",
+    "prompt": "¿Qué muestra `git log --oneline`?",
+    "options": [
+     "Los archivos modificados que aún no están preparados",
+     "La historia de commits con una línea por commit: identificador corto y mensaje",
+     "La diferencia línea por línea de cada commit, con los signos más y menos de lo que salió y lo que entró en cada archivo",
+     "Solo el último commit realizado en cualquier rama"
+    ],
+    "answer": 1,
+    "explanation": "`--oneline` resume cada commit en una línea y sirve para auditar la historia. La diferencia de líneas la dan `git diff` y `git show`."
+   },
+   {
+    "id": "05-f-12",
+    "prompt": "¿Qué hace `git switch -c pagina-nueva`?",
+    "options": [
+     "Cambia a una rama `pagina-nueva` que ya debía existir y falla si no existe",
+     "Crea la rama `pagina-nueva` pero se queda en la rama actual",
+     "Fusiona la rama `pagina-nueva` en `main`",
+     "Crea la rama `pagina-nueva` y cambia a ella en un solo paso"
+    ],
+    "answer": 3,
+    "explanation": "La opción `-c` (create) crea y entra. Crear sin entrar es `git branch pagina-nueva`."
+   },
+   {
+    "id": "05-f-13",
+    "prompt": "¿Qué significa `origin` en un repositorio Git?",
+    "options": [
+     "Es la primera rama que se crea en el proyecto, anterior a `main`, y desde la que nacen todas las demás ramas del repositorio",
+     "Es el primer commit de la historia",
+     "Es la carpeta oculta donde Git guarda la configuración",
+     "Es el nombre convencional del remoto principal, normalmente el repositorio alojado en GitHub"
+    ],
+    "answer": 3,
+    "explanation": "`origin` es solo un nombre corto para la URL del remoto; `origin/main` es la copia de `main` tal como quedó en la última sincronización."
+   },
+   {
+    "id": "05-f-14",
+    "prompt": "¿Cuál es la diferencia entre `git fetch` y `git pull`?",
+    "options": [
+     "`fetch` sube commits al remoto y `pull` los baja",
+     "`fetch` trae lo nuevo del remoto sin tocar la rama; `pull` hace fetch y además fusiona lo bajado en la rama actual",
+     "`pull` solo mira qué hay nuevo en el remoto sin tocar nada y `fetch` es el que aplica esos cambios a la rama actual, por eso se usa después",
+     "Son sinónimos: ambos bajan y fusionan"
+    ],
+    "answer": 1,
+    "explanation": "`pull` equivale a bajar y aplicar; `fetch` es solo mirar. Subir commits es `push`."
+   },
+   {
+    "id": "05-f-15",
+    "prompt": "¿Qué es un pull request?",
+    "options": [
+     "Un comando de Git que baja los cambios del remoto",
+     "Una copia de seguridad automática del repositorio completo que GitHub genera cada vez que se hace un push a la rama principal",
+     "Una propuesta, hecha en GitHub, de fusionar una rama en otra para que se revise antes de aplicarse",
+     "Un tipo de rama especial que no admite commits"
+    ],
+    "answer": 2,
+    "explanation": "El PR no es un comando de Git sino parte de la capa de colaboración de GitHub: muestra la diferencia, permite revisión y deja registro."
+   },
+   {
+    "id": "05-f-16",
+    "prompt": "¿Para qué sirve el archivo `.gitignore`?",
+    "options": [
+     "Para listar nombres y patrones (dependencias, temporales, claves) que Git debe ignorar siempre",
+     "Para borrar del historial los archivos que ya se confirmaron antes, de forma que desaparezcan también de los commits anteriores",
+     "Para impedir que otras personas lean el repositorio",
+     "Para guardar la lista de ramas que no se deben fusionar"
+    ],
+    "answer": 0,
+    "explanation": "Es un archivo versionado que evita que ciertos archivos se propongan para commit; no reescribe lo que ya entró en la historia."
+   }
+  ],
+  "medio": [
+   {
+    "id": "05-m-01",
+    "prompt": "Al ejecutar `git status` un archivo nuevo aparece bajo «Untracked files». ¿Qué significa y cuál es el paso siguiente?",
+    "options": [
+     "El archivo está dañado o tiene un nombre inválido para Git, por lo que conviene borrarlo y volver a crearlo desde el editor",
+     "Ya está guardado en el historial y no hay nada que hacer",
+     "Git aún no lo conoce; se prepara con `git add` para que entre en el flujo",
+     "Pertenece a otra rama y hay que cambiar de rama para verlo"
+    ],
+    "answer": 2,
+    "explanation": "Sin seguimiento significa archivo nuevo que existe solo en la zona de trabajo. Está en el historial únicamente lo que se confirmó."
+   },
+   {
+    "id": "05-m-02",
+    "prompt": "Un commit llamado «cambios» mezcla un formulario nuevo, una corrección de estilos y el README actualizado. ¿Cuál es el problema según el tema?",
+    "options": [
+     "No es atómico ni su mensaje cuenta qué cambió: no se puede leer ni deshacer por partes",
+     "Ninguno: un commit puede reunir todo el trabajo del día sin inconveniente, siempre que el mensaje sea suficientemente largo",
+     "Solo falla el nombre: con llamarlo «varios» queda resuelto",
+     "Un commit no puede tocar más de un archivo, y aquí tocó tres"
+    ],
+    "answer": 0,
+    "explanation": "Un commit debe ser un cambio completo con mensaje en imperativo. Un commit puede incluir varios archivos; lo que no puede es mezclar tareas distintas."
+   },
+   {
+    "id": "05-m-03",
+    "prompt": "Hay que probar una mejora arriesgada sin poner en peligro la versión que funciona en `main`. ¿Qué se hace?",
+    "options": [
+     "Se trabaja directo en `main`, con mucho cuidado",
+     "Se copia la carpeta del proyecto con otro nombre y se trabaja allí hasta que la mejora esté lista para pegarla en la original",
+     "Se borra el historial y se empieza el cambio desde cero",
+     "Se crea una rama de trabajo, se desarrolla allí y se fusiona a `main` cuando está lista"
+    ],
+    "answer": 3,
+    "explanation": "La rama aísla la idea: si sale mal se abandona y `main` no se entera. Copiar carpetas es el problema que Git viene a resolver."
+   },
+   {
+    "id": "05-m-04",
+    "prompt": "Los commits del día se ven bien con `git log` en el computador, pero GitHub no muestra ninguno. ¿Qué paso falta?",
+    "options": [
+     "`git add`: los cambios no están preparados",
+     "`git push`: los commits existen solo en el repositorio local",
+     "`git status`: sin ejecutarlo GitHub no se entera",
+     "Crear un segundo repositorio local para duplicar el historial"
+    ],
+    "answer": 1,
+    "explanation": "Si `git log` ya los muestra, los commits existen y `add` ya se hizo. Para publicarlos hace falta `push`."
+   },
+   {
+    "id": "05-m-05",
+    "prompt": "Al fusionar una rama, Git se detiene y anuncia conflicto en un archivo. ¿Qué ocurre?",
+    "options": [
+     "El repositorio se dañó durante la fusión y hay que descartarlo y clonarlo de nuevo desde GitHub, perdiendo los commits sin publicar",
+     "Las dos ramas cambiaron las mismas líneas y Git no puede decidir; una persona debe dejar la versión final",
+     "Git borró una de las dos versiones sin avisar",
+     "La rama que se fusiona no tenía ningún commit"
+    ],
+    "answer": 1,
+    "explanation": "El conflicto es la fusión pausada esperando una decisión; el repositorio sigue sano y `git status` lista los archivos afectados."
+   },
+   {
+    "id": "05-m-06",
+    "prompt": "El proyecto usa un archivo `.env` con claves que no deben llegar a GitHub. ¿Cómo se protege desde el primer día?",
+    "options": [
+     "Renombrándolo con un nombre poco evidente",
+     "Subiéndolo y borrándolo después desde GitHub",
+     "Moviéndolo a una carpeta llamada «privado» dentro del proyecto",
+     "Escribiendo `.env` en el `.gitignore` antes del primer commit"
+    ],
+    "answer": 3,
+    "explanation": "Lo que entra en un commit queda en la historia aunque luego se borre el archivo. Por eso el `.gitignore` debe existir antes."
+   },
+   {
+    "id": "05-m-07",
+    "prompt": "Salida de `git status`:\n```\nChanges to be committed:\n        modified:   index.html\nChanges not staged for commit:\n        modified:   css/estilos.css\n```\nSi ahora se ejecuta `git commit -m \"Ajusta el encabezado\"`, ¿qué se guarda?",
+    "options": [
+     "Solo el cambio de `index.html`",
+     "Los cambios de `index.html` y de `css/estilos.css`",
+     "Solo el cambio de `css/estilos.css`",
+     "Nada: el commit exige que no haya cambios sin preparar"
+    ],
+    "answer": 0,
+    "explanation": "El commit toma únicamente lo que está en staging. El cambio de `estilos.css` sigue como modificado, esperando su propio commit."
+   },
+   {
+    "id": "05-m-08",
+    "prompt": "Se modificaron `formulario.html` y `menu.css`, que corresponden a dos tareas distintas. ¿Cómo se registran correctamente?",
+    "options": [
+     "`git add .` y un único commit que diga «formulario y menú», porque así queda todo el trabajo del día guardado de una sola vez",
+     "`git commit -a` con el mensaje «cambios»",
+     "`git add formulario.html`, commit con su mensaje, y luego `git add menu.css` con otro commit",
+     "Un commit solo con `menu.css` y dejar el otro archivo para el día siguiente sin preparar"
+    ],
+    "answer": 2,
+    "explanation": "Preparar por archivo permite partir el trabajo en commits atómicos. Si el mensaje necesita una «y» para unir dos cambios, son dos commits."
+   },
+   {
+    "id": "05-m-09",
+    "prompt": "Se está en la rama `pagina-contacto` con el trabajo terminado y se quiere llevar a `main`. ¿Cuál es la secuencia correcta?",
+    "options": [
+     "`git merge main` estando en `pagina-contacto`",
+     "`git branch -d pagina-contacto` y luego `git switch main`",
+     "`git merge pagina-contacto` sin moverse de rama",
+     "`git switch main` y luego `git merge pagina-contacto`"
+    ],
+    "answer": 3,
+    "explanation": "La fusión trae la rama hacia la rama actual, así que hay que estar parado en la que recibe. Borrar la rama antes de fusionar descartaría trabajo."
+   },
+   {
+    "id": "05-m-10",
+    "prompt": "En un archivo en conflicto aparece:\n```\n<<<<<<< HEAD\n<h1>Evidencias de la institución</h1>\n=======\n<h1>Registro de evidencias</h1>\n>>>>>>> pagina-contacto\n```\nEl comando se ejecutó desde `main`. ¿Qué es el texto entre `<<<<<<< HEAD` y `=======`?",
+    "options": [
+     "La versión de la rama `pagina-contacto`",
+     "La versión de la rama actual, `main`",
+     "La versión que Git considera correcta y aplicará por defecto",
+     "Una copia del último commit del remoto"
+    ],
+    "answer": 1,
+    "explanation": "Arriba va lo de la rama actual y abajo lo que trae la rama fusionada. Git no elige: el trabajo es dejar una sola versión sin marcas."
+   },
+   {
+    "id": "05-m-11",
+    "prompt": "Se creó un repositorio local y GitHub está vacío. ¿Qué comandos hacen el primer envío de `main` y lo enlazan para los siguientes?",
+    "options": [
+     "`git clone <url>` dentro del repositorio ya existente, para que quede conectado con GitHub y listo para el primer envío",
+     "`git pull origin main` y luego `git fetch`",
+     "`git remote add origin <url>` y luego `git push -u origin main`",
+     "`git push` a secas, que adivina el destino la primera vez"
+    ],
+    "answer": 2,
+    "explanation": "Primero se conecta el remoto con `remote add`; el primer `push -u` sube la rama y la enlaza, de modo que los siguientes `git push` ya saben a dónde ir."
+   },
+   {
+    "id": "05-m-12",
+    "prompt": "Secuencia: se edita `a.txt`, se ejecuta `git add a.txt`, se edita `a.txt` otra vez y se hace `git commit -m \"Añade a\"`. ¿Qué queda guardado?",
+    "options": [
+     "La versión del archivo del momento del `add`; la última edición queda como modificación pendiente",
+     "La versión más reciente del archivo, incluida la segunda edición, porque el commit siempre toma lo que hay en la zona de trabajo",
+     "Nada, porque el archivo cambió después de prepararlo",
+     "Las dos versiones, en dos commits separados"
+    ],
+    "answer": 0,
+    "explanation": "El staging guarda la versión del momento de preparar. Lo editado después aparece como cambio sin preparar en `git status`."
+   },
+   {
+    "id": "05-m-13",
+    "prompt": "Tras editar un archivo y ejecutar `git add`, `git diff` no muestra nada. ¿Qué se debe usar para ver el cambio?",
+    "options": [
+     "`git diff --staged`, porque el cambio ya está en staging",
+     "`git log --oneline`, que muestra las líneas modificadas",
+     "`git fetch`, que refresca la vista de los cambios locales",
+     "`git branch`, que lista los cambios de cada rama"
+    ],
+    "answer": 0,
+    "explanation": "`git diff` compara la zona de trabajo con el staging; si todo se preparó, no hay diferencia. `--staged` compara el staging con el último commit."
+   },
+   {
+    "id": "05-m-14",
+    "prompt": "`main` no recibió commits mientras la rama `mejora` avanzó tres commits. Al ejecutar `git merge mejora` desde `main`, ¿qué se espera?",
+    "options": [
+     "Un commit de fusión con dos padres, que une la historia de `main` con la de `mejora` aunque `main` no haya avanzado",
+     "Un conflicto, porque las dos ramas se tocaron",
+     "Avance rápido: `main` se adelanta a los commits de `mejora` sin crear commit de fusión",
+     "Un error, porque `main` debe avanzar antes de fusionar"
+    ],
+    "answer": 2,
+    "explanation": "Sin divergencia no hay nada que mezclar: Git solo mueve el nombre de `main`. El commit de fusión aparece cuando ambas ramas avanzaron."
+   },
+   {
+    "id": "05-m-15",
+    "prompt": "`git push` es rechazado porque el remoto tiene commits que no están en local. ¿Cuál es el paso correcto?",
+    "options": [
+     "Forzar el envío para sobrescribir el remoto",
+     "Ejecutar `git pull`, resolver lo que haga falta en local y volver a hacer `push`",
+     "Borrar el repositorio local y clonar de nuevo perdiendo los commits propios",
+     "Esperar unos minutos y repetir el `push` sin cambios"
+    ],
+    "answer": 1,
+    "explanation": "El rechazo protege historia ajena. Forzar puede borrar commits de otras personas y está prohibido sobre ramas compartidas."
+   },
+   {
+    "id": "05-m-16",
+    "prompt": "Se ejecutó `git branch pagina-contacto` y enseguida se hicieron dos commits. ¿En qué rama quedaron?",
+    "options": [
+     "En `pagina-contacto`, porque al crear una rama Git se mueve automáticamente a ella para que los commits siguientes queden allí",
+     "En ninguna, porque faltó el `push`",
+     "En las dos ramas a la vez",
+     "En la rama en la que ya se estaba, porque `git branch` crea la rama pero no cambia a ella"
+    ],
+    "answer": 3,
+    "explanation": "Para crear y entrar hace falta `git switch -c`, o `git switch` después de `git branch`. Por eso conviene mirar `git status` antes de confirmar."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "05-d-01",
+    "prompt": "Diagnóstico: el historial tiene tres commits, «todo», «arreglos» y «final final», y el último mezcla veinte archivos de cinco temas. Hay que deshacer solo el cambio del formulario. ¿Cuál es el problema de fondo?",
+    "options": [
+     "Los mensajes son demasiado cortos: con mensajes de unas 50 letras cada commit se podría deshacer por separado",
+     "Hay muy pocos commits: lo correcto sería tener exactamente veinte, uno por archivo modificado, sin importar a qué tarea pertenezca cada cambio",
+     "El repositorio no está alojado en GitHub, y sin remoto Git no permite deshacer cambios puntuales",
+     "Los commits no son atómicos ni sus mensajes cuentan el cambio, por lo que no se puede leer ni deshacer por partes"
+    ],
+    "answer": 3,
+    "explanation": "El tamaño y el foco del commit, no la longitud del mensaje ni el remoto, permiten deshacer un cambio. Un commit por archivo tampoco es la regla: es un commit por cambio completo."
+   },
+   {
+    "id": "05-d-02",
+    "prompt": "Análisis: al fusionar la rama de trabajo, Git anuncia «fast-forward» y no crea commit de fusión. ¿Qué pasó exactamente?",
+    "options": [
+     "La fusión falló en silencio y los cambios de la rama no entraron a `main`",
+     "`main` no había avanzado desde que se creó la rama, así que su nombre solo se adelantó hasta el último commit de la rama",
+     "Git creó el commit de fusión pero lo ocultó porque no había conflictos que mostrar",
+     "Git borró la rama principal y la recreó apuntando a la rama de trabajo, de modo que se perdió la historia que tenía antes de la fusión"
+    ],
+    "answer": 1,
+    "explanation": "Sin divergencia no hay dos caminos que combinar; la historia queda lineal y el trabajo sí entró. Se reconoce porque `main` apunta ahora al mismo commit que la rama."
+   },
+   {
+    "id": "05-d-03",
+    "prompt": "Diagnóstico: un pull request no se puede fusionar porque GitHub avisa de conflictos con `main`, aunque la rama «funciona» en el computador. ¿Cuál es el paso correcto?",
+    "options": [
+     "Traer `main` a la rama, resolver el conflicto dejando una versión final, confirmar y hacer push: el PR se actualiza y puede fusionarse",
+     "Esperar a que GitHub actualice su estado: el aviso desaparece solo",
+     "Cerrar el pull request, borrar la rama remota y rehacer todo el trabajo desde cero en una rama nueva, sin revisar siquiera qué líneas chocaron",
+     "Forzar el push de la rama sobre `main` para sobrescribir las líneas en conflicto"
+    ],
+    "answer": 0,
+    "explanation": "`main` cambió las mismas líneas mientras la rama avanzaba. Se resuelve en local y los commits nuevos actualizan el mismo PR; forzar sobrescribiría trabajo ajeno."
+   },
+   {
+    "id": "05-d-04",
+    "prompt": "Diagnóstico: en `git status` el mismo archivo aparece dos veces, como preparado y como sin preparar. ¿Cómo es posible?",
+    "options": [
+     "Es un fallo de Git que se corrige cerrando y reabriendo la terminal",
+     "El archivo está presente en dos ramas a la vez y Git lo lista en las dos porque aún no se decidió a cuál pertenece, y se arregla borrando una de ellas antes de continuar",
+     "Se preparó una versión con `git add` y después se siguió editando: el staging guarda la del momento y la zona de trabajo tiene otra más nueva",
+     "El archivo se subió dos veces a GitHub y el remoto lo reporta duplicado"
+    ],
+    "answer": 2,
+    "explanation": "Cada zona puede guardar una versión distinta del mismo archivo. Se resuelve con otro `git add` si la última edición también debe entrar."
+   },
+   {
+    "id": "05-d-05",
+    "prompt": "Análisis: para «empezar de cero», alguien borra la carpeta `.git` de un proyecto que solo existía en ese computador. ¿Cuál es la consecuencia real?",
+    "options": [
+     "Se pierde todo el historial, porque `.git` es el repositorio; los archivos quedan y sin remoto no hay copia para recuperarlo",
+     "Solo se pierden las ramas: los commits quedan guardados dentro de los archivos del proyecto",
+     "Ninguna: Git guarda una copia oculta de la historia en la carpeta del usuario y la restaura automáticamente al detectar que falta `.git`",
+     "El proyecto conserva la historia, pero Git deja de reconocer al autor de los commits"
+    ],
+    "answer": 0,
+    "explanation": "La historia vive en `.git` y en el remoto si existe; al no haber remoto, no hay de dónde recuperarla. Los archivos visibles son solo la copia de trabajo."
+   },
+   {
+    "id": "05-d-06",
+    "prompt": "Caso combinado: antes de dar por terminado el trabajo con Git y GitHub, ¿qué verificación reúne la mejor evidencia?",
+    "options": [
+     "Que la carpeta pese poco y el proyecto abra rápido en el navegador",
+     "Que el repositorio tenga varios colaboradores y muchas estrellas en GitHub",
+     "`git log --oneline --graph --all` muestra 8 a 12 commits atómicos y legibles, la rama fusionada, y el PR aparece fusionado en GitHub",
+     "Que el `README` sea el archivo más extenso del proyecto, porque resume todo lo realizado y demuestra que el trabajo con Git fue ordenado y completo"
+    ],
+    "answer": 2,
+    "explanation": "La evidencia del dominio es un historial que se lee solo y muestra el flujo de rama, fusión y PR. El peso, las estrellas o el tamaño del README no prueban el uso de Git."
+   },
+   {
+    "id": "05-d-07",
+    "prompt": "Síntoma: GitHub muestra los commits de una persona como de un «desconocido», sin conectarlos con su cuenta. ¿Cuál es la causa más probable y qué se revisa primero?",
+    "options": [
+     "El repositorio está corrupto; se debe borrar `.git`, reinicializar el proyecto y volver a configurar la identidad para que GitHub reconozca de nuevo cada uno de los commits",
+     "El correo configurado en Git no coincide con el de la cuenta; se revisa `git config user.email` en esa carpeta, pues un valor local puede sobrescribir el global",
+     "GitHub tarda en procesar los commits y basta esperar a que se asocien",
+     "Falta el `.gitignore`, que es el que vincula los commits con la cuenta"
+    ],
+    "answer": 1,
+    "explanation": "GitHub conecta commits y cuenta mediante el correo. Antes de reescribir historia se verifica la configuración, incluida la local de la carpeta."
+   },
+   {
+    "id": "05-d-08",
+    "prompt": "Síntoma: se creó el `.gitignore` con `.env` después de haber confirmado ese archivo en dos commits. ¿Qué sigue siendo cierto?",
+    "options": [
+     "Al añadir `.env` al `.gitignore` Git elimina el archivo de todos los commits anteriores",
+     "El secreto quedó protegido, porque Git ya no puede mostrar archivos ignorados al ejecutar `git log` ni al consultar commits anteriores",
+     "Basta borrar el contenido de `.env` en un commit nuevo para que desaparezca de la historia",
+     "El `.gitignore` no saca de la historia lo ya confirmado: la clave sigue en esos commits y debe considerarse expuesta"
+    ],
+    "answer": 3,
+    "explanation": "El `.gitignore` solo afecta lo que aún no entró. Por eso se escribe al inicio del proyecto, y un secreto ya confirmado se trata como comprometido."
+   },
+   {
+    "id": "05-d-09",
+    "prompt": "Síntoma: al ejecutar un comando de Git aparece «fatal: not a git repository». ¿Cuál es la interpretación correcta?",
+    "options": [
+     "El repositorio se corrompió y debe clonarse de nuevo desde GitHub, descartando la carpeta actual y todo lo que contenga",
+     "Falta configurar `user.name` y `user.email` antes de usar cualquier comando",
+     "La carpeta actual no tiene `.git`: se está en la carpeta equivocada o el proyecto aún no se inicializó",
+     "Git necesita conexión a internet para reconocer el repositorio"
+    ],
+    "answer": 2,
+    "explanation": "El mensaje es Git avisando de que no hay repositorio donde se está. Se comprueba la ubicación y solo si el proyecto es nuevo se ejecuta `git init`."
+   },
+   {
+    "id": "05-d-10",
+    "prompt": "Síntoma: al abrir la página fusionada se ve el texto `<<<<<<< HEAD` en pantalla. ¿Qué ocurrió y cómo se corrige?",
+    "options": [
+     "Se confirmó el archivo con las marcas del conflicto; se abre, se deja una sola versión sin marcas y se hace un commit nuevo",
+     "Es un error del navegador; se corrige vaciando su caché",
+     "Git insertó las marcas al terminar la fusión con éxito, son inofensivas y desaparecen solas con el siguiente commit o pull",
+     "La fusión nunca se ejecutó; basta repetir `git merge` para que desaparezcan"
+    ],
+    "answer": 0,
+    "explanation": "Las marcas son la pregunta sin responder: al hacer `add` y `commit` sin quitarlas entran en la historia como código. Antes de cada `add` se buscan en todo el archivo."
+   },
+   {
+    "id": "05-d-11",
+    "prompt": "Síntoma: tras ejecutar `git merge main` parado en `pagina-nueva`, `main` sigue sin el trabajo de la rama. ¿Cuál es la causa y la solución?",
+    "options": [
+     "El comando falló por falta de permisos; basta repetirlo con `--force` para que `main` reciba el trabajo de `pagina-nueva` completo y sin conflictos",
+     "Los cambios se aplicaron en `main`, pero `git log` aún no los refleja",
+     "Se necesita un `git push` previo para que `main` reconozca la rama",
+     "La fusión trae la rama hacia la rama actual: se trajo `main` a `pagina-nueva`; hay que cambiar a `main` y ejecutar `git merge pagina-nueva`"
+    ],
+    "answer": 3,
+    "explanation": "Se fusionó en dirección contraria. La primera línea de `git status` indica la rama que recibe y evita este error."
+   },
+   {
+    "id": "05-d-12",
+    "prompt": "Síntoma: se escribió código en `main` sin confirmar, luego se hizo `git switch pagina-nueva` y el commit siguiente guardó esos cambios en `pagina-nueva`. ¿Por qué?",
+    "options": [
+     "Git copió automáticamente los cambios a las dos ramas para no perderlos, y en cada rama quedaron como cambios sin confirmar",
+     "Los cambios sin confirmar no pertenecen a ninguna rama: Git los arrastra al cambiar; se debe cambiar con la zona limpia",
+     "`git switch` confirma el trabajo pendiente en la rama de origen antes de moverse",
+     "La rama `pagina-nueva` tenía el mismo nombre de archivo y por eso lo adoptó"
+    ],
+    "answer": 1,
+    "explanation": "Una rama no es una carpeta donde esconder trabajo a medias. Con `git status` limpio antes de cambiar, cada commit queda en la rama correcta."
+   },
+   {
+    "id": "05-d-13",
+    "prompt": "Síntoma: `git status` indica «Your branch is ahead of origin/main by 3 commits». ¿Qué significa y qué corresponde?",
+    "options": [
+     "El remoto tiene 3 commits que faltan en local; hay que ejecutar `git pull` antes de poder continuar con el trabajo pendiente",
+     "Hay 3 conflictos pendientes en la rama; hay que resolverlos antes de continuar",
+     "Hay 3 commits locales que el remoto no tiene; tras verificar que no hay nada nuevo en el remoto, corresponde hacer `git push`",
+     "La rama local tiene 3 archivos sin preparar; hay que ejecutar `git add .`"
+    ],
+    "answer": 2,
+    "explanation": "«Ahead» describe commits locales sin publicar; «behind» sería lo contrario. El principio «pull antes de push» evita rechazos si el remoto también avanzó."
+   },
+   {
+    "id": "05-d-14",
+    "prompt": "Durante la revisión de un PR, una persona pide cambios en dos líneas. ¿Cuál es el procedimiento correcto?",
+    "options": [
+     "Hacer los ajustes en la misma rama con commits nuevos y `push`: el PR se actualiza solo",
+     "Cerrar el PR y abrir uno nuevo desde otra rama con los ajustes",
+     "Editar los archivos directamente en `main`, saltándose la revisión",
+     "Responder al comentario sin cambios y fusionar, porque el código ya funciona"
+    ],
+    "answer": 0,
+    "explanation": "Cada comentario se responde con un cambio o una explicación, y los ajustes viven en la misma rama. Abrir otro PR dispersa la discusión; tocar `main` evita la revisión."
+   },
+   {
+    "id": "05-d-15",
+    "prompt": "Se desea que la historia muestre una rama de trabajo que se abre y se cierra. En `main` ya se hicieron commits nuevos mientras la rama avanzaba. ¿Qué tipo de fusión resulta y qué riesgo trae?",
+    "options": [
+     "Avance rápido sin commit nuevo; no puede haber conflicto porque la historia es lineal",
+     "Fusión de tres vías con un commit de fusión de dos padres; puede haber conflicto si las dos ramas tocaron las mismas líneas",
+     "Avance rápido, pero con riesgo de perder los commits de `main`",
+     "Fusión de tres vías sin ningún commit nuevo, resuelta automáticamente en todos los casos"
+    ],
+    "answer": 1,
+    "explanation": "Al haber divergencia Git debe combinar dos caminos y crea el commit de fusión. Si ambos tocaron el mismo renglón, el conflicto exige decisión humana."
+   },
+   {
+    "id": "05-d-16",
+    "prompt": "Un conflicto se volvió confuso a mitad de la resolución y se teme dejar el repositorio inconsistente. ¿Qué opción es válida antes de confirmar?",
+    "options": [
+     "Borrar la carpeta `.git` y clonar de nuevo, perdiendo cualquier commit sin publicar",
+     "Confirmar el archivo con las marcas y limpiarlas en un commit posterior",
+     "Forzar un push al remoto para que GitHub resuelva la fusión por su cuenta",
+     "Abortar la fusión para volver al estado previo y volver a intentarla con calma"
+    ],
+    "answer": 3,
+    "explanation": "Git permite abortar la fusión antes del commit y recuperar el estado exacto anterior. Borrar `.git` destruye la historia y confirmar marcas mete ruido en ella."
+   }
+  ]
+ }
+}

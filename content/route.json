@@ -1,0 +1,616 @@
+{
+ "phases": [
+  {
+   "id": 1,
+   "title": "Fundamentos de la web y control del entorno",
+   "summary": "Entender cómo funciona la web y dominar tu entorno de trabajo.",
+   "weeks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": 2,
+   "title": "CSS, diseño adaptable y experiencia de usuario",
+   "summary": "Construir interfaces claras, accesibles y con criterio visual.",
+   "weeks": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "id": 3,
+   "title": "JavaScript de verdad: lenguaje, datos y lógica",
+   "summary": "Programar con JavaScript con lógica, datos, módulos y pruebas.",
+   "weeks": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+   ]
+  },
+  {
+   "id": 4,
+   "title": "Navegador, APIs y aplicaciones con datos",
+   "summary": "Hacer aplicaciones que consumen APIs y guardan datos.",
+   "weeks": [
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+   ]
+  },
+  {
+   "id": 5,
+   "title": "SQL y PostgreSQL: el corazón de los datos",
+   "summary": "Modelar, consultar y proteger datos relacionales.",
+   "weeks": [
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+   ]
+  },
+  {
+   "id": 6,
+   "title": "Backend con Node.js y APIs mantenibles",
+   "summary": "Construir servidores y APIs REST ordenadas y seguras.",
+   "weeks": [
+    31,
+    32,
+    33,
+    34,
+    35,
+    36
+   ]
+  },
+  {
+   "id": 7,
+   "title": "React y TypeScript para interfaces escalables",
+   "summary": "Crear interfaces escalables con tipos y componentes.",
+   "weeks": [
+    37,
+    38,
+    39,
+    40,
+    41,
+    42
+   ]
+  },
+  {
+   "id": 8,
+   "title": "Supabase, Vercel y operación en producción",
+   "summary": "Llevar una aplicación completa a producción.",
+   "weeks": [
+    43,
+    44,
+    45,
+    46,
+    47,
+    48
+   ]
+  },
+  {
+   "id": 9,
+   "title": "Ingeniería profesional: contenedores, CI/CD, nube y seguridad",
+   "summary": "Trabajar como en un equipo real: reproducible, automatizado y seguro.",
+   "weeks": [
+    49,
+    50,
+    51,
+    52,
+    53,
+    54
+   ]
+  },
+  {
+   "id": 10,
+   "title": "Ingeniería de software y empleabilidad",
+   "summary": "Algoritmos, diseño de sistemas, Python, IA aplicada y búsqueda de empleo.",
+   "weeks": [
+    55,
+    56,
+    57,
+    58,
+    59,
+    60
+   ]
+  }
+ ],
+ "weeks": [
+  {
+   "week": 1,
+   "phase": 1,
+   "title": "Entorno y terminal",
+   "mastery": "Rutas, archivos, procesos, editor y DevTools.",
+   "evidence": "Repositorio de ejercicios con README.",
+   "design": ""
+  },
+  {
+   "week": 2,
+   "phase": 1,
+   "title": "Cómo funciona la web",
+   "mastery": "URL, DNS, HTTP, petición/respuesta y navegador.",
+   "evidence": "Diagrama explicado con tus palabras.",
+   "design": ""
+  },
+  {
+   "week": 3,
+   "phase": 1,
+   "title": "HTML semántico",
+   "mastery": "Estructura, texto, enlaces, tablas y multimedia.",
+   "evidence": "Página informativa sin CSS.",
+   "design": ""
+  },
+  {
+   "week": 4,
+   "phase": 1,
+   "title": "Formularios",
+   "mastery": "Inputs, labels, validación nativa y errores.",
+   "evidence": "Formulario accesible de evidencias.",
+   "design": ""
+  },
+  {
+   "week": 5,
+   "phase": 1,
+   "title": "Git y GitHub",
+   "mastery": "status, add, commit, log, branch, merge y pull request.",
+   "evidence": "Historial limpio con 8-12 commits.",
+   "design": ""
+  },
+  {
+   "week": 6,
+   "phase": 1,
+   "title": "Publicación",
+   "mastery": "GitHub Pages, rutas, consola y depuración.",
+   "evidence": "Sitio publicado y revisión móvil.",
+   "design": ""
+  },
+  {
+   "week": 7,
+   "phase": 2,
+   "title": "CSS esencial",
+   "mastery": "Selectores, cascada, box model y unidades.",
+   "evidence": "Hoja de estilos comentada.",
+   "design": "Jerarquía visual: tamaño, peso y contraste antes de agregar color."
+  },
+  {
+   "week": 8,
+   "phase": 2,
+   "title": "Layout",
+   "mastery": "Flexbox y Grid; alineación y distribución.",
+   "evidence": "Dos layouts reconstruidos sin tutorial.",
+   "design": "Retícula y ritmo: espaciado consistente con una escala de 4/8 px."
+  },
+  {
+   "week": 9,
+   "phase": 2,
+   "title": "Responsive",
+   "mastery": "Mobile-first, media queries e imágenes fluidas.",
+   "evidence": "Tres anchos sin desbordamiento.",
+   "design": "Diseño móvil primero: priorizar contenido y zonas táctiles de 44 px."
+  },
+  {
+   "week": 10,
+   "phase": 2,
+   "title": "Sistema visual",
+   "mastery": "Variables, tipografía, color, espaciado y componentes.",
+   "evidence": "Mini sistema de diseño reutilizable.",
+   "design": "Sistema de diseño: tokens de color, tipografía y espaciado reutilizables."
+  },
+  {
+   "week": 11,
+   "phase": 2,
+   "title": "Accesibilidad",
+   "mastery": "Teclado, foco, contraste, jerarquía y mensajes.",
+   "evidence": "Auditoría manual y correcciones.",
+   "design": "Diseño inclusivo: contraste, foco visible y estados para todos los usuarios."
+  },
+  {
+   "week": 12,
+   "phase": 2,
+   "title": "Calidad visual",
+   "mastery": "DevTools, rendimiento, impresión y QA.",
+   "evidence": "Checklist visual antes/después.",
+   "design": "Pulido: alineación, consistencia y revisión crítica antes/después."
+  },
+  {
+   "week": 13,
+   "phase": 3,
+   "title": "Tipos y flujo",
+   "mastery": "Valores, comparación, condicionales y bucles.",
+   "evidence": "30 ejercicios breves razonados.",
+   "design": ""
+  },
+  {
+   "week": 14,
+   "phase": 3,
+   "title": "Funciones",
+   "mastery": "Parámetros, retorno, scope y funciones puras.",
+   "evidence": "Biblioteca de utilidades.",
+   "design": ""
+  },
+  {
+   "week": 15,
+   "phase": 3,
+   "title": "Colecciones",
+   "mastery": "Arrays, objetos, map, filter y reduce.",
+   "evidence": "Procesador de registros ficticios.",
+   "design": ""
+  },
+  {
+   "week": 16,
+   "phase": 3,
+   "title": "Módulos",
+   "mastery": "import/export y separación de responsabilidades.",
+   "evidence": "Aplicación en 4-6 módulos.",
+   "design": ""
+  },
+  {
+   "week": 17,
+   "phase": 3,
+   "title": "Asincronía",
+   "mastery": "Promises, async/await y event loop conceptual.",
+   "evidence": "Tres flujos con errores controlados.",
+   "design": ""
+  },
+  {
+   "week": 18,
+   "phase": 3,
+   "title": "Pruebas y debug",
+   "mastery": "Casos, assertions, breakpoints y stack traces.",
+   "evidence": "Suite mínima y bitácora de fallos.",
+   "design": ""
+  },
+  {
+   "week": 19,
+   "phase": 4,
+   "title": "DOM y eventos",
+   "mastery": "Selección, creación, delegación y formularios.",
+   "evidence": "CRUD en memoria.",
+   "design": "Feedback inmediato: cada acción del usuario recibe respuesta visible."
+  },
+  {
+   "week": 20,
+   "phase": 4,
+   "title": "HTTP y Fetch",
+   "mastery": "Métodos, headers, status, JSON y CORS.",
+   "evidence": "Cliente de una API pública.",
+   "design": ""
+  },
+  {
+   "week": 21,
+   "phase": 4,
+   "title": "Estado de interfaz",
+   "mastery": "Carga, vacío, error, éxito y reintento.",
+   "evidence": "Máquina de estados simple.",
+   "design": "Estados de interfaz diseñados: carga, vacío, error y éxito con mensaje útil."
+  },
+  {
+   "week": 22,
+   "phase": 4,
+   "title": "Persistencia local",
+   "mastery": "localStorage, serialización y migración simple.",
+   "evidence": "Datos que sobreviven recarga.",
+   "design": ""
+  },
+  {
+   "week": 23,
+   "phase": 4,
+   "title": "Fuentes de datos tabulares",
+   "mastery": "Lectura controlada, normalización, límites y caché.",
+   "evidence": "Adaptador de fuente intercambiable.",
+   "design": ""
+  },
+  {
+   "week": 24,
+   "phase": 4,
+   "title": "Integración y QA",
+   "mastery": "Validación, XSS conceptual y pruebas de flujo.",
+   "evidence": "Versión publicada y casos de prueba.",
+   "design": "Revisión de flujo completo con un usuario real y registro de fricciones."
+  },
+  {
+   "week": 25,
+   "phase": 5,
+   "title": "Modelo relacional",
+   "mastery": "Entidades, relaciones, PK/FK y cardinalidad.",
+   "evidence": "DER de un sistema de información.",
+   "design": ""
+  },
+  {
+   "week": 26,
+   "phase": 5,
+   "title": "SQL básico",
+   "mastery": "SELECT, INSERT, UPDATE, DELETE y filtros.",
+   "evidence": "Archivo de 25 consultas.",
+   "design": ""
+  },
+  {
+   "week": 27,
+   "phase": 5,
+   "title": "Consultas útiles",
+   "mastery": "JOIN, GROUP BY, HAVING y subconsultas.",
+   "evidence": "Reporte reproducible.",
+   "design": ""
+  },
+  {
+   "week": 28,
+   "phase": 5,
+   "title": "Integridad",
+   "mastery": "Constraints, transacciones y rollback.",
+   "evidence": "Casos que demuestran protección.",
+   "design": ""
+  },
+  {
+   "week": 29,
+   "phase": 5,
+   "title": "Rendimiento",
+   "mastery": "Índices, EXPLAIN conceptual y paginación.",
+   "evidence": "Comparación de dos consultas.",
+   "design": ""
+  },
+  {
+   "week": 30,
+   "phase": 5,
+   "title": "Ciclo de esquema",
+   "mastery": "Migraciones, seed, vistas y backup lógico.",
+   "evidence": "Base recreable desde cero.",
+   "design": ""
+  },
+  {
+   "week": 31,
+   "phase": 6,
+   "title": "Node y servidor HTTP",
+   "mastery": "Runtime, npm, módulos, env y ciclo request.",
+   "evidence": "Servidor con health check.",
+   "design": ""
+  },
+  {
+   "week": 32,
+   "phase": 6,
+   "title": "API REST",
+   "mastery": "Recursos, rutas, status y errores consistentes.",
+   "evidence": "CRUD versionado.",
+   "design": ""
+  },
+  {
+   "week": 33,
+   "phase": 6,
+   "title": "Arquitectura",
+   "mastery": "Router, controller, service y repository.",
+   "evidence": "Separación de responsabilidades.",
+   "design": ""
+  },
+  {
+   "week": 34,
+   "phase": 6,
+   "title": "PostgreSQL",
+   "mastery": "Consultas parametrizadas y transacciones.",
+   "evidence": "API conectada a esquema migrado.",
+   "design": ""
+  },
+  {
+   "week": 35,
+   "phase": 6,
+   "title": "Auth y permisos",
+   "mastery": "Sesión/token conceptual, roles y ownership.",
+   "evidence": "Matriz de autorización probada.",
+   "design": ""
+  },
+  {
+   "week": 36,
+   "phase": 6,
+   "title": "Pruebas y logs",
+   "mastery": "Unitarias, integración, logs y manejo global.",
+   "evidence": "Suite de API y diagnóstico.",
+   "design": ""
+  },
+  {
+   "week": 37,
+   "phase": 7,
+   "title": "TypeScript base",
+   "mastery": "Tipos, funciones, objetos, unions y strict.",
+   "evidence": "Migración de utilidades JS.",
+   "design": ""
+  },
+  {
+   "week": 38,
+   "phase": 7,
+   "title": "React mental model",
+   "mastery": "Componentes, props, state y render.",
+   "evidence": "Interfaz dividida por responsabilidades.",
+   "design": "Diseño de componentes: variantes, estados y API clara."
+  },
+  {
+   "week": 39,
+   "phase": 7,
+   "title": "Interacciones",
+   "mastery": "Eventos, formularios y estado derivado.",
+   "evidence": "Formulario con validación visible.",
+   "design": "Formularios que guían: validación visible, ayuda en contexto y errores humanos."
+  },
+  {
+   "week": 40,
+   "phase": 7,
+   "title": "Datos remotos",
+   "mastery": "Fetch, efectos, cancelación y estados.",
+   "evidence": "Vista resiliente a fallos.",
+   "design": ""
+  },
+  {
+   "week": 41,
+   "phase": 7,
+   "title": "Routing y diseño",
+   "mastery": "Rutas, layouts, componentes y accesibilidad.",
+   "evidence": "Flujo de 3-5 pantallas.",
+   "design": "Wireframe y prototipo del flujo en Figma antes de programar."
+  },
+  {
+   "week": 42,
+   "phase": 7,
+   "title": "Pruebas y calidad",
+   "mastery": "Pruebas de comportamiento, lint y build.",
+   "evidence": "Suite de rutas críticas.",
+   "design": ""
+  },
+  {
+   "week": 43,
+   "phase": 8,
+   "title": "Supabase local/proyecto",
+   "mastery": "Esquema, migraciones, seed y cliente.",
+   "evidence": "Entorno reproducible.",
+   "design": ""
+  },
+  {
+   "week": 44,
+   "phase": 8,
+   "title": "Auth y RLS",
+   "mastery": "Usuarios, claims y policies por rol/propiedad.",
+   "evidence": "Pruebas positivas y negativas.",
+   "design": ""
+  },
+  {
+   "week": 45,
+   "phase": 8,
+   "title": "Storage",
+   "mastery": "Buckets, rutas, tamaños, tipos y permisos.",
+   "evidence": "Carga segura con datos ficticios.",
+   "design": ""
+  },
+  {
+   "week": 46,
+   "phase": 8,
+   "title": "Integración completa",
+   "mastery": "React + Supabase; errores y caché.",
+   "evidence": "Flujo de punta a punta.",
+   "design": "Microinteracciones con propósito: animar solo lo que aporta comprensión."
+  },
+  {
+   "week": 47,
+   "phase": 8,
+   "title": "Vercel y CI",
+   "mastery": "Preview, variables por entorno, build y rollback.",
+   "evidence": "Release candidate validado.",
+   "design": ""
+  },
+  {
+   "week": 48,
+   "phase": 8,
+   "title": "Producción",
+   "mastery": "Auditoría, métricas, backups, runbook y demo.",
+   "evidence": "Capstone publicado y documentado.",
+   "design": "Capstone con diseño cuidado: portafolio visual, caso de estudio y demo."
+  },
+  {
+   "week": 49,
+   "phase": 9,
+   "title": "Linux y terminal avanzada",
+   "mastery": "Shell scripting, permisos, procesos, redes básicas y SSH.",
+   "evidence": "Script de automatización documentado",
+   "design": ""
+  },
+  {
+   "week": 50,
+   "phase": 9,
+   "title": "Docker",
+   "mastery": "Imágenes, contenedores, volúmenes, redes y Docker Compose.",
+   "evidence": "Stack local reproducible con Compose",
+   "design": ""
+  },
+  {
+   "week": 51,
+   "phase": 9,
+   "title": "CI/CD con GitHub Actions",
+   "mastery": "Flujos de trabajo, pruebas automáticas, build y despliegue continuo.",
+   "evidence": "Pipeline que prueba, construye y despliega",
+   "design": ""
+  },
+  {
+   "week": 52,
+   "phase": 9,
+   "title": "Nube y despliegue",
+   "mastery": "IAM, cómputo, almacenamiento, bases gestionadas, costos y observabilidad básica.",
+   "evidence": "Aplicación desplegada con costos documentados",
+   "design": ""
+  },
+  {
+   "week": 53,
+   "phase": 9,
+   "title": "Next.js",
+   "mastery": "App Router, Server Components, renderizado SSR/SSG y rutas de API.",
+   "evidence": "Aplicación Next.js con datos del servidor",
+   "design": ""
+  },
+  {
+   "week": 54,
+   "phase": 9,
+   "title": "Seguridad web",
+   "mastery": "OWASP Top 10, XSS, CSRF, inyección SQL, secretos, cabeceras y dependencias.",
+   "evidence": "Auditoría con correcciones verificadas",
+   "design": ""
+  },
+  {
+   "week": 55,
+   "phase": 10,
+   "title": "Estructuras de datos y algoritmos I",
+   "mastery": "Complejidad, arrays, hash, pilas, colas, búsqueda y patrones básicos.",
+   "evidence": "30 problemas resueltos con análisis de complejidad",
+   "design": ""
+  },
+  {
+   "week": 56,
+   "phase": 10,
+   "title": "Estructuras de datos y algoritmos II",
+   "mastery": "Recursión, árboles, grafos, ordenamiento y programación dinámica inicial.",
+   "evidence": "Resolución de problemas tipo entrevista",
+   "design": ""
+  },
+  {
+   "week": 57,
+   "phase": 10,
+   "title": "Python para backend",
+   "mastery": "Sintaxis, tipos, FastAPI, validación y pruebas con pytest.",
+   "evidence": "API en FastAPI equivalente a la de Node",
+   "design": ""
+  },
+  {
+   "week": 58,
+   "phase": 10,
+   "title": "Diseño de sistemas y arquitectura",
+   "mastery": "Escalado, caché, colas, consistencia, trade-offs y observabilidad.",
+   "evidence": "Documento de diseño con decisiones justificadas",
+   "design": ""
+  },
+  {
+   "week": 59,
+   "phase": 10,
+   "title": "IA aplicada al desarrollo",
+   "mastery": "APIs de modelos, prompts, RAG básico, evaluación y desarrollo asistido con criterio.",
+   "evidence": "Funcionalidad con IA y política de uso responsable",
+   "design": ""
+  },
+  {
+   "week": 60,
+   "phase": 10,
+   "title": "Portafolio, inglés técnico y entrevistas",
+   "mastery": "CV, GitHub, LinkedIn, entrevistas técnicas y conductuales, negociación.",
+   "evidence": "Portafolio publicado y simulacros de entrevista",
+   "design": ""
+  }
+ ]
+}

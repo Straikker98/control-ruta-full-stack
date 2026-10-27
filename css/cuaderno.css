@@ -1,0 +1,61 @@
+/* ==========================================================================
+   El Cuaderno: libreta rayada con espiral y margen rojo.
+   Código de 5 colores:
+     rojo (título del tema, advertencias) · azul (subtítulos, definiciones)
+     negro (texto) · verde (flechas, notas, tablas) · naranja (solo código)
+   El papel conserva su aspecto en modo oscuro: una libreta no se oscurece.
+   ========================================================================== */
+.notebook { --rule: 28px; --paper: #fffef9; --paper-line: #cfe3f3; --margin: #e2a3a3; position: relative; max-width: var(--read-w); margin: 0 auto; }
+.sheet {
+  position: relative; color: var(--c-negro); background-color: var(--paper);
+  border-radius: 6px 14px 14px 6px; box-shadow: var(--shadow-2); border: 1px solid #e9e4d3;
+  padding: calc(var(--rule) * 1.5) clamp(18px, 5vw, 44px) calc(var(--rule) * 1.5) clamp(54px, 9vw, 86px);
+  background-image:
+    linear-gradient(to right, transparent clamp(46px, 8vw, 74px), var(--margin) clamp(46px, 8vw, 74px), var(--margin) calc(clamp(46px, 8vw, 74px) + 2px), transparent calc(clamp(46px, 8vw, 74px) + 2px)),
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--rule) - 1px), var(--paper-line) calc(var(--rule) - 1px), var(--paper-line) var(--rule));
+  background-attachment: local; background-position: 0 0, 0 calc(var(--rule) * 1.5 - 1px);
+  min-height: 62dvh;
+  font-family: var(--font-paper); font-size: 1.04rem; line-height: var(--rule);
+}
+/* espiral metálico */
+.sheet::before {
+  content: ""; position: absolute; left: 10px; top: 14px; bottom: 14px; width: 22px;
+  background: radial-gradient(circle at 11px 11px, #1d1d1f 0 3.5px, #9aa0a6 4px 7px, transparent 7.5px) 0 0 / 22px 46px repeat-y;
+  opacity: .75; pointer-events: none;
+}
+.sheet > * { position: relative; }
+.sheet h1 { font-family: var(--font-paper); color: var(--c-rojo); font-size: 1.7rem; line-height: calc(var(--rule) * 1.5); margin: 0 0 var(--rule); letter-spacing: -.01em; }
+.sheet h2 { font-family: var(--font-paper); color: var(--c-azul); font-size: 1.2rem; line-height: var(--rule); margin: var(--rule) 0 calc(var(--rule) / 2); letter-spacing: 0; font-weight: 700; }
+.sheet h2:first-child { margin-top: 0; }
+.sheet p { margin: 0 0 calc(var(--rule) / 2); }
+.sheet ul { margin: 0 0 calc(var(--rule) / 2); padding-left: 1.3em; }
+.sheet li { margin: 0; padding-left: .1em; }
+.sheet li::marker { color: var(--c-azul); }
+.sheet strong { font-weight: 700; }
+.sheet .term { color: var(--c-azul); font-weight: 700; }
+.sheet code { font-family: var(--font-mono); font-size: .86em; color: var(--c-naranja); background: #fff4e6; padding: 0 5px; border-radius: 4px; line-height: 1; }
+.sheet pre.code {
+  font-family: var(--font-mono); color: var(--c-naranja); background: #fff8ef; border: 1px solid #f3dcc2; border-left: 4px solid var(--c-naranja);
+  border-radius: 6px; padding: calc(var(--rule) / 2) 14px; margin: calc(var(--rule) / 2) 0 var(--rule); overflow-x: auto; font-size: .84rem; line-height: 22px; white-space: pre; tab-size: 2;
+}
+.sheet pre.diagram { font-family: var(--font-mono); color: var(--c-negro); background: transparent; margin: calc(var(--rule) / 2) 0 var(--rule); overflow-x: auto; font-size: .84rem; line-height: var(--rule); white-space: pre; }
+.sheet .arrow { color: var(--c-verde); font-weight: 700; }
+.sheet .warn { color: var(--c-rojo); border: 1.5px solid var(--c-rojo); border-radius: 6px; padding: calc(var(--rule) / 2 - 2px) 14px; margin: calc(var(--rule) / 2) 0 var(--rule); background: #fff5f5; line-height: var(--rule); }
+.sheet .warn strong.lbl { display: block; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; }
+.sheet .note-g { color: var(--c-verde); font-size: .92rem; margin: 0 0 calc(var(--rule) / 2); }
+.sheet .cap { color: var(--c-verde); font-size: .84rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; line-height: var(--rule); margin-top: calc(var(--rule) / 2); }
+.sheet .tablewrap { overflow-x: auto; margin: 0 0 var(--rule); }
+.sheet table { border-collapse: collapse; min-width: 100%; font-size: .94rem; line-height: 22px; }
+.sheet th { color: var(--c-verde); text-align: left; border-bottom: 2px solid var(--c-verde); padding: 6px 12px 6px 0; font-weight: 700; }
+.sheet td { border-bottom: 1px solid #cfe3f3; padding: 6px 12px 6px 0; vertical-align: top; }
+.sheet pre.code + p, .sheet .note-g + .note-g { margin-top: 0; }
+
+.sheet-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); margin-top: var(--s5); }
+.pager { display: flex; align-items: center; gap: var(--s3); }
+.legend { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4); font-size: .82rem; color: var(--muted); }
+.legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.nb-top { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s4); flex-wrap: wrap; }
+.sheet.turn { animation: turn var(--t-base) var(--ease-out) both; }
+@keyframes turn { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+@media (max-width: 520px) { .sheet { font-size: 1rem; } .sheet h1 { font-size: 1.45rem; } }
+@media (prefers-reduced-motion: reduce) { .sheet.turn { animation: none; } }

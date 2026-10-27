@@ -1,0 +1,587 @@
+{
+ "week": 4,
+ "levels": {
+  "facil": [
+   {
+    "id": "04-f-01",
+    "prompt": "¿Qué atributo de `<form>` indica la dirección a la que viajan los datos al enviar el formulario?",
+    "options": [
+     "`method`, que declara la dirección de destino y la forma del viaje",
+     "`name`, que da a cada formulario su dirección única",
+     "`action`",
+     "`target`, que fija la página que procesará el paquete"
+    ],
+    "answer": 2,
+    "explanation": "`action` declara el destino; `method` solo dice cómo viajan (GET o POST), por eso es el distractor más tentador."
+   },
+   {
+    "id": "04-f-02",
+    "prompt": "¿Cuál es la diferencia visible entre enviar con GET y con POST?",
+    "options": [
+     "POST deja los datos visibles en la URL; GET los oculta",
+     "No hay diferencia visible: solo cambia la velocidad del envío",
+     "GET solo sirve para formularios de búsqueda y POST para todos los demás",
+     "GET deja los datos visibles en la URL; POST los lleva en el cuerpo de la petición"
+    ],
+    "answer": 3,
+    "explanation": "Con GET los parámetros aparecen en la dirección; con POST van en el cuerpo. Que GET se use para búsquedas es una costumbre de uso, no la diferencia técnica."
+   },
+   {
+    "id": "04-f-03",
+    "prompt": "¿Cómo se asocia un `<label>` a su campo cuando el label no envuelve al `input`?",
+    "options": [
+     "Con `for` en el label apuntando al `id` del campo",
+     "Con el atributo `placeholder` del input, que repite el texto del label",
+     "Con el atributo `name` compartido entre label e input",
+     "No se puede: el label siempre debe envolver al input"
+    ],
+    "answer": 0,
+    "explanation": "La asociación explícita une el `for` del label con el `id` del campo. `name` es la llave del envío y no crea asociación; envolver es solo la forma implícita."
+   },
+   {
+    "id": "04-f-04",
+    "prompt": "¿Qué atributo hace que el dato de un campo llegue al servidor con un nombre reconocible?",
+    "options": [
+     "`id`, porque identifica el campo y viaja con el paquete",
+     "`name`",
+     "`value`, porque contiene el dato escrito por la persona",
+     "`class`, que etiqueta el dato para el servidor"
+    ],
+    "answer": 1,
+    "explanation": "`name` es la llave del par nombre–valor. El `id` sirve para el label y los scripts, pero no viaja al servidor."
+   },
+   {
+    "id": "04-f-05",
+    "prompt": "¿Qué aporta usar `type=\"email\"` en vez de `type=\"text\"` para un correo?",
+    "options": [
+     "Nada: es solo una etiqueta decorativa",
+     "Validación básica del formato y el teclado adecuado en el móvil",
+     "Que el correo se envíe automáticamente al servidor al escribirlo",
+     "Que el campo se rellene solo con la cuenta de la persona sin ninguna otra declaración"
+    ],
+    "answer": 1,
+    "explanation": "El tipo `email` comprueba la forma básica (arroba y dominio) y adapta el teclado. No envía nada ni rellena por sí mismo; el autocompletado requiere `autocomplete`."
+   },
+   {
+    "id": "04-f-06",
+    "prompt": "Al pulsar el botón de envío de un formulario, ¿qué ocurre con los datos?",
+    "options": [
+     "Los datos se quedan en el navegador hasta que el servidor los pide uno por uno",
+     "El navegador reúne el valor de cada campo bajo su `name` y los envía con el `method` a la dirección de `action`",
+     "Cada campo viaja por su `id` a la dirección que diga su label",
+     "El formulario se convierte en una página nueva y los datos se pierden"
+    ],
+    "answer": 1,
+    "explanation": "El paquete son parejas nombre–valor enviadas por petición HTTP. Viajar por `id` es un error común: el `id` no forma parte del paquete."
+   },
+   {
+    "id": "04-f-07",
+    "prompt": "En el campo `<input id=\"correo\" name=\"correo\" value=\"ana@ejemplo.com\">`, ¿qué papel cumple cada atributo?",
+    "options": [
+     "`name` es el dato escrito; `value` es la llave para el servidor; `id` es el método de envío",
+     "`id` es el dato que viaja; `name` es solo decorativo; `value` lo genera el servidor",
+     "`value` es el dato que viaja; `name` es la llave con que se recibe; `id` identifica el campo en la página (label y código)",
+     "Los tres atributos hacen lo mismo y basta con declarar uno de ellos"
+    ],
+    "answer": 2,
+    "explanation": "Son tres identidades distintas: `id` (único en la página), `name` (llave del envío) y `value` (el dato). Confundirlos causa muchos errores de principiante."
+   },
+   {
+    "id": "04-f-08",
+    "prompt": "¿Qué elemento HTML agrupa varios campos relacionados bajo un título propio?",
+    "options": [
+     "`<div>` con un `<h1>` dentro, que el navegador anuncia como grupo de formulario",
+     "`<section>` con el atributo `name`",
+     "`<label>` envolviendo todos los campos del grupo",
+     "`<fieldset>` con su `<legend>`"
+    ],
+    "answer": 3,
+    "explanation": "`fieldset` declara el grupo y `legend` lo nombra, también para lectores de pantalla. Un `div` agrupa visualmente pero no comunica la relación."
+   },
+   {
+    "id": "04-f-09",
+    "prompt": "¿Qué control corresponde a una respuesta larga en varias líneas, como la descripción de una actividad?",
+    "options": [
+     "`<textarea>`",
+     "`<input type=\"text\">`, que admite varias líneas si se alarga con CSS",
+     "`<select>` con una opción por cada línea de texto",
+     "`<input type=\"search\">`, pensado para textos extensos"
+    ],
+    "answer": 0,
+    "explanation": "`textarea` recoge texto multilínea con filas visibles. `input type=\"text\"` es de una sola línea por naturaleza."
+   },
+   {
+    "id": "04-f-10",
+    "prompt": "¿Qué es el `placeholder` de un campo, según el tema?",
+    "options": [
+     "El nombre accesible oficial del campo cuando no hay label",
+     "El valor que viaja si la persona no escribe nada",
+     "El texto del mensaje que muestra el navegador al fallar la validación",
+     "Un ejemplo breve de formato dentro del campo vacío, que nunca reemplaza al label"
+    ],
+    "answer": 3,
+    "explanation": "El placeholder desaparece al escribir, suele tener bajo contraste y no siempre lo anuncian los lectores. Por eso no nombra campos; no viaja ni es el mensaje de error."
+   },
+   {
+    "id": "04-f-11",
+    "prompt": "¿Qué valor de `type` debe llevar el botón cuya función es enviar el formulario?",
+    "options": [
+     "`type=\"button\"`, que dispara el envío al ser pulsado",
+     "`type=\"reset\"`, que envía los datos y limpia los campos",
+     "`type=\"submit\"`",
+     "`type=\"send\"`, el valor estándar para enviar"
+    ],
+    "answer": 2,
+    "explanation": "`submit` dispara la validación y el envío. `button` no hace nada por sí mismo y `send` no existe como tipo."
+   },
+   {
+    "id": "04-f-12",
+    "prompt": "¿Cómo se consigue que varios botones de opción (radio) sean excluyentes entre sí?",
+    "options": [
+     "Dándoles el mismo `id` para que el navegador los agrupe",
+     "Dándoles el mismo `value` en todos",
+     "Dándoles el mismo `name`",
+     "Envolviéndolos en un mismo `<label>` común"
+    ],
+    "answer": 2,
+    "explanation": "El `name` compartido es lo que forma el grupo y viaja una sola pareja. Repetir `id` rompe asociaciones y repetir `value` no agrupa nada."
+   },
+   {
+    "id": "04-f-13",
+    "prompt": "¿Qué tipo de `input` abre en el móvil el teclado telefónico para un número de teléfono, sin validar un formato concreto?",
+    "options": [
+     "`type=\"tel\"`",
+     "`type=\"number\"`, que valida el formato de teléfono de cada país",
+     "`type=\"phone\"`, el valor estándar para teléfonos",
+     "`type=\"text\"` con `pattern`, que es el único que adapta el teclado"
+    ],
+    "answer": 0,
+    "explanation": "`tel` adapta el teclado y no valida formato porque cada país escribe distinto. `number` es para cantidades y `phone` no existe."
+   },
+   {
+    "id": "04-f-14",
+    "prompt": "¿Qué atributo impide enviar el formulario mientras un campo esté vacío?",
+    "options": [
+     "`placeholder`, que avisa si el campo se deja vacío",
+     "`required`",
+     "`autocomplete`, que completa el campo para que nunca esté vacío",
+     "`value=\"\"`, que marca el campo como pendiente"
+    ],
+    "answer": 1,
+    "explanation": "`required` hace que el navegador detenga el envío y señale el primer campo vacío. El placeholder es solo una ayuda visual."
+   },
+   {
+    "id": "04-f-15",
+    "prompt": "¿En qué formato viaja siempre el valor de un campo `type=\"date\"`?",
+    "options": [
+     "Día/mes/año, siguiendo el idioma del navegador",
+     "Como el texto exacto que la persona vio en pantalla",
+     "Mes/día/año, siguiendo el formato de Estados Unidos",
+     "Año-mes-día, lo escriba como lo escriba la persona en su idioma"
+    ],
+    "answer": 3,
+    "explanation": "El formato de envío es año-mes-día, por lo que se evita discutir si `03/04` es marzo o abril. No depende de cómo lo muestre el navegador."
+   },
+   {
+    "id": "04-f-16",
+    "prompt": "¿Qué comprueba el atributo `pattern`?",
+    "options": [
+     "Que el valor completo cumpla una expresión regular que describe su forma",
+     "Que el valor exista realmente en la base de datos",
+     "Que el campo no esté vacío",
+     "Que el valor contenga la expresión regular en cualquier parte"
+    ],
+    "answer": 0,
+    "explanation": "El patrón valida estructura, no significado, y se aplica al valor entero. Comprobar existencia es trabajo del servidor y la obligatoriedad es de `required`."
+   }
+  ],
+  "medio": [
+   {
+    "id": "04-m-01",
+    "prompt": "Un formulario de registro pide la contraseña de la persona. El campo está declarado con `type=\"text\"` y la contraseña se ve mientras se escribe. ¿Qué tipo le corresponde?",
+    "options": [
+     "`type=\"email\"`, que protege el dato al validarlo, pero ese tipo es de texto y deja la contraseña visible; además el navegador lo validaría como una dirección con arroba y dominio",
+     "`type=\"password\"`, que oculta el valor mientras se escribe",
+     "`type=\"hidden\"`, que lo manda sin mostrarlo nunca",
+     "Ninguno: el tipo no afecta a las contraseñas"
+    ],
+    "answer": 1,
+    "explanation": "`password` oculta lo escrito con puntos. `hidden` no muestra ningún campo a la persona, así que no podría escribirla."
+   },
+   {
+    "id": "04-m-02",
+    "prompt": "El formulario pregunta la talla de una camiseta y solo se puede elegir UNA entre S, M y L. ¿Qué control lo resuelve?",
+    "options": [
+     "Tres casillas (`checkbox`) independientes, de modo que la persona podría marcar S y M a la vez y el servidor recibiría varias tallas para una sola pregunta",
+     "Un grupo de radios que comparten el mismo `name`, para que elegir uno desmarque los demás",
+     "Un área de texto donde se escribe la talla",
+     "Tres botones de envío, uno por talla"
+    ],
+    "answer": 1,
+    "explanation": "Una única respuesta entre pocas opciones es el caso de los radios. Las casillas permiten marcar varias y serían una decisión sí/no cada una."
+   },
+   {
+    "id": "04-m-03",
+    "prompt": "Al enviar el formulario, el servidor recibe bien casi todos los datos, pero uno no llega. El campo se ve y se llena normalmente. ¿Qué le falta a ese campo?",
+    "options": [
+     "El atributo `name`, que es la llave con la que el dato viaja",
+     "El atributo `id`, sin el cual el navegador ignora el campo, porque los navegadores descartan cualquier control que no declare ese identificador, aunque el campo tenga name y se llene",
+     "El atributo `placeholder`",
+     "Una clase de CSS que lo marque como enviable"
+    ],
+    "answer": 0,
+    "explanation": "Sin `name` el control queda fuera del paquete en silencio. El `id` no viaja y no es requisito para el envío."
+   },
+   {
+    "id": "04-m-04",
+    "prompt": "El campo de correo de un registro debe ser obligatorio y validar su formato con la validación nativa. ¿Cómo debe declararse?",
+    "options": [
+     "`type=\"text\"` sin más: el navegador no puede validar correos, pues el navegador solo puede comprobar longitudes y nunca la forma de una dirección, por lo que habría que programarlo aparte",
+     "`type=\"text\"` con `placeholder` de ejemplo",
+     "Como un desplegable con los correos posibles",
+     "`type=\"email\"` con `required`: el navegador exige el dato y comprueba su formato antes de enviar"
+    ],
+    "answer": 3,
+    "explanation": "`email` valida la forma básica y `required` evita el campo vacío. Un placeholder es solo ayuda visual y no valida nada."
+   },
+   {
+    "id": "04-m-05",
+    "prompt": "El formulario se ve completo, pero al hacer clic en el texto de un label el cursor NO pasa a su campo. ¿Cuál es la causa más probable?",
+    "options": [
+     "El campo no tiene `name`, ya que sin esa configuración el navegador no podría relacionar el texto con la cajita aunque el name sea correcto",
+     "El formulario usa el método GET",
+     "El `for` del label no coincide con el `id` del campo que debe enfocar",
+     "El botón de envío está al final del formulario"
+    ],
+    "answer": 2,
+    "explanation": "La asociación depende de que `for` e `id` digan lo mismo. Un `name` ausente afecta al envío, no al foco por clic."
+   },
+   {
+    "id": "04-m-06",
+    "prompt": "Un formulario de acceso (usuario y contraseña) está declarado con `method=\"get\"` y, al enviarlo, la contraseña queda visible en la dirección del navegador. ¿Qué corresponde?",
+    "options": [
+     "Nada: así funcionan todos los formularios, como hacen todos los sitios, porque la dirección de la petición es una parte normal del envío y no supone ningún riesgo para los datos",
+     "Quitar el atributo `action` para que no se vea la dirección",
+     "Cambiarlo a `method=\"post\"`, para que los datos viajen en el cuerpo de la petición y no en la dirección",
+     "Poner la contraseña en un campo `hidden` dentro de la dirección"
+    ],
+    "answer": 2,
+    "explanation": "Los datos sensibles se entregan con POST. Quitar `action` no cambia dónde viajan los datos: con GET seguirían en la URL."
+   },
+   {
+    "id": "04-m-07",
+    "prompt": "Un campo debe aceptar solo códigos de sede de tres letras y dos dígitos, como `MAN05`, y la persona debe saber el formato si falla. ¿Qué declaración corresponde?",
+    "options": [
+     "`pattern=\"[A-Za-z]{3,2}\"` sin más atributos, porque el navegador deduce el formato",
+     "`pattern=\"[A-Za-z]{3}[0-9]{2}\"` acompañado de `title=\"Formato: tres letras y dos dígitos, ej. MAN05\"`",
+     "`type=\"number\"` con `max=\"99999\"` y un `placeholder`",
+     "`minlength=\"5\"` y `maxlength=\"5\"`, que ya obligan a letras y dígitos"
+    ],
+    "answer": 1,
+    "explanation": "El patrón fija estructura y el `title` traduce la regla al lenguaje humano. Las longitudes solo cuentan caracteres: `12345` también cumpliría 5 de largo."
+   },
+   {
+    "id": "04-m-08",
+    "prompt": "Se pide el número de asistentes, que debe ser un entero entre 1 y 500. ¿Cuál es la declaración adecuada?",
+    "options": [
+     "`<input type=\"range\" name=\"asistentes\">`, porque un deslizador evita errores, que además limita el rango mediante `min` y `max` por sí mismo y evita que la persona se equivoque de forma alguna",
+     "`<input type=\"number\" name=\"asistentes\" min=\"1\" max=\"500\" step=\"1\" required>`",
+     "`<input type=\"text\" name=\"asistentes\" maxlength=\"500\">`",
+     "`<input type=\"tel\" name=\"asistentes\" min=\"1\" max=\"500\">`"
+    ],
+    "answer": 1,
+    "explanation": "Es una cantidad calculable, así que `number` con `min`, `max` y `step`. `maxlength` limita caracteres, no valores, y `min`/`max` no se aplican a `tel`."
+   },
+   {
+    "id": "04-m-09",
+    "prompt": "Se pide el número de documento de identidad. ¿Qué tipo de input conviene y por qué?",
+    "options": [
+     "`type=\"number\"`, porque está formado solo por dígitos, y el control numérico conserva siempre los ceros iniciales y no muestra flechas ni cambia el valor",
+     "`type=\"range\"`, para evitar errores de digitación",
+     "`type=\"text\"` (o `tel`), porque es un código y no una cantidad: `number` puede quitar ceros a la izquierda y mostrar flechas",
+     "`type=\"email\"`, porque identifica a la persona"
+    ],
+    "answer": 2,
+    "explanation": "La regla del tema: el tipo lo decide el dato. Un documento no se suma ni se incrementa, así que no es un número en sentido de cantidad."
+   },
+   {
+    "id": "04-m-10",
+    "prompt": "Una lista desplegable de municipios es obligatoria, pero la persona puede dejarla sin elegir y el formulario igualmente se envía. ¿Qué ajuste lo corrige?",
+    "options": [
+     "Añadir `placeholder` al `select`, con el texto «Elige un municipio…», que el navegador cuenta como valor vacío al validar",
+     "Quitar `required` y confiar en que la persona elija",
+     "Dar a la primera opción el valor `0`, para que cuente como vacía",
+     "Poner como primera opción una invitación sin valor, `<option value=\"\">Elige un municipio…</option>`, junto con `required` en el `select`"
+    ],
+    "answer": 3,
+    "explanation": "Con `value=\"\"` dejar la invitación cuenta como campo vacío y `required` lo detiene. Un valor como `0` es un dato no vacío: pasaría la validación."
+   },
+   {
+    "id": "04-m-11",
+    "prompt": "Una casilla `<input type=\"checkbox\" name=\"acepto\">` sin atributo `value` se marca y se envía. ¿Qué viaja en el paquete?",
+    "options": [
+     "Nada: sin `value` la casilla no se envía marcada, porque el navegador exige un valor declarado para incluir cualquier casilla en el paquete",
+     "`acepto=true`, que el navegador genera siempre",
+     "El texto del label asociado a la casilla",
+     "`acepto=on`, un valor genérico que no dice qué se eligió"
+    ],
+    "answer": 3,
+    "explanation": "Sin `value`, el navegador usa el genérico `on` para las casillas marcadas. Por eso conviene declarar un valor con sentido."
+   },
+   {
+    "id": "04-m-12",
+    "prompt": "Un campo muestra el código de la sede, precargado y no editable por la persona, pero ese dato debe llegar al servidor con el resto. ¿Qué atributo corresponde?",
+    "options": [
+     "`readonly`, porque los campos de solo lectura se muestran sin editarse y sí viajan",
+     "`disabled`, porque bloquea la edición y además lo envía, de modo que el campo se ve gris pero su valor viaja igual con el resto del paquete",
+     "`hidden` en el `name`, que lo envía sin mostrarlo",
+     "`required`, que obliga a incluirlo siempre"
+    ],
+    "answer": 0,
+    "explanation": "Los deshabilitados se muestran pero no viajan; los de solo lectura sí viajan. Es la diferencia que el tema marca entre ambos."
+   },
+   {
+    "id": "04-m-13",
+    "prompt": "Dentro de un `<form>` hay un botón `<button>Ver ayuda</button>` que solo debe abrir un panel con JavaScript, pero al pulsarlo envía el formulario. ¿Cómo se corrige?",
+    "options": [
+     "Declarando `type=\"button\"`, porque un botón sin tipo dentro de un form actúa como envío",
+     "Añadiendo `method=\"get\"` al formulario, porque con GET el navegador interpreta los botones sin tipo como botones genéricos y deja de enviar",
+     "Moviendo el botón dentro de un `fieldset`",
+     "Cambiando `<button>` por `<label>`"
+    ],
+    "answer": 0,
+    "explanation": "El botón sin `type` equivale a `submit`. El `method` o el `fieldset` no cambian ese comportamiento."
+   },
+   {
+    "id": "04-m-14",
+    "prompt": "La fecha de una actividad no puede ser posterior al 31 de diciembre de 2026. ¿Cómo se declara con validación nativa?",
+    "options": [
+     "`<input type=\"date\" name=\"fecha\" max=\"2026-12-31\" required>`",
+     "`<input type=\"text\" name=\"fecha\" maxlength=\"2026\">` y el navegador rechazaría cualquier fecha escrita con más de cuatro dígitos",
+     "`<input type=\"date\" name=\"fecha\" pattern=\"31/12/2026\">`",
+     "`<input type=\"number\" name=\"fecha\" max=\"31122026\">`"
+    ],
+    "answer": 0,
+    "explanation": "`date` admite `min` y `max` en formato año-mes-día. `maxlength` cuenta caracteres, no fechas, y `pattern` no se aplica a `date`."
+   },
+   {
+    "id": "04-m-15",
+    "prompt": "Se necesita un campo para un código postal colombiano de exactamente 6 dígitos, tratado como código. ¿Cuál es la declaración más adecuada?",
+    "options": [
+     "`<input type=\"number\" name=\"postal\" min=\"0\" max=\"999999\">`, porque son solo dígitos",
+     "`<input type=\"text\" name=\"postal\" pattern=\"[0-9]+\">`, porque el `+` limita a seis",
+     "`<input type=\"range\" name=\"postal\" min=\"100000\" max=\"999999\">`",
+     "`<input type=\"text\" name=\"postal\" pattern=\"[0-9]{6}\" title=\"Seis dígitos\" required>`"
+    ],
+    "answer": 3,
+    "explanation": "El patrón `[0-9]{6}` exige exactamente seis dígitos. `+` significa uno o más y `number` puede perder ceros al inicio; un código no es una cantidad."
+   },
+   {
+    "id": "04-m-16",
+    "prompt": "Un campo de contraseña debe exigir al menos 8 caracteres y avisarlo antes de escribirla. ¿Cuál es la combinación correcta?",
+    "options": [
+     "`<input type=\"password\" maxlength=\"8\" required>` con el aviso solo en el mensaje de error, y el aviso aparece solo cuando falla, sin declarar nada en el label",
+     "`<input type=\"text\" minlength=\"8\">` con un placeholder «8 caracteres»",
+     "`<input type=\"password\" minlength=\"8\" required>` con un label que diga «Contraseña (mínimo 8 caracteres)»",
+     "`<input type=\"password\" min=\"8\" required>` sin aviso previo"
+    ],
+    "answer": 2,
+    "explanation": "`minlength` fija la longitud mínima y la regla se anuncia en el label antes de escribir. `min` es para números y `maxlength` limitaría por arriba."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "04-d-01",
+    "prompt": "Diagnóstico: el formulario se ve completo, pero al enviarlo el servidor solo recibe dos de sus ocho datos. Los campos existen y se pueden llenar. ¿Cuál es la causa que explica exactamente eso?",
+    "options": [
+     "El método es POST y debió ser GET para que viajen todos los campos; con POST el navegador solo empaqueta los dos primeros campos del formulario y descarta los demás por defecto",
+     "El botón de envío está fuera del formulario, así que solo viajan dos campos",
+     "Falta la hoja de estilos del formulario",
+     "Los seis campos que no llegan no tienen atributo `name`: sin nombre, el navegador no incluye su dato en el envío, aunque el campo se vea y se llene"
+    ],
+    "answer": 3,
+    "explanation": "Los controles sin `name` quedan fuera del paquete en silencio. Si el botón estuviera fuera del form, no habría envío, no un envío parcial."
+   },
+   {
+    "id": "04-d-02",
+    "prompt": "Diagnóstico: en un formulario hay dos preguntas de opción única — el tamaño (pequeño/grande) y el color (rojo/azul) — pero al elegir «grande» se desmarca el «rojo» que ya estaba elegido. ¿Qué está mal?",
+    "options": [
+     "Los radios no pueden convivir dos grupos en un mismo formulario, por lo que cada pregunta de opción única debería ir en un formulario distinto con su propio botón de envío",
+     "Los labels están mal asociados con sus campos",
+     "Los cuatro radios comparten el mismo `name`: forman UN solo grupo excluyente; cada pregunta necesita su propio `name`",
+     "El formulario necesita dos botones de envío, uno por pregunta"
+    ],
+    "answer": 2,
+    "explanation": "El grupo excluyente lo define el `name`. Labels mal asociados afectarían al foco por clic, no a qué radios se desmarcan."
+   },
+   {
+    "id": "04-d-03",
+    "prompt": "Análisis: un formulario usa el placeholder como única «etiqueta» de cada campo («Escribe tu nombre…») y ningún label. ¿Qué problemas trae eso, según el tema?",
+    "options": [
+     "Ninguno: el placeholder es el label moderno y basta, porque los lectores de pantalla lo anuncian siempre como nombre del campo y permanece visible al escribir",
+     "El placeholder impide que el formulario se envíe",
+     "Los datos llegan sin `name` por culpa del placeholder",
+     "El placeholder desaparece al escribir y no sirve de nombre accesible: un lector de pantalla puede no anunciarlo; cada campo necesita su label asociado"
+    ],
+    "answer": 3,
+    "explanation": "Un campo con placeholder y sin label es un campo sin nombre. El placeholder no afecta al envío ni al `name`."
+   },
+   {
+    "id": "04-d-04",
+    "prompt": "Diagnóstico: un campo con `pattern` para el código postal rechaza datos y las personas no entienden qué formato se espera; el mensaje del navegador no lo explica. ¿Qué pieza falta junto al patrón?",
+    "options": [
+     "Un segundo `pattern` de respaldo que repita la regla, de modo que el navegador muestre dos veces el mismo mensaje genérico sin explicar nada más a la persona",
+     "El atributo `title` acompañando al `pattern`, que explica el formato esperado y el navegador suma a su mensaje",
+     "El atributo `placeholder` con un código de ejemplo, que sustituye al mensaje de error",
+     "Cambiar el campo a un desplegable"
+    ],
+    "answer": 1,
+    "explanation": "El `title` traduce la expresión regular al lenguaje humano. Un placeholder desaparece al escribir y no se integra en el mensaje de error."
+   },
+   {
+    "id": "04-d-05",
+    "prompt": "Diagnóstico: el formulario tiene un botón «Limpiar» que, al pulsarlo, ENVÍA el formulario en vez de limpiarlo. El botón está declarado sin atributo `type`. ¿Qué explica el comportamiento?",
+    "options": [
+     "El navegador envía el formulario con cualquier botón, sin excepción; por eso toda acción que no sea enviar debe resolverse fuera del formulario y nunca con un botón",
+     "Dentro de un formulario, un botón sin `type` vale como `type=\"submit\"`: envía; debe declararse su tipo (`button` si limpia con código)",
+     "El botón quedó dentro del `fieldset` equivocado",
+     "El `action` del formulario está mal escrito"
+    ],
+    "answer": 1,
+    "explanation": "El tipo por defecto de un botón en un form es envío. Un `action` incorrecto cambiaría el destino, no la decisión de enviar."
+   },
+   {
+    "id": "04-d-06",
+    "prompt": "Análisis combinado: el formulario de inscripción se declara con `method=\"get\"` «para ver qué se envía». Al enviarlo, el correo y el documento quedan visibles en la dirección y en el historial. ¿Cuál es el juicio correcto?",
+    "options": [
+     "Es una ventaja: todo queda a la vista para depurar, ya que la dirección permite compartir el enlace con soporte técnico y el historial del navegador es un lugar seguro",
+     "El problema se resuelve poniendo los campos en orden alfabético",
+     "Hay que quitar el `action` para que no viaje nada",
+     "GET deja los datos en la dirección y en el historial: para datos personales corresponde POST; GET se reserva para consultas como las búsquedas"
+    ],
+    "answer": 3,
+    "explanation": "POST lleva los datos en el cuerpo. Para depurar se usa DevTools > Network, no exponer datos en la URL."
+   },
+   {
+    "id": "04-d-07",
+    "prompt": "Diagnóstico: el formulario tiene dos campos con `id=\"dato\"`, cada uno con su label `for=\"dato\"`. Al hacer clic en el segundo label, el foco salta al primer campo. ¿Por qué?",
+    "options": [
+     "Los `id` deben ser únicos: con un `id` repetido la asociación del segundo campo se rompe en silencio y el `for` apunta al primero",
+     "Los labels solo funcionan una vez por formulario, y por eso el navegador ignora a partir del segundo todas las asociaciones que declaren un mismo `for` en la página",
+     "Falta el `name` en el segundo campo",
+     "El navegador asocia siempre por el orden de aparición, no por `for`"
+    ],
+    "answer": 0,
+    "explanation": "El `for` busca un `id` único. Que el `name` falte afectaría al envío, no al foco."
+   },
+   {
+    "id": "04-d-08",
+    "prompt": "Diagnóstico: un campo de cantidad tiene `required min=\"1\"`, pero alguien envía el paquete con la cantidad `-5` usando DevTools. El servidor lo guarda. ¿Qué falló en el diseño?",
+    "options": [
+     "El atributo `min` debería ser `max`, para que el navegador bloquee los negativos, pues el navegador usa el límite superior para descartar los valores negativos y así el servidor no necesita revisar",
+     "No se validó en el servidor: la validación del navegador protege la experiencia, pero cualquiera puede saltársela; el servidor debe validar por su cuenta",
+     "El método debería ser GET para que el navegador revise los datos",
+     "Faltó un `placeholder` indicando que no se admiten negativos"
+    ],
+    "answer": 1,
+    "explanation": "La validación nativa no es seguridad. Cambiar atributos del HTML no ayuda: lo que no comprueba el servidor no está comprobado."
+   },
+   {
+    "id": "04-d-09",
+    "prompt": "Diagnóstico: una persona que usa lector de pantalla no se entera de que el correo es inválido: el formulario solo pinta el borde del campo en rojo. ¿Cuál es la mejora correcta?",
+    "options": [
+     "Añadir un mensaje de texto junto al campo que diga qué falla y cómo corregirlo, asociado al campo, y no comunicar nunca solo con color",
+     "Poner el borde en un rojo más intenso para mejorar el contraste, que así queda marcado con claridad para todas las personas, incluidas quienes no ven la pantalla",
+     "Mostrar el error solo en una alerta genérica al final de la página: «Hubo errores»",
+     "Borrar el campo con error para que la persona lo escriba de nuevo"
+    ],
+    "answer": 0,
+    "explanation": "El color solo no llega a quien no ve ni a quien tiene daltonismo. Un aviso genérico y borrar el campo incumplen el principio de decir qué, dónde y cómo."
+   },
+   {
+    "id": "04-d-10",
+    "prompt": "Diagnóstico: el campo de documento se declaró `type=\"number\"`. Una persona escribe `0012345` y el servidor recibe `12345`. ¿Qué lección aplica?",
+    "options": [
+     "Un documento es un código, no una cantidad: debe ser `type=\"text\"` (o `tel`), porque el tipo numérico puede quitar ceros a la izquierda",
+     "El servidor es el que recorta los ceros; el tipo del campo no influye; el campo numérico envía siempre el texto exacto que se escribió, con todos sus ceros iniciales",
+     "Debe añadirse `step=\"0\"` para que no se recorten los ceros",
+     "Debe cambiarse a `type=\"range\"` para conservar los ceros"
+    ],
+    "answer": 0,
+    "explanation": "El tipo se elige por lo que el dato ES. Un valor que no se calcula no se declara numérico; el tema lo señala expresamente."
+   },
+   {
+    "id": "04-d-11",
+    "prompt": "Un campo lleva `pattern=\"[A-Za-z]{3}[0-9]{2}\"`. ¿Cuál de estos valores lo cumple completo?",
+    "options": [
+     "`MA05` (dos letras y dos dígitos), que cumple porque el patrón admite entre dos y tres letras en la primera parte",
+     "`MAN05`",
+     "`MAN055` (tres letras y tres dígitos)",
+     "`man-05` (tres letras, guion y dos dígitos)"
+    ],
+    "answer": 1,
+    "explanation": "El patrón se aplica al valor entero: tres letras y exactamente dos dígitos. Un dígito de más, como en `MAN055`, ya no cumple aunque contenga un fragmento válido."
+   },
+   {
+    "id": "04-d-12",
+    "prompt": "Diagnóstico: un formulario largo falla al enviarse. La persona corrige el primer error, vuelve a enviar y aparece el siguiente, y así cuatro veces. ¿Qué mejora recomienda el tema?",
+    "options": [
+     "Un resumen de errores al inicio con enlaces a cada campo, además del mensaje junto a cada campo",
+     "Quitar la validación nativa para que no moleste, y sustituirla por un único aviso general que se muestre al principio y no dependa de cada campo",
+     "Mostrar un solo aviso «Hubo errores» sin más detalle",
+     "Mostrar los errores solo con color para no ocupar espacio"
+    ],
+    "answer": 0,
+    "explanation": "El resumen permite corregir los cuatro fallos sin enviar cuatro veces. Un aviso genérico no dice qué campo ni cómo arreglarlo."
+   },
+   {
+    "id": "04-d-13",
+    "prompt": "Diagnóstico: en un formulario de evidencias, un `input` de correo escrito justo debajo del `</form>` se ve alineado con los demás campos, pero su dato nunca llega. ¿Cuál es la causa?",
+    "options": [
+     "Los campos fuera del form se envían solo por GET, mientras que los controles dentro del formulario viajan solo por POST, sin importar el método declarado",
+     "Falta el `placeholder`, que activa el envío del campo",
+     "Un `input` de tipo `email` solo viaja si lleva `autocomplete`",
+     "El control está fuera del elemento `form`: la pertenencia es por el código, no por la cercanía visual"
+    ],
+    "answer": 3,
+    "explanation": "Los controles fuera del `form` no se incluyen en su envío aunque parezcan estar al lado. `autocomplete` solo ayuda a rellenar."
+   },
+   {
+    "id": "04-d-14",
+    "prompt": "Diagnóstico: un grupo de dos radios, «Presencial» y «Virtual», permite marcar ambos a la vez. Sus `name` son `modalidad1` y `modalidad2`. ¿Cuál es la solución?",
+    "options": [
+     "Darles el mismo `id`, para que el navegador los agrupe, de modo que ambos respondan a un único label y el navegador los trate como una sola pregunta",
+     "Cambiarlos a `type=\"checkbox\"`, que sí son excluyentes",
+     "Darles el mismo `name` (`modalidad`) y distinto `value` a cada uno",
+     "Dar el mismo `value` a ambos"
+    ],
+    "answer": 2,
+    "explanation": "El `name` compartido forma el grupo excluyente. Las casillas permiten marcar varias y repetir `id` rompe la asociación de los labels."
+   },
+   {
+    "id": "04-d-15",
+    "prompt": "Se necesita que la persona indique el nivel de satisfacción con exactitud (un entero de 0 a 100) y el equipo propone `type=\"range\"`. ¿Qué crítica aplica?",
+    "options": [
+     "Ninguna: el deslizador es siempre la mejor opción para números, porque permite elegir cualquier entero con precisión sin necesidad de teclear y funciona igual de bien con un dedo",
+     "`range` no puede tener `min` y `max`, por lo que no sirve",
+     "El deslizador sirve para valores aproximados; acertar un número exacto con un dedo es una lotería, así que conviene `type=\"number\"` con `min` y `max`",
+     "Es mejor un `type=\"text\"` con `pattern=\"[0-9]+\"`, para permitir cualquier valor"
+    ],
+    "answer": 2,
+    "explanation": "El tema presenta el rango como pésimo para valores exactos. Un `number` con límites valida el entero sin pelear con el deslizador."
+   },
+   {
+    "id": "04-d-16",
+    "prompt": "Un equipo decide agregar `novalidate` al formulario porque «los mensajes del navegador se ven feos», sin plan alterno. ¿Qué juicio es correcto?",
+    "options": [
+     "Es una buena práctica, porque el servidor ya valida solo todo lo necesario, pues los mensajes nativos son un riesgo de seguridad y el servidor valida por su cuenta cualquier dato recibido",
+     "Es correcto, porque el estilo del mensaje se puede arreglar con CSS aparte",
+     "Es un error: sin reemplazo, el formulario queda sin ninguna red, ya que `novalidate` solo se justifica si se valida por otro lado con JavaScript",
+     "Es indiferente: `novalidate` solo cambia el idioma de los mensajes"
+    ],
+    "answer": 2,
+    "explanation": "El mensaje nativo no se estiliza con CSS, pero desactivarlo sin sustituto elimina la validación. Y el servidor solo valida si alguien lo programó."
+   }
+  ]
+ }
+}

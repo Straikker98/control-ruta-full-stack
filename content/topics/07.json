@@ -1,0 +1,369 @@
+{
+ "week": 7,
+ "estado": "completo",
+ "sections": [
+  {
+   "page": 1,
+   "kind": "heading",
+   "title": "1.1. CSS: las reglas que deciden cómo se ve cada elemento",
+   "body": "CSS (Cascading Style Sheets, hojas de estilo en cascada) es el lenguaje que declara la presentación de un documento HTML: qué color lleva un texto, cuánto mide una caja, qué espacio la separa de las demás y cómo se distingue un enlace ya visitado. El HTML del Tema 3 dice qué ES cada cosa — un título, un párrafo, una lista — y nada más; CSS decide cómo se VE cada una de esas cosas.\n\nLa separación es estricta y es la base de todo el tema:\n\n• Contenido y estructura viven en el HTML: si quitaras todas las hojas de estilo, el documento seguiría completo y legible, solo que desnudo.\n• Presentación vive en CSS: el mismo documento puede verse de diez maneras distintas con diez hojas distintas, sin tocar una sola etiqueta.\n• El navegador une las dos capas al pintar: lee el HTML, construye el árbol del documento, aplica las reglas CSS que alcanzan a cada elemento y recién entonces dibuja."
+  },
+  {
+   "page": 1,
+   "kind": "warning",
+   "title": "REGLA FUNDAMENTAL",
+   "body": "Ninguna decisión de apariencia se escribe en el HTML: ni atributos de presentación, ni etiquetas elegidas «porque se ven grandes o en negrita». Si una regla es de cómo se ve, vive en la hoja de estilos; si un elemento existe, vive en el HTML. Mezclar las capas produce documentos que nadie puede mantener: cambiar el diseño obligaría a reescribir cada página en lugar de una sola hoja."
+  },
+  {
+   "page": 1,
+   "kind": "definition",
+   "title": "1.2. Las tres formas de aplicar CSS a un documento",
+   "body": "El navegador acepta reglas CSS escritas en tres lugares, y distinguirlos es distinguir tres alcances:\n\n• Estilo en línea: la regla va dentro del propio elemento, en su atributo de estilo. Alcanza solo a ese elemento, no se puede reutilizar y mezcla las capas en el peor sitio posible: dentro del HTML. Su único uso legítimo es una prueba rápida que se borra enseguida.\n• Hoja interna: las reglas van en un bloque de estilo dentro de la cabeza del documento. Alcanzan solo a esa página: si el sitio tiene cinco páginas, el mismo diseño habría que copiarlo cinco veces, y cualquier cambio, corregirlo cinco veces.\n• Hoja externa: las reglas viven en un archivo aparte, con extensión .css, y cada página lo enlaza desde su cabeza con una etiqueta de enlace y su ruta relativa — la misma disciplina de rutas del Tema 6. Una sola hoja da estilo a todo el sitio: cambiar una regla cambia todas las páginas a la vez.\n\nLa forma de trabajo de esta ruta, y la de cualquier sitio serio, es la hoja externa. Todo lo que sigue se escribe pensando en ella."
+  },
+  {
+   "page": 1,
+   "kind": "code",
+   "title": "Las tres formas aplicadas al mismo párrafo",
+   "body": "1) EN LÍNEA (solo ese elemento; evitar):\n\n```\n   <p style=\"color: #b71c1c;\">Aviso importante</p>\n```\n\n2) INTERNA (solo esta página; en la cabeza):\n\n```\n   <style>\n     p.aviso { color: #b71c1c; }\n   </style>\n```\n\n3) EXTERNA (todo el sitio; la forma de trabajo):\n   En la cabeza de cada página:\n\n```\n   <link rel=\"stylesheet\" href=\"css/estilos.css\">\n```\n\n   Y en css/estilos.css:\n\n```\n   p.aviso { color: #b71c1c; }\n```\n\nMismo resultado visual, tres alcances distintos:\nla forma externa es la única que escala."
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.1. Anatomía de una regla CSS: selector, propiedad y valor",
+   "body": "Toda regla CSS tiene dos partes: a quién alcanza y qué le ordena.\n\n• Selector: la expresión que elige los elementos. Puede nombrar una etiqueta, una clase, un identificador o combinaciones de ellos: las Hojas 3 a 5 son el catálogo completo de este tema.\n• Bloque de declaraciones: lo que va entre llaves. Dentro, cada declaración empareja una propiedad con un valor, separadas por dos puntos y cerradas con punto y coma: la propiedad dice QUÉ cambia (el color del texto, el ancho, el margen) y el valor dice A QUÉ queda (un color concreto, una medida concreta).\n\nTres precisiones que evitan los primeros errores:\n\n• El punto y coma separa declaraciones: sin él, el navegador lee dos declaraciones como una sola inválida y la descarta entera, en silencio.\n• La última declaración del bloque puede ir sin punto y coma y seguirá válida, pero la disciplina es escribirlo siempre: la regla que hoy es la última mañana deja de serlo.\n• Una propiedad que el navegador no reconoce, o un valor imposible para ella, no rompe la hoja: esa declaración se ignora y las demás siguen aplicando. CSS falla en silencio, declaración a declaración — por eso este tema se verifica siempre mirando el resultado en DevTools, nunca suponiendo."
+  },
+  {
+   "page": 2,
+   "kind": "code",
+   "title": "Una regla desarmada pieza por pieza",
+   "body": "```\np.aviso {\n  color: #b71c1c;\n  font-weight: bold;\n  margin-bottom: 1rem;\n}\n\np.aviso          → SELECTOR: alcanza a los párrafos\n                   que llevan la clase aviso\n{ ... }          → BLOQUE de declaraciones\ncolor            → PROPIEDAD: el color del texto\n#b71c1c          → VALOR: ese rojo exacto\n;                → cierra cada declaración\n```\n\nUn bloque puede llevar tantas declaraciones como\nla regla necesite: una por línea, siempre."
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.2. El comentario en CSS: escribir para quien lee la hoja",
+   "body": "Un comentario en CSS empieza con /* y termina con */; puede ocupar una línea o varias, y el navegador lo ignora por completo al aplicar las reglas. Lo que no ignora es su efecto sobre las personas: una hoja de estilos crece hasta que nadie recuerda por qué una regla existe, y el comentario es la única parte de la hoja escrita para ese momento.\n\nQué se comenta y qué no:\n\n• Se comenta el propósito de un bloque: qué parte de la página ordena y por qué esa decisión (un color reservado a avisos, un ancho calculado para una columna). El comentario responde «para qué», no «qué dice la línea siguiente».\n• No se comenta lo obvio: repetir en palabras lo que la declaración ya dice («color: red» con un comentario «pone el color rojo») es ruido que enseña a ignorar todos los comentarios, también los importantes.\n• Cada bloque de reglas de una zona de la página lleva su comentario de apertura: base, encabezado, navegación, tarjetas, pie. Esa estructura comentada es exactamente la evidencia del tema: una hoja que se puede leer como un documento, no como un acertijo.\n\nLa hoja comentada no es un adorno para entregar: es la forma de trabajo. Una regla sin contexto se defiende mal en una revisión y se corrige peor seis meses después."
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.1. Selectores básicos: tipo, clase, identificador y universal",
+   "body": "Los selectores básicos eligen elementos por lo que el HTML ya declara:\n\n• Selector de tipo: nombra una etiqueta y alcanza a TODOS los elementos de esa clase en el documento. Sirve para las decisiones generales: cómo se ve un párrafo cualquiera, un título cualquiera.\n• Selector de clase: nombra una clase con un punto delante y alcanza a todos los elementos que la llevan, sean de la etiqueta que sean. Una clase puede repetirse en muchos elementos y un elemento puede llevar varias clases: es la herramienta principal del diseño, porque nombra un PAPEL («aviso», «tarjeta», «precio») y no una etiqueta.\n• Selector de identificador: nombra un id con una almohadilla delante. El id es único por documento — un solo elemento lo lleva — así que este selector alcanza exactamente a un elemento. Esa unicidad lo hace frágil para estilos generales: lo que se estila con id no se puede reutilizar en ningún otro elemento.\n• Selector universal: un asterisco que alcanza a todos los elementos sin excepción. Su uso serio en este tema es uno solo, y llega en la Hoja 10: fijar cómo se mide cada caja del documento.\n\nLa decisión diaria es entre tipo y clase: tipo para lo que vale para todos los elementos de esa etiqueta, clase para lo que vale para un papel concreto, sea cual sea la etiqueta que lo cumpla."
+  },
+  {
+   "page": 3,
+   "kind": "table",
+   "title": "Tabla comparativa — los selectores básicos",
+   "body": "Selector | Cómo se escribe | Alcance | Uso correcto\nTipo | El nombre de la etiqueta | Todos los elementos de esa etiqueta | Decisiones generales de cada etiqueta\nClase | Punto y nombre de la clase | Todos los que llevan esa clase | Papeles que se repiten: avisos, tarjetas, botones\nIdentificador | Almohadilla y el id | Un solo elemento del documento | Identidad única; no es la vía general de estilo\nUniversal | Asterisco | Todos los elementos | Ajustes globales puntuales, como el de la Hoja 10"
+  },
+  {
+   "page": 3,
+   "kind": "code",
+   "title": "Los selectores básicos sobre un mismo documento",
+   "body": "HTML de partida:\n\n```\n  <h1 id=\"titulo-sitio\">Escuela rural</h1>\n  <p class=\"aviso\">Inscripciones abiertas</p>\n  <p>Horario de atención…</p>\n```\n\nCSS:\n\n```\n  p { line-height: 1.5; }\n    → tipo: alcanza a LOS DOS párrafos\n  .aviso { color: #b71c1c; }\n    → clase: alcanza solo al párrafo con clase aviso\n  #titulo-sitio { font-size: 2rem; }\n    → identificador: alcanza solo a ese h1\n  * { margin: 0; }\n    → universal: alcanza a cada elemento\n```\n\nLeer un selector es predecir su alcance antes\nde abrir el navegador: esa predicción es la\nmitad del oficio de este tema."
+  },
+  {
+   "page": 3,
+   "kind": "warning",
+   "title": "EL ID NO ES UNA CLASE CON OTRO NOMBRE",
+   "body": "Un error de principiante con consecuencias: dar estilo general con selectores de id. Como el id es único, cada elemento «especial» termina con su propio id y su propia regla, y la hoja se llena de excepciones imposibles de reutilizar. La clase nombra papeles que se repiten; el id nombra a un único elemento. Si algo va a aparecer dos veces en el sitio, su estilo nace con clase, nunca con id."
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.1. Combinadores: elegir por la posición en el árbol",
+   "body": "El documento HTML es un árbol: cada elemento vive dentro de otro y junto a otros. Los combinadores eligen elementos por esa posición, no por su nombre:\n\n• Descendiente (un espacio entre dos selectores): alcanza a los elementos del segundo selector que estén DENTRO del primero, a cualquier profundidad. Es el combinador de las zonas: los enlaces de la navegación, los párrafos de una tarjeta.\n• Hijo directo (el signo mayor que): alcanza solo a los hijos inmediatos del primer selector, sin bajar más niveles. La diferencia con el descendiente es exactamente un nivel: donde el árbol tiene nietos, este combinador no llega.\n• Hermano adyacente (el signo más): alcanza al elemento que viene INMEDIATAMENTE después de otro, compartiendo padre. Su caso clásico: el párrafo que sigue a un título, que suele llevar un trato distinto.\n• Hermano general (la virgulilla): alcanza a TODOS los hermanos que siguen a un elemento, no solo al primero.\n\nLa regla de lectura de todo combinador: se lee de derecha a izquierda — «todo elemento que cumpla el último selector y esté en esta relación con el primero». Y su peligro gemelo: un combinador demasiado amplio pinta elementos que no querías, en zonas de la página que ni estabas mirando."
+  },
+  {
+   "page": 4,
+   "kind": "code",
+   "title": "Combinadores sobre una lista de navegación",
+   "body": "HTML de partida:\n\n```\n  <nav>\n    <ul>\n      <li><a href=\"`index.html`\">Inicio</a></li>\n      <li><a href=\"procesos.html\">Procesos</a></li>\n    </ul>\n  </nav>\n  <a href=\"https://ejemplo.edu\">Sitio aliado</a>\n\n  nav a { color: #0d47a1; }\n    → descendiente: SOLO los enlaces dentro de nav;\n      el enlace aliado, fuera, queda fuera\n  nav > ul { list-style: none; }\n    → hijo directo: la lista, hija inmediata de nav\n  li + li { margin-left: 1rem; }\n    → hermano adyacente: cada li que sigue a otro li\n      (el primero de la lista queda sin margen)\n```"
+  },
+  {
+   "page": 4,
+   "kind": "diagram",
+   "title": "A quién alcanza cada combinador",
+   "body": "nav\n  ▼\n  ul ──► li ──► a   (nav a: llega hasta el enlace)\n            li ──► a   (li + li: solo el segundo li)\n  El descendiente baja todos los niveles;\n  el hijo directo baja exactamente uno"
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.1. Pseudoclases: el estado y la posición del elemento",
+   "body": "Una pseudoclase se escribe con dos puntos tras el selector y elige elementos por una condición que no está escrita como clase en el HTML: su estado en este momento o su posición entre sus hermanos.\n\nDe estado — dependen de lo que pasa cuando alguien usa la página:\n\n• El enlace sin visitar y el ya visitado son dos estados distintos, y cada uno puede llevar su regla.\n• El estado de puntero encima (hover) y el de foco de teclado (focus) describen interacción: el elemento bajo el cursor, o el que recibirá lo que se teclee. Focus importa doblemente: es la señal visible de por dónde va quien navega con teclado — quitarla sin reemplazarla deja a esa persona sin brújula.\n• El estado activo marca el instante mismo de la activación, entre la presión y la soltura.\n\nDe posición — dependen del lugar entre los hermanos:\n\n• El primer hijo y el último hijo de un contenedor, y el hijo que ocupa una posición contada, pueden llevar reglas propias sin tocar el HTML: el primer elemento de una lista sin borde superior, el último sin margen inferior.\n\nLa condición se comprueba en vivo: una pseudoclase no marca el elemento para siempre; la regla aplica mientras la condición es verdad y deja de aplicar cuando deja de serlo."
+  },
+  {
+   "page": 5,
+   "kind": "code",
+   "title": "Pseudoclases de enlace y de posición",
+   "body": "```\n/* Estados del enlace, en este orden de escritura */\na:link    { color: #0d47a1; }   /* sin visitar */\na:visited { color: #4a148c; }   /* ya visitado */\na:hover   { text-decoration: underline; }\na:focus   { outline: 2px solid #e65100; }\na:active  { color: #b71c1c; }   /* al activarlo */\n\n/* Posición entre hermanos */\nli:first-child { border-top: none; }\nli:last-child  { margin-bottom: 0; }\n```\n\nEl orden de los estados no es decorativo: dos\nestados pueden ser verdad a la vez (un enlace\nvisitado con el puntero encima) y gana la regla\nque va después — la cascada de la Hoja 6."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.2. Pseudoelementos: partes que el HTML no escribió",
+   "body": "Un pseudoelemento se escribe con dos pares de dos puntos y alcanza a una PARTE de un elemento que no existe como etiqueta en el HTML:\n\n• La primera línea y la primera letra de un párrafo: partes reales al pintar, inexistentes en el documento.\n• El contenido generado antes y después de un elemento: el navegador puede insertar, desde CSS, un fragmento decorativo o un marcador antes del contenido y otro después. Ese contenido generado es presentación pura: no está en el HTML, no lo lee un lector de pantalla como contenido y jamás debe cargar información que el lector necesite — si importa, va en el HTML.\n\nLa diferencia que no se confunde: la pseudoclase elige ELEMENTOS enteros por su condición (dos puntos simples); el pseudoelemento elige un FRAGMENTO de un elemento (dos puntos dobles)."
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.1. La cascada: cómo se resuelve un conflicto entre reglas",
+   "body": "El nombre del lenguaje lo anuncia: hojas de estilo EN CASCADA. Cascada es el procedimiento con el que el navegador decide, cuando dos o más reglas declaran valores distintos para la misma propiedad del mismo elemento, cuál de esos valores pinta. No es azar ni «la última que escribí»: es un orden de filtros fijo, y predecirlo es la competencia central del tema.\n\nLos filtros, en el orden en que el navegador los aplica:\n\n1. Origen e importancia: primero se separa por de dónde viene la declaración y si lleva la marca de importancia de la Hoja 7. Las declaraciones del navegador (su hoja por defecto), las del usuario y las del autor no pesan igual: en trabajo normal mandan las del autor, que son las tuyas.\n2. Especificidad: entre las reglas que quedan, gana la del selector más específico — la Hoja 6.2 le pone número.\n3. Orden de aparición: si dos reglas empatan en todo lo anterior, gana la que aparece DESPUÉS en el código. Por eso dentro de una hoja las reglas generales van primero y las excepciones, después: el orden es una herramienta, no un accidente.\n4. Herencia y valor inicial: si ninguna regla declara la propiedad para ese elemento, se mira si la propiedad se hereda del padre (Hoja 8); si tampoco, se usa el valor inicial de la propiedad.\n\nCuando un estilo «no hace caso», el conflicto se depura en este orden: ¿qué reglas declaran esa propiedad para ese elemento?, ¿cuál gana según los filtros? DevTools lo muestra directamente: en el panel de estilos del elemento, las declaraciones perdedoras aparecen tachadas, en el orden exacto en que perdieron."
+  },
+  {
+   "page": 6,
+   "kind": "diagram",
+   "title": "La cascada, filtro por filtro",
+   "body": "Reglas que compiten por el mismo elemento\n        ▼\n1 · Origen e importancia ──► ¿alguna manda por origen?\n        ▼\n2 · Especificidad ──► gana el selector más pesado\n        ▼\n3 · Orden ──► en empate, gana la última escrita\n        ▼\nSin regla ──► herencia del padre o valor inicial"
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.2. Especificidad: el peso numérico de un selector",
+   "body": "Definición: la especificidad es el peso que la cascada asigna a un selector para desempatar reglas que compiten. Se calcula contando qué piezas lo componen, en tres columnas que NO se mezclan: primero mandan los identificadores, después las clases y pseudoclases, y por último los tipos y pseudoelementos.\n\n• Cada id en el selector suma en la columna mayor: por eso una sola regla con id vence a reglas con muchas clases.\n• Cada clase, pseudoclase y selector de atributo suma en la columna del medio.\n• Cada nombre de etiqueta y pseudoelemento suma en la columna menor.\n• El selector universal y los combinadores no suman nada: eligen, pero no pesan.\n\nLa comparación es lexicográfica, como comparar números por cifras: se mira la primera columna y solo si hay empate se pasa a la siguiente. Diez clases no vencen a un id, igual que diez unidades no forman una decena en esta cuenta: las columnas no se convierten entre sí. Por eso la especificidad se escribe como una terna ordenada — (ids, clases, tipos) — y se comparan ternas, no totales."
+  },
+  {
+   "page": 7,
+   "kind": "code",
+   "title": "Cálculo de especificidad, selector por selector",
+   "body": "```\nSelector              (id, clase, tipo)   ¿Por qué?\np                     (0, 0, 1)   una etiqueta\n.aviso                (0, 1, 0)   una clase\np.aviso               (0, 1, 1)   clase + etiqueta\nnav a                 (0, 0, 2)   dos etiquetas;\n                                  el espacio no suma\nnav .activo           (0, 1, 1)   una clase y una\n                                  etiqueta\na:hover               (0, 1, 1)   la pseudoclase\n                                  cuenta como clase\n#titulo-sitio         (1, 0, 0)   un id: vence a\n                                  todas las de arriba\n```\n\nConflicto real: `p.aviso` y `nav .activo` empatan\nen (0, 1, 1) → decide el orden de aparición."
+  },
+  {
+   "page": 7,
+   "kind": "table",
+   "title": "Tabla de especificidad — cuánto pesa cada pieza",
+   "body": "Pieza del selector | Columna que suma | Peso relativo\nIdentificador (id) | Primera | Vence a cualquier cantidad de clases y tipos\nClase | Segunda | Vence a cualquier cantidad de tipos\nPseudoclase | Segunda | Pesa exactamente como una clase\nEtiqueta (tipo) | Tercera | La pieza menor: desempata entre iguales\nPseudoelemento | Tercera | Pesa exactamente como una etiqueta\nUniversal y combinadores | Ninguna | Eligen elementos, no suman peso"
+  },
+  {
+   "page": 7,
+   "kind": "warning",
+   "title": "REGLA CRÍTICA: !important ROMPE LA ESCALERA",
+   "body": "Añadir !important a una declaración la saca de la competencia normal: esa declaración gana contra cualquier regla sin la marca, sin importar especificidad ni orden. Es una salida de emergencia, no una herramienta de diseño:\n\n• Cada !important obliga al siguiente conflicto a necesitar otro !important para ganarle: la hoja entra en una guerra de marcas donde ya nadie predice qué pinta.\n• Una declaración con !important en una hoja externa es casi imposible de sobrescribir desde otra regla normal, así que bloquea justo los ajustes que más se necesitan después.\n• Su lugar legítimo es excepcional y puntual — anular un estilo en línea que no se controla, una utilidad que debe ganar siempre — y siempre con su comentario explicando por qué existe.\n\nSi la solución a un conflicto es !important, casi seguro el conflicto real es otro: un selector con más peso del necesario, normalmente un id, o una regla escrita en el orden equivocado."
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.1. Herencia: los valores que bajan solos por el árbol",
+   "body": "Definición: la herencia es el mecanismo por el que ciertas propiedades toman su valor del elemento padre cuando ninguna regla se las declara directamente. Como el documento es un árbol, un valor declarado arriba — en el cuerpo del documento, por ejemplo — desciende por todas las ramas hasta que una regla más cercana lo cambie.\n\nQué propiedades heredan tiene lógica, y la lógica es la que hay que aprender, no la lista de memoria:\n\n• Heredan las del TEXTO y la lectura: el color de la letra, la familia y el tamaño de la fuente, el grosor, la altura de línea, la alineación, el espaciado entre letras. Son decisiones que naturalmente valen «para todo lo que cuelga de aquí».\n• No heredan las de la CAJA: márgenes, rellenos, bordes, anchos y fondos pertenecen a cada elemento por separado. Si el margen del padre bajara a cada hijo, nieto y bisnieto, la página se desarmaría en espacios multiplicados: cada caja decide las suyas (Hoja 9).\n\nConsecuencia práctica inmediata: las decisiones tipográficas generales se declaran UNA vez, arriba del todo del árbol, y las de caja se declaran elemento a elemento, regla a regla. Escribir el color de la letra en cada párrafo de la hoja es no haber entendido la herencia."
+  },
+  {
+   "page": 8,
+   "kind": "table",
+   "title": "Tabla — propiedades que se heredan y propiedades que no",
+   "body": "Propiedad | ¿Se hereda? | Por qué\ncolor | Sí | Es decisión del texto: vale para todo lo que cuelga del padre\nfont-family, font-size, font-weight | Sí | La tipografía se decide por zonas, no letra a letra\nline-height, text-align | Sí | Ritmo y alineación del texto dentro de su contenedor\nmargin, padding | No | Cada caja aparta su propio espacio; heredarlo lo multiplicaría\nborder | No | El borde dibuja el límite de UNA caja concreta\nwidth, background | No | Medida y fondo son de cada elemento, no de su familia"
+  },
+  {
+   "page": 8,
+   "kind": "code",
+   "title": "Dirigir la herencia: inherit, initial y unset",
+   "body": "```\nbody {\n  color: #212121;\n  font-family: Georgia, serif;\n}\n  → todo el texto del documento hereda color y\n    fuente; declararlo una vez basta\n\na { color: inherit; }\n  → inherit: el enlace toma el color de su padre\n    en lugar del azul por defecto del navegador\n\n.tarjeta p { margin: 0; }\n  → el margen NO se hereda ni hace falta cortarlo:\n    se declara el que la tarjeta necesita\n```\n\nOtros dos valores de control:\n\n```\ninitial → vuelve al valor inicial de la propiedad\nunset   → hereda si la propiedad hereda;\n          si no, vuelve al valor inicial\n```"
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.1. El modelo de caja: cada elemento es cuatro capas",
+   "body": "Definición: el modelo de caja (box model) es la regla con la que el navegador convierte cada elemento en un rectángulo medible. Todo elemento, sin excepción, se pinta como una caja de cuatro capas concéntricas, de dentro afuera:\n\n1. Contenido: el texto o los elementos hijos. Su ancho y su alto son los que declaran las propiedades de ancho y alto — de momento, solo los del contenido.\n2. Relleno (padding): el espacio ENTRE el contenido y el borde. Es espacio interior: pertenece a la caja, lleva su fondo y separa el contenido del borde para que el texto no se pegue al límite.\n3. Borde (border): la línea que dibuja el límite de la caja, con su grosor, estilo y color. Con grosor cero no se ve, pero la capa existe en el modelo.\n4. Margen (margin): el espacio FUERA de la caja, entre esta caja y las vecinas. Es el único espacio que no pertenece a la caja: no lleva su fondo y no forma parte de su tamaño.\n\nLa distinción que ordena todo: el relleno separa por dentro y el margen separa por fuera. Confundirlos produce los dos errores clásicos — texto pegado al borde por falta de relleno, y cajas que «no se separan» porque se les dio relleno cuando pedían margen. Y el dato que gobierna la Hoja 10: en el modelo por defecto, el ancho declarado mide SOLO el contenido; el tamaño real en pantalla es contenido + relleno + borde."
+  },
+  {
+   "page": 9,
+   "kind": "diagram",
+   "title": "Las capas de la caja",
+   "body": "MARGEN — espacio fuera de la caja\n  ▼\nBORDE — el límite dibujado de la caja\n  ▼\nRELLENO — espacio entre borde y contenido\n  ▼\nCONTENIDO — texto e hijos, lo que mide\nel ancho y el alto declarados"
+  },
+  {
+   "page": 9,
+   "kind": "code",
+   "title": "El ancho real de una caja, calculado a mano",
+   "body": "```\n.tarjeta {\n  width: 300px;        /* solo el contenido */\n  padding: 20px;       /* 20 a cada lado */\n  border: 2px solid;   /* 2 a cada lado */\n  margin: 16px;        /* fuera: no suma al tamaño */\n}\n\nAncho que la caja ocupa en su fila:\n  300 (contenido)\n+  20 (relleno izquierdo) + 20 (derecho)\n+   2 (borde izquierdo)    +  2 (derecho)\n= 344px en pantalla — no los 300 declarados\n```\n\nEl margen no entra en esa suma: es el espacio\nque la caja deja a su alrededor, no su tamaño.\nDevTools dibuja esta misma caja, capa por capa,\nen el panel del modelo de caja del elemento."
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.1. box-sizing: qué mide exactamente el ancho declarado",
+   "body": "La propiedad box-sizing decide qué capas entran en el ancho y el alto que declaras:\n\n• content-box, el valor por defecto: el ancho declarado mide solo el contenido. Relleno y borde se SUMAN por fuera, como calculó la Hoja 9: una caja de 300 con relleno termina ocupando 344. Cada medida hay que calcularla a mano antes de escribirla.\n• border-box: el ancho declarado mide la caja ENTERA, hasta el borde inclusive. Una caja de 300 ocupa 300: el relleno y el borde se descuentan del espacio del contenido, que se estrecha para que la suma cierre. Lo que declaras es lo que ocupa: las medidas se vuelven predecibles.\n\nPor eso border-box es el ajuste de partida de casi todo proyecto: elimina la aritmética sorpresa de cada caja. Y por eso el selector universal de la Hoja 3 tenía un uso serio esperando aquí: aplicar border-box a todos los elementos de una vez, en la primera regla de la hoja, antes que cualquier otra decisión de medidas."
+  },
+  {
+   "page": 10,
+   "kind": "code",
+   "title": "El ajuste universal y los dos modelos con los mismos números",
+   "body": "Primera regla de la hoja, antes que ninguna otra:\n\n```\n  * { box-sizing: border-box; }\n```\n\nLa misma caja de la Hoja 9, con cada modelo:\n\n```\n  width: 300px; padding: 20px; border: 2px;\n\n  content-box (por defecto)\n    ocupa 344px: 300 de contenido + rellenos\n    y bordes sumados por fuera\n  border-box (con el ajuste universal)\n    ocupa 300px: los rellenos y bordes quedan\n    DENTRO; el contenido se queda en 256px\n```\n\nLa regla universal no cambia ninguna medida\nque declares: cambia qué significa cada medida."
+  },
+  {
+   "page": 10,
+   "kind": "warning",
+   "title": "EL COLAPSO DE MÁRGENES VERTICALES",
+   "body": "Dos márgenes verticales que se tocan no se suman: se fusionan en uno solo, igual al mayor de los dos. Pasa entre hermanos verticales — el margen inferior de una caja y el superior de la siguiente — y entre un padre sin borde ni relleno y su primer o último hijo, cuyo margen «escapa» y empuja al padre entero.\n\nSíntoma típico: declaras márgenes que suman 40 y en pantalla mides 24. No es un error del navegador ni de la cuenta: es el colapso, una regla del modelo de caja para que los textos en columna no dupliquen espacios. Se gobierna sabiéndolo: los márgenes horizontales jamás colapsan, y un borde o un relleno en el padre, aunque sea mínimo, corta el colapso entre padre e hijo."
+  },
+  {
+   "page": 11,
+   "kind": "definition",
+   "title": "11.1. Unidades: toda medida declara su propia regla de cálculo",
+   "body": "Una medida en CSS es un número con una unidad, y la unidad es parte del significado: 20 solo no dice nada; dice cuánto cuando declara 20 píxeles, 20 por ciento o 20 veces la fuente. Las unidades se reparten en dos familias según de qué depende el número:\n\n• Absolutas: valen lo mismo siempre, sin mirar contexto. La única de uso real en pantalla es el píxel (px): la unidad mínima de la pantalla y la referencia contra la que las demás se comparan. Las demás absolutas — centímetros, milímetros, pulgadas, puntos — pertenecen al mundo de la impresión y en pantalla el navegador las convierte a píxeles con una equivalencia fija.\n• Relativas: valen según algo más — el tamaño de la fuente, el tamaño del padre o el tamaño de la pantalla — y por eso se adaptan cuando ese algo cambia. Son las unidades del diseño que debe funcionar en pantallas distintas: porcentaje, em, rem y las unidades de ventana (Hoja 11.2 y la tabla).\n\nSin espacio entre el número y la unidad, siempre: «20 px» no es una medida, es una declaración inválida que el navegador descarta en silencio. Y el cero es la única medida que puede ir sin unidad, porque cero vale lo mismo en todas."
+  },
+  {
+   "page": 11,
+   "kind": "table",
+   "title": "Tabla de unidades — qué mide cada una y cuándo se usa",
+   "body": "Unidad | Familia | Vale según | Uso en este tema\npx | Absoluta | La pantalla misma | Bordes finos, medidas exactas puntuales\n% | Relativa | El contenedor (ancho, en medidas horizontales) | Anchos que ocupan una parte del espacio disponible\nem | Relativa | El tamaño de fuente del propio elemento (o el heredado) | Medidas atadas al texto que las rodea\nrem | Relativa | El tamaño de fuente de la raíz del documento | Medidas generales del sitio: márgenes, rellenos, anchos de bloque\nvw, vh | Relativa | El ancho y el alto de la ventana | Bloques que se miden contra la pantalla entera"
+  },
+  {
+   "page": 11,
+   "kind": "definition",
+   "title": "11.2. em frente a rem, y el porcentaje con su referencia exacta",
+   "body": "Las dos unidades de fuente se confunden porque se parecen, y se distinguen por su referencia:\n\n• em se mide contra el tamaño de fuente DEL ELEMENTO o de su padre. Si un bloque declara su fuente a 20 píxeles, dentro de él 1em son 20. Su trampa es la composición: elementos anidados que declaran su fuente en em multiplican el factor en cada nivel — un 1.2em dentro de otro 1.2em no suma, compone 1.44 — y los tamaños «explotan» sin que ninguna regla parezca mal escrita.\n• rem se mide contra el tamaño de fuente de la RAÍZ del documento, el elemento html, que por defecto vale 16 píxeles. 1rem son siempre esos 16, esté la regla donde esté: no compone, no depende del anidamiento. Por eso rem es la unidad de las medidas generales del sitio: un margen de 1rem significa lo mismo en el encabezado y en el pie.\n\nEl porcentaje tiene su propia referencia que hay que declarar al usarlo: en anchos, el porcentaje se calcula contra el ANCHO del contenedor, no contra el propio elemento ni contra la pantalla. Un ancho del 50 % es la mitad de lo que su padre ofrece, y si no sabes cuánto ofrece el padre, no sabes cuánto mide la caja."
+  },
+  {
+   "page": 11,
+   "kind": "code",
+   "title": "La misma medida leída en cada unidad",
+   "body": "Dato base: la raíz (html) vale 16px por defecto\n\n```\n  font-size: 2rem    → 32px: dos veces la raíz,\n                       igual en cualquier nivel\n  font-size: 2em     → dos veces la fuente del\n                       PADRE: si el padre vale\n                       20px, este vale 40px\n  padding: 1rem      → 16px de relleno, fijo y\n                       predecible en todo el sitio\n  width: 50%         → la mitad del ancho que\n                       el contenedor ofrece\n  border: 1px solid  → 1px: el borde fino se\n                       declara en píxeles\n```\n\nRegla de reparto del tema: tipografía y\nespaciados en rem, anchos en %, detalles\nfinos en px; em solo donde la medida debe\nseguir al texto concreto que la rodea."
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "Práctica previa · Enlazar CSS y leer el panel Styles, paso a paso",
+   "body": "Enlace de la hoja externa: en el `head` de la página se escribe el `link` a la hoja de estilos con su ruta relativa (la misma maniobra del Tema 1) y los dos archivos se guardan. → La página empieza a tomar los estilos de la hoja; Network muestra la hoja pedida con código 200.\nApertura del panel Styles: se pulsa `F12`, se entra a Elements, se hace clic sobre un elemento y se lee el panel Styles de la derecha. → Allí aparecen las reglas que alcanzan a ese elemento, agrupadas por selector y en orden de aplicación.\nLectura de una regla tachada: dentro de Styles se busca una declaración con el texto tachado. → Esa declaración pierde contra otra que también aparece en el panel: identificar cuál gana y por qué (especificidad u orden) es la lectura que los ejercicios piden hacer.\nObservación del modelo de caja: en Elements se entra a la pestaña Computed o al diagrama de caja del panel. → El navegador dibuja contenido, `padding`, `border` y `margin` del elemento con sus medidas reales, para compararlas con el cálculo teórico.\nCambio de un valor en vivo: un doble clic sobre un valor en Styles (un color, un margen) permite escribir otro. → El cambio se aplica al instante y se deshace al recargar: sirve para probar antes de escribir la regla definitiva en la hoja.\nEscritura de la regla definitiva: el valor probado se traslada a la hoja de estilos, dentro del bloque de su zona y con su comentario, y el archivo se guarda. → Al recargar, el cambio permanece porque ahora vive en el archivo, no en la memoria del navegador."
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "Ejercicios concretos del Tema 7 · Etapa 2: Práctica",
+   "body": "Ejercicio 1 · Primera hoja de estilos externa y comentada: enlaza una hoja externa a la página publicada, declara en ella — un bloque por zona, cada uno abierto por su comentario de propósito — la tipografía heredada desde la raíz, los colores de texto y de avisos, y el ajuste universal de cajas; el resultado se verifica en el sitio y en DevTools.\nEjercicio 2 · Selectores con puntería: sobre esa misma página se alcanzan elementos concretos combinando tipo, clase, combinadores y pseudoclases — los enlaces solo dentro de la navegación, el primer y el último elemento de una lista, los estados del enlace — con la predicción del alcance de cada selector antes de su comprobación.\nEjercicio 3 · Romper la cascada a propósito: se crean dos reglas que compiten por la misma propiedad del mismo elemento, por escrito se predice cuál gana y por qué filtro de la cascada, la predicción se comprueba en DevTools leyendo la declaración tachada y el resultado se corrige cambiando la especificidad o el orden — nunca con !important.\nEjercicio 4 · Cajas y unidades medidas a mano: toma una tarjeta de la página, calcula en papel su ancho real con el modelo por defecto, aplica el ajuste border-box y recalcula; después sus medidas se convierten a rem y su ancho a porcentaje, y cada número se verifica contra el modelo de caja que DevTools dibuja."
+  },
+  {
+   "page": 14,
+   "kind": "list",
+   "title": "13.1. El flujo completo para dar estilo a una página",
+   "body": "La hoja externa se enlaza desde la cabeza de cada página, con su ruta relativa, y la hoja se abre con el ajuste universal de cajas y su comentario.\nArriba quedan declaradas las decisiones que hereda todo el documento: fuente, color y altura de línea en el elemento raíz o en el cuerpo; la tipografía general se escribe una vez.\nAbres un bloque por zona de la página — encabezado, navegación, contenido, tarjetas, pie — cada bloque encabezado por el comentario que dice qué ordena y para qué.\nDentro de cada bloque eliges el selector de menor peso que alcance justo a los elementos buscados: tipo para lo general, clase para los papeles, combinadores para las zonas, y nada de id como vía general.\nEscribes las declaraciones de caja con las unidades del tema: espaciados y tipografía en rem, anchos en porcentaje, detalles finos en píxeles.\nVerificas en DevTools elemento por elemento: qué reglas aplican, cuáles pierden tachadas y por qué filtro, y el modelo de caja dibujado contra el cálculo en papel."
+  },
+  {
+   "page": 14,
+   "kind": "warning",
+   "title": "REGLAS CRÍTICAS DE CIERRE",
+   "body": "• La presentación vive en la hoja externa y el contenido en el HTML: ninguna decisión de apariencia se escribe en el documento ni se reparte en estilos en línea.\n• Todo conflicto se resuelve prediciendo la cascada — origen, especificidad, orden, herencia — y !important queda fuera de la caja de herramientas salvo emergencia comentada.\n• El ancho declarado no es el tamaño en pantalla hasta fijar box-sizing: con border-box, lo que declaras es lo que la caja ocupa.\n• Ninguna medida sin su unidad ni escrita «a ojo»: rem para lo general, porcentaje para los anchos y píxel para el detalle fino, cada una con su referencia conocida."
+  }
+ ],
+ "exercises": [
+  {
+   "n": 1,
+   "title": "Ejercicio 1 · Primera hoja de estilos externa: enlazar, aplicar y comentar bloque a bloque",
+   "objective": "Dar a la página publicada su primera hoja de estilos externa — enlazada con ruta relativa, organizada en bloques por zona y con el comentario de propósito abriendo cada bloque — hasta ver el sitio servido con sus decisiones base aplicadas: ajuste universal de cajas, tipografía heredada y color de avisos.",
+   "steps": [
+    {
+     "hacer": "Creación del archivo de la hoja dentro de la carpeta de estilos del sitio y su enlace desde la cabeza de la página principal con su ruta relativa; la página publicada en local se recarga y en Network se comprueba que la hoja llega con respuesta correcta.",
+     "esperado": "La hoja externa está enlazada y el navegador la carga: sin esta comprobación, todo lo demás se escribiría sobre una hoja que quizá nadie lee."
+    },
+    {
+     "hacer": "Como primera regla se escribe el ajuste universal de cajas, precedido por su comentario de propósito, y enseguida el bloque base: la tipografía y el color que hereda todo el documento, declarados una sola vez arriba del árbol.",
+     "esperado": "Las dos decisiones estructurales de la hoja existen y están comentadas: cómo se mide cada caja y qué hereda cada texto."
+    },
+    {
+     "hacer": "Apertura de un bloque por cada zona de la página — encabezado, navegación, contenido, pie — con su comentario de apertura que diga qué ordena el bloque y para qué, y dentro de cada uno solo las reglas de esa zona.",
+     "esperado": "La hoja se lee como un documento ordenado por zonas: cada regla tiene su bloque y cada bloque declara su propósito."
+    },
+    {
+     "hacer": "Adición de la regla de los avisos con su clase y su comentario: el color reservado a los avisos de la página y por qué ese color es el de aviso.",
+     "esperado": "La página muestra sus avisos distinguidos por la clase, y la hoja explica la decisión sin que nadie tenga que preguntar."
+    },
+    {
+     "hacer": "Verificación en DevTools sobre tres elementos distintos — el cuerpo, un encabezado y un aviso — qué reglas les llegan y de qué bloque sale cada una.",
+     "esperado": "Cada elemento recibe exactamente las reglas de su zona y las heredadas de la base: la hoja funciona entera, no solo «se ve distinta»."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la página con su hoja de estilos externa enlazada y aplicada, organizada en bloques comentados por zona — la base de la evidencia oficial de este tema: «Hoja de estilos comentada».",
+   "verification": "(1) La hoja es externa, está enlazada con ruta relativa y carga sin error. (2) Cada bloque abre con el comentario de su propósito y contiene solo las reglas de su zona. (3) La tipografía y el color general se declaran una sola vez y llegan por herencia, sin repetirse en cada elemento."
+  },
+  {
+   "n": 2,
+   "title": "Ejercicio 2 · Selectores con puntería: tipo, clase, combinadores y pseudoclases",
+   "objective": "Alcanzar elementos concretos de la página eligiendo el selector exacto para cada intención — tipo para lo general, clase para los papeles, combinadores para las zonas y pseudoclases para estados y posiciones — con la predicción del alcance de cada selector antes de su comprobación.",
+   "steps": [
+    {
+     "hacer": "Escritura en una lista de las intenciones del ejercicio antes de tocar la hoja: los enlaces solo dentro de la navegación con un trato propio; el primer elemento de la lista principal sin borde superior y el último sin margen inferior; los enlaces con su estado visitado distinguido y su foco visible.",
+     "esperado": "Cinco intenciones escritas, cada una con el elemento exacto que debe cambiar y el que NO debe cambiar."
+    },
+    {
+     "hacer": "Para cada intención, la predicción de alcance: qué selector se usará y a cuántos elementos debería alcanzar y por qué.",
+     "esperado": "La predicción queda escrita ANTES de aplicar: un selector que acierta sin predicción no enseña nada, y uno que falla con predicción señala la hoja exacta a repasar."
+    },
+    {
+     "hacer": "Las reglas se escriben en la hoja, una intención por regla, usando en cada caso el selector de menor peso que alcance justo lo buscado: combinador descendiente para la zona de navegación, pseudoclases de posición para los extremos de la lista, pseudoclases de estado para el enlace.",
+     "esperado": "Cada regla nueva vive en el bloque de su zona, con su comentario si la intención no es evidente."
+    },
+    {
+     "hacer": "Comprueba en DevTools cada predicción: selecciona los elementos que debían cambiar y los que no, y confirma que las reglas llegan solo donde la predicción decía; donde un selector pinte de más o de menos, el ajuste se hace — más contexto con un combinador, o una clase donde el tipo se quedó corto — y se vuelve a comprobar.",
+     "esperado": "Las cinco intenciones aplicadas con alcance exacto: ningún elemento fuera de la predicción quedó pintado."
+    },
+    {
+     "hacer": "Registra en el comentario de cada regla, o en el registro del tema, qué selector se eligió para cada intención y qué descarta ese selector (qué elementos parecidos quedan fuera y por qué).",
+     "esperado": "La elección de selectores queda justificada por alcance, no por costumbre: es la mitad de lo que la evaluación del tema revisa."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la página con los enlaces de navegación, los extremos de la lista y los estados del enlace tratados por selectores elegidos por alcance, cada uno con su predicción comprobada en DevTools.",
+   "verification": "(1) Cada regla alcanza exactamente los elementos de su intención, verificado elemento por elemento en DevTools. (2) Ningún estilo general está escrito con selector de id. (3) De dos de los selectores queda explicado qué elementos parecidos quedan fuera y qué pieza del selector los excluye."
+  },
+  {
+   "n": 3,
+   "title": "Ejercicio 3 · Romper la cascada a propósito: predecir el ganador y corregirlo sin !important",
+   "objective": "Provocar un conflicto real entre dos reglas que declaran valores distintos para la misma propiedad del mismo elemento, predecir por escrito cuál gana y por qué filtro de la cascada, comprobarlo en DevTools y corregir el resultado ajustando especificidad u orden — jamás con !important.",
+   "steps": [
+    {
+     "hacer": "El conflicto se construye en la hoja: una regla general por tipo o clase que declare un color para un elemento concreto, y una segunda regla que declare otro color para ese mismo elemento con un selector de distinto peso.",
+     "esperado": "Dos reglas vivas compitiendo por la misma propiedad del mismo elemento, ambas visibles en la hoja."
+    },
+    {
+     "hacer": "Antes de abrir el navegador, la predicción completa se escribe: qué color se pintará, cuál es la especificidad de cada selector escrita como terna, y qué filtro de la cascada decide (especificidad, u orden si empatan).",
+     "esperado": "La predicción lleva las dos ternas calculadas a mano: sin cálculo previo no hay comprobación posible."
+    },
+    {
+     "hacer": "Apertura de la página, selección del elemento en DevTools y lectura del panel de estilos: qué declaración se aplica, cuál aparece tachada y en qué orden las presenta el panel.",
+     "esperado": "La lectura de DevTools confirma o corrige la predicción, y la declaración tachada muestra la perdedora exacta, no una suposición."
+    },
+    {
+     "hacer": "Inversión del resultado sin tocar los valores: el desenlace se cambia modificando solo la especificidad de una regla (añadir el contexto de su zona, o bajar una regla de id a clase) o, si empatan, su orden de aparición; la recarga y la comprobación muestran que ahora gana la otra.",
+     "esperado": "El mismo conflicto se resolvió en las dos direcciones con las herramientas de la cascada: el mecanismo queda gobernado, no sufrido."
+    },
+    {
+     "hacer": "El conflicto queda en su estado correcto, la regla de práctica que sobra se borra y se registran en el cuaderno del tema las dos ternas, qué filtro decidió cada vez y por qué !important habría sido la salida prohibida.",
+     "esperado": "El registro demuestra el dominio del tema: la cascada predicha, comprobada y corregida con sus propios filtros."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: un conflicto de cascada creado, predicho con sus ternas, verificado en DevTools y resuelto en ambas direcciones ajustando especificidad y orden, con el registro completo en el cuaderno del tema.",
+   "verification": "(1) La predicción escrita coincide con lo que DevTools mostró, o su corrección está explicada por el filtro que faltó en el cálculo. (2) Las dos ternas están bien calculadas pieza por pieza. (3) Ninguna corrección de este ejercicio usa !important: el resultado se logró con especificidad u orden."
+  },
+  {
+   "n": 4,
+   "title": "Ejercicio 4 · Cajas y unidades medidas a mano: box model, border-box y conversión a rem",
+   "objective": "Medir una tarjeta de la página con el modelo de caja hasta predecir sus números antes de abrir DevTools: calcular su ancho real con el modelo por defecto, aplicar el ajuste border-box y recalcular, y convertir sus medidas a rem y su ancho a porcentaje dejando la hoja lista como evidencia del tema.",
+   "steps": [
+    {
+     "hacer": "Se elige una tarjeta o bloque con ancho, relleno y borde declarados en la hoja y se anotan sus tres valores; en papel se calcula el ancho que ocupa en pantalla con el modelo por defecto, capa por capa, sin abrir DevTools.",
+     "esperado": "El cálculo manual completo: contenido, rellenos y bordes sumados en orden, con el margen anotado aparte y marcado como fuera de la suma."
+    },
+    {
+     "hacer": "Apertura de la página, selección de la tarjeta en DevTools y lectura del diagrama del modelo de caja que el panel dibuja, con comparación de cada capa contra el cálculo.",
+     "esperado": "Las dos lecturas coinciden número a número, o la diferencia queda localizada en la capa exacta calculada distinto."
+    },
+    {
+     "hacer": "Se comprueba que la hoja abre con el ajuste universal border-box, en papel se recalcula qué ocupa ahora la misma tarjeta y qué ancho le queda al contenido, y la comprobación se repite en el diagrama de DevTools.",
+     "esperado": "Con border-box la tarjeta ocupa exactamente su ancho declarado y el contenido se estrechó en la suma de rellenos y bordes: los dos modelos quedan demostrados sobre la misma caja."
+    },
+    {
+     "hacer": "Conversión de las medidas de la tarjeta a las unidades del tema: rellenos y márgenes en rem contra la raíz de 16, y el ancho a porcentaje de su contenedor; junto a cada conversión quedan escritas la cuenta que la produce y su referencia (qué vale la raíz, cuánto ofrece el contenedor).",
+     "esperado": "Cada medida de la tarjeta queda en su unidad correcta con su cuenta escrita: nadie tiene que fiarse de un número sin origen."
+    },
+    {
+     "hacer": "Cierre de la hoja como evidencia: cada bloque lleva su comentario de propósito, el ajuste universal abre el archivo, ninguna medida queda sin unidad y ningún conflicto se resolvió con !important.",
+     "esperado": "La hoja de estilos comentada está completa y defendible: es la evidencia oficial del tema, lista para entregar en Trabajos."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la evidencia oficial de este tema: «Hoja de estilos comentada» — la hoja externa completa, con bloques comentados por zona, cajas medidas y verificadas, y medidas en rem y porcentaje con su cuenta registrada.",
+   "verification": "(1) Los cálculos a mano coinciden con el modelo de caja de DevTools en los dos modelos, content-box y border-box. (2) Cada conversión declara su referencia: la raíz para rem y el contenedor para el porcentaje. (3) La hoja final pasa la revisión de cierre sin estilos en línea, sin !important y sin medidas sin unidad."
+  }
+ ],
+ "trabajo": {
+  "title": "Trabajo del Tema 7 · Hoja de estilos comentada",
+  "description": "Situación nueva de este trabajo: los ejercicios del tema aplicaron CSS sobre la página de práctica. Este trabajo estila EL SITIO COMPLETO de tu proyecto ya publicado (Tema 6): todas sus páginas comparten la misma hoja externa, y esa hoja de estilos comentada es la entrega.\n\nEntrega aquí el enlace a tu sitio publicado (o a tu repositorio) con la hoja externa enlazada y aplicada a las páginas del proyecto. La hoja debe demostrar el dominio completo del tema: (1) hoja externa enlazada con ruta relativa desde la cabeza de cada página, sin estilos en línea ni bloques de estilo internos como vía de trabajo; (2) organización en bloques por zona — base, encabezado, navegación, contenido, tarjetas, pie — con el comentario de propósito abriendo cada bloque, explicando para qué existe cada grupo de reglas; (3) primera regla con el ajuste universal border-box y las decisiones heredables (fuente, color, altura de línea) declaradas una sola vez arriba del árbol; (4) selectores elegidos por alcance: tipo para lo general, clase para los papeles, combinadores para las zonas, pseudoclases para estados y posiciones, sin estilos generales con id y sin un solo !important; (5) medidas con la unidad del tema en cada caso: tipografía y espaciados en rem, anchos en porcentaje y detalles finos en píxeles, ninguna medida sin unidad.\n\nCómo se desbloquea: este trabajo está bloqueado hasta que termines la fundamentación del Tema 7 en el Cuaderno. Cuando lo envíes, se abre la evaluación Fácil de este tema. Califica el experto de 0 a 10, con retroalimentación, en un plazo máximo de 24 horas desde la entrega.",
+  "estimated_minutes": 300
+ }
+}

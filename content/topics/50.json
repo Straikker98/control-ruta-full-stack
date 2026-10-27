@@ -1,0 +1,11 @@
+{
+ "week": 50,
+ "estado": "pendiente",
+ "sections": [],
+ "exercises": [],
+ "trabajo": {
+  "title": "Trabajo del Tema 50 · Docker",
+  "description": "",
+  "estimated_minutes": 240
+ }
+}

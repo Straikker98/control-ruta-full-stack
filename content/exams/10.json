@@ -1,0 +1,623 @@
+{
+ "week": 10,
+ "levels": {
+  "facil": [
+   {
+    "id": "10-f-01",
+    "prompt": "¿Qué es una variable CSS y cómo se usa en una regla?",
+    "options": [
+     "Un comentario especial que el navegador interpreta como estilo y aplica al elemento que lo contiene, sin necesidad de declarar nada más",
+     "Un valor con nombre declarado una vez, normalmente en `:root`, que se inserta con `var(--nombre)`",
+     "Una clase reutilizable que se puede aplicar a varios elementos a la vez para repartirles el mismo conjunto de propiedades",
+     "Un contenedor que solo puede guardar colores y que se consulta con la función `color()`"
+    ],
+    "answer": 1,
+    "explanation": "Una variable CSS guarda un valor bajo un nombre con dos guiones y se consume con `var()`; cambiar el valor en la declaración actualiza todos los consumos. No es una clase: una clase agrupa reglas, una variable guarda un solo valor."
+   },
+   {
+    "id": "10-f-02",
+    "prompt": "¿Por qué las variables de color del sistema se nombran por su función (`--color-acento`) y no por su valor (`--azul`)?",
+    "options": [
+     "Porque el nombre por función sigue siendo cierto si el valor cambia, mientras que `--azul` pasaría a guardar otro color",
+     "Porque un nombre que describe el valor no es un identificador válido y el navegador descarta la declaración al aplicarla",
+     "Porque los nombres por función se resuelven más rápido y el navegador los carga antes que el resto de la hoja",
+     "Porque así las variables quedan ordenadas por papeles dentro del bloque `:root` y el navegador puede buscarlas"
+    ],
+    "answer": 0,
+    "explanation": "El nombre es un contrato sobre el papel del valor; si el acento pasa de azul a verde, `--azul` mentiría y habría que renombrar en todas partes. Un nombre por valor es válido en CSS, solo es mala práctica."
+   },
+   {
+    "id": "10-f-03",
+    "prompt": "En la declaración `color: var(--color-fondo-tarjeta, #ffffff)`, ¿qué papel cumple `#ffffff`?",
+    "options": [
+     "Es un segundo color que el navegador mezcla con el valor de la variable para obtener un tono intermedio",
+     "Es el valor de reserva: se usa solo si la variable no está definida en el alcance del elemento",
+     "Es el color que se aplica únicamente mientras el puntero está sobre el elemento, como estado alternativo",
+     "Es el valor que anula la variable y se aplica siempre, de modo que la variable queda sin efecto"
+    ],
+    "answer": 1,
+    "explanation": "El segundo argumento de `var()` es la reserva y solo se usa cuando la variable no existe. Si existe, manda su valor; creer que la anula es la confusión más común."
+   },
+   {
+    "id": "10-f-04",
+    "prompt": "¿Qué define una escala tipográfica dentro del sistema visual?",
+    "options": [
+     "Un conjunto cerrado de tamaños derivados de un tamaño base por una razón constante, cada uno con un papel fijo",
+     "Elegir para cada título el tamaño que mejor se vea en esa página, anotándolo luego como variable para no olvidarlo",
+     "Declarar todos los textos con el mismo tamaño para que ninguno destaque sobre los demás",
+     "Copiar la lista de tamaños de la primera página terminada y reutilizarla en las siguientes sin revisarla"
+    ],
+    "answer": 0,
+    "explanation": "La escala es cerrada y derivada: los tamaños no se eligen, se calculan multiplicando por la razón. Elegir caso por caso es justo lo que el sistema evita."
+   },
+   {
+    "id": "10-f-05",
+    "prompt": "Según el criterio de contraste del tema, ¿cuál es la razón mínima entre un texto normal y su fondo?",
+    "options": [
+     "`3 a 1`, el mismo mínimo que se aplica a cualquier texto, grande o normal",
+     "`2 a 1`, suficiente siempre que el texto sea oscuro sobre fondo claro",
+     "`4.5 a 1`",
+     "No existe un mínimo: basta con que el texto se distinga a simple vista para quien lo diseña"
+    ],
+    "answer": 2,
+    "explanation": "El texto normal exige `4.5 a 1`; `3 a 1` es el mínimo del texto grande y de los elementos de interfaz. La razón se calcula, no se opina."
+   },
+   {
+    "id": "10-f-06",
+    "prompt": "¿Qué significa que el espaciado de una página venga de la escala del sistema?",
+    "options": [
+     "Que todos los elementos de la página llevan exactamente el mismo margen, sin distinción entre piezas",
+     "Que el espaciado se escribe siempre en píxeles para que no dependa del tamaño de texto del lector",
+     "Que márgenes, rellenos y `gap` toman su valor de pasos declarados como variables, múltiplos de una unidad base",
+     "Que el navegador reparte automáticamente el espacio sobrante entre los componentes sin que se declare nada"
+    ],
+    "answer": 2,
+    "explanation": "La escala es un conjunto cerrado de pasos múltiplos de `0.25rem`; no implica un único margen para todo, sino pasos distintos según la proximidad."
+   },
+   {
+    "id": "10-f-07",
+    "prompt": "¿Qué es un componente dentro del sistema visual?",
+    "options": [
+     "Una pieza con nombre cuya estructura y estilos se declaran una vez y se reutilizan, con sus variantes y estados dentro del propio componente",
+     "Cualquier elemento HTML al que se le añade una clase, aunque sus estilos se repitan en otras reglas de la hoja",
+     "Una imagen o recurso gráfico que se repite en varias páginas del sitio",
+     "Un archivo CSS independiente creado para cada página con los estilos exclusivos de esa página"
+    ],
+    "answer": 0,
+    "explanation": "Un componente promete ser el mismo dondequiera que aparezca. Poner una clase a un elemento no lo vuelve componente si sus valores se repiten sueltos."
+   },
+   {
+    "id": "10-f-08",
+    "prompt": "Al refactorizar una hoja al sistema aparece un color escrito en la regla de un componente que cumple el papel de acento. ¿Qué corresponde hacer?",
+    "options": [
+     "Dejarlo como está: un solo valor suelto no afecta al resto del sistema mientras coincida con el acento",
+     "Declarar otra variable con el mismo valor y un nombre propio de ese componente, para no tocar `--color-acento`",
+     "Sustituirlo por `var(--color-acento)`",
+     "Cambiar el valor de `--color-acento` en `:root` para que coincida con el escrito en esa regla"
+    ],
+    "answer": 2,
+    "explanation": "Cada valor de apariencia dentro de un componente debe ser un `var()`. Un valor suelto que coincide hoy es una coincidencia que se rompe en el primer cambio del acento."
+   },
+   {
+    "id": "10-f-09",
+    "prompt": "¿Cuál de estas líneas declara correctamente una variable CSS?",
+    "options": [
+     "`$color-acento: #0d47a1;`, con el prefijo de dólar propio de las variables en CSS",
+     "`var(--color-acento): #0d47a1;`, usando la función `var()` como nombre de la propiedad",
+     "`@color-acento = #0d47a1;`, con el prefijo de arroba y el signo igual",
+     "`--color-acento: #0d47a1;`"
+    ],
+    "answer": 3,
+    "explanation": "Una variable CSS es una propiedad cuyo nombre empieza por dos guiones. `var()` sirve para consumirla, no para declararla; `$` es de preprocesadores."
+   },
+   {
+    "id": "10-f-10",
+    "prompt": "¿En qué selector se declara el bloque de variables del sistema para que alcance a todo el documento?",
+    "options": [
+     "`.contenedor`, porque envuelve el contenido de cada página",
+     "`*`, porque cada elemento necesita su propia copia de las variables",
+     "`.tarjeta`, el primer componente que las consume",
+     "`:root`, que apunta al elemento raíz del documento"
+    ],
+    "answer": 3,
+    "explanation": "Lo declarado en `:root` es heredado por todos los elementos; declarar en un componente limita el alcance a su subárbol."
+   },
+   {
+    "id": "10-f-11",
+    "prompt": "¿Cuántos papeles tipográficos tiene el mini sistema y cuál es el de mayor tamaño?",
+    "options": [
+     "Cinco: pequeño, base, grande, título y titular; el mayor es el titular",
+     "Tres: texto, título y subtítulo; el mayor es el título",
+     "Seis: uno por cada nivel de encabezado de `h1` a `h6`",
+     "Cinco: pequeño, base, grande, título y titular; el mayor es el grande, usado en entradillas y subtítulos"
+    ],
+    "answer": 0,
+    "explanation": "La escala de razón 1.25 tiene cinco papeles y el titular (`1.953rem`) es el mayor. Los papeles no se atan a los niveles `h1`-`h6`: el papel decide el tamaño."
+   },
+   {
+    "id": "10-f-12",
+    "prompt": "¿Cuál es la unidad base de la escala de espaciado del sistema?",
+    "options": [
+     "`0.25rem`, de la que salen los pasos como múltiplos",
+     "`1px`, para poder afinar cualquier separación al píxel",
+     "`1rem`, de modo que cada paso sea un número entero de rem",
+     "`16px`, fijada en píxeles para que no cambie con la preferencia del lector"
+    ],
+    "answer": 0,
+    "explanation": "La escala se construye sobre `0.25rem` y sus pasos son 1, 2, 3, 4, 6, 8 y 12 veces la base. Usar `rem` hace que el espaciado acompañe la preferencia de tamaño del lector."
+   },
+   {
+    "id": "10-f-13",
+    "prompt": "¿Para qué se reserva el color de acento en la paleta del sistema?",
+    "options": [
+     "Para el fondo de la página, porque es el color que más superficie ocupa y define la identidad",
+     "Para comunicar los estados de éxito, aviso y error mediante un único color intermedio",
+     "Para la acción y el énfasis, como botones principales y enlaces, y por eso es el papel más escaso",
+     "Para las líneas que separan piezas sin llamar la atención, como los bordes de las tarjetas"
+    ],
+    "answer": 2,
+    "explanation": "El acento marca lo que manda; si todo es acento, nada lo es. Los estados tienen sus propias variables y los bordes su papel de borde."
+   },
+   {
+    "id": "10-f-14",
+    "prompt": "¿Qué valor de `line-height` es el habitual en el sistema para el texto corrido, y cómo se escribe?",
+    "options": [
+     "`1.5rem` con unidad, para que la altura de línea sea idéntica en todos los tamaños",
+     "`1.5` sin unidad, como multiplicador del tamaño de texto",
+     "`1` sin unidad, para que las líneas queden compactas y quepa más texto",
+     "`150px`, para que la altura de línea no dependa del tamaño de texto"
+    ],
+    "answer": 1,
+    "explanation": "El interlineado sin unidad es un multiplicador y se adapta a cada tamaño: texto corrido en torno a 1.5, titulares hacia 1.2."
+   },
+   {
+    "id": "10-f-15",
+    "prompt": "¿Cómo se nombra y se aplica la variante secundaria de un botón en el sistema?",
+    "options": [
+     "Con un componente aparte, `.boton-secundario`, que repite todas las reglas de `.boton`",
+     "Con doble guion sobre la clase base, `.boton--secundario`, sumando las dos clases en el HTML",
+     "Con un estilo en línea en cada botón secundario que sobrescribe el color de la base",
+     "Con un identificador `#secundario` que se aplica a un único botón por página"
+    ],
+    "answer": 1,
+    "explanation": "La variante es una clase modificadora: la base aporta la forma y la variante solo su diferencia. Copiar el bloque rompe la reutilización."
+   },
+   {
+    "id": "10-f-16",
+    "prompt": "¿Qué es la página de muestra del sistema?",
+    "options": [
+     "Un archivo de documentación escrito aparte, que describe el sistema con texto pero sin enlazar la hoja de estilos",
+     "Una copia de la portada del sitio con valores de prueba, que se descarta al terminar el diseño",
+     "Una hoja de estilos alternativa que sustituye a la del sistema mientras se hacen pruebas",
+     "Una página ordinaria enlazada a la misma hoja que presenta variables, escalas y componentes en uso"
+    ],
+    "answer": 3,
+    "explanation": "La muestra es el documento vivo y banco de pruebas: al usar la misma hoja, cualquier cambio en `:root` se ve ahí reflejado junto con todos sus efectos."
+   },
+   {
+    "id": "10-f-17",
+    "prompt": "¿Dónde se declaran los estados de un botón, como el foco o el desactivado?",
+    "options": [
+     "En clases sueltas repartidas por la hoja, como `.boton-foco` o `.boton-apagado`, cada una cerca de la página que la usa",
+     "En el HTML de cada página, mediante el atributo `style` de cada botón",
+     "En el bloque `:root`, junto al resto de las variables del sistema",
+     "Dentro del bloque del componente, con pseudoclases como `:hover`, `:focus-visible` y `:disabled`"
+    ],
+    "answer": 3,
+    "explanation": "Los estados se declaran con pseudoclases dentro del componente, no con clases sueltas ni en línea; así valen para cada botón del sitio sin repetir nada."
+   }
+  ],
+  "medio": [
+   {
+    "id": "10-m-01",
+    "prompt": "El color principal del sitio debe pasar de verde a azul en todas las páginas y componentes. Con el sistema visual bien montado, ¿qué se modifica?",
+    "options": [
+     "El valor de la variable de acento en `:root`, de modo que todas las reglas que la consumen se actualizan",
+     "Cada regla de cada hoja que use ese color, buscando el valor con el editor y cambiándolo una por una",
+     "El HTML de cada página, sustituyendo las clases que llevan el color por otras nuevas",
+     "Nada, porque una vez declarados los colores del sistema ya no pueden cambiarse sin romper los componentes"
+    ],
+    "answer": 0,
+    "explanation": "El sistema existe para que el cambio sea un único valor en la declaración. Editar regla por regla es el trabajo que el sistema elimina."
+   },
+   {
+    "id": "10-m-02",
+    "prompt": "Una página nueva necesita un botón igual a los que ya existen. ¿Qué corresponde dentro del sistema?",
+    "options": [
+     "Escribir reglas nuevas copiando las del botón existente, para poder retocarlas con libertad en esa página",
+     "Dibujarlo como imagen, para que se vea igual en todos los navegadores",
+     "Aplicarle estilos en línea con los mismos valores que el componente existente",
+     "Usar las clases del componente botón ya declarado, sin duplicar sus estilos"
+    ],
+    "answer": 3,
+    "explanation": "Un componente se declara una vez y se reutiliza. Copiar o poner estilos en línea crea valores sueltos que no seguirán al sistema."
+   },
+   {
+    "id": "10-m-03",
+    "prompt": "Un texto gris muy claro sobre fondo blanco «se ve elegante», pero su contraste medido es `2.1 a 1`. ¿Cumple el criterio del tema para texto normal?",
+    "options": [
+     "Sí: el mínimo para cualquier texto es `2 a 1`, y `2.1 a 1` lo supera",
+     "No: el texto normal exige al menos `4.5 a 1`",
+     "Sí: basta con que el texto se distinga a simple vista sobre el fondo",
+     "El contraste solo se exige en las imágenes y en los iconos, no en el texto"
+    ],
+    "answer": 1,
+    "explanation": "El texto normal exige `4.5 a 1`. Que el gris «se vea elegante» es una opinión; la razón se mide con DevTools."
+   },
+   {
+    "id": "10-m-04",
+    "prompt": "Un título necesita un tamaño que «quede entre» dos pasos de la escala tipográfica y se propone escribir `font-size: 19px`. ¿Qué pide el sistema?",
+    "options": [
+     "Usar el paso de la escala que cumple el papel de ese título",
+     "Escribir los `19px`, porque un valor suelto en un solo título no afecta al resto",
+     "Crear una variable propia solo para ese título, con el valor `19px`",
+     "Cambiar la razón de toda la escala hasta que uno de los pasos valga `19px`"
+    ],
+    "answer": 0,
+    "explanation": "La escala es cerrada: un tamaño que no encaja pide un papel, no una medida libre. Crear una variable propia sigue dejando un tamaño fuera de la escala."
+   },
+   {
+    "id": "10-m-05",
+    "prompt": "Una regla declara `margin: var(--espacio-4, 16px)` y `--espacio-4` no está definida en ese alcance. ¿Qué margen se aplica?",
+    "options": [
+     "Ninguno: la declaración queda inválida y el margen vale cero",
+     "El de la regla anterior que afecte a ese elemento, por la cascada",
+     "El valor de reserva, `16px`",
+     "`32px`, la suma del valor de reserva y el de la variable"
+    ],
+    "answer": 2,
+    "explanation": "La reserva se usa solo cuando la variable no está definida. Sin reserva, la declaración sería inválida y caería al valor inicial o heredado; con reserva, se aplica `16px`."
+   },
+   {
+    "id": "10-m-06",
+    "prompt": "Se necesita declarar la variable para la separación entre las tarjetas de una parrilla, que vale `1.5rem` en la escala de espaciado. ¿Qué nombre le corresponde?",
+    "options": [
+     "`--1-5rem`, por su valor",
+     "`--margen-tarjetas`, por el lugar donde se usó primero",
+     "`--espacio-6`, por su paso en la escala",
+     "`--grande`, por cómo se ve hoy en pantalla"
+    ],
+    "answer": 2,
+    "explanation": "Las separaciones se nombran por su paso en la escala (6 veces `0.25rem`). Un nombre por lugar de uso no sirve cuando otra pieza use el mismo paso."
+   },
+   {
+    "id": "10-m-07",
+    "prompt": "Dado `:root { --color-texto: #212121; }` y la regla `.nota { color: var(--color-texto-suave, #4f4f4f); }`, ¿qué color tiene el texto de `.nota`?",
+    "options": [
+     "`#4f4f4f`, porque `--color-texto-suave` no está declarada y se usa la reserva",
+     "`#212121`, porque al no encontrar la variable el navegador toma `--color-texto`",
+     "El color heredado del elemento padre, porque la variable no existe",
+     "Ninguno: la regla queda inválida y el texto se muestra sin color"
+    ],
+    "answer": 0,
+    "explanation": "Hay reserva, así que la declaración no es inválida: se usa `#4f4f4f`. El navegador no busca variables parecidas por su cuenta."
+   },
+   {
+    "id": "10-m-08",
+    "prompt": "Con este CSS, ¿qué fondo tiene una `.tarjeta` colocada dentro de `.banda-acento`?\n```\n:root { --color-superficie: #ffffff; }\n.banda-acento { --color-superficie: #0d47a1; }\n.tarjeta { background: var(--color-superficie); }\n```",
+    "options": [
+     "`#ffffff`, porque `:root` siempre tiene prioridad sobre cualquier redeclaración posterior",
+     "`#ffffff`, porque una variable no puede redeclararse fuera de `:root`",
+     "`#0d47a1`, porque la declaración más cercana al elemento es la de la banda",
+     "Ninguno, porque declarar la misma variable en dos selectores la deja inválida"
+    ],
+    "answer": 2,
+    "explanation": "Una variable vale en el elemento donde se declara y en sus descendientes; gana la declaración más cercana. Fuera de la banda, las tarjetas siguen con `#ffffff`."
+   },
+   {
+    "id": "10-m-09",
+    "prompt": "Con la base de `1rem` y razón `1.25`, ¿qué tamaño tiene el papel «grande», un paso por encima del base?",
+    "options": [
+     "`1.25rem`",
+     "`1.5rem`, porque cada paso suma `0.5rem` al anterior",
+     "`1.563rem`, el segundo paso de la escala",
+     "`1.125rem`, la mitad entre el base y el título"
+    ],
+    "answer": 0,
+    "explanation": "Cada paso multiplica por 1.25: 1 × 1.25 = 1.25rem, luego 1.563rem y 1.953rem. La escala se deriva por razón, no por suma."
+   },
+   {
+    "id": "10-m-10",
+    "prompt": "¿Cuánto vale `--espacio-8` según la unidad base del sistema?",
+    "options": [
+     "`8rem`, porque el número del nombre es el valor en rem",
+     "`2rem`, porque son ocho veces `0.25rem`",
+     "`0.8rem`, porque el número del nombre es un decimal del rem",
+     "`1.5rem`, porque el paso 8 se salta el 6 y el 7"
+    ],
+    "answer": 1,
+    "explanation": "El número del paso indica cuántas bases contiene: 8 × 0.25rem = 2rem."
+   },
+   {
+    "id": "10-m-11",
+    "prompt": "Se necesita un botón de acción destructiva. ¿Cuál es la solución dentro del sistema?",
+    "options": [
+     "Una variante `.boton--peligro` que solo declara el fondo con `var(--color-error)`, usada como `class=\"boton boton--peligro\"`",
+     "Un componente `.boton-rojo` con todas las reglas de `.boton` copiadas y el color cambiado",
+     "Un `style=\"background:#b71c1c\"` en cada botón destructivo, que gana a la hoja",
+     "Cambiar el valor de `--color-acento` a rojo, para que todos los botones primarios sirvan"
+    ],
+    "answer": 0,
+    "explanation": "La variante se suma a la base y declara solo su diferencia con una variable de estado. Cambiar `--color-acento` recolorearía todo el sitio."
+   },
+   {
+    "id": "10-m-12",
+    "prompt": "En la alerta `.alerta--aviso`, ¿dónde se usa el color de estado `--color-aviso`?",
+    "options": [
+     "En el color del texto del mensaje, para que el aviso destaque sobre la superficie",
+     "En el borde grueso y en el signo, mientras el texto va en `--color-texto`",
+     "En el fondo de la página entera, para que el aviso se note aunque no se lea",
+     "En el texto del botón de cierre, que es lo único que cambia entre variantes"
+    ],
+    "answer": 1,
+    "explanation": "El texto en `--color-texto` garantiza el contraste de `4.5 a 1`; el color de estado puro va en borde y signo, donde basta `3 a 1`."
+   },
+   {
+    "id": "10-m-13",
+    "prompt": "El inventario de una hoja muestra `#1565c0` en 9 reglas y `#1565c3` en 3 reglas, todas con el papel de acento. ¿Qué se hace en el reparto de papeles?",
+    "options": [
+     "Declarar dos variables, `--azul-1` y `--azul-2`, para conservar ambos tonos tal como estaban",
+     "Dejar los 3 usos del tono minoritario sueltos, porque son pocos y no justifican una variable",
+     "Declarar `--color-acento` solo con el tono más frecuente y dejar el otro sin papel, escrito en sus reglas",
+     "Unificarlos en un único valor para `--color-acento` y reemplazar los 12 usos por `var(--color-acento)`"
+    ],
+    "answer": 3,
+    "explanation": "Los valores casi iguales que cumplen un mismo papel se unifican: es la decisión de diseño que el sistema obliga a tomar una vez."
+   },
+   {
+    "id": "10-m-14",
+    "prompt": "El texto del botón primario, blanco sobre `--color-acento`, mide `3.8 a 1`. ¿Qué corresponde?",
+    "options": [
+     "Dejarlo, porque `3.8 a 1` supera el mínimo de `3 a 1`",
+     "Poner un color distinto solo en el botón primario de la página donde se lee mal",
+     "Subir el peso de la fuente del botón, que lo vuelve texto grande",
+     "Oscurecer `--color-acento` en su variable hasta alcanzar `4.5 a 1`, ya que es texto normal"
+    ],
+    "answer": 3,
+    "explanation": "El texto del botón es texto normal y exige `4.5 a 1`. La corrección se hace en la variable, y se propaga a todos sus consumos. Subir el peso solo cuenta si el texto además es de gran tamaño."
+   },
+   {
+    "id": "10-m-15",
+    "prompt": "Un titular con `line-height: 1.5` se ve desarmado en franjas separadas. ¿Qué corrige el sistema?",
+    "options": [
+     "Subir el interlineado a `2`, para separar más las franjas",
+     "Escribir `line-height: 1.2rem`, con unidad, para fijar la altura",
+     "Aplicar `line-height: var(--interlineado-titulos)`, hacia `1.2`",
+     "Reducir el tamaño del titular hasta que el interlineado de párrafo se vea bien"
+    ],
+    "answer": 2,
+    "explanation": "Las líneas grandes y cortas necesitan un interlineado cercano a `1.2`; el de párrafo, `1.5`, las desarma. Un valor con unidad no escala con el tamaño."
+   },
+   {
+    "id": "10-m-16",
+    "prompt": "En una parrilla de tarjetas, ¿dónde se declara la separación entre una tarjeta y la siguiente?",
+    "options": [
+     "En `.tarjeta`, con `margin-bottom`, para que viaje con ella a cualquier página",
+     "En la parrilla, con `gap: var(--espacio-6)`, porque el espaciado externo pertenece a la composición",
+     "En `.tarjeta`, con `padding`, ampliando el relleno hasta que haya espacio entre piezas",
+     "En cada página, con un margen escrito caso por caso para que quede bien allí"
+    ],
+    "answer": 1,
+    "explanation": "El componente declara su relleno; el margen y el `gap` los pone el contenedor. Una tarjeta que se coloca a sí misma deja de ser reutilizable."
+   },
+   {
+    "id": "10-m-17",
+    "prompt": "Se quiere que el anillo de foco de los botones use el color de acento y se separe del borde. ¿Dónde y cómo se declara?",
+    "options": [
+     "En `.boton`, con `outline: none`, para que el navegador no dibuje ningún anillo",
+     "En una clase `.foco` que se añade a mano a cada botón desde el HTML",
+     "En `:root`, junto a las variables, para que alcance a todos los elementos",
+     "En `.boton:focus-visible`, con `outline: 3px solid var(--color-acento)` y `outline-offset: 2px`"
+    ],
+    "answer": 3,
+    "explanation": "El estado de foco se declara con su pseudoclase dentro del componente y pide el color por variable. Eliminar el contorno haría invisible el teclado."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "10-d-01",
+    "prompt": "Se actualizó `--color-acento` en `:root` y todo el sitio cambió, salvo una alerta que conserva el color anterior; en su regla el color está escrito directamente y coincide con el valor viejo. ¿Cuál es la corrección dentro del sistema?",
+    "options": [
+     "Cambiar también ese color a mano en la alerta cada vez que el acento cambie, y dejar una nota en la hoja que recuerde hacerlo",
+     "Sustituir el valor escrito en la alerta por `var(--color-acento)`",
+     "Crear `--color-acento-alerta` con el mismo valor viejo y usarla en la alerta, para mantenerla independiente del resto",
+     "Mover la regla de la alerta a `:root`"
+    ],
+    "answer": 1,
+    "explanation": "El síntoma de una pieza que no cambia apunta a un valor suelto: la corrección es llevarlo a su variable. Crear otra variable con el mismo valor repite el problema bajo otro nombre."
+   },
+   {
+    "id": "10-d-02",
+    "prompt": "El sitio tiene `.boton-azul`, `.boton-rojo` y `.boton-gris` como tres bloques con las reglas completas copiadas y pequeñas diferencias sin control. ¿Qué está mal según el tema?",
+    "options": [
+     "Los nombres incluyen el color: bastaría renombrarlos por función y conservar los tres bloques copiados, cada uno con sus reglas completas",
+     "Falta un cuarto botón que complete la serie",
+     "Los botones no deben tener variantes",
+     "Es un único componente con variantes: base compartida y un modificador por variante"
+    ],
+    "answer": 3,
+    "explanation": "Tres bloques con estructura igual y valores casi iguales son variantes sin declarar. Renombrar no quita la copia; la solución es una base y modificadores."
+   },
+   {
+    "id": "10-d-03",
+    "prompt": "La base de la escala tipográfica es `16px` con razón `1.25`. ¿Qué tamaño tiene el papel inmediatamente superior y cómo se obtiene?",
+    "options": [
+     "`20px`: se multiplica la base por la razón (16 × 1.25)",
+     "`17px`: se suma una unidad a la base, porque cada paso es un incremento fijo",
+     "`18px`: los subtítulos siempre van en 18px, sea cual sea la escala",
+     "No se puede saber sin comparar con otro sitio que ya use un subtítulo"
+    ],
+    "answer": 0,
+    "explanation": "Cada paso multiplica al anterior por la razón; los tamaños se derivan, no se eligen. Una escala por suma no conserva proporciones al cambiar la base."
+   },
+   {
+    "id": "10-d-04",
+    "prompt": "La página «se ve ordenada», pero su hoja declara catorce valores distintos de `margin` y `padding` que difieren entre sí por pocos píxeles. ¿Cumple el sistema de espaciado?",
+    "options": [
+     "No: cada separación debe tomar un paso de la escala; son decisiones sueltas",
+     "Sí: si el resultado se ve ordenado a simple vista, el sistema de espaciado no aporta nada más que complejidad innecesaria",
+     "Sí, siempre que todos sean pares",
+     "El sistema solo regula colores y tipografía"
+    ],
+    "answer": 0,
+    "explanation": "Una escala es un conjunto cerrado; valores parecidos pero distintos significan que cada pieza negocia su número. Que visualmente parezca ordenado no la vuelve escala."
+   },
+   {
+    "id": "10-d-05",
+    "prompt": "Un párrafo de texto normal mide `3.2 a 1` contra su fondo y se defiende porque «3 a 1 es el mínimo». ¿Cuál es el juicio correcto?",
+    "options": [
+     "`3 a 1` es solo para texto grande e interfaz; el párrafo exige `4.5 a 1` y no cumple",
+     "Tiene razón: `3 a 1` es el mínimo universal de cualquier texto, grande o normal, y `3.2 a 1` lo supera con margen",
+     "Cumple si la fuente es gruesa",
+     "El contraste no se mide en párrafos"
+    ],
+    "answer": 0,
+    "explanation": "Hay dos mínimos: `4.5 a 1` para texto normal y `3 a 1` para texto grande y elementos de interfaz. La corrección es oscurecer el texto o aclarar el fondo en su variable."
+   },
+   {
+    "id": "10-d-06",
+    "prompt": "Una variable de color se declaró dentro de la regla de un componente «para usarla en todo el sitio», pero fuera de él las reglas que la usan quedan sin valor. ¿Qué explica lo ocurrido?",
+    "options": [
+     "Las variables solo funcionan dentro del primer archivo CSS que enlaza la página, y este componente vive en un segundo archivo",
+     "Una variable vale donde se declara y en sus descendientes; las del sistema van en `:root`",
+     "Falta recargar la página",
+     "El nombre debe empezar por `$`"
+    ],
+    "answer": 1,
+    "explanation": "El alcance depende de dónde se declara. Declarada dentro de una regla, solo alcanza a ese subárbol; en `:root`, al documento entero."
+   },
+   {
+    "id": "10-d-07",
+    "prompt": "Un texto salió con el color heredado del padre y sin ningún error en consola. Su regla es `color: var(--color-texto-suve);` y `:root` declara `--color-texto-suave`. ¿Cuál es el diagnóstico?",
+    "options": [
+     "`:root` no alcanza a ese elemento y hay que redeclarar la variable dentro de su regla para que el valor le llegue",
+     "El nombre pedido difiere en una letra del declarado: variable no definida y sin reserva",
+     "El navegador no admite `var()` en `color`",
+     "El valor es demasiado claro y se sustituye por el del padre"
+    ],
+    "answer": 1,
+    "explanation": "Una variable no definida sin reserva invalida la declaración en silencio y la propiedad cae al valor heredado. Se compara el nombre pedido con los declarados."
+   },
+   {
+    "id": "10-d-08",
+    "prompt": "Se cambia `--color-acento` a un amarillo claro. La portada se ve bien, pero el botón primario con texto blanco se vuelve ilegible. ¿Qué se debió hacer y cuál es la corrección?",
+    "options": [
+     "Mirar solo la portada, que es donde se probó, y retocar el botón en cada página donde se lea mal más adelante",
+     "Fijar el color del texto del botón con un valor propio en cada página",
+     "Mantener el amarillo y agrandar el texto",
+     "Juzgar en la página de muestra, medir el par y ajustar la variable hasta `4.5 a 1`"
+    ],
+    "answer": 3,
+    "explanation": "Un cambio de sistema se juzga en la muestra, donde todos los pares se ven juntos. La corrección se hace en la variable, no pieza a pieza."
+   },
+   {
+    "id": "10-d-09",
+    "prompt": "Un `h2` de la página lleva `--texto-titular` y el `h2` de una tarjeta lleva `--texto-titulo`. ¿Es un error?",
+    "options": [
+     "Sí: dos `h2` deben tener siempre el mismo tamaño en todo el sitio, porque comparten el mismo nivel de encabezado",
+     "Sí: el tamaño de los encabezados lo fija el navegador",
+     "No: el papel decide el tamaño, no el nivel del encabezado",
+     "No, pero solo porque el segundo `h2` está dentro de un componente"
+    ],
+    "answer": 2,
+    "explanation": "El tamaño declara importancia visual, no estructura. Pueden compartir nivel de encabezado y llevar tamaños distintos si sus papeles difieren."
+   },
+   {
+    "id": "10-d-10",
+    "prompt": "Dos tarjetas del mismo componente se ven distintas en dos páginas. Al inspeccionarlas, una lleva `style=\"padding:20px\"` en el HTML. ¿Qué corrección corresponde?",
+    "options": [
+     "Eliminar el estilo en línea y dejar que la tarjeta use el relleno de su bloque, `var(--espacio-4)`",
+     "Añadir `!important` al relleno de `.tarjeta` para que gane al estilo en línea",
+     "Copiar el estilo en línea a la otra tarjeta para que las dos coincidan",
+     "Crear una clase `.tarjeta-ancha` copiando el bloque completo con el relleno de 20px"
+    ],
+    "answer": 0,
+    "explanation": "El estilo en línea gana a la hoja y rompe la unidad del componente. Si la diferencia fuera real, iría a una variante, pero `20px` ni siquiera es un paso de la escala."
+   },
+   {
+    "id": "10-d-11",
+    "prompt": "En una página se pide un botón más grande que los demás y se propone duplicar `.boton` como `.boton-grande` cambiando dos valores. ¿Cuál es la salida del sistema?",
+    "options": [
+     "Duplicar el bloque completo con otro nombre, pero escribiendo `var()` en los dos valores que cambian, para seguir al sistema",
+     "Escribir en la página un estilo en línea",
+     "Crear un componente nuevo porque su estructura es distinta",
+     "Una clase `.boton--grande` sumada a `.boton`, que declara solo la diferencia con pasos de la escala"
+    ],
+    "answer": 3,
+    "explanation": "Cada bloque repetido es una variante sin declarar. La variante usa pasos de la escala y hereda de la base; duplicar, aunque sea con `var()`, multiplica el mantenimiento."
+   },
+   {
+    "id": "10-d-12",
+    "prompt": "Una hoja guarda `--azul: #2e7d32;` porque el acento pasó de azul a verde y no se renombró. ¿Qué problema crea y cómo se resuelve?",
+    "options": [
+     "El nombre miente; se renombra a `--color-acento` junto con sus consumos",
+     "Ninguno: el navegador ignora el nombre de la variable y solo usa el valor, así que puede seguir llamándose `--azul`",
+     "Volver a poner un azul en la variable",
+     "Declarar además `--verde` con el mismo valor"
+    ],
+    "answer": 0,
+    "explanation": "El nombre por valor se vuelve falso al cambiar el valor. Renombrarlo por función evita que el siguiente cambio vuelva a exigir lo mismo."
+   },
+   {
+    "id": "10-d-13",
+    "prompt": "Tras reemplazar valores por variables, a `768px` un título se ve más pequeño que antes. ¿Cuál es la causa más probable y cómo se localiza?",
+    "options": [
+     "El navegador recalcula las variables en cada ancho de ventana y el resultado puede variar entre uno y otro",
+     "La variable no admite consultas de medios",
+     "Se sustituyó el valor por otra variable equivocada; se compara con el inventario",
+     "La escala cambia sola de razón"
+    ],
+    "answer": 2,
+    "explanation": "El reemplazo correcto es invisible. Un cambio de apariencia no buscado es un reemplazo mal hecho, una variable por otra, y se localiza contra el inventario."
+   },
+   {
+    "id": "10-d-14",
+    "prompt": "Una alerta de error solo cambia el color del fondo a rojo claro, sin signo ni palabra inicial. ¿Qué falla según el tema y cómo se arregla?",
+    "options": [
+     "El rojo claro no es un color de estado válido y hay que usar el color de acento para toda alerta que comunique un error",
+     "El texto debe ir en `--color-error`",
+     "Falta oscurecer el fondo hasta alcanzar `4.5 a 1` y con eso queda resuelto",
+     "El estado va solo por color; se añaden signo o palabra inicial, borde de estado y texto"
+    ],
+    "answer": 3,
+    "explanation": "El estado se comunica por tres canales: color de borde y signo, signo o palabra inicial, y texto. Algunos lectores no distinguen ciertos pares de colores."
+   },
+   {
+    "id": "10-d-15",
+    "prompt": "Para tener una banda oscura se declaró `--color-texto: #ffffff` y `--color-superficie: #0d47a1` en `:root`, y ahora todo el sitio tiene texto blanco sobre fondo claro. ¿Cuál es la corrección?",
+    "options": [
+     "Cambiar el color de fondo de `body` a oscuro para que coincida con el texto blanco",
+     "Eliminar las variables y escribir los colores de la banda sueltos en cada componente",
+     "Mover esas dos declaraciones al selector de la banda, para que el ajuste solo valga dentro de ella",
+     "Declarar los valores originales de nuevo en cada página, después de `:root`"
+    ],
+    "answer": 2,
+    "explanation": "Una redeclaración en `:root` es un cambio global. La variante de ambiente debe ir en el selector de la banda, con frontera, y sus componentes la heredan sin tocarse."
+   },
+   {
+    "id": "10-d-16",
+    "prompt": "En la regla de una tarjeta aparece `margin-top: 1.25rem`. ¿Qué incumple del sistema y cómo se corrige?",
+    "options": [
+     "Nada: `rem` es una unidad válida y el valor coincide con uno de los pasos de la escala",
+     "Solo falta escribirlo como `var(--espacio-5, 1.25rem)`, que ya cuenta como paso de la escala",
+     "Es una medida fuera de la escala y un margen de empuje: la separación la pone el contenedor con un paso, como `var(--espacio-4)`",
+     "El problema es la unidad: debería escribirse `20px` para que sea múltiplo de la base"
+    ],
+    "answer": 2,
+    "explanation": "`1.25rem` no es un paso de la escala (los pasos son 0.25, 0.5, 0.75, 1, 1.5, 2 y 3 rem) y el margen del componente es composición. Un paso nuevo solo se registra si una composición real lo exige."
+   },
+   {
+    "id": "10-d-17",
+    "prompt": "Un cambio de `--color-acento` se ve mejor en la portada, que es la primera página donde se prueba. ¿Por qué no basta para darlo por bueno?",
+    "options": [
+     "Porque la portada es la única página del sitio que no consume variables del sistema y por eso no representa al resto",
+     "Puede romper contraste, jerarquía o estados en otras piezas; se juzga en la muestra",
+     "Porque el navegador guarda las variables en caché",
+     "Porque el acento solo cambia con todas las páginas terminadas"
+    ],
+    "answer": 1,
+    "explanation": "La muestra presenta todas las variables y variantes juntas y comparadas. Un cambio que no se sostiene allí no se sostiene en el sitio."
+   }
+  ]
+ }
+}

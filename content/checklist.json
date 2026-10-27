@@ -1,0 +1,483 @@
+{
+ "1": [
+  "Días 1–2 · Teoría del cuaderno: estudio y transcripción de la fundamentación del Tema 1 (Hojas 1 a 8): Hoja 1 · el entorno como sistema de herramientas y su arquitectura; Hoja 2 · rutas y sistema de archivos, terminal y Shell; Hoja 3 · comandos base, árbol de proyecto y errores típicos; Hoja 4 · procesos y editor VS Code; Hoja 5 · DevTools y el flujo mínimo de Git; Hoja 6 · hoja de consulta, que sí va en el cuaderno físico: equivalencias de terminal, HTML mínimo completo, estados de DevTools y de Git y flujo de trabajo Full Stack; Hoja 7 · hoja práctica, que no va en el cuaderno físico: ejemplos resueltos en las dos terminales, DevTools y `git restore` paso a paso y ejercicios del tema, ejecutados en el computador; Hoja 8 · README de evidencia y reglas de cierre.",
+  "Día 2 · Práctica: verificación del entorno — editor, Git, terminal y navegador — y registro de las versiones de cada herramienta en el README del repositorio de ejercicios.",
+  "Día 3 · Práctica: creación solo con comandos de terminal de la estructura `proyectos/mi-sitio` (`index.html`, `README.md`, `css/estilos.css`, `img/`) con práctica de `pwd`, `ls`, `cd`, `mkdir`, `touch`, `cp`, `mv`, `rm` y `cat`. En PowerShell, `touch` no existe: su equivalente es `New-Item`; la equivalencia completa está en la hoja de consulta (Hoja 6) y el ejemplo resuelto en las dos terminales, en la hoja práctica (Hoja 7).",
+  "Día 4 · Práctica: exploración de Elements, Console y Network en DevTools sobre la página del proyecto; escritura del HTML mínimo — entregado completo en la hoja de consulta (Hoja 6) — y comprobación de carga sin errores de rutas en la consola.",
+  "Día 5 · Práctica y evidencia: creación del repositorio con sus primeros commits de historia comprensible; ruptura deliberada de una ruta, recuperación con Git y documentación de la causa y la solución en el README.",
+  "Día 6 · Trabajo del tema: entrega en la pestaña Trabajos del repositorio con el README completo y el HTML mínimo funcionando (enlace del repositorio). El trabajo solo se puede enviar con la fundamentación terminada, y al enviarlo se abre la evaluación Fácil.",
+  "Día 7 · Evaluación y cierre: presentación de los niveles del Tema 1 en orden — Fácil, Medio y Difícil — en la pestaña Evaluaciones (califica el experto; 90% o más desbloquea el siguiente) y cierre con un repaso de 30 minutos del tema."
+ ],
+ "2": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe qué pasa entre que escribes una URL y aparece la página: DNS, petición y respuesta HTTP, códigos de estado y cómo el navegador arma el documento.",
+  "Día 3 · Práctica guiada: Abre DevTools → Network en 3 sitios distintos y anota: dominio, código de estado y tipo de cada recurso cargado (documento, CSS, imágenes, scripts).",
+  "Día 4 · Práctica independiente: Escribe con tus palabras la diferencia entre HTTP y HTTPS y entre una petición GET y una POST, con un ejemplo real de cada una.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Diagrama explicado con tus palabras.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Cómo funciona la web», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "3": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe estructura del documento HTML, etiquetas semánticas (header, main, section, article, footer), texto, enlaces, tablas y multimedia; por qué la semántica importa para accesibilidad y buscadores.",
+  "Día 3 · Práctica guiada: Construye una página informativa sobre un tema educativo o rural usando solo HTML semántico, sin nada de CSS: encabezados en orden, listas, una tabla y enlaces internos y externos.",
+  "Día 4 · Práctica independiente: Valida tu página: un solo h1, cada imagen con su alt, enlaces que funcionan; corrige todo lo que falle y deja el archivo limpio.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Página informativa sin CSS.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «HTML semántico», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "4": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe formularios HTML: inputs y sus tipos, labels asociados a cada campo, validación nativa (required, pattern, min/max) y mensajes de error que el usuario entiende.",
+  "Día 3 · Práctica guiada: Construye un formulario de registro de evidencias educativas con al menos 6 campos de tipos distintos, cada uno con su label visible y asociado.",
+  "Día 4 · Práctica independiente: Prueba el formulario como un usuario descuidado: déjalo vacío, escribe datos inválidos y anota qué errores muestra el navegador y cuáles tuviste que reforzar.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Formulario accesible de evidencias.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Formularios», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "5": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe el modelo de Git (carpeta de trabajo, staging, commit), historial con log, ramas, merge y pull requests; y la diferencia entre Git (local) y GitHub (remoto).",
+  "Día 3 · Práctica guiada: Crea un repositorio nuevo y haz entre 8 y 12 commits pequeños con mensajes claros que cuenten la historia de un mini-proyecto, sin un solo commit gigante.",
+  "Día 4 · Práctica independiente: Crea una rama, haz un cambio en ella, vuelve a main, fusiónala con merge y resuelve un conflicto provocado a propósito; documenta el proceso en el README.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Historial limpio con 8-12 commits.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Git y GitHub», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "6": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe cómo se publica un sitio estático en GitHub Pages, rutas relativas al publicar, caché del navegador y depuración de errores con la consola.",
+  "Día 3 · Práctica guiada: Publica tu sitio de práctica en GitHub Pages y verifica que todas las rutas (imágenes, enlaces, CSS) carguen sin errores 404 en la consola.",
+  "Día 4 · Práctica independiente: Haz la revisión móvil completa del sitio publicado: ancho de teléfono, legibilidad, consola limpia; corrige y vuelve a publicar lo que encuentres.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Sitio publicado y revisión móvil.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Publicación», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "7": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe selectores y especificidad, la cascada y la herencia, el box model (contenido, padding, border, margin) y las unidades (px, %, em, rem, vh).",
+  "Día 3 · Práctica guiada: Da estilo a tu página de la Semana 3 con una hoja CSS externa, comentando en el código para qué sirve cada bloque de reglas.",
+  "Día 4 · Práctica independiente: Rompe la cascada a propósito: crea dos reglas que compitan por el mismo elemento, predice cuál gana y por qué, y compruébalo en DevTools.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Hoja de estilos comentada.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «CSS esencial», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "8": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe Flexbox (ejes, alineación y distribución) y Grid (filas, columnas y áreas): qué problema resuelve cada uno y cuándo elegir uno u otro.",
+  "Día 3 · Práctica guiada: Reconstruye sin tutorial la barra de navegación y la parrilla de tarjetas de un sitio conocido: navegación con Flexbox y parrilla con Grid.",
+  "Día 4 · Práctica independiente: Crea dos layouts completos de página (uno con Flexbox, uno con Grid) a partir de un boceto dibujado en papel, sin copiar código de internet.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Dos layouts reconstruidos sin tutorial.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Layout», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "9": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe diseño responsive mobile-first, media queries, imágenes fluidas y puntos de corte definidos por el contenido, no por modelos de dispositivo.",
+  "Día 3 · Práctica guiada: Adapta tu layout de la Semana 8 a tres anchos (360px, 768px y 1200px) sin que aparezca scroll horizontal en ninguno.",
+  "Día 4 · Práctica independiente: Prueba con textos largos e imágenes grandes: ajusta lo que se desborde usando unidades relativas, max-width y media queries.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Tres anchos sin desbordamiento.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Responsive», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "10": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe sistemas visuales: variables CSS, escala tipográfica, paleta de color con contraste suficiente, espaciados consistentes y componentes reutilizables.",
+  "Día 3 · Práctica guiada: Define tus variables CSS (colores, fuentes, espaciados) en :root y refactorízalas en todo tu sitio de práctica; nada de valores sueltos repetidos.",
+  "Día 4 · Práctica independiente: Arma una página de muestra con tus componentes base (botón, tarjeta, encabezado de sección y alerta) usando solo tu sistema visual.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Mini sistema de diseño reutilizable.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Sistema visual», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "11": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe accesibilidad web: navegación por teclado, orden y visibilidad del foco, contraste mínimo, jerarquía de encabezados y mensajes comprensibles.",
+  "Día 3 · Práctica guiada: Recorre tu sitio completo usando solo el teclado (Tab y Shift+Tab) y anota cada punto donde te pierdes o no se ve el foco.",
+  "Día 4 · Práctica independiente: Corrige lo encontrado: foco visible, contraste suficiente y labels correctos; deja escrito el antes y el después de cada corrección.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Auditoría manual y correcciones.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Accesibilidad», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "12": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe calidad visual: revisión con DevTools, rendimiento básico de carga, estilos de impresión y QA visual sistemático antes de entregar.",
+  "Día 3 · Práctica guiada: Haz una pasada de QA a tu sitio con un checklist visual (alineación, espaciados, textos, enlaces, consola) y captura el «antes» de cada problema.",
+  "Día 4 · Práctica independiente: Aplica las correcciones del checklist y captura el «después»: la evidencia de la semana es esa comparación antes/después.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Checklist visual antes/después.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Calidad visual», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "13": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe tipos de valores en JavaScript, comparación estricta vs coerción, condicionales y bucles; dónde se esconde la coerción y cómo evitarla.",
+  "Día 3 · Práctica guiada: Resuelve 30 ejercicios breves de tipos y flujo: primero predice en papel qué imprime cada fragmento y luego compruébalo en la consola; anota cada fallo de predicción.",
+  "Día 4 · Práctica independiente: Reescribe 5 fragmentos con errores típicos de coerción usando comparación estricta y explica en comentarios qué cambió y por qué.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — 30 ejercicios breves razonados.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Tipos y flujo», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "14": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe funciones: parámetros, retorno, scope y efectos secundarios; funciones puras y por qué son más fáciles de probar y reutilizar.",
+  "Día 3 · Práctica guiada: Construye una biblioteca de utilidades con al menos 8 funciones puras (texto, números y fechas), cada una documentada con un ejemplo de uso.",
+  "Día 4 · Práctica independiente: Refactoriza código de la Semana 13 extrayendo funciones con nombre claro; si un bloque se repite dos veces, sale como función.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Biblioteca de utilidades.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Funciones», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "15": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe arrays y objetos en profundidad: map, filter y reduce, y cuándo un bucle clásico se entiende mejor que un método encadenado.",
+  "Día 3 · Práctica guiada: Crea un procesador de registros ficticios (estudiantes, cursos, notas) que filtre, transforme y resuma datos con map, filter y reduce.",
+  "Día 4 · Práctica independiente: Resuelve el mismo resumen de datos dos veces (con bucles y con métodos de array) y escribe cuál versión se entiende mejor y por qué.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Procesador de registros ficticios.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Colecciones», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "16": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe módulos en JavaScript: import/export, una responsabilidad por archivo, dependencias entre módulos y cómo nombrarlos por lo que hacen.",
+  "Día 3 · Práctica guiada: Divide una aplicación de un solo archivo en 4–6 módulos con responsabilidades claras y un único punto de entrada.",
+  "Día 4 · Práctica independiente: Dibuja el diagrama de dependencias de tu aplicación y elimina importaciones que sobran o que crean dependencias circulares.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Aplicación en 4-6 módulos.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Módulos», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "17": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe asincronía: promesas, async/await, manejo de errores con try/catch y el event loop explicado sin humo, con el orden real de ejecución.",
+  "Día 3 · Práctica guiada: Implementa tres flujos asíncronos (éxito, error de red simulado y tiempo de espera agotado) mostrando un estado distinto al usuario en cada caso.",
+  "Día 4 · Práctica independiente: Rompe un flujo quitando primero el await y luego el catch: anota el error exacto que aparece y cómo lo diagnosticó la consola.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Tres flujos con errores controlados.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Asincronía», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "18": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe pruebas y depuración: casos de prueba, assertions, breakpoints, lectura de stack traces y la bitácora de fallos como herramienta de aprendizaje.",
+  "Día 3 · Práctica guiada: Escribe una suite mínima para tu biblioteca de la Semana 14: al menos un caso por función, incluidos los casos borde (vacío, cero, nulo).",
+  "Día 4 · Práctica independiente: Siembra 3 fallos en tu código, depúralos con breakpoints (sin console.log) y registra cada uno en tu bitácora: síntoma, causa y corrección.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Suite mínima y bitácora de fallos.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Pruebas y debug», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "19": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe el DOM y los eventos: selección y creación de nodos, delegación de eventos, y lectura y validación de formularios desde JavaScript.",
+  "Día 3 · Práctica guiada: Construye un CRUD en memoria (crear, listar, editar y eliminar registros) renderizado manipulando el DOM, sin frameworks.",
+  "Día 4 · Práctica independiente: Rehaz el CRUD usando delegación de eventos con un solo listener y compara el código con la versión de un listener por botón.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — CRUD en memoria.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «DOM y eventos», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "20": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe HTTP desde el cliente: métodos, headers, códigos de estado, JSON como formato de intercambio y qué es CORS y cuándo bloquea una petición.",
+  "Día 3 · Práctica guiada: Construye un cliente para una API pública con fetch: lista, busca y muestra el detalle de recursos manejando errores de red y de estado.",
+  "Día 4 · Práctica independiente: Prueba tu cliente con la red desactivada y con una URL equivocada: debe mostrar mensajes claros, nunca romperse en silencio.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Cliente de una API pública.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «HTTP y Fetch», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "21": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe los estados de una interfaz (carga, vacío, error, éxito) y la idea de máquina de estados para no olvidar ninguno al programar una pantalla.",
+  "Día 3 · Práctica guiada: Implementa una máquina de estados simple (reposo → cargando → éxito/error → reintento) para la pantalla de tu cliente de la Semana 20.",
+  "Día 4 · Práctica independiente: Fuerza cada estado uno por uno (sin datos, con error, con datos) y captura cómo se ve la interfaz en cada uno.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Máquina de estados simple.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Estado de interfaz», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "22": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe persistencia local: localStorage, serialización con JSON, versionado de los datos guardados y migración simple cuando cambia el formato.",
+  "Día 3 · Práctica guiada: Haz que tu CRUD de la Semana 19 persista en localStorage: los datos deben sobrevivir a la recarga y al cierre del navegador.",
+  "Día 4 · Práctica independiente: Cambia el formato de un campo guardado y escribe la migración que convierte los datos viejos al abrir la app, sin perder registros.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Datos que sobreviven recarga.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Persistencia local», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "23": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe fuentes de datos tabulares: lectura controlada (CSV u hojas), normalización de columnas y tipos, límites de la fuente y caché con fecha de corte.",
+  "Día 3 · Práctica guiada: Construye un adaptador que lea una fuente tabular y la convierta en objetos limpios con tipos correctos, reportando las filas inválidas en vez de ocultarlas.",
+  "Día 4 · Práctica independiente: Haz el adaptador intercambiable: la misma interfaz consumiendo dos fuentes distintas (archivo local y una URL) sin tocar el resto de la app.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Adaptador de fuente intercambiable.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Fuentes de datos tabulares», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "24": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe integración y QA: validación de entradas en el cliente, XSS a nivel conceptual (por qué nunca se inserta HTML sin sanitizar) y pruebas de flujo completas.",
+  "Día 3 · Práctica guiada: Publica la versión integrada de tu app de datos: estados, persistencia y validación funcionando de punta a punta.",
+  "Día 4 · Práctica independiente: Escribe y ejecuta los casos de prueba del flujo principal (crear → guardar → recargar → consultar) y documenta el resultado de cada uno.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Versión publicada y casos de prueba.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Integración y QA», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "25": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe el modelo relacional: entidades, atributos, relaciones, claves primarias y foráneas, y cardinalidad (1:1, 1:N, N:M) con tablas puente.",
+  "Día 3 · Práctica guiada: Modela en papel el DER de un sistema de información educativo (estudiantes, cursos, evidencias): entidades, relaciones y cardinalidades, antes de tocar la base.",
+  "Día 4 · Práctica independiente: Pasa el DER a una descripción escrita: por cada tabla, su clave primaria, sus claves foráneas y una frase de por qué existe.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — DER de un sistema de información.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Modelo relacional», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "26": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe SQL básico: SELECT con filtros y orden, INSERT, UPDATE y DELETE siempre con WHERE responsable; nada de modificar sin condición.",
+  "Día 3 · Práctica guiada: Crea las tablas de tu DER en PostgreSQL y escribe un archivo con 25 consultas: altas, bajas, cambios y consultas con filtros combinados.",
+  "Día 4 · Práctica independiente: Ejecuta cada consulta y verifica el resultado fila por fila; deja en comentarios qué devuelve cada una y para qué sirve.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Archivo de 25 consultas.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «SQL básico», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "27": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe consultas útiles: JOIN entre tablas, GROUP BY con HAVING y subconsultas; la diferencia entre filtrar filas y filtrar grupos.",
+  "Día 3 · Práctica guiada: Construye un reporte reproducible (inscripciones por curso y promedio por estudiante) usando JOIN y GROUP BY sobre tu esquema.",
+  "Día 4 · Práctica independiente: Reescribe una consulta con subconsulta usando JOIN (o al revés) y compara: ambas deben contar la misma historia.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Reporte reproducible.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Consultas útiles», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "28": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe integridad de datos: constraints (NOT NULL, UNIQUE, CHECK, claves foráneas), transacciones y rollback; la base protege los datos aunque el código falle.",
+  "Día 3 · Práctica guiada: Añade constraints a tu esquema y escribe los casos que demuestran la protección: duplicados rechazados y foráneas inválidas imposibles.",
+  "Día 4 · Práctica independiente: Ejecuta una transacción que falla a la mitad y demuestra con consultas que el rollback no dejó datos a medias.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Casos que demuestran protección.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Integridad», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "29": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe rendimiento en SQL: índices y cuándo ayudan, lectura conceptual de EXPLAIN y paginación eficiente en consultas grandes.",
+  "Día 3 · Práctica guiada: Compara la misma consulta con y sin índice sobre una tabla con datos suficientes: tiempos y plan de ejecución, todo por escrito.",
+  "Día 4 · Práctica independiente: Implementa la paginación de un listado de dos formas (LIMIT/OFFSET y por cursor) y anota la diferencia práctica de cada una.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Comparación de dos consultas.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Rendimiento», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "30": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe ciclo de vida del esquema: migraciones versionadas, datos seed, vistas para reportes y backup lógico con su restauración.",
+  "Día 3 · Práctica guiada: Escribe las migraciones y el seed que recrean tu base desde cero en una sola secuencia, y pruébalo borrando y recreando todo.",
+  "Día 4 · Práctica independiente: Crea una vista para tu reporte de la Semana 27, haz un backup lógico, restáuralo en otra base y verifica que coincide.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Base recreable desde cero.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Ciclo de esquema», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "31": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe Node.js como runtime: npm y package.json, módulos, variables de entorno y el ciclo petición/respuesta de un servidor HTTP.",
+  "Día 3 · Práctica guiada: Levanta un servidor HTTP con Node sin frameworks: rutas básicas y un endpoint /health que responda estado y hora.",
+  "Día 4 · Práctica independiente: Mueve la configuración a variables de entorno (puerto, nombre del servicio) y documenta en el README cómo arrancarlo desde cero.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Servidor con health check.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Node y servidor HTTP», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "32": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe API REST: recursos y rutas, métodos y códigos de estado coherentes, y un formato de error consistente para toda la API.",
+  "Día 3 · Práctica guiada: Implementa un CRUD versionado (/api/v1/…) sobre datos en memoria con las respuestas y los errores en el formato que definiste en la teoría.",
+  "Día 4 · Práctica independiente: Prueba cada endpoint con peticiones reales, incluidos los casos de error (400, 404), y guarda la colección de pruebas en el repositorio.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — CRUD versionado.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «API REST», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "33": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe arquitectura de backend en capas: router, controller, service y repository; qué decide cada capa y qué nunca debe mezclar.",
+  "Día 3 · Práctica guiada: Refactoriza tu API de la Semana 32 a la arquitectura de 4 capas sin cambiar su comportamiento externo.",
+  "Día 4 · Práctica independiente: Escribe en el README el flujo de una petición atravesando las 4 capas, nombrando el archivo responsable de cada paso.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Separación de responsabilidades.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Arquitectura», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "34": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe PostgreSQL desde el backend: consultas parametrizadas (la defensa contra la inyección SQL), pool de conexiones y transacciones.",
+  "Día 3 · Práctica guiada: Conecta tu API al esquema migrado de la Fase 5 usando solo consultas parametrizadas; prohibido interpolar valores en el SQL.",
+  "Día 4 · Práctica independiente: Implementa una operación con transacción (dos escrituras que viven o mueren juntas) y pruébala forzando un error en la segunda escritura.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — API conectada a esquema migrado.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «PostgreSQL», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "35": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe autenticación vs autorización, sesión y token a nivel conceptual, roles y propiedad de los datos (ownership): quién puede tocar qué.",
+  "Día 3 · Práctica guiada: Define por escrito la matriz de autorización de tu API: qué puede hacer cada rol sobre cada recurso, antes de escribir código.",
+  "Día 4 · Práctica independiente: Implementa las reglas y prueba la matriz completa: cada permiso permitido y cada prohibido debe responder lo correcto (200/201 frente a 403).",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Matriz de autorización probada.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Auth y permisos», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "36": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe pruebas y observabilidad de una API: pruebas unitarias y de integración, logs útiles (qué, cuándo, con qué contexto) y manejo global de errores.",
+  "Día 3 · Práctica guiada: Escribe la suite de tu API: unitarias para los services y de integración para los endpoints críticos, ejecutable con un solo comando.",
+  "Día 4 · Práctica independiente: Provoca tres fallos reales (dato inválido, recurso inexistente, error de base) y verifica que el log permite diagnosticarlos sin leer el código.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Suite de API y diagnóstico.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Pruebas y logs», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "37": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe TypeScript base: tipos primitivos y de objetos, uniones, interfaces y el modo strict; qué errores atrapa el compilador antes de ejecutar.",
+  "Día 3 · Práctica guiada: Migra tu biblioteca de utilidades JS de la Semana 14 a TypeScript con strict activado y cero usos de any.",
+  "Día 4 · Práctica independiente: Provoca a propósito 5 errores de tipos, lee cada mensaje del compilador y anota qué problema real estaba evitando.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Migración de utilidades JS.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «TypeScript base», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "38": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe el modelo mental de React: componentes como funciones de la interfaz, props hacia abajo, estado local y qué dispara un render y qué no.",
+  "Día 3 · Práctica guiada: Reconstruye una interfaz que ya tienes (tu CRUD o tu cliente de API) en React, dividida por responsabilidades y sin lógica en el componente raíz.",
+  "Día 4 · Práctica independiente: Escribe dónde vive cada estado de tu app; si un estado puede vivir más abajo en el árbol, muévelo.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Interfaz dividida por responsabilidades.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «React mental model», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "39": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe interacciones en React: eventos, formularios controlados, validación visible y la diferencia entre estado derivado y estado duplicado.",
+  "Día 3 · Práctica guiada: Construye un formulario con validación visible campo a campo: errores al tocar cada campo, no solo al enviar, y un resumen final claro.",
+  "Día 4 · Práctica independiente: Elimina un estado duplicado de tu app derivándolo de otro y verifica que la interfaz se comporta igual con una sola fuente de verdad.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Formulario con validación visible.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Interacciones», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "40": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe datos remotos en React: fetch, efectos y su limpieza, cancelación de peticiones y los estados de carga, error y vacío en la vista.",
+  "Día 3 · Práctica guiada: Conecta una vista a tu API mostrando los cuatro estados (carga, vacío, error con reintento y éxito), sin pantallas en blanco.",
+  "Día 4 · Práctica independiente: Simula una respuesta lenta y una caída del servidor: la vista debe seguir respondiendo y recuperarse al reintentar.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Vista resiliente a fallos.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Datos remotos», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "41": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe routing y diseño de la app: rutas y layouts compartidos, componentes de presentación vs contenedores, y accesibilidad dentro del flujo.",
+  "Día 3 · Práctica guiada: Arma un flujo de 3–5 pantallas con layout compartido (navegación y pie) y rutas con nombres claros.",
+  "Día 4 · Práctica independiente: Recorre el flujo completo usando solo el teclado y corrige el foco y el orden de lectura antes de darlo por terminado.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Flujo de 3-5 pantallas.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Routing y diseño», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "42": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe pruebas y calidad en el frontend: pruebas de comportamiento (lo que el usuario ve y hace), lint como red de seguridad y build de producción.",
+  "Día 3 · Práctica guiada: Escribe pruebas de comportamiento para las rutas críticas de tu app: renderizar, interactuar y afirmar lo que queda visible.",
+  "Día 4 · Práctica independiente: Deja el proyecto con lint sin errores y build de producción pasando, y documenta los dos comandos en el README.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Suite de rutas críticas.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Pruebas y calidad», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "43": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe Supabase en la práctica: qué es sobre PostgreSQL, esquema y migraciones dentro del proyecto, datos seed y cliente; el entorno debe ser reproducible.",
+  "Día 3 · Práctica guiada: Crea el proyecto Supabase de tu capstone con el esquema migrado y el seed: tú mismo, en otra carpeta, debes poder recrearlo desde cero.",
+  "Día 4 · Práctica independiente: Conecta un cliente mínimo que lea y escriba una tabla y verifica los datos resultantes desde el panel de Supabase.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Entorno reproducible.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Supabase local/proyecto», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "44": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe auth y seguridad en Supabase: usuarios, claims y Row Level Security con policies por rol y por propiedad del registro.",
+  "Día 3 · Práctica guiada: Activa RLS en todas tus tablas y escribe las policies de lectura y escritura por rol y propiedad; ninguna tabla queda abierta.",
+  "Día 4 · Práctica independiente: Prueba cada policy en positivo y en negativo: como dueño, como otro usuario y como anónimo, y registra el resultado de cada caso.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Pruebas positivas y negativas.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Auth y RLS», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "45": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe Storage en Supabase: buckets, rutas de archivo, límites de tamaño y tipo, y permisos de lectura y escritura por bucket.",
+  "Día 3 · Práctica guiada: Configura un bucket para evidencias con reglas de tamaño y tipo, y sube archivos de prueba usando solo datos ficticios.",
+  "Día 4 · Práctica independiente: Intenta subir un archivo prohibido (por tipo o tamaño) y descargar uno ajeno: ambos deben fallar; guarda la evidencia de las dos pruebas.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Carga segura con datos ficticios.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Storage», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "46": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe integración completa: React + Supabase de punta a punta (sesión, datos con RLS, storage) y manejo de errores y caché en el cliente.",
+  "Día 3 · Práctica guiada: Conecta tu app React al proyecto Supabase completo: login, CRUD con permisos y subida de evidencias funcionando en un solo flujo.",
+  "Día 4 · Práctica independiente: Recorre el flujo como dos usuarios distintos y verifica que cada uno solo ve y solo toca lo suyo.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Flujo de punta a punta.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Integración completa», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "47": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe despliegue en Vercel: previews por rama, variables separadas por entorno, build de producción y rollback cuando una versión sale mal.",
+  "Día 3 · Práctica guiada: Despliega tu capstone en Vercel con las variables separadas por entorno y genera un preview desde una rama.",
+  "Día 4 · Práctica independiente: Rompe el preview a propósito (una variable equivocada), detecta el fallo y haz rollback a la última versión buena; documenta cada paso.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Release candidate validado.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Vercel y CI», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "48": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe operación en producción: auditoría final de seguridad, accesibilidad y rendimiento, métricas básicas, backups y el runbook para cuando algo falla.",
+  "Día 3 · Práctica guiada: Pasa la auditoría completa a tu capstone con checklist en mano (RLS, variables, manejo de errores, accesibilidad, tiempos de carga) y corrige todo lo crítico.",
+  "Día 4 · Práctica independiente: Escribe el runbook de tu capstone (arranque, backup, rollback, incidentes comunes) y prepara la demo final con el recorrido completo funcionando.",
+  "Día 5 · Evidencia de la semana: produce y guarda la evidencia del tema — Capstone publicado y documentado.",
+  "Día 6 · Evaluación del tema: rinde el nivel Fácil en la sección Evaluaciones y sigue con los niveles Medio y Difícil: los tres niveles son exámenes de preguntas de selección única que se responden en la app — Fácil de conceptos, Medio de aplicación a casos y Difícil de diagnóstico — y ninguno pide entregar archivos; la entrega del tema es su Trabajo, en la pestaña Trabajos. Califica el experto: solo con 90% o más en un nivel se desbloquea el siguiente.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos del tema «Producción», registra tu sesión de estudio y deja todo el trabajo guardado con un commit final."
+ ],
+ "49": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «Linux y terminal avanzada».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (script de automatización documentado).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ],
+ "50": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «Docker».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (stack local reproducible con compose).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ],
+ "51": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «CI/CD con GitHub Actions».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (pipeline que prueba, construye y despliega).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ],
+ "52": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «Nube y despliegue».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (aplicación desplegada con costos documentados).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ],
+ "53": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «Next.js».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (aplicación next.js con datos del servidor).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ],
+ "54": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «Seguridad web».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (auditoría con correcciones verificadas).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ],
+ "55": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «Estructuras de datos y algoritmos I».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (30 problemas resueltos con análisis de complejidad).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ],
+ "56": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «Estructuras de datos y algoritmos II».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (resolución de problemas tipo entrevista).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ],
+ "57": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «Python para backend».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (api en fastapi equivalente a la de node).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ],
+ "58": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «Diseño de sistemas y arquitectura».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (documento de diseño con decisiones justificadas).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ],
+ "59": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «IA aplicada al desarrollo».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (funcionalidad con ia y política de uso responsable).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ],
+ "60": [
+  "Días 1–2 · Teoría del cuaderno (~2 h diarias): estudia y transcribe la fundamentación de «Portafolio, inglés técnico y entrevistas».",
+  "Día 3 · Práctica guiada: resuelve los ejercicios del tema paso a paso.",
+  "Día 4 · Práctica independiente: repite sin guía lo esencial y registra tus errores.",
+  "Día 5 · Trabajo: construye la entrega del tema (portafolio publicado y simulacros de entrevista).",
+  "Día 6 · Evaluaciones: presenta Fácil, Medio y Difícil, en orden.",
+  "Día 7 · Cierre de la semana: repaso de 30 minutos, registra tu sesión y deja lista la siguiente."
+ ]
+}

@@ -1,0 +1,405 @@
+{
+ "week": 8,
+ "estado": "completo",
+ "sections": [
+  {
+   "page": 1,
+   "kind": "heading",
+   "title": "1.1. Layout: decidir dónde va cada caja y cuánto ocupa",
+   "body": "Layout es la parte de CSS que decide la posición y el tamaño de cada caja en la página: qué va al lado de qué, qué va debajo de qué, cuánto espacio queda entre dos bloques y qué ocurre con ese reparto cuando la pantalla se estrecha. Todo lo del Tema 7 — selectores, cascada, caja y unidades — decide cómo se ve cada elemento por separado; el layout decide cómo se ordenan todos juntos.\n\nSin layout intencional, la página se ordena sola con el flujo normal de la Hoja 2: los bloques en columna, uno debajo de otro, y los elementos en línea corriendo como texto. Ese orden sirve para un documento de lectura, pero no compone una interfaz: una barra de navegación con el logo a un extremo y los enlaces al otro, una parrilla de tarjetas en tres columnas o una página con encabezado, contenido, lateral y pie exigen declarar el reparto del espacio, y declarar ese reparto es exactamente este tema.\n\nDos sistemas lo resuelven, y son todo el contenido que sigue:\n\n• Flexbox ordena los hijos de un contenedor a lo largo de UN eje: una fila o una columna, con alineación y distribución declaradas sobre ese eje.\n• Grid ordena los hijos de un contenedor en DOS dimensiones a la vez: filas y columnas declaradas de antemano, con cada hijo colocado en la celda o el área que le corresponde."
+  },
+  {
+   "page": 1,
+   "kind": "warning",
+   "title": "REGLA FUNDAMENTAL",
+   "body": "El espacio se reparte con el sistema de layout, nunca con parches: ni márgenes empujando cajas a la posición deseada, ni anchos calculados a ojo para que «quepa», ni elementos flotados fuera de su flujo. Si dos cajas deben ir en fila, su contenedor común lo declara; si una zona debe ocupar dos columnas, la cuadrícula lo declara. Cada posición que se logra empujando una caja es una posición que se rompe en cuanto cambia el contenido o el ancho de la pantalla."
+  },
+  {
+   "page": 1,
+   "kind": "definition",
+   "title": "1.2. El contenedor manda: el layout se declara en el padre",
+   "body": "La idea que organiza Flexbox y Grid por igual: las propiedades de layout se escriben en el CONTENEDOR, y lo que ordenan es a sus HIJOS directos.\n\n• Al declarar un contenedor flexible o de cuadrícula, sus hijos directos se convierten en ítems de ese sistema: dejan de ordenarse por el flujo normal y pasan a ordenarse por las reglas del sistema, sin que haya que tocar a cada hijo por separado.\n• Lo que hay DENTRO de cada hijo sigue su vida normal: el texto de una tarjeta se sigue leyendo en líneas y sus párrafos en columna. El sistema ordena las cajas hijas; el contenido de cada caja se ordena como siempre, salvo que esa caja sea a su vez contenedor de otro sistema (Hoja 11).\n• La consecuencia práctica define el método de trabajo: ante cualquier problema de posición, la primera pregunta no es «qué le falta a esta caja», sino «quién es su contenedor y qué sistema declara». Casi todo error de layout es una propiedad escrita en el elemento equivocado: en el hijo, cuando debía ir en el padre."
+  },
+  {
+   "page": 1,
+   "kind": "diagram",
+   "title": "Contenedor e hijos en los dos sistemas",
+   "body": "FLEXBOX — un eje\nContenedor ──► hijo · hijo · hijo (en fila o en columna)\n\nGRID — dos dimensiones\nContenedor ──► fila 1: hijo · hijo · hijo\n               fila 2: hijo · hijo · hijo\nEl contenedor declara el sistema;\nlos hijos directos son los que se ordenan"
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.1. El flujo normal: el orden que ya traía el documento",
+   "body": "Definición: el flujo normal es el orden con el que el navegador coloca las cajas cuando nadie declara ningún sistema de layout. Conocerlo importa porque Flexbox y Grid no lo borran: lo sustituyen solo dentro de su contenedor, y todo lo que quede fuera de un sistema sigue ordenándose así.\n\nEn el flujo normal mandan dos comportamientos, decididos por la clase de cada caja:\n\n• Las cajas de bloque ocupan todo el ancho disponible de su contenedor y se apilan en columna, en el orden en que aparecen en el HTML: encabezados, párrafos, secciones, listas y divisiones viven así por defecto.\n• Las cajas en línea ocupan solo el ancho de su contenido y corren una junto a otra dentro de su línea, saltando a la siguiente cuando la línea se llena, igual que las palabras de un texto: enlaces, textos marcados e imágenes pequeñas viven así.\n\nEl flujo normal tiene una virtud que ningún sistema debe perder: el orden visual coincide con el orden del documento, y ese orden es el que leen el teclado y los lectores de pantalla. Todo layout de este tema debe conservar esa coincidencia: se puede repartir el espacio, no reordenar el sentido."
+  },
+  {
+   "page": 2,
+   "kind": "table",
+   "title": "Tabla comparativa — bloque frente a en línea en el flujo normal",
+   "body": "Criterio | Caja de bloque | Caja en línea\nAncho que ocupa | Todo el disponible de su contenedor | Solo el de su contenido\nPosición de la siguiente caja | Debajo, en una línea nueva | Al lado, en la misma línea si cabe\nAncho y alto declarados | Se respetan por completo | El alto no se impone igual: manda el texto\nEjemplos por defecto | section, p, h1–h6, ul, div | a, strong, em, span, img"
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.2. display: la propiedad que cambia el modo de ordenarse",
+   "body": "Definición: display es la propiedad que declara cómo se comporta una caja hacia fuera — cómo la ven sus vecinas — y cómo se ordena su interior. Cambiar display no cambia qué ES el elemento en el HTML; cambia únicamente su comportamiento de layout.\n\nLos valores que este tema usa, en dos grupos:\n\n• Los que fijan el comportamiento exterior clásico: bloque (ocupa todo el ancho y se apila), en línea (ocupa su contenido y corre junto a otros) y su mezcla, en línea y bloque a la vez, que corre junto a otros pero sí respeta el ancho y el alto declarados — el valor de botones y de tarjetas pequeñas que deben alinearse con texto.\n• Los que activan un sistema de layout en el interior: al declarar display con el valor flexible, la caja se comporta como bloque hacia fuera y, hacia dentro, sus hijos se ordenan por Flexbox; con el valor de cuadrícula, hacia dentro sus hijos se ordenan por Grid. Existen además las variantes «en línea» de ambos sistemas, donde la caja ocupa solo su contenido hacia fuera y ordena su interior con el sistema: se usan poco y solo cuando el contenedor mismo debe correr dentro de una línea de texto.\n\nDeclarar display es siempre el primer paso: ninguna propiedad de Flexbox o de Grid hace nada en un contenedor que no ha activado su sistema."
+  },
+  {
+   "page": 2,
+   "kind": "code",
+   "title": "display sobre el mismo grupo de cajas",
+   "body": "HTML de partida:\n\n```\n  <div class=\"barra\">\n    <span>Logo</span> <a>Inicio</a> <a>Procesos</a>\n  </div>\n```\n\nSin display declarado (flujo normal):\n  la barra es bloque; sus hijos en línea corren\n  pegados, en el orden del HTML, sin reparto\n\n```\n.barra { display: flex; }\n  → la barra sigue siendo bloque hacia fuera,\n    pero sus hijos ya son ítems flexibles:\n    ahora sí responden a la alineación de la\n    Hoja 4\n\n.barra { display: grid; }\n  → sus hijos pasan a ser ítems de cuadrícula:\n    se colocan por filas y columnas (Hoja 7)\n```\n\nLa propiedad se escribe UNA vez, en el\ncontenedor; los hijos no llevan ninguna marca."
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.1. Flexbox: ordenar a lo largo de un solo eje",
+   "body": "Definición: Flexbox (caja flexible) es el sistema de layout que ordena los hijos directos de un contenedor a lo largo de un eje, repartiendo el espacio disponible sobre ese eje y alineándolos en el eje contrario. Se activa declarando el contenedor como flexible, y desde ese instante sus hijos son ítems flexibles.\n\nSu modelo mental completo cabe en dos ejes con nombre propio:\n\n• Eje principal: la dirección en la que los ítems se suceden, uno tras otro. Es el eje a lo largo del cual se reparte el espacio sobrante y a lo largo del cual cada ítem puede crecer o encogerse.\n• Eje transversal: el eje perpendicular al principal. No hay sucesión sobre él: hay una sola línea de ítems (o varias, con envoltura, Hoja 6) y los ítems se alinean a lo ancho de ese eje.\n\nTodo Flexbox es responder dos preguntas sobre esos ejes: cómo se reparten los ítems a lo largo del principal (Hoja 4) y cómo se alinean a lo ancho del transversal (Hoja 4). Las demás propiedades del sistema o cambian qué eje es el principal (Hoja 3.2) o ajustan a un hijo concreto (Hojas 5 y 6)."
+  },
+  {
+   "page": 3,
+   "kind": "diagram",
+   "title": "Los dos ejes de Flexbox en fila",
+   "body": "Eje principal ──────────────────────►\n  ítem 1 ──► ítem 2 ──► ítem 3\n  │\nEje transversal ▼ (cruza al principal)\n  la alineación se decide sobre este eje:\n  arriba, centro o abajo de la fila"
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.2. flex-direction: qué eje es el principal",
+   "body": "La dirección del contenedor declara qué eje es el principal y en qué sentido corre:\n\n• En fila: el eje principal es horizontal y los ítems se suceden de izquierda a derecha, en el orden del documento. Es el valor por defecto al activar Flexbox, y el de las barras de navegación, las filas de botones y las tarjetas en línea.\n• En fila invertida: el mismo eje horizontal, con la sucesión en sentido contrario al orden del documento. Inviertes la pintura, no el documento: el teclado y los lectores siguen el orden original, así que este valor se usa solo cuando esa diferencia no engaña a nadie.\n• En columna: el eje principal es vertical y los ítems se apilan de arriba abajo. Las preguntas de reparto pasan a ser verticales: distribuir a lo largo es repartir alturas, y alinear es colocar a lo ancho.\n• En columna invertida: el eje vertical con la sucesión de abajo arriba, con la misma cautela que la fila invertida.\n\nLa precisión que evita la confusión clásica del tema: «principal» y «transversal» no son sinónimos de «horizontal» y «vertical». Son papeles que la dirección asigna: al pasar de fila a columna, los papeles cambian de eje físico, y con ellos cambia sobre qué eje físico actúa cada propiedad de alineación."
+  },
+  {
+   "page": 3,
+   "kind": "code",
+   "title": "El mismo contenedor, en fila y en columna",
+   "body": "```\n.barra { display: flex; }\n  → dirección por defecto: fila\n  → eje principal: horizontal\n  → los ítems se suceden de izquierda a derecha\n\n.panel { display: flex; flex-direction: column; }\n  → eje principal: vertical\n  → los ítems se apilan de arriba abajo\n  → repartir (Hoja 4) será repartir el alto,\n    y alinear será colocar a lo ancho\n```\n\nRegla de lectura de todo el sistema:\nantes de predecir qué hace una propiedad de\nalineación, declara primero la dirección:\nsin dirección sabida, no hay eje sabido."
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.1. justify-content: repartir a lo largo del eje principal",
+   "body": "Definición: la distribución principal declara cómo se reparte el espacio del contenedor a lo largo del eje principal entre sus ítems, cuando la suma de los ítems no llena el contenedor. Si los ítems ya ocupan todo el eje, esta propiedad no tiene espacio que repartir y no se nota: su efecto existe solo donde sobra sitio.\n\nLos repartos, leídos como decisiones y no como lista:\n\n• Agrupar al inicio o al final del eje, o centrar el grupo: los ítems quedan juntos y todo el sobrante queda de un lado o repartido en dos mitades iguales a los extremos.\n• Repartir el sobrante ENTRE los ítems: el primer ítem queda pegado al inicio, el último al final, y el espacio sobrante se divide en huecos iguales entre cada par. Es el reparto de la barra de navegación clásica llevada a varios grupos y de las filas de tarjetas que deben tocar ambos bordes.\n• Repartir el sobrante ALREDEDOR de cada ítem: cada ítem recibe el mismo espacio a ambos lados, así que los huecos entre ítems valen el doble que los de los extremos.\n• Repartir el sobrante EN PARTES IGUALES entre todos los huecos, extremos incluidos: todos los huecos — antes del primero, entre ítems y después del último — miden exactamente lo mismo.\n\nLa elección es semántica: pegar al inicio conserva el orden de lectura pegado al borde; repartir entre ítems declara que los extremos mandan; repartir en partes iguales declara que ningún hueco manda sobre otro."
+  },
+  {
+   "page": 4,
+   "kind": "table",
+   "title": "Tabla — los repartos del eje principal y del transversal",
+   "body": "Propiedad | Eje que ordena | Qué decide exactamente\njustify-content | Principal | Cómo se reparte el sobrante entre los ítems a lo largo del eje\nalign-items | Transversal | Dónde va cada ítem a lo ancho de su línea: inicio, centro, final o estirado\nalign-content | Transversal, con varias líneas | Cómo se reparten las LÍNEAS entre sí cuando hay envoltura\ngap | Los dos | La separación fija entre ítems (y entre líneas): sustituye a los márgenes de separación"
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.2. align-items, align-content y gap: el eje transversal y la separación",
+   "body": "Tres propiedades completan la alineación flexible, cada una con un alcance que no se confunde:\n\n• Alineación de ítems en el transversal: declara dónde va CADA ítem a lo ancho de su línea. Al inicio, al centro o al final del eje transversal; estirado, ocupando todo el ancho transversal disponible — el valor por defecto, y la razón de que los ítems de una fila suelan salir con el mismo alto —; o alineados por la línea base de su primera línea de texto, el reparto de las filas donde textos de distinto tamaño deben compartir línea de escritura.\n• Alineación de contenido: solo existe cuando la envoltura de la Hoja 6 produce VARIAS líneas. Declara cómo se reparten esas líneas entre sí a lo ancho del transversal, con el mismo vocabulario de repartos de la Hoja 4.1 aplicado a líneas en vez de a ítems. Con una sola línea no hace nada, y buscar su efecto en un contenedor sin envoltura es el error más frecuente de esta hoja.\n• La separación (gap): declara una distancia fija entre ítems contiguos — y entre líneas, si las hay — que el sistema mantiene sin sumar márgenes. Su diferencia con el margen es de oficio: el margen pertenece a cada caja y se suma en los extremos; la separación pertenece al contenedor y existe SOLO entre ítems, nunca en los bordes. Toda separación entre ítems de un sistema se declara con gap, no empujando cada hijo con su margen."
+  },
+  {
+   "page": 4,
+   "kind": "code",
+   "title": "Alineación y distribución completas en tres contenedores",
+   "body": "```\n/* Barra de navegación: logo y enlaces a los\n   extremos, centrados a lo alto */\n.barra {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 1rem;\n}\n\n/* Fila de acciones pegada al final */\n.acciones {\n  display: flex;\n  justify-content: flex-end;\n  gap: 0.5rem;\n}\n\n/* Grupo centrado en los dos ejes */\n.vacio {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n```\n\nLectura: primero la dirección (fila por\ndefecto), después el reparto del principal,\ndespués la alineación del transversal."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.1. El tamaño de los hijos flexibles: base, crecimiento y encogimiento",
+   "body": "En Flexbox el tamaño de cada ítem sobre el eje principal no es fijo: es el resultado de negociar tres datos que se declaran por hijo:\n\n• La base flexible: el tamaño de partida del ítem sobre el eje principal, antes de repartir nada. Puede ser una medida concreta o el valor automático, que toma como partida el tamaño de su contenido o el ancho declarado. La base manda sobre el ancho cuando ambos existen: en un ítem flexible, el tamaño principal se piensa desde la base, no desde el ancho.\n• El factor de crecimiento: cuánto del espacio SOBRANTE le corresponde a este ítem. Es un número sin unidad que funciona como peso en un reparto proporcional: un ítem con peso 2 recibe el doble de sobrante que uno con peso 1. Con peso 0 — el valor por defecto — el ítem no crece: se queda en su base y el sobrante lo reparte solo la distribución de la Hoja 4.\n• El factor de encogimiento: cuánto cede este ítem cuando el espacio FALTA y la suma de las bases supera al contenedor. También es un peso proporcional, calculado sobre cada base: las bases grandes ceden más que las pequeñas con el mismo factor. Su valor por defecto es 1: los ítems sí encogen, y por eso un ítem flexible «que no cabe» rara vez desborda: se estrecha.\n\nLas tres negociaciones ocurren en orden: se parte de las bases, si sobra espacio se reparte por crecimiento, si falta se descuenta por encogimiento, y solo el sobrante final — si lo hay — queda para la distribución."
+  },
+  {
+   "page": 5,
+   "kind": "code",
+   "title": "La forma abreviada flex, leída pieza por pieza",
+   "body": "```\nflex: 1;\n  → crecimiento 1, encogimiento 1, base 0\n  → el ítem parte de cero y recibe su parte\n    proporcional de TODO el eje: varios ítems\n    con flex: 1 salen exactamente iguales\n\n.tarjeta { flex: 1 1 16rem; }\n  → crece 1, encoge 1, base 16rem\n  → parte de 16rem, crece o encoge según\n    sobre o falte, como sus hermanas\n\n.fija { flex: 0 0 12rem; }\n  → no crece, no encoge, base 12rem\n  → ocupa 12rem siempre: el ítem que no entra\n    en ninguna negociación\n```\n\nEscribir la abreviada sin saber leer sus tres\npiezas es el error de esta hoja: cada número\ntiene su papel y su momento de actuar."
+  },
+  {
+   "page": 5,
+   "kind": "warning",
+   "title": "NO FIJES CON ANCHOS LO QUE NEGOCIA FLEXBOX",
+   "body": "Declarar anchos cerrados a los ítems de un contenedor flexible y pelear después con la distribución es trabajar contra el sistema: el ancho fijo deja sin espacio que repartir al crecimiento y sin margen al encogimiento, y el layout se vuelve rígido, rompiéndose en cuanto el contenido crece o la pantalla se estrecha. El tamaño de un ítem flexible se declara con su base y sus factores; el ancho declarado queda para las cajas que no son ítems de ningún sistema."
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.1. order y align-self: las dos excepciones por hijo",
+   "body": "Dos propiedades se escriben en el hijo y no en el contenedor, porque son excepciones al reparto general:\n\n• La alineación propia: declara la posición transversal de UN ítem concreto, ignorando la alineación general del contenedor solo para él. Todos los ítems pueden ir centrados y uno solo, pegado al final. Su valor automático — el por defecto — significa «hereda la del contenedor»: la excepción solo existe cuando se declara.\n• El orden: declara la posición de un ítem en la sucesión del eje principal con un número; los ítems se pintan ordenados por ese número y, a igual número, por su orden en el documento. Por defecto todos valen 0.\n\nEl orden merece su regla propia: cambia SOLO la pintura. El documento, el foco del teclado y los lectores de pantalla siguen el orden del HTML, así que un orden visual distinto del orden del documento crea una página que se ve en un orden y se recorre en otro. Su uso legítimo es puntual y verificable — un elemento decorativo que se reubica — nunca reordenar con él el contenido de lectura: si el orden de lectura debe cambiar, cambia el HTML."
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.2. flex-wrap: qué pasa cuando la fila no cabe",
+   "body": "Por defecto, Flexbox es de UNA línea: todos los ítems se suceden sobre el mismo eje principal y, si no caben, encogen por su factor de la Hoja 5 antes que saltar de línea. La envoltura cambia ese contrato:\n\n• Sin envoltura: una sola línea siempre; el ajuste se hace estrechando ítems. Es el comportamiento de las barras y de los grupos que deben permanecer juntos cueste lo que cueste.\n• Con envoltura: cuando un ítem ya no cabe en la línea, salta a una línea nueva sobre el eje transversal, conservando su base en lugar de encogerse hasta lo ilegible. El contenedor pasa a tener varias líneas, y recién ahí la alineación de contenido de la Hoja 4 entra en juego para repartirlas.\n• Con envoltura invertida: las líneas nuevas se apilan en el sentido contrario del transversal. Su uso es tan excepcional como el de las direcciones invertidas.\n\nLa decisión entre estrechar y envolver es de contenido: una barra de navegación estrecha hasta un límite y después debe envolver o rediseñarse; una fila de tarjetas envuelve pronto, porque una tarjeta estrecha deja de ser tarjeta. Declarar la envoltura es declarar qué prefieres perder primero: el tamaño de cada ítem o la línea única."
+  },
+  {
+   "page": 6,
+   "kind": "code",
+   "title": "Patrón completo: la barra de navegación flexible",
+   "body": "```\n.barra {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-between;\n  align-items: center;\n  gap: 0.75rem 1.5rem;\n}\n.barra .enlaces {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 1rem;\n}\n```\n\nQué declara cada línea:\n  la barra reparte sus dos grupos a los\n  extremos y los centra a lo alto; si la\n  pantalla se estrecha, la envoltura deja\n  caer el grupo de enlaces a una segunda\n  línea en lugar de aplastarlo; dentro del\n  grupo, otro contenedor flexible ordena\n  los enlaces entre sí con su separación.\n\nSin un solo margen de empuje y sin un solo\nancho calculado para que «quepa»."
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.1. Grid: declarar filas y columnas antes de colocar",
+   "body": "Definición: Grid (cuadrícula) es el sistema de layout que ordena los hijos de un contenedor en filas y columnas declaradas de antemano, colocando cada ítem en la celda o el conjunto de celdas que le corresponde. Se activa declarando el contenedor como cuadrícula, y desde ese instante el contenedor define una retícula y sus hijos directos son ítems de esa retícula.\n\nLa diferencia de fondo con Flexbox no es de cantidad de propiedades, es de orden de pensamiento:\n\n• En Flexbox el contenido manda primero: los ítems llegan con su tamaño y el sistema los sucede y reparte el sobrante sobre un eje.\n• En Grid la estructura manda primero: el contenedor declara cuántas columnas hay y cuánto mide cada una, cuántas filas hay o cómo nacen, y después cada ítem se coloca DENTRO de esa estructura. La retícula existe aunque esté vacía.\n\nPor eso Grid es el sistema de las páginas completas y de las parrillas regulares: donde el diseño es una retícula — encabezado a todo lo ancho, contenido y lateral en columnas, tarjetas en filas alineadas por arriba y por abajo — la estructura se declara una vez y cada pieza cae en su sitio por su posición, no por negociación."
+  },
+  {
+   "page": 7,
+   "kind": "code",
+   "title": "El contenedor de cuadrícula mínimo",
+   "body": "```\n.parrilla {\n  display: grid;\n  grid-template-columns: 12rem 1fr 1fr;\n  grid-template-rows: auto 1fr auto;\n  gap: 1rem;\n}\n```\n\nLectura pieza por pieza:\n  columnas declaradas: una fija de 12rem y\n  dos flexibles que se reparten lo que queda\n  filas declaradas: la primera y la última a\n  la medida de su contenido (auto), la del\n  medio con todo el alto restante (1fr)\n  separación entre celdas: 1rem en los dos\n  sentidos, solo entre celdas, sin extremos\n\nNingún ítem lleva todavía posición: sin\ncolocación, los ítems llenan la retícula\ncelda a celda, en orden (Hoja 10)."
+  },
+  {
+   "page": 7,
+   "kind": "table",
+   "title": "Tabla — cómo se mide cada pista de la cuadrícula",
+   "body": "Medida de la pista | Qué significa | Cuándo se usa\nUna medida fija (px, rem) | La pista mide exactamente eso, sobre o falte espacio | Columnas laterales y filas de encabezado o pie\nauto | La pista mide lo que pida su contenido más grande | Filas y columnas que se adaptan a lo que llevan\nfr (fracción) | Una parte proporcional del espacio que queda tras las pistas fijas y las auto | Las pistas que deben repartirse el espacio disponible\n% (porcentaje) | Una parte del tamaño del contenedor | Solo con contenedor de tamaño conocido: suma exacta o desborda"
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.2. Pistas, líneas y celdas: el vocabulario exacto de la retícula",
+   "body": "Tres palabras nombran todo lo que hay dentro de una cuadrícula, y confundirlas hace ilegible cualquier colocación:\n\n• Pista: cada fila y cada columna de la retícula. Las plantillas de filas y de columnas declaran pistas: una lista de medidas en orden, una medida por pista.\n• Línea: el borde entre dos pistas contiguas, y también el borde exterior. Una retícula de tres columnas tiene CUATRO líneas verticales, numeradas desde 1 desde el inicio. Las líneas, no las celdas, son las coordenadas de la colocación de la Hoja 8: un ítem se coloca diciendo de qué línea a qué línea va.\n• Celda: el cruce de una fila y una columna: la unidad mínima de la retícula. Un ítem ocupa una celda o varias contiguas; un conjunto de celdas con nombre propio forma un área (Hoja 9).\n\nY la unidad propia del sistema, la fracción (fr): una parte del espacio SOBRANTE. Primero se descuentan las pistas fijas y las de contenido; lo que queda se reparte entre las fracciones en proporción a su número. Dos pistas de 1fr reciben lo mismo; una de 2fr recibe el doble que una de 1fr. La fracción no es un porcentaje: el porcentaje se calcula sobre el total y puede desbordar al sumarse con separaciones y pistas fijas; la fracción se calcula sobre lo que queda y nunca desborda."
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.1. Colocación por líneas: de qué línea a qué línea va cada ítem",
+   "body": "Colocar un ítem por líneas es declarar, para cada dimensión, su línea de inicio y su línea de fin dentro de la retícula:\n\n• En columnas: la propiedad de columna declara inicio y fin separados por una barra. Un ítem que va de la línea 1 a la línea 3 ocupa las dos primeras columnas — las líneas son cercas, no postes contados: ocupar N pistas exige N+1 líneas contando la de cierre.\n• En filas: la propiedad de fila declara lo mismo en vertical, con las líneas horizontales numeradas desde arriba.\n• La forma abreviada de cada dimensión une inicio y fin en una sola declaración, y la palabra span seguida de un número declara la LONGITUD en lugar del destino: «empieza en la línea 2 y abarca 2 pistas» equivale a «de la línea 2 a la línea 4», y se prefiere cuando lo que se sabe del ítem es su tamaño, no su posición exacta.\n• Un ítem sin colocación declarada ocupa una sola celda y se coloca automáticamente (Hoja 10): mezclar ítems colocados a mano con ítems automáticos es normal — los colocados reservan su sitio y los automáticos llenan los huecos que queden, en orden.\n\nLas líneas también se cuentan desde el final con números negativos: la última línea de la retícula explícita es la -1, la penúltima la -2. «De la línea 1 a la -1» significa «a todo lo ancho, haya las columnas que haya»: la colocación que no se rompe cuando la retícula crece."
+  },
+  {
+   "page": 8,
+   "kind": "diagram",
+   "title": "Las líneas de una retícula de tres columnas",
+   "body": "línea 1 │ línea 2 │ línea 3 │ línea 4 (= -1)\n        ▼         ▼         ▼         ▼\n        columna 1 · columna 2 · columna 3\nUn ítem de la línea 1 a la línea 3\nocupa las columnas 1 y 2:\nlas líneas son las cercas; las columnas,\nlos tramos entre cerca y cerca"
+  },
+  {
+   "page": 8,
+   "kind": "code",
+   "title": "Colocación por líneas de una página en tres piezas",
+   "body": "```\n.pagina {\n  display: grid;\n  grid-template-columns: 14rem 1fr;\n  grid-template-rows: auto 1fr auto;\n  gap: 1rem;\n}\n.encabezado { grid-column: 1 / -1; }\n.lateral    { grid-column: 1; grid-row: 2; }\n.contenido  { grid-column: 2; grid-row: 2; }\n.pie        { grid-column: 1 / -1; }\n```\n\nLectura: encabezado y pie van de la primera\nlínea a la última (todo el ancho) sin que\nimporte cuántas columnas haya; lateral y\ncontenido comparten la fila 2, cada uno en\nsu columna; las filas sin colocar — el pie —\ncaen en la siguiente fila libre por orden."
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.2. Qué ocurre cuando dos ítems se solapan o falta retícula",
+   "body": "Grid permite lo que el flujo normal y Flexbox no permiten: dos ítems pueden ocupar la misma celda. El sistema no lo trata como error: los pinta en capas, en el orden del documento — el último ítem declarado en el HTML queda encima — y esa superposición deliberada es una técnica legítima para textos sobre imágenes o piezas que se cruzan.\n\nLa otra situación límite es la contraria: un ítem colocado en una línea que la plantilla no declaró. Grid no rechaza la colocación: CREA las pistas que falten fuera de la plantilla, y esas pistas nuevas forman el grid implícito de la Hoja 10, con el tamaño que declaren las propiedades automáticas o, en su defecto, el de su contenido. Saber esto convierte un síntoma en diagnóstico: una columna inesperada y estrecha al extremo de la retícula casi siempre es un ítem colocado una línea más allá de la plantilla, no un fallo de la plantilla misma."
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.1. Áreas con nombre: la retícula que se lee como un plano",
+   "body": "Definición: un área es un conjunto rectangular de celdas con un nombre declarado por el diseñador. En lugar de colocar cada ítem por números de línea, la plantilla de áreas dibuja la página como un plano de texto: una cadena por fila, una palabra por celda, y cada palabra repetida declara que esas celdas forman una sola área. Un punto declara una celda vacía, que ningún ítem ocupará.\n\nUna vez dibujado el plano, colocar un ítem es una sola declaración: su propiedad de área con el nombre que le corresponde. El ítem ocupa exactamente el rectángulo que su nombre dibuja, sin contar líneas.\n\nLas reglas que hacen válido un plano son estrictas y son las que hay que verificar cuando un plano «no hace nada»:\n\n• Todas las filas del plano deben declarar el mismo número de celdas; una fila con una palabra de más invalida la plantilla entera, que se ignora en silencio.\n• Cada área debe ser un rectángulo completo: un nombre que dibuje una L o un hueco en medio no forma área válida y también invalida el plano.\n• El nombre es libre, pero una vez usado debe coincidir letra por letra entre el plano y la declaración de cada ítem."
+  },
+  {
+   "page": 9,
+   "kind": "code",
+   "title": "Una página completa declarada como plano de áreas",
+   "body": "```\n.pagina {\n  display: grid;\n  grid-template-columns: 14rem 1fr;\n  grid-template-rows: auto 1fr auto;\n  grid-template-areas:\n    \"encabezado encabezado\"\n    \"lateral    contenido\"\n    \"pie        pie\";\n  gap: 1rem;\n}\n.encabezado { grid-area: encabezado; }\n.lateral    { grid-area: lateral; }\n.contenido  { grid-area: contenido; }\n.pie        { grid-area: pie; }\n```\n\nEl plano y la colocación por líneas de la\nHoja 8 producen el mismo layout: las áreas\nno añaden potencia, añaden lectura — la\nretícula se defiende leyendo el plano."
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.2. Alineación en Grid: ítems dentro de su celda y retícula dentro del contenedor",
+   "body": "En Grid la alineación responde en dos escalas distintas, y cada escala tiene su pareja de propiedades — una para el eje de las columnas y otra para el de las filas, nombradas con el vocabulario que ya trae Flexbox:\n\n• Escala del ítem dentro de su área: por defecto, cada ítem se ESTIRA y ocupa su área entera, en las dos dimensiones. Las propiedades de alineación del contenedor declaran el comportamiento general — al inicio, al centro, al final o estirado — para las columnas y para las filas por separado, y las propiedades propias de cada ítem lo exceptúan una a una, igual que la alineación propia exceptuaba en Flexbox. Un ítem alineado al inicio en una dimensión deja de estirarse en ella y ocupa solo lo que pide su contenido, pegado al borde declarado de su área.\n• Escala de la retícula dentro del contenedor: solo existe cuando la retícula completa es más pequeña que su contenedor — pistas fijas cuya suma no llena el espacio. Las propiedades de contenido reparten entonces las PISTAS dentro del contenedor, con el vocabulario de repartos de la Hoja 4: agrupadas al inicio, centradas, al final o con el sobrante entre pistas, alrededor o en partes iguales.\n• Las formas combinadas unen las dos dimensiones en una sola declaración por escala: una para alinear ítems (columnas y filas a la vez) y otra para repartir la retícula. Se escriben con dos valores — primero el de filas, después el de columnas — o con uno solo si ambos coinciden."
+  },
+  {
+   "page": 9,
+   "kind": "table",
+   "title": "Tabla — las seis propiedades de alineación de Grid por escala y eje",
+   "body": "Escala | Eje de columnas | Eje de filas\nÍtems en su área (contenedor) | justify-items | align-items\nÍtem concreto (en el ítem) | justify-self | align-self\nRetícula en el contenedor | justify-content | align-content\nLa misma palabra, otra escala: items alinea\nDENTRO de cada área; content reparte las\npistas DENTRO del contenedor"
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.1. El grid implícito: las pistas que nacen solas y el flujo automático",
+   "body": "La plantilla declara el grid explícito. Todo lo que el layout necesite fuera de ella — ítems que no caben en las celdas explícitas o colocaciones más allá de la última línea — nace como grid implícito: pistas nuevas que el sistema crea en la dirección que declare el flujo automático.\n\n• El flujo automático decide dónde nacen las pistas implícitas y en qué orden se llenan las celdas libres los ítems sin colocación: por filas (llenar una fila y saltar a la siguiente, creando filas implícitas) — el valor por defecto, el de las parrillas de tarjetas — o por columnas (llenar una columna y crear columnas implícitas), el de las tiras horizontales de piezas. Su variante densa ordena rellenar también los huecos que dejaron los ítems colocados a mano, a costa de que el orden visual puede alejarse del orden del documento.\n• Las propiedades automáticas de filas y de columnas declaran el tamaño de TODA pista implícita de su dimensión: una fila implícita nace con esa medida en lugar de nacer a la medida de su contenido.\n\nLa lectura profesional de esta hoja: el grid implícito no es un accidente, es la mitad del diseño de toda parrilla real. La plantilla declara las columnas; las tarjetas que lleguen — hoy seis, mañana veinte — nacen como filas implícitas con su alto declarado, sin tocar la plantilla."
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.2. minmax, auto-fill y auto-fit: parrillas que deciden sus columnas",
+   "body": "La plantilla de columnas puede declarar no un número fijo de columnas, sino una REGLA para generarlas según el ancho disponible. Tres piezas la componen:\n\n• minmax(mínimo, máximo): declara una pista que nunca baja del mínimo y crece hasta el máximo. Como máximo se usa casi siempre 1fr: la pista crece repartiéndose el sobrante con sus hermanas, pero jamás se estrecha por debajo de su mínimo legible.\n• La repetición: declara que un patrón de pista se repite tantas veces como se le diga — un número fijo — o tantas como quepan, y ahí entran sus dos palabras clave.\n• auto-fill frente a auto-fit: con auto-fill, el sistema crea todas las pistas que quepan según el mínimo, aunque queden vacías — las pistas vacías existen y ocupan su parte. Con auto-fit, las pistas que quedarían vacías COLAPSAN a cero y el espacio se reparte entre las que llevan ítems: con dos tarjetas en una pantalla ancha, auto-fit las estira hasta llenar la fila y auto-fill las deja a su tamaño con hueco fantasma a la derecha.\n\nCompuestas, las tres piezas producen la parrilla que se adapta sin ninguna media query: columnas que nacen y mueren según el ancho, con un mínimo que protege la legibilidad de cada tarjeta."
+  },
+  {
+   "page": 10,
+   "kind": "code",
+   "title": "La parrilla de tarjetas que se adapta sola",
+   "body": "```\n.parrilla {\n  display: grid;\n  grid-template-columns:\n    repeat(auto-fit, minmax(16rem, 1fr));\n  gap: 1rem;\n}\n```\n\nLectura completa, pieza por pieza:\n\n```\n  repeat(auto-fit, …) → crea tantas columnas\n    como quepan y colapsa las que sobren\n  minmax(16rem, 1fr) → ninguna columna baja\n    de 16rem; las que existan se reparten\n    el ancho en fracciones iguales\n```\n\n  Resultado: en ancho de teléfono, una\n  columna; en escritorio, tres o cuatro —\n  sin declarar ninguna de las dos cifras.\n\nCada tarjeta nueva es un ítem automático:\ncae en la siguiente celda libre y, al\nllenarse la fila, nace una fila implícita."
+  },
+  {
+   "page": 10,
+   "kind": "warning",
+   "title": "AUTO-FIT NO ES AUTO-FILL CON OTRO NOMBRE",
+   "body": "Las dos palabras producen la misma retícula mientras todas las pistas llevan ítems, y layouts opuestos en cuanto sobran pistas: con pocos ítems, auto-fill conserva las columnas vacías como huecos visibles al final de la fila, y auto-fit las colapsa y estira los ítems presentes hasta llenar el ancho. Elegir una u otra es decidir qué debe pasar cuando falten tarjetas: conservar la retícula (fill) o llenar el espacio (fit). La parrilla de la evidencia de este tema, pensada para llenar el ancho con las tarjetas que haya, se declara con auto-fit."
+  },
+  {
+   "page": 11,
+   "kind": "definition",
+   "title": "11.1. Flexbox frente a Grid: contenido que se sucede o estructura que se declara",
+   "body": "Los dos sistemas no compiten: responden a preguntas distintas, y elegir es responder primero a esta — ¿el reparto depende del contenido de cada pieza o de una estructura previa?\n\n• Flexbox, cuando el contenido manda: los ítems llegan con tamaños distintos e impredecibles, deben sucederse sobre un eje y repartirse el sobrante. Barras de navegación, filas de botones y de enlaces, grupos de etiquetas, el interior de una tarjeta (su título, su texto y su acción en columna, o su imagen y su texto en fila). Su señal: si quitaras un ítem, los demás deberían correrse y repartirse el hueco.\n• Grid, cuando la estructura manda: existe una retícula previa — columnas con nombre o medida, filas alineadas entre sí — y cada pieza vale por la celda que ocupa. Páginas completas, parrillas de tarjetas que deben alinear por arriba Y por el costado, formularios en dos columnas con etiquetas alineadas. Su señal: si quitaras una pieza, su celda debería quedar vacía, esperándola.\n\nLa prueba de un vistazo que separa los casos dudosos: Flexbox alinea una fila consigo misma; Grid alinea cada fila CON LAS DEMÁS — las tarjetas de la segunda fila quedan bajo las de la primera porque comparten columnas, algo que dos contenedores flexibles independientes jamás garantizan."
+  },
+  {
+   "page": 11,
+   "kind": "table",
+   "title": "Tabla comparativa — Flexbox frente a Grid",
+   "body": "Criterio | Flexbox | Grid\nDimensiones que ordena | Una: un eje cada vez | Dos: filas y columnas a la vez\nPunto de partida | El contenido de los ítems | La estructura declarada del contenedor\nEl tamaño de cada pieza | Negociado: base, crecimiento, encogimiento | Declarado: la pista y el área que ocupa\nAlineación entre filas | Cada línea se alinea sola | Todas las filas comparten las mismas columnas\nCasos propios | Navegación, acciones, interior de componentes | Página completa, parrillas, formularios en retícula"
+  },
+  {
+   "page": 11,
+   "kind": "definition",
+   "title": "11.2. Anidar sistemas: Grid para la página, Flexbox dentro de cada pieza",
+   "body": "Los sistemas se combinan por anidación, porque un ítem de un sistema puede ser a su vez el contenedor de otro: la colocación de cada nivel la decide el sistema de ese nivel, sin mezclarse con el de arriba ni con el de abajo.\n\nEl patrón que resuelve casi toda página real de esta ruta:\n\n• La página entera es una cuadrícula por áreas: encabezado, lateral, contenido y pie caen en su área por nombre (Hoja 9).\n• Dentro del encabezado, la barra es un contenedor flexible: logo a un extremo, enlaces al otro, centrados a lo alto (Hoja 6).\n• Dentro del contenido, la parrilla de tarjetas es otra cuadrícula — automática, con minmax (Hoja 10) — y dentro de cada tarjeta, un contenedor flexible en columna reparte título, texto y acción, empujando la acción al fondo con el crecimiento de un ítem o con su alineación.\n\nCada nivel responde a su pregunta: la estructura en Grid, la sucesión y el reparto en Flexbox. El error que esta hoja previene es forzar un solo sistema para todo: páginas hechas solo con filas flexibles apiladas, que pierden la alineación entre filas, o componentes internos declarados como retículas de una celda, que pierden la negociación del contenido."
+  },
+  {
+   "page": 11,
+   "kind": "definition",
+   "title": "11.3. Errores frecuentes de layout y su lectura en DevTools",
+   "body": "DevTools dibuja los dos sistemas sobre la página: al inspeccionar un contenedor, superpone su retícula o su eje con las líneas numeradas, los nombres de área y el espacio de cada pista e ítem. Con esa lectura, los errores de este tema se diagnostican en orden:\n\n• «Ninguna propiedad de alineación hace nada»: casi siempre el contenedor no activó su sistema (falta el display correspondiente) o la propiedad está escrita en un hijo en lugar del contenedor.\n• «El reparto no reparte»: en Flexbox, los ítems llenan el eje (no sobra espacio que distribuir) o sus anchos fijos anularon la negociación; en Grid, la retícula llena el contenedor y no queda escala de contenido que repartir.\n• «Hay una columna fantasma»: un ítem colocado una línea más allá de la plantilla creó una pista implícita (Hoja 8.2); la superposición de DevTools la muestra fuera de la retícula declarada.\n• «Todo se ve en orden pero se recorre en otro»: el orden visual se alteró con la propiedad de orden o con direcciones invertidas; el documento sigue mandando para el teclado y los lectores, y la corrección es devolver el orden al HTML."
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "Práctica previa · Flex, Grid y los overlays de DevTools, paso a paso",
+   "body": "Creación de un contenedor flexible mínimo: se escribe un contenedor con tres elementos hijos y en el contenedor se declara `display: flex`. → Los hijos se ordenan en una fila sobre el eje principal: quien manda es el contenedor, no los hijos, y esa es la base de los ejercicios de layout.\nMovimiento de la fila: en el contenedor se cambia la distribución del eje principal (`justify-content`) entre sus valores y se observa el resultado. → La fila se reparte de formas distintas sin tocar una sola medida de los hijos: el reparto lo declara el contenedor.\nAlineación en el otro eje: la alineación transversal (`align-items`) se cambia y se observa. → Los hijos se alinean al inicio, al centro o se estiran en el eje cruzado: dirección primero, reparto después, alineación al final.\nCreación de una cuadrícula mínima: en otro contenedor se declara `display: grid`, las columnas con su plantilla (por ejemplo tres columnas de una fracción) y la separación (`gap`). → Los hijos caen en filas y columnas según la plantilla declarada antes que las piezas.\nActivación de los overlays: en DevTools, dentro de Elements, se hace clic en la insignia `flex` o `grid` junto al contenedor en el código. → El navegador dibuja sobre la página los ejes, las líneas numeradas y las áreas: esa retícula es la que los ejercicios piden comparar contra lo declarado.\nEstrechamiento de la ventana: el borde de la ventana se arrastra o se usa la barra de dispositivos, y se observan la fila flexible y la parrilla. → Dónde envuelve la fila y dónde cambia el número de columnas queda visible en vivo: el comportamiento que los ejercicios piden registrar en anchos distintos."
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "Ejercicios concretos del Tema 8 · Etapa 2: Práctica",
+   "body": "Ejercicio 1 · Barra de navegación reconstruida con Flexbox: se elige la barra de un sitio de uso diario, su reparto se dibuja en una línea (qué grupos hay, a qué extremos van, cómo se alinean a lo alto) y la barra se reconstruye con un contenedor flexible — grupos a los extremos, alineación centrada y separación declarada — sin abrir su código ni seguir ningún tutorial.\nEjercicio 2 · Parrilla de tarjetas reconstruida con Grid: se elige la parrilla de tarjetas del mismo sitio u otro de uso frecuente, sus columnas se cuentan en pantalla ancha y estrecha, y la parrilla se reconstruye con una cuadrícula automática de columnas con mínimo — tarjetas alineadas entre filas, separación solo entre celdas — sin abrir su código ni seguir ningún tutorial.\nEjercicio 3 · Primer layout completo de página: compone una página entera por áreas con nombre — encabezado, navegación, contenido, lateral y pie — con la barra interna resuelta en Flexbox y una parrilla breve dentro del contenido, verificando línea por línea que cada pieza cae en su área.\nEjercicio 4 · Segundo layout completo y cierre de la evidencia: compone una segunda página completa con la estructura distinta a la del Ejercicio 3 (otra distribución de lateral y contenido), eligiendo y justificando en cada zona Flexbox o Grid según el criterio de la Hoja 11, hasta dejar los dos layouts completos como la evidencia del tema."
+  },
+  {
+   "page": 14,
+   "kind": "list",
+   "title": "13.1. El flujo completo para componer un layout",
+   "body": "Miras la composición antes de escribir: qué zonas tiene la página, qué se sucede en fila o en columna y qué forma una retícula; cada zona recibe su sistema según la Hoja 11.\nDeclaras la estructura de la página en Grid: plantilla de columnas y filas, plano de áreas con nombre y separación; colocas cada zona por su área y verificas el plano contra la retícula que dibuja DevTools.\nResuelves el interior de cada zona: las sucesiones y repartos en Flexbox — dirección primero, distribución del principal después, alineación del transversal al final — y las parrillas internas en Grid automático con su mínimo.\nAjustas los tamaños con la negociación propia de cada sistema: bases y factores en los ítems flexibles, fracciones y pistas de contenido en la cuadrícula; nada de anchos fijos peleando con el sistema que los contiene.\nRecorres el layout en anchos distintos estrechando la ventana: dónde envuelve la fila flexible, dónde nace una columna menos en la parrilla, y si el orden visual sigue siendo el orden del documento en cada ancho.\nVerificas pieza por pieza con la superposición de DevTools: ejes, líneas numeradas, áreas y huecos coinciden con lo declarado, y ningún ítem queda colocado por márgenes de empuje."
+  },
+  {
+   "page": 14,
+   "kind": "warning",
+   "title": "REGLAS CRÍTICAS DE CIERRE",
+   "body": "• El layout se declara en el contenedor y ordena a sus hijos directos: ante cualquier pieza fuera de sitio, la primera revisión es quién es su contenedor y qué sistema declara.\n• Flexbox para la sucesión que negocia su contenido sobre un eje; Grid para la estructura en dos dimensiones que se declara antes que las piezas. Anidados por niveles, nunca forzados uno en el papel del otro.\n• El espacio se reparte con distribución, alineación y separación del sistema: ningún margen de empuje, ningún ancho calculado para que quepa, ninguna posición absoluta como sustituto del layout.\n• El orden visual nunca contradice el orden del documento: ni la propiedad de orden ni las direcciones invertidas reordenan el contenido de lectura."
+  }
+ ],
+ "exercises": [
+  {
+   "n": 1,
+   "title": "Ejercicio 1 · Barra de navegación reconstruida con Flexbox",
+   "objective": "Reconstruir la barra de navegación de un sitio de uso diario usando solo su aspecto visible como referencia — grupos a los extremos, alineación a lo alto y separación declarada con Flexbox — hasta que la barra se comporte como la original al estrechar la ventana.",
+   "steps": [
+    {
+     "hacer": "Observación de la barra elegida en su sitio y escritura de su reparto en una línea antes de escribir código: qué grupos la forman (marca, enlaces, acciones), qué grupo va a cada extremo, cuál se alinea al centro y qué separación hay entre elementos.",
+     "esperado": "El reparto queda descrito en palabras: si no se puede describir, todavía no hay nada que reconstruir."
+    },
+    {
+     "hacer": "El HTML mínimo de la barra se levanta con su contenedor y sus grupos en el orden de lectura correcto, y el contenedor flexible se activa sin ninguna propiedad más; los grupos se suceden en fila en el orden del documento.",
+     "esperado": "La barra existe en fila por el sistema, todavía sin reparto: toda posición posterior saldrá de propiedades del contenedor, no de márgenes."
+    },
+    {
+     "hacer": "Declaración de la distribución a los extremos, la alineación centrada a lo alto y la separación entre grupos e interna de cada grupo con su propio contenedor flexible anidado.",
+     "esperado": "Logo y acciones ocupan los extremos, los enlaces su grupo, todo centrado a lo alto y con separaciones que existen solo entre elementos, nunca en los bordes."
+    },
+    {
+     "hacer": "La ventana se estrecha poco a poco hasta que la barra ya no cabe y la envoltura se declara para que el grupo que debe caer pase a una segunda línea conservando su orden y su separación, en lugar de aplastarse.",
+     "esperado": "La barra estrecha sigue completa y legible en dos líneas: la envoltura quedó elegida por contenido, no por accidente."
+    },
+    {
+     "hacer": "Comparación de la barra con la original en tres anchos y registro de cada diferencia que quede — distribución, alineación o separación — con la propiedad que la corrige, hasta que las dos se comporten igual en los tres anchos.",
+     "esperado": "La reconstrucción es verificable ancho por ancho, no una impresión de parecido."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: una barra de navegación flexible completa — grupos repartidos a los extremos, alineación centrada, separación declarada y envoltura al estrechar — reconstruida desde su aspecto, como primera pieza de la evidencia «Dos layouts reconstruidos sin tutorial».",
+   "verification": "(1) Ninguna posición de la barra se logra con márgenes de empuje ni con anchos calculados: todo sale de la distribución, la alineación y la separación del contenedor. (2) El orden visual coincide con el orden del documento en todos los anchos. (3) El reparto de la barra original se describe con el vocabulario del tema: ejes, distribución, alineación y envoltura."
+  },
+  {
+   "n": 2,
+   "title": "Ejercicio 2 · Parrilla de tarjetas reconstruida con Grid",
+   "objective": "Reconstruir la parrilla de tarjetas de un sitio de uso diario usando solo su aspecto visible como referencia — columnas que se adaptan con un mínimo, filas alineadas entre sí y separación solo entre celdas con Grid — hasta que tu parrilla adopte las mismas columnas que la original en cada ancho.",
+   "steps": [
+    {
+     "hacer": "Observación de la parrilla elegida en pantalla ancha y en pantalla estrecha, con anotación de: cuántas columnas tiene en cada ancho, si las tarjetas de una fila alinean sus bordes con las de la fila siguiente y qué separación hay entre tarjetas en los dos sentidos.",
+     "esperado": "La retícula original queda medida en palabras y números: columnas por ancho, alineación entre filas y separación."
+    },
+    {
+     "hacer": "El HTML mínimo de la parrilla se levanta — un contenedor y sus tarjetas en orden — y la cuadrícula automática de columnas se declara con su mínimo y su fracción, más la separación entre celdas.",
+     "esperado": "Las tarjetas caen en columnas alineadas entre filas sin declarar ninguna posición a mano: la retícula nace de la regla de columnas, no de colocar tarjeta por tarjeta."
+    },
+    {
+     "hacer": "Comparación de las columnas de la parrilla con las de la original en al menos tres anchos y ajuste del mínimo declarado hasta que el número de columnas cambie en los mismos anchos que en la original.",
+     "esperado": "El mínimo de la plantilla es una medida tomada del comportamiento observado, no un número copiado de un ejemplo."
+    },
+    {
+     "hacer": "Se añaden y se retiran tarjetas hasta dejar la parrilla con un número que no llene la última fila y se comprueba el comportamiento declarado para las pistas sobrantes: las tarjetas presentes llenan el ancho como en la original, sin columnas fantasma visibles.",
+     "esperado": "La elección entre conservar la retícula o colapsar las pistas vacías quedó tomada y demostrada con la parrilla incompleta."
+    },
+    {
+     "hacer": "Registro de la plantilla final con su lectura completa: qué declara la repetición, qué protege el mínimo y qué reparte la fracción, y en qué anchos cambia el número de columnas.",
+     "esperado": "La parrilla se defiende leyendo su única declaración de columnas."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: una parrilla de tarjetas en cuadrícula automática — columnas con mínimo que nacen y colapsan según el ancho, filas alineadas y separación uniforme — reconstruida desde su aspecto, como segunda pieza de la evidencia «Dos layouts reconstruidos sin tutorial».",
+   "verification": "(1) Las tarjetas alinean entre filas porque comparten columnas de una sola retícula, no porque cada fila repita medidas. (2) El número de columnas en cada ancho coincide con el de la parrilla original observada. (3) Ninguna tarjeta lleva posición ni margen de separación declarados a mano: todo sale de la plantilla y la separación del contenedor."
+  },
+  {
+   "n": 3,
+   "title": "Ejercicio 3 · Primer layout completo de página",
+   "objective": "Componer un layout completo de página — encabezado, navegación, contenido, lateral y pie — declarando la estructura por áreas con nombre en Grid y resolviendo el interior de cada zona con el sistema que le corresponde, hasta que la página entera se lea desde su plano de áreas.",
+   "steps": [
+    {
+     "hacer": "El plano de la página se dibuja como texto antes de escribir la hoja: una línea por fila, una palabra por celda, con las cinco zonas nombradas y cada área formando un rectángulo completo.",
+     "esperado": "El plano es válido en papel: mismo número de celdas por fila y ningún área en forma de L; un plano inválido aquí se corrige sin tocar código."
+    },
+    {
+     "hacer": "Declaración de la cuadrícula de la página con su plantilla de columnas y filas y su plano de áreas, con cada zona colocada mediante una sola declaración de área; con la superposición de DevTools se verifica que cada zona ocupa exactamente el rectángulo que su nombre dibuja.",
+     "esperado": "La estructura de la página existe y se verifica zona por zona contra el plano."
+    },
+    {
+     "hacer": "El interior del encabezado se resuelve como barra flexible (Ejercicio 1), el interior del contenido con la parrilla automática (Ejercicio 2) y el interior de cada tarjeta como columna flexible que empuja su acción al fondo.",
+     "esperado": "Cada nivel de la página usa su sistema: estructura en Grid, sucesión y reparto en Flexbox, sin forzar ningún nivel con el sistema del otro."
+    },
+    {
+     "hacer": "La ventana se estrecha hasta el ancho de un teléfono y se registra qué se rompe primero: qué zona desborda, qué interior se aplasta y qué separación desaparece.",
+     "esperado": "El comportamiento estrecho del layout queda observado y anotado zona por zona, listo para la corrección consciente del siguiente ejercicio y del tema de diseño adaptable."
+    },
+    {
+     "hacer": "El layout queda guardado como primer layout completo de la evidencia, con su plano de áreas registrado junto a la hoja: el plano y la página deben contar la misma estructura.",
+     "esperado": "Primer layout completo terminado y defendible desde su plano."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: el primer layout completo de la evidencia: una página entera por áreas con nombre, con su barra y sus tarjetas resueltas por anidación de sistemas, verificada contra su plano en DevTools.",
+   "verification": "(1) El plano de áreas es válido y cada zona cae en su rectángulo, verificado con la superposición de la retícula. (2) Cada interior declara el sistema que le corresponde y su elección queda explicada, con el criterio de contenido frente a estructura. (3) Ninguna zona se coloca con márgenes, posiciones absolutas ni anchos de empuje."
+  },
+  {
+   "n": 4,
+   "title": "Ejercicio 4 · Segundo layout completo y cierre de la evidencia",
+   "objective": "Componer un segundo layout completo de página con una estructura distinta a la del Ejercicio 3 — otra distribución de lateral, contenido y navegación — justificando en cada zona la elección entre Flexbox y Grid, hasta dejar cerrada la evidencia oficial del tema: dos layouts reconstruidos sin tutorial.",
+   "steps": [
+    {
+     "hacer": "Elección de la estructura del segundo layout de forma que difiera de la primera en la retícula misma — por ejemplo, lateral a la derecha en lugar de a la izquierda, navegación bajo el encabezado en lugar de dentro de él, o contenido en dos columnas en lugar de una — y dibujo de su plano de áreas válido antes de escribir código.",
+     "esperado": "El segundo layout no es la primera página recoloreada: su plano declara otra estructura, comparable pieza por pieza con la anterior."
+    },
+    {
+     "hacer": "Declaración de la estructura por áreas y resolución de cada interior eligiendo su sistema con el criterio del tema, con la razón de cada elección escrita junto a ella en una línea: qué manda en esa zona, el contenido que se sucede o la estructura que se declara.",
+     "esperado": "Cada zona del layout lleva su sistema y su justificación: la elección Flexbox o Grid dejó de ser costumbre y pasó a ser decisión registrada."
+    },
+    {
+     "hacer": "Reconstrucción dentro del segundo layout de una pieza observada en un sitio real — su barra, su parrilla o su pie compuesto — aplicando el mismo método de los Ejercicios 1 y 2: observar el reparto, describirlo con el vocabulario del tema y declararlo, sin abrir su código.",
+     "esperado": "El segundo layout también es una reconstrucción desde el aspecto, no una composición inventada sin referencia."
+    },
+    {
+     "hacer": "Recorrido de los dos layouts terminados en tres anchos cada uno y tabla de comparación completa: columnas en cada ancho, qué envuelve, qué colapsa y dónde coincide el orden visual con el del documento en los dos.",
+     "esperado": "Los dos layouts quedan verificados con el mismo procedimiento y la comparación demuestra qué cambia al cambiar la estructura manteniendo los sistemas."
+    },
+    {
+     "hacer": "Cierre de la evidencia del tema con los dos layouts guardados y enlazados desde el mismo sitio o repositorio, cada uno con su plano de áreas y su tabla de decisiones accesibles desde la entrega.",
+     "esperado": "La evidencia «Dos layouts reconstruidos sin tutorial» está completa: dos páginas, dos estructuras, decisiones justificadas y verificación registrada."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la evidencia oficial de este tema: «Dos layouts reconstruidos sin tutorial» — dos páginas completas con estructuras distintas, compuestas con Grid por áreas y Flexbox en los interiores, cada zona con su elección justificada.",
+   "verification": "(1) Los dos layouts tienen estructuras de retícula realmente distintas, comparables desde sus dos planos de áreas. (2) Cada elección de sistema está justificada con el criterio contenido frente a estructura, sin zonas forzadas. (3) En los dos layouts, el orden visual coincide con el orden del documento y ninguna posición depende de márgenes de empuje ni de anchos calculados a ojo."
+  }
+ ],
+ "trabajo": {
+  "title": "Trabajo del Tema 8 · Dos layouts reconstruidos sin tutorial",
+  "description": "Situación nueva de este trabajo: los ejercicios del tema reconstruyeron layouts de sitios ajenos como práctica. Este trabajo compone LOS DOS LAYOUTS DE TU PROYECTO: la portada de tu sitio y una página interior suya (la del evento o la del formulario), cada una con una estructura distinta, aplicadas al contenido real que traes de los temas anteriores y con los estilos de tu hoja del Tema 7.\n\nEntrega aquí los enlaces de los dos layouts de tu sitio (en tu sitio publicado o en tu repositorio), cada uno acompañado de su plano de áreas y de su tabla de decisiones de sistema. Los dos layouts deben demostrar el dominio completo del tema: (1) dos estructuras de retícula realmente distintas entre sí — otra distribución de encabezado, navegación, lateral, contenido y pie — cada una declarada en Grid por áreas con nombre, con su plano válido (mismo número de celdas por fila, áreas rectangulares) y verificado contra la retícula; (2) los interiores resueltos con el sistema que les corresponde: barras y grupos que se suceden y reparten el sobrante en Flexbox (dirección, distribución del eje principal y alineación del transversal declaradas en el contenedor), parrillas en Grid automático con columnas de mínimo y fracción; (3) tamaños negociados con el sistema — bases y factores de crecimiento y encogimiento en los ítems flexibles, fracciones y pistas de contenido en la cuadrícula — sin anchos fijos peleando con su contenedor, sin márgenes de empuje y sin posiciones absolutas como sustituto del layout; (4) separaciones declaradas solo con gap, en el contenedor, nunca margen por hijo; (5) en los dos layouts, el orden visual coincide con el orden del documento en todos los anchos recorridos, sin reordenar el contenido de lectura con la propiedad de orden ni con direcciones invertidas.\n\nCómo se desbloquea: este trabajo está bloqueado hasta que termines la fundamentación del Tema 8 en el Cuaderno. Cuando lo envíes, se abre la evaluación Fácil de este tema. Califica el experto de 0 a 10, con retroalimentación, en un plazo máximo de 24 horas desde la entrega.",
+  "estimated_minutes": 300
+ }
+}

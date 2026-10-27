@@ -1,0 +1,363 @@
+{
+ "week": 6,
+ "estado": "completo",
+ "sections": [
+  {
+   "page": 1,
+   "kind": "heading",
+   "title": "1.1. Publicar: sacar el sitio del computador",
+   "body": "Un sitio en local vive en un solo lugar: un computador, con sus rutas, su sistema operativo y su caché. Publicar es sacarlo de ese refugio y ponerlo donde cualquier persona — con otro computador, otro sistema, otro teléfono y ninguna de esas carpetas — pueda abrirlo escribiendo una dirección.\n\nEn ese salto aparecen a la vez las rutas (una ruta mal escrita es la diferencia entre un sitio con estilos y un sitio desnudo), el viaje de la petición contra un servidor real que no perdona nombres mal escritos, la consola y Network como herramientas de diagnóstico, y Git y GitHub como el mecanismo mismo de publicar: no se suben archivos sueltos a una página, se publica la historia de un repositorio."
+  },
+  {
+   "page": 1,
+   "kind": "warning",
+   "title": "REGLA FUNDAMENTAL",
+   "body": "Publicado significa verificado EN la dirección pública, no en el disco. Un sitio solo está publicado cuando su URL carga completa — HTML, CSS, imágenes y enlaces — sin un solo error 404 en la consola, y se lee bien en móvil. Mientras solo funcione abriendo el archivo en el computador, está terminado en local, no publicado."
+  },
+  {
+   "page": 1,
+   "kind": "definition",
+   "title": "1.2. Qué es publicar: un servidor, una dirección y archivos servidos",
+   "body": "Definición: publicar (desplegar) un sitio estático es colocar sus archivos — HTML, CSS, imágenes y demás recursos sin lógica de servidor propia — en un computador conectado a internet (un servidor de alojamiento) que los entrega a quien pida su dirección, con el mismo ciclo petición-respuesta que estudiaste en el Tema 2.\n\nTres diferencias frente al trabajo en local que explican casi todos los errores de este tema:\n\n• El servidor no es el disco: en local el navegador lee archivos del sistema, que en Windows no distingue mayúsculas de minúsculas y tolera rutas de la máquina. El servidor de publicación sirve archivos por URL, distingue mayúsculas y minúsculas con exactitud y no conoce ninguna ruta del computador.\n• La dirección es parte del sitio: publicado, el proyecto vive bajo una dirección con una subruta (el nombre del repositorio). Toda ruta interna se resuelve contra esa dirección, no contra la carpeta.\n• Lo que se publica es lo que está en GitHub: si un archivo no llegó al repositorio — porque no lo confirmaste o no lo subiste — en el sitio publicado no existe, aunque en la carpeta se vea perfecto."
+  },
+  {
+   "page": 1,
+   "kind": "diagram",
+   "title": "De la carpeta al visitante",
+   "body": "La carpeta local ──► commit y push ──► Repositorio en GitHub\n        ▼\nGitHub Pages sirve el repositorio como sitio\n        ▼\nVisitante escribe la URL ──► recibe HTML, CSS e imágenes\n(Si una ruta falla, el visitante recibe un 404,\n aunque en la carpeta el archivo exista)"
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.1. GitHub Pages: el alojamiento incluido con el repositorio",
+   "body": "Definición: GitHub Pages es el servicio de alojamiento de sitios estáticos de GitHub. Toma el contenido de un repositorio — una rama y una carpeta elegidas en la configuración — y lo sirve como sitio web bajo una dirección pública, con HTTPS incluido, sin instalar ningún servidor y sin costo para repositorios públicos en el uso de esta ruta.\n\nLo que Pages es y lo que no es, sin confusiones:\n\n• Es alojamiento estático: sirve archivos tal como están. No ejecuta código de servidor, no guarda datos de formularios y no tiene base de datos. Todo lo que la Fase 1 construye le cabe perfecto; lo que necesite servidor llegará en fases posteriores con otras herramientas.\n• No es un editor ni un constructor visual: Pages no arregla el código. Sirve exactamente los archivos del repositorio, con los errores que traigan. Un enlace roto en local es un enlace roto publicado, solo que ahora lo ve todo el mundo.\n• Publica desde Git, no desde un botón de subir archivos sueltos: la fuente es siempre una rama del repositorio. Por eso el Tema 5 es requisito real de este: sin commit y sin push no hay publicación ni actualización posible."
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.2. Los dos tipos de sitio: de usuario y de proyecto",
+   "body": "Pages conoce dos clases de sitio, y saber en cuál se está explica la dirección resultante:\n\n• Sitio de usuario (o de organización): nace de un repositorio especial cuyo nombre es el usuario seguido del dominio de GitHub. Se sirve desde la raíz del dominio personal: la dirección no lleva subruta de repositorio. Solo puede existir uno por cuenta.\n• Sitio de proyecto: cualquier otro repositorio puede tener su propio sitio. Se sirve desde el dominio personal MÁS una subruta con el nombre del repositorio. Existe un sitio por cada proyecto, y es el tipo vigente en esta ruta: el sitio de práctica, las evidencias y los mini-proyectos son sitios de proyecto.\n\nEsa subruta del sitio de proyecto no es un detalle de la dirección: es el hecho técnico central del tema. El sitio no vive en la raíz del dominio, vive una carpeta más abajo, y toda ruta que escribas como si viviera en la raíz apuntará a un lugar que no existe. La Hoja 5 entera trata de eso."
+  },
+  {
+   "page": 2,
+   "kind": "table",
+   "title": "Tabla comparativa — sitio de usuario frente a sitio de proyecto",
+   "body": "Criterio | Sitio de usuario | Sitio de proyecto\nRepositorio | Uno especial con el nombre de usuario | Cualquier repositorio de la cuenta\nDirección | Raíz del dominio, sin subruta | El dominio más el nombre del repositorio\nCuántos se pueden tener | Uno por cuenta | Uno por repositorio\nUso en esta ruta | La presentación personal, si se crea | El sitio de práctica y cada evidencia"
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.1. Antes de activar nada: la estructura que Pages espera encontrar",
+   "body": "Pages sirve el repositorio tal como está, así que la publicación se prepara en la estructura, no en el panel de configuración. Antes de activar el servicio, el repositorio debe cumplir estas condiciones:\n\n• La carpeta que será la raíz del sitio contiene, en su primer nivel, el archivo principal de entrada con el nombre exacto que el servidor busca por defecto cuando alguien pide la dirección sin nombrar ningún archivo. Si ese archivo no está en la raíz elegida o se llama de otra forma — con mayúsculas, con otro nombre, dentro de una subcarpeta — la dirección principal no mostrará la página.\n• Todos los recursos están dentro de esa misma raíz y enlazados con rutas relativas: hojas de estilo en su carpeta, imágenes en la suya, páginas hermanas al mismo nivel o en subcarpetas nombradas con exactitud.\n• Ningún enlace depende del computador: nada de rutas absolutas de disco, nada de archivos enlazados desde fuera del repositorio, nada de nombres con espacios o tildes que la URL tendrá que disfrazar.\n• El repositorio en GitHub está al día con el local: el último commit destinado a publicarse ya tiene su push. Lo que no está en GitHub no se publica, aunque la carpeta local esté perfecta."
+  },
+  {
+   "page": 3,
+   "kind": "code",
+   "title": "Estructura lista para publicar, con su raíz señalada",
+   "body": "```\nmi-sitio/                  ← raíz del sitio (rama y carpeta fuente)\n  `index.html`               ← OBLIGATORIO aquí, con este nombre exacto\n  css/\n    `estilos.css`\n  img/\n    foto.jpg\n  procesos.html            ← segunda página, enlazada con ruta relativa\n  `README.md`                ← describe el proyecto en GitHub (no es la portada)\n```\n\nEn `index.html`, enlazado correcto hacia la hoja de estilos:\n\n```\n  css/estilos.css          → relativo, desde la raíz del sitio\n```\n\nY NUNCA una ruta del computador ni empezando por barra\ncuando es sitio de proyecto (Hoja 5)."
+  },
+  {
+   "page": 3,
+   "kind": "warning",
+   "title": "EL NOMBRE EXACTO QUE ABRE TU SITIO",
+   "body": "El archivo de entrada se llama exactamente con i minúscula y sin espacios: en el servidor, ese nombre con una mayúscula, un nombre parecido o guardado una carpeta más adentro equivale a que no exista. Y una trampa silenciosa: si en la raíz hay un README y falta ese archivo, GitHub puede mostrar el README como página de bienvenida — verás «algo» publicado y creerás que es el sitio, cuando la página real sigue sin servirse."
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.1. Activar GitHub Pages, paso a paso y sabiendo qué hace cada paso",
+   "body": "La activación se hace una sola vez por repositorio, desde la propia página del repositorio en GitHub:\n\n1. Entras a la configuración del repositorio y buscas la sección dedicada a Pages. Ahí el servicio te dice si está apagado y te ofrece elegir su fuente.\n2. Eliges la fuente: la publicación desde una rama. Es la forma de esta ruta: Pages tomará los archivos de la rama y la carpeta que declares.\n3. Eliges la rama: la principal, donde vive el sitio terminado. Publicar desde una rama de trabajo a medias es publicar trabajo a medias.\n4. Eliges la carpeta: la raíz del repositorio si el archivo de entrada vive ahí, o la carpeta de documentación si la estructura guarda el sitio dentro de ella. La carpeta elegida se convierte en la raíz del sitio: todo lo que quede fuera de ella no se sirve como parte de la página principal.\n5. Guardas. GitHub encola la primera publicación y, al terminar, la misma sección muestra la dirección pública del sitio, con su candado HTTPS.\n\nNada de esto transforma los archivos: solo declara desde dónde se sirven. Si la dirección abre y algo se ve mal, la causa está en los archivos o en las rutas, no en este panel — volver aquí a mover la rama o la carpeta solo se justifica si la raíz elegida fue la equivocada."
+  },
+  {
+   "page": 4,
+   "kind": "diagram",
+   "title": "Qué ocurre tras guardar la fuente",
+   "body": "Guardas rama y carpeta fuente en Pages\n        ▼\nGitHub toma esa carpeta ──► la sirve como raíz del sitio\n        ▼\nLa dirección pública responde ──► verificas con consola abierta\n(Cada push nuevo a esa rama repite el ciclo solo:\n no hay que volver a activar nada)"
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.2. La espera de la primera publicación y cómo se confirma que ya vive",
+   "body": "La publicación no es instantánea: tras activar el servicio, GitHub tarda un tiempo breve — normalmente minutos — en construir y servir la primera versión. Durante esa espera, la dirección puede responder que la página no existe todavía. Eso, recién activado, no es un error del sitio: es el despliegue en curso.\n\nCómo se confirma sin adivinar:\n\n• La sección de Pages del repositorio anuncia la dirección cuando el sitio ya está en vivo y muestra el estado de la última publicación.\n• La dirección se abre en una pestaña de incógnito o en otro navegador: así se descarta que lo visible sea la caché local disfrazada de sitio publicado.\n• Se abre con DevTools ya desplegado, en Network y Console, desde la primera carga: la verificación seria no es «se ve», es «carga sin errores» — la Hoja 7 convierte eso en método.\n\nSi pasados varios minutos la dirección sigue sin responder, la revisión va en este orden: la fuente elegida (rama y carpeta), que el archivo de entrada exista con su nombre exacto en esa raíz y que el repositorio sea el que crees. Recién después se sospecha del servicio."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.1. Rutas al publicar: la dirección desde donde se resuelve todo",
+   "body": "Definición recordada con su consecuencia nueva: una ruta relativa se resuelve desde la dirección de la página que la contiene. En local esa dirección era la carpeta; publicado, es la URL de la página dentro del sitio. La regla no cambió: cambió el territorio, y con él, qué rutas sobreviven.\n\nEn un sitio de proyecto, la página principal no vive en la raíz del dominio: vive dentro de la subruta del repositorio. Cuando esa página pide su hoja de estilos con una ruta relativa, el navegador la busca dentro de la misma subruta, junto a la página: dirección del sitio, nombre del repositorio, carpeta de estilos. Correcto. Cuando la pide con una ruta que empieza por barra — medida desde la raíz del dominio — el navegador la busca FUERA del repositorio, en la raíz del dominio de usuario, donde el proyecto no tiene nada: error 404, sitio sin estilos, aunque en local esa misma ruta parecía funcionar porque el servidor de práctica servía desde la raíz de la carpeta.\n\nConclusión de oficio, válida para todo el tema: en un sitio de proyecto, las rutas internas se escriben relativas al documento, nunca desde la raíz del dominio."
+  },
+  {
+   "page": 5,
+   "kind": "table",
+   "title": "Tabla comparativa — la misma hoja de estilos pedida de tres formas",
+   "body": "Forma de la ruta | Desde dónde se resuelve | Resultado en sitio de proyecto\nRelativa al documento (sin barra inicial) | La carpeta de la página actual, dentro del repositorio | Funciona: busca dentro del sitio\nDesde la raíz (empieza por barra) | La raíz del dominio, fuera del repositorio | Falla con 404: el sitio no vive ahí\nAbsoluta del computador | El disco local | Falla para todo visitante: nadie tiene el disco"
+  },
+  {
+   "page": 5,
+   "kind": "warning",
+   "title": "REGLA CRÍTICA DE PUBLICACIÓN",
+   "body": "Ninguna ruta interna de un sitio de proyecto empieza por barra. La barra inicial no significa «desde mi sitio»: significa «desde la raíz del dominio», y el sitio de proyecto no está en la raíz. Cada 404 de CSS, imagen o página en un sitio recién publicado se revisa primero contra esta regla, antes de tocar cualquier otra cosa."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.2. Páginas dentro de subcarpetas: subir niveles con criterio",
+   "body": "Si el sitio crece y una página vive dentro de una subcarpeta — por ejemplo, una página de detalle dentro de la carpeta de secciones — sus rutas relativas se miden desde ESA carpeta, no desde la raíz del sitio. Para pedir la hoja de estilos compartida, esa página debe primero subir el nivel que la separa de la raíz y después entrar a la carpeta de estilos.\n\nDe ahí salen los dos errores gemelos de esta hoja:\n\n• Copiar y pegar el encabezado de la página principal en una página de subcarpeta sin ajustar sus rutas: los enlaces que en la principal funcionaban aquí piden los archivos dentro de la subcarpeta, donde no existen.\n• Subir niveles de más: cada subida sale un nivel; subir dos veces desde una carpeta que está a un nivel de la raíz deja la petición fuera del sitio.\n\nEl método que nunca falla es contar los niveles: estoy aquí, el archivo está allá, cuántos niveles subo y a qué carpeta entro. Publicado o en local, la cuenta es la misma."
+  },
+  {
+   "page": 6,
+   "kind": "code",
+   "title": "Rutas correctas según dónde vive cada página",
+   "body": "Página en la raíz del sitio pidiendo recursos:\n\n```\n  css/estilos.css          → entra a la carpeta css\n  img/foto.jpg             → entra a la carpeta img\n  procesos.html            → página hermana, mismo nivel\n```\n\nPágina dentro de secciones/ pidiendo los mismos recursos:\n\n```\n  ../css/estilos.css       → sube un nivel y entra a css\n  ../img/foto.jpg          → sube un nivel y entra a img\n  ../index.html            → sube un nivel: la portada\n```\n\nPROHIBIDO en sitio de proyecto (busca fuera del sitio):\n\n```\n  /css/estilos.css         → la barra inicial manda a la\n                             raíz del dominio: 404\n```"
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.1. Mayúsculas, espacios y caracteres: el servidor lee literal",
+   "body": "El servidor que sirve el sitio distingue exactamente lo que el computador a veces perdona. Tres hábitos que en local pasan desapercibidos y publicado rompen recursos:\n\n• Mayúsculas y minúsculas: si el archivo se llama con una combinación de mayúsculas y la ruta lo pide en minúsculas puras, en el disco puede abrir y en el servidor es un 404. La disciplina que viene del Tema 1 — todo en minúsculas, siempre — aquí deja de ser estilo y se vuelve funcionamiento.\n• Espacios en nombres: una URL no lleva espacios en blanco; el navegador los convierte en un código de porcentaje que hace la ruta ilegible y frágil. Nombres sin espacios, unidos con guiones.\n• Tildes y caracteres especiales: igual que los espacios, viajan codificados y cualquier diferencia entre el nombre real y la ruta escrita rompe el enlace. Nombres cortos, en minúsculas, sin tildes, que digan qué contiene el archivo.\n\nLa corrección profesional no es editar la ruta para que «calce» con un nombre desordenado: es renombrar el archivo con la disciplina correcta y actualizar todas sus rutas, en un mismo commit."
+  },
+  {
+   "page": 6,
+   "kind": "warning",
+   "title": "RENOMBRAR NO ES SOLO CAMBIAR EL NOMBRE",
+   "body": "Si renombras un archivo cambiando solo mayúsculas por minúsculas, Git puede no registrar el cambio como esperas en sistemas que no distinguen mayúsculas: con status se verifica que el renombre quedó en la historia y, si hace falta, el renombre se hace en dos pasos con un nombre intermedio. Un renombre que no llegó al repositorio deja en GitHub el nombre viejo: la ruta nueva seguirá dando 404 y creerás que el servidor está fallando, cuando el fallo es que la corrección nunca se publicó."
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.1. Depurar publicado: la consola y Network cuentan qué pidió y qué faltó",
+   "body": "Publicado, la carpeta ya no está delante: quedan las respuestas del servidor. Por eso las herramientas de depuración del Tema 1 cambian de papel: de exploradoras a instrumento principal de diagnóstico. El procedimiento madre de este tema, ante cualquier recurso que falte:\n\n1. Abre la dirección pública con DevTools y recarga mirando Network: cada recurso pedido aparece con su código de estado. Los de la familia 200 llegaron; los 404 son, uno por uno, las rutas rotas, con la dirección exacta que el navegador intentó.\n2. Abre Console: los errores de carga se anuncian también ahí, y cualquier error de script que en local no viste — porque el archivo local sí existía — aquí queda escrito con su archivo y su línea.\n3. Compara, petición por petición, la dirección pedida contra la dirección real del archivo en el repositorio: subruta del proyecto incluida o olvidada, carpeta, nombre letra por letra y mayúsculas. La diferencia, por pequeña que parezca, ES el diagnóstico.\n\nDepurar publicado es comparar direcciones, no reescribir páginas. Cada 404 nombra el archivo que falta y la ruta por la que se buscó: el arreglo sale de leerlo."
+  },
+  {
+   "page": 7,
+   "kind": "code",
+   "title": "Lectura de una verificación en Network, recurso por recurso",
+   "body": "```\nDirección del sitio  200  → el HTML principal llegó\n`estilos.css`          200  → la hoja de estilos llegó\nfoto.jpg             404  → ESTA ruta está rota: lee la\n                            dirección pedida completa y\n                            compárala con el archivo real\nprocesos.html        200  → el enlace interno funciona\n```\n\nRegla de lectura: un solo 404 ya es tema sin cerrar.\nNo se entrega un sitio «que se ve casi bien»: se\nentrega un sitio con la pestaña Network sin fallos."
+  },
+  {
+   "page": 7,
+   "kind": "diagram",
+   "title": "El ciclo de depuración publicado",
+   "body": "Abres la URL pública con DevTools\n        ▼\nNetwork: ¿qué recurso devolvió 404?\n        ▼\nComparas ruta pedida ──► ruta real en el repositorio\n        ▼\nCorriges la ruta ──► commit ──► push ──► recargas y verificas"
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.1. La caché: por qué el cambio publicado a veces «no aparece»",
+   "body": "Definición: la caché es la copia guardada de recursos ya descargados — en el navegador y en la red de distribución que sirve el sitio — para no volver a pedirlos en cada visita. Es una aliada de la velocidad y la primera sospechosa cuando, tras corregir y subir un cambio, la dirección pública sigue mostrando la versión anterior.\n\nDistingue sus dos niveles, porque se combaten distinto:\n\n• Caché del navegador: el equipo guarda la hoja de estilos o la imagen anterior y, si no se fuerza lo contrario, la vuelve a mostrar. Afecta solo al equipo: otra persona, sin la caché, ya ve la versión nueva.\n• Propagación de la publicación: tras un push, Pages necesita su propio tiempo breve para servir la versión nueva en todos sus puntos. Durante ese lapso, dos visitas seguidas pueden mostrar versiones distintas.\n\nEl error de principiante es declarar «no se publicó» y empezar a tocar la configuración cuando en realidad el sitio nuevo ya vive y el viejo es solo la caché. Antes de tocar nada, la verificación se hace como un visitante nuevo: ventana de incógnito, otro navegador o el teléfono sin caché del proyecto."
+  },
+  {
+   "page": 8,
+   "kind": "theory",
+   "title": "Verificación sin caché y recarga forzada",
+   "body": "Ventana de incógnito / privada\n  → el navegador arranca sin la caché del sitio:\n    lo visible ahí es lo que ve un visitante nuevo\n\nRecarga forzada en el navegador de escritorio\n  → vuelve a pedir los recursos ignorando la copia\n    guardada: úsala al verificar cada corrección\n\nDevTools abierto, pestaña Network\n  → la hora y el estado de cada recurso, a la vista tras la recarga:\n    si el archivo llega con 200 y el cambio no se ve,\n    el problema está en el archivo, no en la caché"
+  },
+  {
+   "page": 8,
+   "kind": "warning",
+   "title": "NO DIAGNOSTIQUES SOBRE TU PROPIA CACHÉ",
+   "body": "Toda corrección de este tema se verifica en incógnito o con recarga forzada, nunca sobre la pestaña de siempre. Diagnosticar sobre la caché produce los dos peores errores: dar por roto lo que ya funciona para los demás, y dar por arreglado lo que solo se ve bien porque el navegador guardó una versión que el visitante no recibirá igual."
+  },
+  {
+   "page": 9,
+   "kind": "table",
+   "title": "Tabla de diagnóstico — síntoma publicado, causa probable y arreglo",
+   "body": "Síntoma en la URL pública | Causa más probable | Arreglo en orden\nLa dirección principal no muestra la página | Falta el archivo de entrada en la raíz fuente, o su nombre no es exacto | Verifica rama, carpeta fuente y nombre exacto del archivo\nSe ve el texto sin ningún estilo | La hoja de estilos devolvió 404: ruta desde la raíz o carpeta equivocada | Lee la ruta pedida en Network y reescríbela relativa\nUna o varias imágenes no cargan | Nombre con mayúsculas, espacios o carpeta distinta a la de la ruta | Compara letra por letra y renombra con disciplina\nEn local abre todo y publicado fallan enlaces | Rutas absolutas del computador en los enlaces | Sustituye por rutas relativas dentro del repositorio\nHiciste push y el cambio no aparece | Caché del navegador o propagación en curso | Verifica en incógnito y con recarga forzada antes de tocar nada\nLa página principal muestra un texto que no es el sitio | Se está sirviendo el README por falta del archivo de entrada | Crea el archivo de entrada en la raíz fuente y vuelve a publicar"
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.1. Leer el error completo antes de corregir: la dirección pedida manda",
+   "body": "Cada síntoma de la tabla tiene varias causas posibles y un solo dato que las separa: la dirección exacta que el navegador pidió y el servidor no encontró. Ese dato está siempre en Network, en la fila del recurso fallido. La disciplina de esta hoja:\n\n• Nunca corrijas «de memoria» lo que crees que falló: la fila del 404 se abre y la dirección completa se lee, incluida la subruta del repositorio. La mayoría de las veces la ruta pedida delata sola el nivel de más, la barra inicial o la mayúscula distinta.\n• Corrige UNA causa por commit: si cambias tres rutas a la vez y el sitio mejora, no sabrás cuál era el fallo.\n• Tras cada arreglo, repite la verificación completa, no solo la del recurso corregido: arreglar una ruta cambiando un nombre puede romper otra página que también lo enlazaba.\n\nY la salida que no existe: «en mi computador sí funciona» no es un diagnóstico ni una defensa. Publicado, la única realidad es la que sirve la dirección pública."
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.1. Revisión móvil: el sitio se juzga primero en un teléfono",
+   "body": "La mayoría de los visitantes — y la evidencia de este tema — llegan desde un teléfono. Revisar en móvil no es achicar la ventana por curiosidad: es verificar el sitio en las condiciones reales de uso, con un ancho de pantalla de teléfono, texto que debe seguir legible sin zoom y enlaces e imágenes que deben cargar igual que en escritorio.\n\nLo mínimo que una revisión móvil honesta comprueba:\n\n• La página declara su ventana de visualización en la cabeza del documento, para que el teléfono la presente a su ancho real y no como un escritorio en miniatura que obliga a pellizcar la pantalla.\n• No aparece desplazamiento horizontal: ningún elemento se sale del ancho ni obliga a mover la página de lado a lado para leer una línea.\n• El texto se lee sin acercar: tamaño y saltos de línea pensados para pantalla estrecha, con los encabezados y párrafos en el orden de lectura que el HTML semántico ya garantiza.\n• Todos los recursos cargan también aquí: imágenes, estilos y enlaces verificados de nuevo, porque una ruta que en escritorio quedó enmascarada por la caché del navegador en el teléfono aparece desnuda."
+  },
+  {
+   "page": 10,
+   "kind": "code",
+   "title": "La línea que hace posible la vista móvil, y dónde vive",
+   "body": "En la cabeza (`head`) de CADA página del sitio:\n\n```\n  <meta name=\"viewport\"\n        content=\"width=device-width, initial-scale=1\">\n```\n\nQué ordena: presenta la página al ancho real del\ndispositivo, en su escala natural. Sin esta línea el\nteléfono finge un escritorio ancho y la revisión\nmóvil — y la lectura de los visitantes — nace rota,\naunque todo lo demás esté bien publicado."
+  },
+  {
+   "page": 10,
+   "kind": "diagram",
+   "title": "Las dos pasadas de la revisión móvil",
+   "body": "Pasada 1 · Emulación en DevTools (ancho de teléfono)\n  legibilidad ──► sin scroll horizontal ──► enlaces tocables\n        ▼\nPasada 2 · Teléfono real con la URL pública\n  carga completa ──► consola limpia ──► lectura entera\n(Solo cuando las dos pasadas están limpias,\n la revisión móvil de la evidencia existe)"
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.2. Cómo se hace la revisión: emulación primero, teléfono real después",
+   "body": "La revisión se hace en dos pasadas complementarias, y ninguna sustituye a la otra:\n\n• Primera pasada, emulada: las herramientas de dispositivo de DevTools presentan el sitio a anchos de teléfono sobre el mismo navegador. Sirve para cazar el desplazamiento horizontal, textos que se salen y recursos que fallan, con Network y Console a la vista mientras se corrige.\n• Segunda pasada, real: la dirección pública se abre en el teléfono, con su conexión y su navegador. Es la única pasada que prueba lo que un visitante vive: tiempos de carga con datos móviles, legibilidad con luz real y enlaces que se tocan con un dedo, no con un cursor.\n\nCada problema encontrado en cualquiera de las dos pasadas sigue el ciclo del tema: diagnóstico en la ruta o en el archivo, corrección, commit, push, espera breve y re-verificación en la dirección pública. Una revisión sin correcciones registradas no demuestra nada: queda anotado lo encontrado y lo cambiado, aunque el hallazgo sea que todo cargó limpio a la primera."
+  },
+  {
+   "page": 11,
+   "kind": "definition",
+   "title": "11.1. Actualizar un sitio publicado: el ciclo que repetirás siempre",
+   "body": "Publicar no es un evento único: es el inicio del ciclo normal de vida del sitio. Cada mejora o corrección posterior sigue exactamente el mismo camino, y dominarlo es dominar el tema:\n\n1. Cambias y pruebas en local. Publicado no es el campo de pruebas: lo que se sube ya funcionó en la máquina.\n2. Confirmas el cambio con un commit pequeño y con mensaje en imperativo, como manda el Tema 5. La historia del repositorio es también la historia de las versiones del sitio.\n3. Subes con push a la rama que Pages tiene declarada como fuente. Ese push ES la orden de republicar: no hay otro botón.\n4. Esperas el tiempo breve de propagación y verificas en la dirección pública, en incógnito, con Network y Console abiertos: recurso por recurso y, si el cambio afecta la lectura, también en ancho móvil.\n\nSi un cambio sale mal, la historia te rescata como en el Tema 5: el estado bueno anterior sigue en Git, y volver a él y subirlo republica la versión que funcionaba. Publicar con Git detrás convierte cada error en un tropiezo reversible, no en una catástrofe."
+  },
+  {
+   "page": 11,
+   "kind": "warning",
+   "title": "LÍMITES Y CUIDADOS DE LO PUBLICADO",
+   "body": "• Solo proyectos estáticos: Pages sirve archivos, no ejecuta el código de servidor ni guarda envíos de formularios. Un formulario publicado aquí se ve, pero su destino debe vivir en otro servicio; no prometas en el sitio lo que el alojamiento no puede cumplir.\n• Nada privado en un repositorio que publica: claves, contraseñas, datos personales de terceros o documentos internos jamás entran a un repositorio cuyo contenido puede servirse o leerse públicamente. Lo que no debe ver nadie, no se sube, ni «un momento» ni «en una carpeta escondida»: publicado, escondido no existe.\n• HTTPS viene incluido y se verifica: la dirección debe abrir con su candado. Si un recurso interno se pide sin seguridad desde la página segura, el navegador puede bloquearlo: otra razón para enlazar todo con rutas relativas, que heredan el esquema de la página."
+  },
+  {
+   "page": 11,
+   "kind": "definition",
+   "title": "11.2. La lista de verificación de publicación: la definición de terminado",
+   "body": "Un sitio de esta ruta se da por publicado solo cuando esta lista se cumple entera, en la dirección pública y en ese orden:\n\n• La dirección principal abre la página real (no el README, no un error), servida desde la rama y la carpeta elegidas.\n• Network sin ningún 404: HTML, hoja de estilos, cada imagen y cada página enlazada llegan con su respuesta correcta.\n• Console sin errores: ni recursos fallidos ni errores de script.\n• Enlaces internos recorridos uno a uno, incluidas las páginas dentro de subcarpetas, y de vuelta a la principal.\n• Revisión móvil en dos pasadas — emulación y teléfono real — sin desplazamiento horizontal y con lectura completa.\n• Verificación hecha como visitante nuevo: incógnito o recarga forzada, nunca sobre la caché de trabajo.\n• El repositorio queda con la historia al día: el último estado publicado y el último commit cuentan lo mismo.\n\nEsta lista, cumplida y registrada, es literalmente la evidencia: sitio publicado y revisión móvil."
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "Práctica previa · Activar Pages y verificar como visitante, paso a paso",
+   "body": "Revisión antes de publicar: se comprueba el nombre exacto del archivo de entrada en la raíz del repositorio y que sus enlaces usan rutas relativas, en minúsculas y sin espacios. → Lo que en local se abre por una ruta absoluta o con mayúsculas distintas, publicado responde 404.\nActivación de Pages: en el repositorio de GitHub se entra a Settings, después a Pages, se elige la rama principal y la carpeta raíz, y se guarda. → GitHub inicia la primera publicación y muestra la dirección pública del sitio; la publicación tarda un poco y el panel no se toca mientras tanto.\nApertura como visitante: la dirección pública se abre en una ventana de incógnito. → El sitio se ve como lo ve cualquiera, sin sesión ni caché previas: esa es la versión que cuenta como publicada.\nVerificación recurso por recurso: con la página pública abierta se pulsa `F12`, se entra a Network y se recarga. → Cada recurso (HTML, CSS, imágenes) debe responder 200; una fila en 404 indica exactamente qué ruta falló.\nComparación de direcciones ante un 404: la ruta pedida que muestra Network se compara con la ruta real del archivo en el repositorio, carácter por carácter. → La diferencia (una carpeta, una mayúscula, una barra inicial) es la causa; la corrección se hace ahí y la publicación se repite con un commit.\nRevisión en móvil emulado: en DevTools se activa la barra de dispositivos (`Ctrl + Mayús + M`) y se elige un ancho de teléfono. → La página se ve al ancho real de un teléfono: se comprueba la lectura sin zoom y que no exista desplazamiento horizontal, como piden los ejercicios."
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "Ejercicios concretos del Tema 6 · Etapa 2: Práctica",
+   "body": "Ejercicio 1 · Primera publicación en GitHub Pages: la estructura queda lista (archivo de entrada con su nombre exacto en la raíz, rutas relativas y nombres en minúsculas), todo se sube a GitHub, Pages se activa desde la rama principal y la carpeta correctas, se espera la primera publicación y la dirección pública se abre en incógnito hasta ver el sitio real servido.\nEjercicio 2 · Caza de rutas rotas con consola y Network: el sitio publicado se verifica recurso por recurso, cada 404 se anota con su dirección pedida completa y se compara contra el archivo real, la ruta se corrige causa por causa (barra inicial, mayúsculas, nivel de carpeta) con su propio commit y se republica hasta dejar Network y Console en cero errores.\nEjercicio 3 · Actualización controlada y caché vencida: un cambio visible y acotado se hace en el sitio, se confirma y se sube, y su llegada a la dirección pública se verifica en incógnito y con recarga forzada, distinguiendo con evidencia si lo que tardaba era la propagación o la propia caché.\nEjercicio 4 · Revisión móvil completa y evidencia final: el sitio publicado se recorre en la emulación de teléfono de DevTools y después en un teléfono real, se comprueban viewport, lectura sin zoom, ausencia de desplazamiento horizontal y carga completa de recursos, lo encontrado se corrige y se republica, y la revisión queda registrada con su dirección pública."
+  },
+  {
+   "page": 14,
+   "kind": "list",
+   "title": "13.1. El flujo completo de publicación",
+   "body": "Preparas la estructura: archivo de entrada con su nombre exacto en la raíz fuente, rutas relativas, nombres en minúsculas sin espacios, y todo confirmado y subido a GitHub.\nActivas Pages una sola vez: rama principal y carpeta raíz correctas; guardas y esperas la primera publicación sin tocar el panel por impaciencia.\nVerificas como visitante: dirección pública en incógnito, Network recurso por recurso y Console abierta; ningún 404 se queda sin diagnóstico.\nDepuras comparando direcciones: la ruta pedida contra la real, una causa por commit, y republicas con cada push hasta dejar la verificación limpia.\nRevisas en móvil en dos pasadas: emulación con DevTools y teléfono real con la URL pública; legibilidad, sin desplazamiento horizontal y carga completa.\nActualizas para siempre con el mismo ciclo: cambio probado en local, commit claro, push, espera breve y verificación pública sin caché."
+  },
+  {
+   "page": 14,
+   "kind": "warning",
+   "title": "REGLAS CRÍTICAS DE CIERRE",
+   "body": "• Publicado es verificado en la URL pública, en incógnito y con la consola abierta: «en local funciona» no cierra ningún tema de publicación.\n• Ninguna ruta interna empieza por barra en un sitio de proyecto, ningún nombre lleva mayúsculas, espacios o tildes, y ningún archivo se publica si no está en el repositorio.\n• Caché antes de pánico: toda supuesta «no publicación» se descarta primero como visitante nuevo antes de tocar la configuración."
+  }
+ ],
+ "exercises": [
+  {
+   "n": 1,
+   "title": "Ejercicio 1 · Primera publicación en GitHub Pages: del repositorio al sitio en vivo",
+   "objective": "Publicar por primera vez el sitio de práctica en GitHub Pages dejando la estructura lista antes de activar el servicio, hasta abrir la dirección pública en incógnito y ver la página real — no el README ni un error — servida desde GitHub.",
+   "steps": [
+    {
+     "hacer": "Auditoría de la estructura en local antes de tocar GitHub: el archivo de entrada está en la raíz que publicarás, con su nombre exacto en minúsculas; todas las rutas internas son relativas; ningún nombre de archivo lleva mayúsculas, espacios ni tildes.",
+     "esperado": "La lista de correcciones previas queda hecha en local: publicar una estructura con fallos solo traslada los fallos a la dirección pública."
+    },
+    {
+     "hacer": "Cada arreglo se confirma con su propio commit en imperativo y la rama principal completa se sube a GitHub; el repositorio se abre en la web y se verifica archivo por archivo que lo visible coincide con la carpeta.",
+     "esperado": "GitHub contiene exactamente la versión destinada a publicarse; lo que no esté ahí, correctamente, no se publicará."
+    },
+    {
+     "hacer": "Activación de GitHub Pages desde la configuración del repositorio, eligiendo publicar desde la rama principal y la carpeta raíz donde vive el archivo de entrada, con su guardado.",
+     "esperado": "La sección de Pages queda con la fuente declarada y el servicio encolando la primera publicación."
+    },
+    {
+     "hacer": "Espera de la publicación sin tocar el panel y, cuando la sección anuncie la dirección, apertura en una ventana de incógnito con DevTools desplegado.",
+     "esperado": "La página real se ve servida desde la dirección pública de proyecto, con su subruta de repositorio, y su primera lectura de Network y Console queda anotada tal como quedó."
+    },
+    {
+     "hacer": "La dirección pública completa, la rama y carpeta fuente elegidas y el estado de esa primera carga quedan registrados: qué llegó bien y qué falló.",
+     "esperado": "Ese registro es el punto de partida del Ejercicio 2: ningún fallo de la primera publicación queda sin registrar."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: el sitio de práctica en vivo en su dirección pública de GitHub Pages, abierto en incógnito, con la fuente (rama y carpeta) registrada.",
+   "verification": "(1) La dirección principal muestra la página real, servida desde GitHub. (2) La fuente configurada es la rama principal y la carpeta donde vive el archivo de entrada. (3) Qué hace Pages con el repositorio y qué no hace queda identificado."
+  },
+  {
+   "n": 2,
+   "title": "Ejercicio 2 · Caza de rutas rotas: depuración con consola y Network hasta cero errores",
+   "objective": "Verificar el sitio publicado recurso por recurso con Network y Console, diagnosticar cada 404 comparando la dirección pedida contra la ruta real del archivo y corregirlo causa por causa, hasta dejar la dirección pública sin un solo error de carga.",
+   "steps": [
+    {
+     "hacer": "La dirección pública se abre en incógnito, DevTools se despliega en Network y la página se recarga: en una tabla se anota cada recurso con su estado, y marca cada 404 con la dirección pedida COMPLETA, incluida la subruta del repositorio.",
+     "esperado": "La lista de fallos es exacta y reproducible: recurso, dirección pedida y estado, sin impresiones vagas de «algo no carga»."
+    },
+    {
+     "hacer": "Para el primer 404, el repositorio se abre y al lado se escribe la dirección real del archivo; las dos direcciones se comparan carácter por carácter y la causa se nombra con las categorías del tema: barra inicial, mayúsculas distintas, carpeta equivocada, nivel de más o de menos, o archivo que nunca se subió.",
+     "esperado": "La causa queda escrita antes de corregir: corregir sin causa nombrada está prohibido en este ejercicio."
+    },
+    {
+     "hacer": "La corrección ataca solo esa causa — la ruta, el nombre o la subida que falte — con su propio commit en imperativo y su push, se espera la propagación breve y ese recurso se re-verifica en incógnito con recarga forzada.",
+     "esperado": "El recurso que fallaba ahora responde correctamente en la dirección pública, y la causa del fallo se puede decir."
+    },
+    {
+     "hacer": "El ciclo se repite con cada 404 de la lista, de uno en uno, y después la pestaña pública recorre cada enlace interno del sitio, incluidas las páginas en subcarpetas y el regreso a la principal.",
+     "esperado": "Network sin ningún fallo en ninguna página del sitio y Console sin errores: la verificación es del sitio entero, no solo de la portada."
+    },
+    {
+     "hacer": "Documentación en el README de la tabla de depuración del ejercicio: cada error encontrado, su dirección pedida, su causa y su corrección.",
+     "esperado": "La depuración queda como evidencia reutilizable: la próxima vez, la tabla de la Hoja 9 y esta experiencia acortan el diagnóstico a minutos."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: el sitio publicado con Network y Console en cero errores en todas sus páginas, y la tabla de depuración (error, causa, arreglo) documentada.",
+   "verification": "(1) Ningún recurso del sitio devuelve 404 en la dirección pública. (2) Cada corrección corresponde a una causa nombrada y a un solo commit. (3) Se explica, con un caso de la lista, cómo la dirección pedida indicó dónde estaba el fallo."
+  },
+  {
+   "n": 3,
+   "title": "Ejercicio 3 · Actualización controlada: republicar un cambio y vencer a la caché",
+   "objective": "Completar el ciclo profesional de actualización de un sitio ya publicado — cambio local probado, commit, push, verificación pública sin caché — distinguiendo con evidencia la propagación de Pages de la caché del propio navegador.",
+   "steps": [
+    {
+     "hacer": "Elección de un cambio pequeño, visible y acotado para el sitio (un texto de la portada, una imagen o un dato), aplicado en local con verificación de que la página sigue sin errores en la máquina.",
+     "esperado": "El cambio está probado antes de publicarse: la dirección pública nunca es el campo de pruebas."
+    },
+    {
+     "hacer": "Confirmación con un commit pequeño cuyo mensaje cuente el cambio en imperativo y subida con push a la rama fuente de Pages, con la hora del push anotada.",
+     "esperado": "La orden de republicación quedó dada y fechada en el registro."
+    },
+    {
+     "hacer": "Sin esperar, la pestaña de siempre se abre y se anota qué se ve; enseguida la dirección se abre en incógnito y con recarga forzada y se anota qué se ve ahí, recurso por recurso en Network.",
+     "esperado": "Las dos lecturas quedan comparadas: si difieren, ya se sabe cuál de las dos es la caché y cuál es el sitio real que reciben los visitantes."
+    },
+    {
+     "hacer": "Si el cambio aún no aparece ni como visitante nuevo, se espera el tiempo breve de propagación y la verificación de incógnito se repite antes de tocar configuración alguna.",
+     "esperado": "El cambio termina visible en la dirección pública y el registro dice cuánto tardó y qué lo estaba ocultando: propagación o caché, con la prueba de cada caso."
+    },
+    {
+     "hacer": "El ciclo completo queda registrado con los tiempos reales: cambio, commit, push, verificación.",
+     "esperado": "Ese ciclo, con los propios minutos registrados, es el procedimiento que se repetirá en cada publicación futura de la ruta."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: el sitio republicado con el cambio visible en su dirección pública, verificado como visitante nuevo, y el ciclo de actualización registrado con tiempos y causa de cualquier espera.",
+   "verification": "(1) El cambio vive en la dirección pública, no solo en el local ni solo en la pestaña con caché. (2) La propagación se distingue de la caché y la distinción se demuestra con las dos lecturas. (3) Ninguna configuración de Pages fue tocada para «arreglar» lo que era espera o caché."
+  },
+  {
+   "n": 4,
+   "title": "Ejercicio 4 · Revisión móvil completa: emulación, teléfono real y evidencia del tema",
+   "objective": "Hacer la revisión móvil completa del sitio publicado en las dos pasadas que exige el tema — emulación de dispositivo en DevTools y teléfono real con la dirección pública — corrigiendo y republicando lo encontrado, hasta dejar la evidencia oficial del tema: sitio publicado y revisión móvil.",
+   "steps": [
+    {
+     "hacer": "Confirmación primero de que cada página del sitio declara su ventana de visualización en la cabeza; si a alguna le falta, la línea se añade, se confirma con su commit y se republica antes de seguir revisando.",
+     "esperado": "Todas las páginas se presentan al ancho real del dispositivo: la revisión parte de una base válida, no de una casualidad."
+    },
+    {
+     "hacer": "Primera pasada, emulada: la dirección pública se abre con la vista de dispositivo de DevTools a un ancho de teléfono y el sitio entero se recorre leyendo cada página de arriba abajo.",
+     "esperado": "Queda anotado, página por página: legibilidad sin zoom, ningún desplazamiento horizontal, ningún elemento fuera del ancho y cada recurso cargando con su respuesta correcta en Network."
+    },
+    {
+     "hacer": "Cada problema de esta pasada se corrige en local — la ruta, el nombre o el contenido que se salga — con su commit y su push por causa, y re-verifica la emulación tras la propagación.",
+     "esperado": "La pasada emulada queda limpia y cada corrección está en la historia del repositorio, no solo en la memoria."
+    },
+    {
+     "hacer": "Segunda pasada, real: la dirección pública se abre en el teléfono con su navegador y su conexión, el sitio completo se recorre tocando cada enlace y leyendo cada página entera.",
+     "esperado": "El sitio se usa de verdad con un dedo y una pantalla real: carga completa, lectura cómoda y navegación sin trampas, en las condiciones de los visitantes."
+    },
+    {
+     "hacer": "Registro de la revisión móvil como cierre del tema: dirección pública, fecha, las dos pasadas con su resultado y la lista de correcciones que salieron de ellas (o la constancia de que cargó limpio a la primera, con la verificación recurso por recurso).",
+     "esperado": "La evidencia «Sitio publicado y revisión móvil» está completa, fechada y demostrable abriendo el enlace."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la evidencia oficial de este tema: «Sitio publicado y revisión móvil» — la dirección pública de GitHub Pages funcionando sin errores y su revisión móvil en dos pasadas registrada.",
+   "verification": "(1) Las dos pasadas están hechas y registradas: emulación con DevTools y teléfono real. (2) Sin desplazamiento horizontal, con viewport en todas las páginas y lectura completa sin zoom. (3) La dirección pública queda lista para entregarse en Trabajos y defenderse en la evaluación del tema."
+  }
+ ],
+ "trabajo": {
+  "title": "Trabajo del Tema 6 · Sitio publicado en GitHub Pages con revisión móvil",
+  "description": "Situación nueva de este trabajo: los ejercicios del tema publicaron el sitio de práctica. Este trabajo publica EL SITIO DE TU PROYECTO — el que trae la página del evento (Tema 3), el formulario de inscripción (Tema 4) y el historial limpio en GitHub (Tema 5) — y su dirección pública es la que queda como evidencia del tema.\n\nPublica tu sitio en GitHub Pages y entrega aquí el enlace de tu sitio publicado (la dirección pública del sitio, no solo la del repositorio). El sitio publicado debe demostrar el dominio completo del tema: (1) la dirección principal abre tu página real servida desde la rama principal y la carpeta fuente correctas, con su HTTPS activo; (2) Network sin ningún 404 y Console sin errores en todas las páginas del sitio — hoja de estilos, imágenes y enlaces internos verificados recurso por recurso; (3) todas las rutas internas relativas, sin ninguna ruta desde la raíz del dominio ni absoluta de tu computador, y nombres de archivo en minúsculas sin espacios ni tildes; (4) la revisión móvil registrada: viewport en todas las páginas, lectura completa sin zoom, sin desplazamiento horizontal, verificada en emulación de DevTools y en un teléfono real, con las correcciones que salieron de ella documentadas en el README o en tu registro del tema.\n\nCómo se desbloquea: este trabajo está bloqueado hasta que termines la fundamentación del Tema 6 en el Cuaderno. Cuando lo envíes, se abre la evaluación Fácil de este tema. Califica el experto de 0 a 10, con retroalimentación, en un plazo máximo de 24 horas desde la entrega.",
+  "estimated_minutes": 300
+ }
+}

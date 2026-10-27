@@ -1,0 +1,423 @@
+{
+ "week": 5,
+ "estado": "completo",
+ "sections": [
+  {
+   "page": 1,
+   "kind": "heading",
+   "title": "1.1. El problema que Git resuelve",
+   "body": "El problema que Git resuelve no es «guardar copias». Guardar copias lo hace cualquiera, y termina con carpetas llamadas final, final-v2, final-ahora-si y nadie sabe cuál manda. El problema real es otro: el código cambia todos los días, a veces se rompe sin que nadie se dé cuenta, a veces trabajan dos personas sobre el mismo archivo, y en cualquier momento hay que poder responder tres preguntas: qué cambió, quién lo cambió y por qué; volver a cualquier punto anterior sin perder lo demás; y probar una idea sin arriesgar lo que ya funciona.\n\nUn historial limpio no significa pocos commits: significa que cada commit es pequeño, hace una sola cosa y lleva un mensaje que la cuenta. Quien lee ese historial puede reconstruir cómo nació el proyecto leyendo solo los títulos de los commits, en orden."
+  },
+  {
+   "page": 1,
+   "kind": "warning",
+   "title": "REGLA FUNDAMENTAL",
+   "body": "Si no está en un commit, no está guardado de verdad: está solo en el disco, a un error de distancia de desaparecer. Y la inversa: un commit gigante con el mensaje «cambios» no guarda historia, guarda ruido. Commit pequeño, una sola cosa, mensaje que explica el qué y el porqué."
+  },
+  {
+   "page": 1,
+   "kind": "definition",
+   "title": "1.2. Git y GitHub: no son lo mismo, y confundirlos cuesta caro",
+   "body": "Definición: Git es un sistema de control de versiones distribuido que vive en el computador. Registra la historia completa de un proyecto — cada commit, cada rama, cada fusión — en una carpeta oculta dentro del propio proyecto, y funciona entero sin internet: los commits se pueden hacer en un avión, en una finca sin señal o con GitHub caído.\n\nDefinición: GitHub es un servicio en la nube que aloja repositorios Git y añade la capa de colaboración: copias remotas del repositorio, pull requests para proponer y revisar cambios, registro de problemas (issues) y automatización. GitHub no es Git: es uno de varios alojamientos posibles para repositorios Git, igual que un correo puede vivir en distintos proveedores sin dejar de ser correo.\n\nLa consecuencia práctica que ordena todo el tema: el trabajo diario (status, add, commit, log, branch, merge) ocurre en local, con Git, aunque nunca publiques nada. GitHub entra cuando se busca respaldo fuera de la máquina, compartir el código o colaborar: ahí aparecen el remoto, push, pull y el pull request. Quien dice «subí mi Git» o «GitHub me borró el commit de mi computador» está mezclando las dos capas, y esa mezcla es la madre de la mitad de los sustos de principiante."
+  },
+  {
+   "page": 1,
+   "kind": "diagram",
+   "title": "Git en la máquina, GitHub en la nube",
+   "body": "El computador (Git, sin internet)\n  carpeta de trabajo ──► staging ──► commits y ramas\n        │\n        │  push sube · pull baja\n        ▼\nGitHub (el remoto): la misma historia, alojada,\nmás pull requests y revisión en equipo"
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.1. Antes del primer commit: la identidad en Git",
+   "body": "Cada commit lleva firmados un nombre y un correo: son la autoría que quedará en la historia para siempre, y GitHub usa ese correo para conectar los commits con la cuenta. Por eso la configuración inicial no es un trámite: es declarar quién firma el trabajo.\n\n• La configuración se guarda en niveles; el que importa en este punto es el global, el del usuario de la máquina, que aplica a todos los proyectos.\n• El nombre va tal como debe constar profesionalmente: el nombre real, no un apodo de juego. El correo, el mismo de la cuenta de GitHub, o los commits aparecerán como de un desconocido.\n• La rama inicial hoy se llama main en todo el ecosistema; configúrala una vez y cada repositorio nuevo nacerá ya con ese nombre, sin pasos extra de renombrado.\n\nConfigurar no se repite: se hace una vez por máquina y se verifica cuando algo se ve raro — un commit con autor equivocado casi siempre es una identidad mal configurada, no un misterio."
+  },
+  {
+   "page": 2,
+   "kind": "code",
+   "title": "Configuración inicial y verificación, una sola vez por máquina",
+   "body": "```\ngit config --global user.name \"Tu Nombre\"\n`git config` --global user.email \"tu@correo.com\"\n`git config` --global init.defaultBranch main\n\n`git config` --global --list   → muestra lo guardado\ngit --version                → confirma que Git responde\n```\n\nRegla de lectura: si un commit sale con otro autor,\nno reescribas historia a ciegas: primero revisa con\n`git config` user.email en qué carpeta se está,\nporque un proyecto puede sobrescribir lo global."
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.2. Cómo nace un repositorio: init en local, clone desde el remoto",
+   "body": "Un proyecto se vuelve repositorio por una de dos puertas, y elegir bien evita repositorios dentro de repositorios — el error de estructura más común al empezar con Git:\n\n• Nace en la máquina: entras a la carpeta del proyecto y la inicializas. Git crea ahí su carpeta oculta .git, que es el repositorio de verdad: dentro vive toda la historia, las ramas y la configuración local. Los archivos visibles son solo la copia de trabajo de esa historia.\n• Nace en GitHub: el repositorio se crea en la web y se clona. Clonar no es descargar un zip: es traer el repositorio completo, con toda su historia, y dejar ya conectado el remoto. Un proyecto clonado NO se inicializa: ya es repositorio.\n\nDe ahí sale la prueba de fuego para saber dónde se está: si la carpeta tiene su .git, Git la gobierna y los comandos responden; si no la tiene, Git te dice que no es un repositorio, y ese mensaje no es un error de Git: es Git avisando de que la carpeta actual es la equivocada o de que el proyecto aún no nace."
+  },
+  {
+   "page": 2,
+   "kind": "warning",
+   "title": "REGLA CRÍTICA SOBRE LA CARPETA .git",
+   "body": "La carpeta .git ES la historia entera. Si la borras, el proyecto vuelve a ser una carpeta común y corriente: los archivos quedan, pero todos los commits, ramas y fusiones desaparecen sin papelera. Nunca la borres, nunca la muevas a mano y nunca inicialices un repositorio dentro de otro repositorio."
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.1. Las tres zonas de Git: donde vive cada cambio antes de ser historia",
+   "body": "Todo el modelo mental de Git cabe en tres zonas, y cada comando de este tema mueve cambios de una zona a la siguiente. Si entiendes las zonas, los comandos se deducen; si memorizas comandos sin zonas, cada error nuevo es un mundo.\n\n• Zona de trabajo (working directory): los archivos tal como se ven y se editan. Aquí el código puede estar a medias, roto o sin terminar: Git observa, pero todavía no guarda nada.\n• Zona de preparación (staging area, el índice): la antesala del commit. Aquí colocas, cambio a cambio, exactamente lo que entrará en el próximo commit — ni más, ni menos. Es lo que hace a Git distinto de un guardado automático: cada commit se compone a propósito.\n• El repositorio (la historia, dentro de .git): los commits ya confirmados. Lo que entra aquí queda registrado con su autor, su fecha y su mensaje, y es a lo que se puede volver siempre.\n\nY una cuarta zona que llega en la Hoja 10: el remoto en GitHub, otra copia del repositorio con la que la sincronización ocurre solo por decisión expresa, nunca automáticamente."
+  },
+  {
+   "page": 3,
+   "kind": "diagram",
+   "title": "El recorrido de un cambio",
+   "body": "Trabajo y edición de archivos\n        ▼\nZONA DE TRABAJO ──► `git add` ──► STAGING (lo elegido)\n        ▼\n`git commit` ──► REPOSITORIO: el cambio ya es historia\n        ▼\n`git push` ──► REMOTO en GitHub (Hoja 10)"
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.2. Los cuatro estados de un archivo, y cómo se mueve entre ellos",
+   "body": "En cualquier momento, cada archivo del proyecto está en uno de estos estados frente a Git, y el comando status — Hoja 4 — no hace otra cosa que contártelos:\n\n• Sin seguimiento (untracked): el archivo es nuevo y Git aún no lo conoce. Existe en la zona de trabajo y en ningún otro sitio. Si lo borras ahora, no hay copia en Git que lo salve.\n• Modificado (modified): Git conoce el archivo, cambió desde el último commit y el cambio aún no está preparado. Vive solo en la zona de trabajo.\n• Preparado (staged): el cambio ya entró al staging: es exactamente la versión que el próximo commit guardará. Puedes seguir editando el archivo después de prepararlo; lo que se prepara es la versión en el momento de preparar, y el resto queda como modificación nueva.\n• Confirmado (committed): el archivo coincide con lo guardado en el último commit. Zona limpia: nada pendiente de ese archivo.\n\nEl ciclo diario es ese circuito — nuevo o modificado, preparado, confirmado — repetido commit a commit. Todo lo demás del tema (ramas, fusiones, remoto) es este mismo ciclo ocurriendo en historias que se abren, se cruzan y se sincronizan."
+  },
+  {
+   "page": 3,
+   "kind": "table",
+   "title": "Tabla comparativa — estado del archivo, qué significa y qué lo mueve",
+   "body": "Estado | Qué significa | Qué lo mueve de estado\nSin seguimiento | Git no conoce el archivo todavía | `git add` lo lleva a preparado\nModificado | Cambió desde el último commit, sin preparar | `git add` lo lleva a preparado\nPreparado | Su versión actual entrará en el próximo commit | `git commit` lo deja confirmado\nConfirmado | Coincide con lo guardado en la historia | Editarlo lo vuelve modificado"
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.1. `git status`: la radiografía que se pide antes de tocar nada",
+   "body": "Definición: status es el comando que compara las tres zonas entre sí y te dice, en texto claro, en qué estado está todo: en qué rama se está, qué archivos cambiaron, cuáles están preparados para el próximo commit, cuáles no, y hasta cuál sería el paso siguiente. Es el comando más usado de Git, y el primero ante cualquier duda.\n\nQué lees en una salida de status bien mirada:\n\n• La primera línea nombra la rama actual. La mitad de los «Git hizo algo raro» son en realidad «estaba en otra rama y no lo sabía»: status te lo dice antes de que hagas el commit en el sitio equivocado.\n• Los cambios preparados salen anunciados como lo que entrará en el próximo commit: es la última oportunidad de revisar la composición del commit antes de confirmarlo.\n• Los cambios sin preparar y los archivos sin seguimiento salen aparte: nada de eso entrará en el commit si no lo preparas primero.\n• Cuando no hay nada pendiente, status lo dice sin rodeos: zona de trabajo limpia. Esa frase, al terminar una tarea, es la señal de que todo quedó guardado en la historia."
+  },
+  {
+   "page": 4,
+   "kind": "code",
+   "title": "Una salida de status real, leída línea por línea",
+   "body": "```\ngit status\n\nOn branch main\nChanges to be committed:\n        modified:   `index.html`\nChanges not staged for commit:\n        modified:   css/estilos.css\nUntracked files:\n        notas-sueltas.txt\n```\n\nSu lectura es así: la rama actual es main; el cambio de `index.html`\nSÍ entrará en el próximo commit; el de `estilos.css`\nNO, porque no lo preparaste; notas-sueltas.txt no\nexiste para Git todavía. Tres estados, un comando."
+  },
+  {
+   "page": 4,
+   "kind": "warning",
+   "title": "STATUS ANTES DE TODO",
+   "body": "Antes de preparar, antes de confirmar, antes de cambiar de rama y ante cualquier mensaje que no entiendas: status primero. Es gratis, no cambia nada y convierte los misterios de Git en información. El hábito profesional no es saber más comandos: es no ejecutar ningún comando a ciegas."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.1. `git add`: preparar es componer el próximo commit a propósito",
+   "body": "Definición: add mueve cambios de la zona de trabajo al staging. No guarda historia todavía: declara qué va a guardar el próximo commit. Esa separación entre preparar y confirmar es la herramienta de calidad más importante de Git, porque te permite partir una tarde de trabajo desordenado en commits limpios: primero preparas y confirmas el arreglo del formulario, después la página nueva, aunque hayas tocado ambos archivos a la vez.\n\nFormas de preparar, de la más precisa a la más amplia:\n\n• Por archivo: preparas ese archivo y solo ese. Es la forma de aprender y la correcta cuando el commit debe ser quirúrgico.\n• Por carpeta o por todo: prepara todos los cambios del proyecto de una vez. Útil solo cuando existe seguridad de que TODO lo pendiente pertenece al mismo commit — ante la duda, no pertenece.\n• Lo que nunca se prepara: archivos que no son del proyecto o que la máquina genera — dependencias instaladas, archivos temporales, claves y contraseñas. Para eso existe el archivo `.gitignore`: una lista, ella sí versionada, de nombres y patrones que Git debe ignorar siempre. Un `.gitignore` creado tarde no saca de la historia lo que ya entró en commits anteriores: por eso se escribe al inicio del proyecto, no después del primer descuido."
+  },
+  {
+   "page": 5,
+   "kind": "code",
+   "title": "Preparar con intención y el `.gitignore` desde el día uno",
+   "body": "```\ngit add `index.html`          → prepara SOLO ese archivo\n`git add` css/                → prepara la carpeta css\n`git add` .                   → prepara todo lo pendiente\n`git status`                  → muestra qué quedó en staging\n\n# Archivo `.gitignore` (va en la raíz, sí se versiona)\nnode_modules/\n.env\n*.tmp\n```\n\nLa `.env` guarda claves: si un secreto entra en un\ncommit, queda en la historia aunque luego lo borres\ndel archivo. El `.gitignore` a tiempo lo evita."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.2. `git commit`: el punto de la historia que ya no se pierde",
+   "body": "Definición: un commit es una fotografía completa del proyecto en un momento, guardada en el repositorio con cuatro cosas inseparables: el contenido exacto de lo que preparaste, quién lo hizo, cuándo, y un mensaje que explica el cambio. Cada commit recibe además un identificador único — una cadena larga de letras y números, su hash — que es su dirección permanente dentro de la historia.\n\nIdeas que deben quedar claras desde el inicio:\n\n• Commit no es «guardar el archivo»: es guardar el proyecto entero tal como quedó con ese cambio. Por eso un commit puede incluir varios archivos — los que preparaste — y ninguno más.\n• El commit solo toma lo que está en staging. Lo no preparado se queda fuera, esperando su propio commit. Si confirmas y status sigue mostrando cambios, no hubo error: hubo cambios que nunca preparaste.\n• Confirmar es barato y local: no necesita internet ni permiso de nadie. La frecuencia correcta es «cada vez que algo completo y pequeño funciona», no «al final del día si me acuerdo»."
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.1. El mensaje de commit: la historia se escribe para quien la lee después",
+   "body": "El mensaje es la única explicación que la historia guarda sobre por qué existe cada commit. Un historial limpio se reconoce por sus mensajes antes que por cualquier otra cosa. La convención vigente en toda la ruta:\n\n• Primera línea corta — unas 50 letras — que resume el cambio completo. Se escribe como una orden, en modo imperativo: «Añade», «Corrige», «Crea». La prueba de fuego: la frase debe completar con naturalidad la oración «si aplico este commit, el proyecto…».\n• Sin punto final en esa primera línea, y en el idioma del proyecto: en esta ruta, español claro.\n• Si el cambio necesita explicación, una línea en blanco y después el cuerpo: el porqué, el contexto, lo que se probó. El qué ya lo muestra el propio código al comparar; el porqué solo vive en el mensaje.\n\nLo que un mensaje jamás debe ser: «cambios», «cosas», «update», «asdf», el nombre del archivo sin decir qué le pasó, o la lista de todo un día de trabajo — eso último delata un commit gigante, que es el problema de fondo, no solo de redacción."
+  },
+  {
+   "page": 6,
+   "kind": "code",
+   "title": "Mensajes que cuentan la historia, y mensajes que la borran",
+   "body": "BIEN (imperativo, una cosa, se entiende sin abrir el código)\n\n```\n`git commit` -m \"Crea la estructura base del sitio\"\n`git commit` -m \"Añade el formulario de evidencias con su validación\"\n`git commit` -m \"Corrige la ruta de la imagen del encabezado\"\n```\n\nMAL (no dicen qué, ni por qué, ni qué terminó funcionando)\n\n```\n`git commit` -m \"cambios\"\n`git commit` -m \"update final final2\"\n`git commit` -m \"todo lo de hoy: página, estilos, arreglo y readme\"\n```"
+  },
+  {
+   "page": 6,
+   "kind": "warning",
+   "title": "REGLA DE ORO DEL COMMIT ATÓMICO",
+   "body": "Un commit, una sola cosa completa. Si al escribir el mensaje hace falta una «y» para unir dos cambios distintos («añade la página Y corrige el menú»), son dos commits: sepáralos con add por archivo. Los commits atómicos se pueden leer, revisar y deshacer de uno en uno; el commit gigante no se puede nada: se acepta entero o se pierde entero."
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.2. `git log`: leer la historia en construcción",
+   "body": "Definición: log muestra la historia de commits de la rama actual, del más reciente al más antiguo, con el identificador, el autor, la fecha y el mensaje de cada uno. Es el índice del libro que los commits escriben, y leerlo a menudo es lo que convierte un montón de guardados en una historia bajo control.\n\nLas lecturas que dominarás en este tema:\n\n• La vista completa, para ver mensajes con su cuerpo y sus fechas. Se sale de ella con la tecla q: no es un error, es un visor.\n• La vista de una línea por commit: la historia entera de un vistazo. Es la forma de auditar la evidencia: entre 8 y 12 líneas, cada una comprensible por sí sola.\n• La vista en grafo con todas las ramas: dibuja en texto cómo las ramas se abrieron y se fusionaron. Cuando el tema llegue a merge, este dibujo es el mapa.\n• Mirar un commit concreto por su identificador: qué archivos tocó y qué cambió en cada uno, línea por línea.\n• Comparar antes de confirmar: la diferencia entre la zona de trabajo y el staging, y entre el staging y el último commit. Revisar la diferencia es lo que separa confirmar a propósito de confirmar a ciegas."
+  },
+  {
+   "page": 6,
+   "kind": "code",
+   "title": "Leer y auditar el historial con log",
+   "body": "```\ngit log                    → historia completa (salir con q)\n`git log` --oneline          → un commit por línea: la auditoría\n`git log` --oneline --graph --all\n                           → el mapa de ramas y fusiones\ngit show <id>              → qué cambió en ese commit\n`git diff`                   → cambios aún sin preparar\n`git diff` --staged          → lo que SÍ entrará en el commit\n```\n\nUso de este tema: antes de entregar, `git log --oneline`\ndebe contar el proyecto en 8 a 12 líneas claras."
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.1. Qué es una rama: una línea de historia que se abre sin romper la otra",
+   "body": "Definición: una rama (branch) es, en esencia, un nombre que apunta a un commit y que avanza con cada commit nuevo creado estando en ella. Crear una rama no copia el proyecto ni duplica carpetas: abre una línea de historia paralela que comparte todo el pasado y diverge solo desde ahí.\n\nPara qué sirve, en el trabajo real y en esta ruta:\n\n• Probar sin arriesgar: la idea nueva crece en su rama; si sale mal, la rama se abandona y la línea principal ni se enteró.\n• Trabajar en paralelo: una persona en la rama de la página nueva y otra en la del arreglo urgente, sobre la misma historia compartida.\n• Mantener main siempre presentable: la rama principal guarda solo lo que está terminado y funciona. Lo a medias vive en ramas, nunca directamente sobre main.\n\nCambiar de rama cambia los archivos visibles: Git deja la zona de trabajo tal como estaba esa rama en su último commit. Por eso el aviso de oficio: el cambio de rama se hace con la zona limpia — todo confirmado o nada a medias — o Git tendrá que arrastrar los cambios sin confirmar de una rama a otra, que es donde nacen las confusiones que luego parecen «Git me mezcló todo»."
+  },
+  {
+   "page": 7,
+   "kind": "diagram",
+   "title": "Una rama se abre desde main",
+   "body": "main:      A ──► B ──► C ───────────► (sigue su camino)\n                        │\n                        ▼\nrama nueva:             D ──► E\n(Comparte A, B y C; solo D y E son suyos)"
+  },
+  {
+   "page": 7,
+   "kind": "code",
+   "title": "Ramas en la práctica: crear, cambiar, listar y borrar",
+   "body": "```\ngit branch                  → lista las ramas (la actual lleva *)\n`git branch` pagina-contacto  → crea la rama (sin cambiar a ella)\n`git switch` pagina-contacto  → te mueves a esa rama\n`git switch` -c pagina-nueva  → crea la rama y cambia a ella en un solo paso\n`git switch` main             → vuelves a la principal\n`git branch` -d pagina-vieja  → borra una rama ya fusionada\n```\n\nNombres con oficio: cortos, en minúsculas, con guiones\ny que digan el trabajo: `formulario-evidencias`,\n`corrige-ruta-imagen`. Nada de rama1, prueba o nueva."
+  },
+  {
+   "page": 7,
+   "kind": "warning",
+   "title": "ANTES DE CAMBIAR DE RAMA",
+   "body": "Zona limpia primero: status se ejecuta y lo pendiente se confirma o se descarta a conciencia antes del cambio. Una rama no es una carpeta distinta donde esconder trabajo a medias: cambiar de rama con cambios sin confirmar los arrastra contigo, y el commit que hagas después puede terminar guardando en la rama equivocada lo que era de la otra."
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.1. `git merge`: traer el trabajo de una rama a otra",
+   "body": "Definición: fusionar (merge) es integrar la historia de una rama dentro de otra: tomas todo lo que la rama de trabajo avanzó y lo incorporas a la rama destino, normalmente main. Se ejecuta desde la rama que RECIBE: primero te mueves a main, después fusionas la rama del trabajo.\n\nGit resuelve la fusión de dos maneras, y distinguirlas es entender la mitad del tema:\n\n• Avance rápido (fast-forward): si main no avanzó desde que la rama se abrió, no hay nada que «mezclar»: Git simplemente adelanta el nombre de main hasta el último commit de la rama. La historia queda lineal, como si hubieras trabajado sobre main, pero con la seguridad de haberlo hecho aparte. No nace ningún commit nuevo.\n• Fusión de tres vías con commit de fusión: si AMBAS ramas avanzaron desde el punto común — main recibió otros commits mientras la otra rama avanzaba — Git combina los dos caminos y crea un commit especial de fusión, con dos padres, que une las historias. Ese commit no se escribe a mano: nace de la fusión y su mensaje lo anuncia.\n\nEn ambos casos vale la misma regla de oro: la fusión trae la rama HACIA la rama actual. Fusionar al revés — traer main a la rama de trabajo cuando correspondía entregar el trabajo — es el error de dirección más común, y se evita leyendo la primera línea de status antes de fusionar."
+  },
+  {
+   "page": 8,
+   "kind": "diagram",
+   "title": "La fusión une las dos líneas",
+   "body": "main:   A ──► B ──► C ───────────► M (commit de fusión)\n                         ╲         ▲\nrama:                     D ──► E ┘\nGit combina C y E; si tocan lo mismo,\nhay conflicto: Hoja 9."
+  },
+  {
+   "page": 8,
+   "kind": "code",
+   "title": "La fusión completa, en orden, sin saltarse la verificación",
+   "body": "```\ngit switch main        → párate en la rama que RECIBE\n`git status`             → confirma rama y zona limpia\n`git merge` pagina-contacto\n                       → trae el trabajo de esa rama a main\n`git log` --oneline --graph\n                       → la historia resultante, a la vista\n`git branch` -d pagina-contacto\n                       → la rama ya fusionada se borra\n```\n\nSi era avance rápido, `git log` no mostrará commit nuevo:\nmain simplemente avanzó. Si hubo dos caminos,\nverás el commit de fusión uniendo las líneas."
+  },
+  {
+   "page": 8,
+   "kind": "table",
+   "title": "Tabla comparativa — avance rápido frente a fusión con commit",
+   "body": "Criterio | Avance rápido (fast-forward) | Fusión de tres vías\nCuándo ocurre | La rama destino no avanzó desde la separación | Ambas ramas avanzaron desde el punto común\nCommit nuevo | Ninguno: el nombre de la rama solo se adelanta | Sí: un commit de fusión con dos padres\nForma de la historia | Lineal, como si no hubiera habido rama | El grafo muestra la apertura y el cierre de la rama\nConflictos posibles | No: no hay dos versiones que combinar | Sí, si ambas tocaron lo mismo (Hoja 9)"
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.1. El conflicto: cuando Git hace bien en no decidir por ti",
+   "body": "Definición: un conflicto de fusión ocurre cuando las dos ramas cambiaron la MISMA parte del MISMO archivo de maneras distintas. Git puede combinar cambios que no se tocan — una rama editó el pie y la otra el encabezado, y todo se fusiona solo — pero ante dos versiones del mismo renglón no adivina: cualquiera que eligiera podría borrar el trabajo correcto. Entonces se detiene, marca el archivo como en conflicto y te pasa la decisión a ti, que eres quien entiende el contenido.\n\nLeerlo sin pánico, con estas certezas:\n\n• Un conflicto no es un error tuyo ni una rotura del repositorio: es la fusión pausada a mitad de camino, esperando la decisión. El repositorio sigue sano.\n• status lista exactamente los archivos en conflicto. No hay que buscarlos a ciegas.\n• La fusión no termina hasta que cada archivo se resuelve, se prepara y se confirma. Mientras tanto, Git no permite seguir como si nada, y eso es una protección, no un castigo."
+  },
+  {
+   "page": 9,
+   "kind": "code",
+   "title": "Anatomía de un conflicto: así marca Git las dos versiones",
+   "body": "```\n<<<<<<< HEAD\n<h1>Evidencias de la institución</h1>\n=======\n<h1>Registro de evidencias educativas</h1>\n>>>>>>> pagina-contacto\n```\n\nEntre `<<<<<<< HEAD` y `=======` : lo que hay en la rama\nla rama actual (main). Entre `=======` y `>>>>>>>` :\nlo que trae la rama que fusionas. El trabajo es dejar\nUNA versión final, sin ninguna de las tres marcas."
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.2. Resolver un conflicto, paso a paso y sin improvisar",
+   "body": "El procedimiento es siempre el mismo, y es el que practicarás provocando un conflicto a propósito:\n\n1. Status muestra qué archivos están en conflicto y la lista se anota. Solo esos necesitan la mano; el resto de la fusión ya se resolvió sola.\n2. Cada archivo se abre y las marcas se localizan. Para cada bloque en conflicto decide el resultado final: puede ser la versión de una rama, la de la otra, o una combinación escrita por ti que conserve lo bueno de ambas. Lo que jamás vale es dejar las marcas dentro.\n3. Deja el archivo funcionando tal como quedaría si nunca hubiera habido conflicto: revísalo completo, no solo el bloque marcado, porque la combinación puede haber dejado el conjunto incoherente.\n4. Prepara cada archivo resuelto con add: así le dices a Git «este ya está decidido». Cuando status ya no lista conflictos, la confirmación: ese commit cierra la fusión.\n5. Verifica el resultado como verificarías cualquier entrega: el proyecto se abre, lo fusionado se comprueba y el grafo de la historia se revisa.\n\nY la salida honesta cuando una fusión sale de control: Git permite abortarla antes de confirmar y volver exactamente al estado previo. Abortada la fusión, se respira, se entiende qué pasó y se intenta de nuevo con calma. Eso no es rendirse: es usar la herramienta completa."
+  },
+  {
+   "page": 9,
+   "kind": "warning",
+   "title": "REGLA CRÍTICA ANTE UN CONFLICTO",
+   "body": "Nunca confirmes un archivo que aún contenga las marcas del conflicto (los signos de menor, los iguales y los de mayor que Git escribió): ese texto no es código, es la pregunta sin responder, y al confirmarlo lo metes en la historia como si fuera la respuesta. Antes de cada add de un archivo resuelto, las marcas se buscan en todo el archivo: si queda una sola, el conflicto sigue abierto aunque el código parezca bonito."
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.1. El remoto: el repositorio, también en GitHub",
+   "body": "Definición: un remoto es una copia del repositorio alojada en otro lugar — para esta ruta, en GitHub — conectada al repositorio local con un nombre corto. El nombre de convención para el remoto principal es origin: cuando lees «origin/main», se lee «la copia de main tal como quedó la última vez que sincronizaste con origin».\n\nLos movimientos de sincronización, que son solo dos direcciones con un matiz:\n\n• Subir (push): envía al remoto los commits que la rama local tiene y el remoto no. Publica la historia; hasta que no hay push, los commits existen solo en la máquina, con todo lo que eso arriesga.\n• Bajar: traer los commits que el remoto tiene y el local no. Aquí vive el matiz que separa a quien entiende de quien memoriza: fetch baja los commits y actualiza la vista del remoto SIN tocar el trabajo — es solo mirar qué hay nuevo —; pull hace fetch y, enseguida, fusiona lo bajado dentro de la rama actual — es bajar y aplicar en un solo gesto.\n• El primer push de una rama nueva además la conecta con su pareja remota: a partir de ahí, status sabe decirte si vas por delante, por detrás o en sincronía con el remoto."
+  },
+  {
+   "page": 10,
+   "kind": "code",
+   "title": "Sincronizar con GitHub: conectar, subir y bajar",
+   "body": "```\ngit remote add origin <url-del-repositorio>\n                           → conecta el local con GitHub (una vez)\n`git remote` -v              → muestra a dónde apunta origin\n\n`git push` -u origin main    → primer push: sube main y la enlaza\n`git push`                   → pushes siguientes: ya sabe a dónde\n\n`git fetch`                  → muestra qué hay nuevo, sin tocar la rama\n`git pull`                   → baja lo nuevo y lo fusiona en la rama\n`git status`                 → indica si la rama va ahead, behind o al día\n```"
+  },
+  {
+   "page": 10,
+   "kind": "table",
+   "title": "Tabla comparativa — los cuatro movimientos con el remoto",
+   "body": "Movimiento | Dirección | Qué hace exactamente\nclone | Remoto ──► la máquina (una vez) | Crea la copia local completa y deja origin conectado\nfetch | Remoto ──► la vista del remoto | Trae lo nuevo sin tocar el trabajo ni la rama\npull | Remoto ──► la rama actual | Fetch y fusión en un solo gesto: bajas y aplicas\npush | Tu rama ──► remoto | Sube los commits; el remoto rechaza si primero no se baja lo que él tenga y falta en local"
+  },
+  {
+   "page": 10,
+   "kind": "warning",
+   "title": "PULL ANTES DE PUSH, Y NADA DE FORZAR",
+   "body": "Si el remoto avanzó — porque trabajaste desde otro equipo o alguien más subió cambios — el push será rechazado, y ese rechazo es Git protegiendo historia ajena, no un capricho: primero pull, se resuelve lo que haya que resolver en local, y después push. Existe una forma de forzar la subida sobrescribiendo el remoto: en esta ruta está prohibida sobre ramas compartidas, porque borra del remoto commits que no son solo tuyos."
+  },
+  {
+   "page": 11,
+   "kind": "definition",
+   "title": "11.1. El pull request: proponer un cambio en vez de imponerlo",
+   "body": "Definición: un pull request (PR) es una propuesta formal, dentro de GitHub, de fusionar una rama dentro de otra — casi siempre, la rama de trabajo dentro de main. No es un comando de Git: es la capa de colaboración de GitHub construida sobre todo lo ya visto: una rama, sus commits y una fusión que, en vez de ejecutarse en silencio en la terminal, se propone, se muestra y se discute antes de aplicarse.\n\nLo que un PR pone sobre la mesa y un merge directo no:\n\n• La lista exacta de commits que entrarían y la diferencia completa, archivo por archivo, lista para leer en la web.\n• Un espacio de revisión: comentarios sobre líneas concretas, peticiones de cambio y aprobación explícita de otra persona.\n• Un registro permanente: quién propuso, quién revisó, qué se discutió y cuándo se fusionó. La historia del proyecto gana el porqué, no solo el qué.\n• Controles automáticos cuando el proyecto los tiene: el PR muestra si las comprobaciones pasan antes de permitir la fusión.\n\nEn equipo, el PR es la puerta obligada a main: nadie fusiona su propio trabajo sin que otro par de ojos lo haya visto. En la ruta, aunque el trabajo sea individual, el PR es la evidencia de que se sabe trabajar como trabaja un equipo."
+  },
+  {
+   "page": 11,
+   "kind": "diagram",
+   "title": "El viaje completo de un pull request",
+   "body": "Rama de trabajo ──► commits ──► push a GitHub\n        ▼\nAbres el PR: título, descripción y diferencia visible\n        ▼\nRevisión: comentarios ──► ajustes en la misma rama\n        ▼\nAprobación ──► Merge en GitHub ──► pull al local"
+  },
+  {
+   "page": 11,
+   "kind": "definition",
+   "title": "11.2. Un pull request bien hecho: título, descripción y revisión",
+   "body": "El PR se abre desde GitHub, eligiendo la rama destino (main) y la rama que trae el trabajo. A partir de ahí, su calidad depende de lo mismo que la de los commits: que se entienda sin tener que adivinar.\n\n• Título: una línea, en imperativo, que resume el cambio entero — la misma disciplina del mensaje de commit, porque el PR es, en el fondo, un commit grande propuesto.\n• Descripción: qué cambia y por qué, cómo se probó, y qué debería mirar con más cuidado quien revise. Si el cambio se ve — una página, una pantalla — la descripción lo muestra o dice exactamente dónde verlo. Un PR con la descripción vacía le transfiere el trabajo de explicar a la persona que revisa, y eso se nota.\n• Revisión: cada comentario se responde con un cambio o con una explicación, nunca con silencio. Los ajustes se hacen con commits nuevos sobre la MISMA rama: el PR se actualiza solo con cada push, sin abrir uno nuevo.\n• Cierre: con la aprobación, la fusión se hace en GitHub, la rama remota se borra — ya cumplió — y en el local bajas el resultado y borras también la copia de la rama. El ciclo se cierra limpio: main actualizado en los dos sitios y ninguna rama muerta acumulándose."
+  },
+  {
+   "page": 11,
+   "kind": "warning",
+   "title": "REGLA CRÍTICA DEL PULL REQUEST",
+   "body": "Un PR no es un buzón donde soltar el trabajo sin mirar: antes de abrirlo, la diferencia completa se revisa como si se fuera la otra persona. La mitad de los comentarios de una revisión son cosas que el propio autor habría visto en esa lectura — archivos que no debían ir, cambios olvidados a medias, un mensaje que no explica. La primera revisión es siempre la propia."
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "Práctica previa · Status, diff, ramas y un conflicto, paso a paso",
+   "body": "Lectura del estado: dentro de un repositorio de práctica se ejecuta `git status`. → Git indica la rama actual, qué archivos cambiaron y en qué estado está cada uno (sin seguimiento, modificado o preparado).\nObservación de un cambio antes de prepararlo: una línea de un archivo se modifica y se ejecuta `git diff`. → La salida muestra línea por línea lo que salió y lo que entró, con signos menos y más: ese texto es el cambio que el commit guardará.\nPreparación y revisión de lo preparado: `git add` con el nombre del archivo y después `git diff --staged`. → El mismo cambio aparece ahora como lo que entrará en el commit; `git status` lo muestra en la zona de preparados.\nLectura de la historia: `git log --oneline`. → Una línea por commit, con su identificador corto y su mensaje: el historial que los ejercicios piden dejar limpio y legible.\nCreación de una rama y desplazamiento: `git switch -c practica` crea la rama y entra en ella; `git switch main` vuelve a la principal. → Cada rama posee su propio puntero; `switch` cambia de una a otra y `git status` confirma en cuál se está.\nConflicto pequeño provocado: en la rama `practica` se cambia la primera línea de un archivo y se confirma; en `main` se cambia LA MISMA línea de otra forma y se confirma; desde `main`, la fusión se hace con `git merge practica`. → Git detiene la fusión y marca el archivo en conflicto: ese es el punto de partida del ejercicio de conflictos.\nLectura de las marcas del conflicto: el archivo marcado se abre y se localizan las tres señales: la línea de apertura con el nombre de la rama actual, la línea divisoria de iguales y la línea de cierre con el nombre de la otra rama. → Entre la apertura y la divisoria está la versión de la rama actual; entre la divisoria y el cierre, la que entra. Resolver consiste en dejar una sola versión final y borrar las tres marcas."
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "Ejercicios concretos del Tema 5 · Etapa 2: Práctica",
+   "body": "Ejercicio 1 · Del repositorio vacío al historial base: configura la identidad, inicializa el mini-proyecto con su `.gitignore` desde el día uno y construye los primeros 4 o 5 commits pequeños con mensajes en imperativo, verificando con status antes de cada add y auditando con log --oneline al cerrar cada commit.\nEjercicio 2 · Rama de trabajo y merge sin conflicto: se crea una rama con nombre de oficio, en ella se hacen 2 o 3 commits que no toquen lo que main tocará, se vuelve a main, main avanza con un cambio en otra zona del proyecto y la fusión se hace leyendo el grafo antes y después para distinguir si fue avance rápido o fusión de tres vías.\nEjercicio 3 · Conflicto provocado y resuelto: sobre el mismo renglón de un archivo se escribe una versión en main y otra distinta en una rama, la fusión se intenta, las marcas se leen dentro del archivo, queda una sola versión final sin ninguna marca y la fusión se cierra con su commit, con el proceso documentado en el README.\nEjercicio 4 · GitHub y pull request con auditoría final: el remoto se conecta, main se sube, una mejora se trabaja en una rama, la rama se sube, el pull request se abre con título y descripción completos, se revisa como si se fuera otra persona, se fusiona en GitHub, el resultado se baja con pull y la evidencia completa se audita: log --oneline --graph --all entre 8 y 12 commits limpios en total."
+  },
+  {
+   "page": 14,
+   "kind": "list",
+   "title": "13.1. El flujo completo de trabajo con Git",
+   "body": "Llega un cambio: status para saber la carpeta y la rama actuales.\nSi el cambio es más que un retoque, su rama se abre con nombre de oficio y el cambio a ella se hace con la zona limpia.\nTrabaja en pasos pequeños: en cuanto algo completo funciona, preparas solo eso con add, lo verificas con diff --staged y lo confirmas con un mensaje en imperativo que cuenta el qué y el porqué.\nRepite hasta cerrar el trabajo: el historial de la rama es el cuento de la tarea, leído con log --oneline.\nFusiona en local parado en la rama que recibe, o propón el cambio con un pull request si el equipo lo pide por GitHub.\nSi hay conflicto: status, marcas, una sola versión final sin marcas, add por archivo resuelto, commit de cierre y verificación del resultado.\nSincroniza: pull antes de push, push al terminar, y el grafo como última mirada antes de dar la tarea por cerrada."
+  },
+  {
+   "page": 14,
+   "kind": "warning",
+   "title": "REGLAS CRÍTICAS DE CIERRE",
+   "body": "• Status antes de todo, add con intención y commit atómico con mensaje en imperativo: esa es la cadena que nunca se rompe.\n• Ningún secreto dentro de un commit y ningún `.gitignore` creado tarde: lo que entra en la historia, en la historia se queda.\n• Fusiona parado en la rama que recibe, resuelve los conflictos dejando una sola versión sin marcas, y jamás fuerces un push sobre una rama compartida.\n• El historial debe leerse solo: 8 a 12 commits limpios que cuenten el proyecto sin explicaciones externas."
+  }
+ ],
+ "exercises": [
+  {
+   "n": 1,
+   "title": "Ejercicio 1 · Del repositorio vacío al historial base: status, add, commit y log",
+   "objective": "Crear el repositorio del mini-proyecto con la identidad y el `.gitignore` correctos desde el día uno, y construir sus primeros 4 o 5 commits pequeños y atómicos usando la cadena completa status → add → diff --staged → commit, hasta leer el historial base con log --oneline sin encontrar un solo commit gigante ni un mensaje vacío.",
+   "steps": [
+    {
+     "hacer": "Verificación de la identidad con `git config` --global --list y corrección de nombre y correo si no son los profesionales de la cuenta de GitHub.",
+     "esperado": "La salida muestra el nombre real y el correo de la cuenta de GitHub; todo commit de este ejercicio saldrá firmado así."
+    },
+    {
+     "hacer": "Creación de la carpeta del mini-proyecto (el sitio de práctica sirve), entrada a ella e inicialización; se comprueba que nació la carpeta .git y que la rama inicial se llama main.",
+     "esperado": "`git status` responde dentro del proyecto y anuncia la rama main, sin commits todavía."
+    },
+    {
+     "hacer": "Escritura del `.gitignore` ANTES del primer commit, con las líneas de lo que nunca debe entrar (dependencias, archivos temporales y el archivo de claves), y creación del README con el título del proyecto y una frase de qué es.",
+     "esperado": "El `.gitignore` existe desde el commit número uno, no como parche posterior."
+    },
+    {
+     "hacer": "El primer commit solo con el README y el `.gitignore`: status primero, add nombrando los archivos, diff --staged para ver lo que entrará, y commit con mensaje en imperativo.",
+     "esperado": "log --oneline muestra exactamente 1 línea, comprensible por sí sola, y status queda con la zona limpia."
+    },
+    {
+     "hacer": "Continuación con 3 o 4 commits más, uno por cosa completa: la estructura base del sitio, la página principal, los estilos, la imagen con su ruta relativa. En cada uno se repite la cadena entera sin saltarse el status inicial ni la revisión de la diferencia preparada.",
+     "esperado": "El historial base suma 4 o 5 commits pequeños, cada uno con un solo tema, y en ningún add se usó el punto a ciegas sin mirar antes el status."
+    },
+    {
+     "hacer": "Auditoría del resultado con la lectura del log --oneline completo como si fuera el índice de un cuento.",
+     "esperado": "La lectura cuenta cómo nació el proyecto sin abrir un solo archivo; si una línea no se entiende sola, ese mensaje es el que queda registrado para no repetirlo."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: un repositorio en main con 4 o 5 commits atómicos de mensajes en imperativo, el `.gitignore` presente desde el primer commit y la zona de trabajo limpia.",
+   "verification": "(1) log --oneline cuenta la creación del proyecto línea por línea. (2) Cada commit entró por la cadena status → add → diff --staged → commit. (3) Ningún archivo prohibido por el `.gitignore` aparece en la historia."
+  },
+  {
+   "n": 2,
+   "title": "Ejercicio 2 · Rama de trabajo y merge sin conflicto: branch, switch y merge",
+   "objective": "Abrir una rama con nombre de oficio, trabajar en ella 2 o 3 commits sin tocar lo que la rama principal tocará, y fusionarla de vuelta a main verificando en el grafo si la fusión fue avance rápido o de tres vías, hasta dejar main actualizada y la rama de trabajo borrada.",
+   "steps": [
+    {
+     "hacer": "Con la zona limpia y desde main, creación de la rama de la mejora (por ejemplo, una página de contacto) y cambio a ella en un solo paso; con branch se verifica que la marca de la rama actual cambió.",
+     "esperado": "El trabajo queda sobre la rama nueva y main permanece intacta en su último commit."
+    },
+    {
+     "hacer": "En la rama se hacen 2 o 3 commits atómicos de la mejora, siguiendo la cadena completa de preparación y confirmación en cada uno.",
+     "esperado": "El log --oneline de la rama muestra la historia compartida más los commits nuevos, y solo de la mejora."
+    },
+    {
+     "hacer": "Se vuelve a main y se hace UN commit en una zona del proyecto que la rama no tocó (por ejemplo, un párrafo del README): acabas de crear a propósito la situación de las dos líneas avanzadas.",
+     "esperado": "En el grafo con todas las ramas se ven las dos líneas separadas desde el punto común, cada una con su avance."
+    },
+    {
+     "hacer": "Desde main y con la zona limpia, fusión de la rama de trabajo y lectura calmada de lo que Git anuncia: debe ser una fusión de tres vías, porque ambas líneas avanzaron.",
+     "esperado": "Nace el commit de fusión uniendo las dos historias y el proyecto contiene, a la vez, la mejora y el cambio hecho en main."
+    },
+    {
+     "hacer": "La historia se verifica con el log en grafo de todas las ramas y el proyecto se abre para comprobar que la mejora funciona sobre main; después la rama ya fusionada se borra.",
+     "esperado": "El grafo muestra la apertura, los dos caminos y el cierre; la rama borrada ya no aparece en la lista y el proyecto en main está completo."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: main con una fusión de tres vías registrada en el grafo, la mejora integrada y funcionando, y la rama de trabajo eliminada tras cumplir su función.",
+   "verification": "(1) Mirando el grafo se puede decir por qué esta fusión no fue avance rápido. (2) La fusión se hizo desde la rama que recibe. (3) Ningún cambio de ninguna de las dos líneas se perdió en el camino."
+  },
+  {
+   "n": 3,
+   "title": "Ejercicio 3 · Conflicto provocado y resuelto: el merge que Git no puede hacer solo",
+   "objective": "Provocar un conflicto real cambiando el mismo renglón del mismo archivo en dos ramas, leer las marcas que Git escribe dentro del archivo y resolverlo dejando una sola versión final sin ninguna marca, cerrando la fusión con su commit y dejando el proceso documentado en el README.",
+   "steps": [
+    {
+     "hacer": "Elección de un renglón visible del proyecto — el título principal de la página sirve perfecto — y define cuál será el texto de cada versión y cuál debe ser la versión final combinada.",
+     "esperado": "La decisión de fondo está pensada ANTES de ver las marcas: resolver no es improvisar sobre el archivo marcado."
+    },
+    {
+     "hacer": "En main, ese renglón se cambia a la primera versión y se confirma con su propio commit.",
+     "esperado": "main tiene su versión del renglón guardada en la historia."
+    },
+    {
+     "hacer": "Se crea una rama desde el commit ANTERIOR a ese cambio (o se vuelve sobre los pasos ya practicados), el mismo renglón se cambia a la segunda versión y se confirma también.",
+     "esperado": "Las dos líneas guardan, sobre el mismo renglón, dos textos distintos: el conflicto ya existe en potencia."
+    },
+    {
+     "hacer": "De vuelta en main, la fusión se intenta: Git debe detenerse y anunciar el conflicto. Status muestra el archivo señalado y la lista se anota; luego el archivo se abre y las tres marcas se localizan con las dos versiones.",
+     "esperado": "Sobre la pantalla real queda claro qué parte es de HEAD y qué parte trae la rama, sin adivinar."
+    },
+    {
+     "hacer": "La resolución edita el archivo hasta dejar UNA sola versión final — la combinada ya pensada — y las marcas se buscan en todo el archivo para confirmar que no queda ninguna; la página se abre y se comprueba que se ve como se decidió.",
+     "esperado": "El archivo funciona como si nunca hubiera habido conflicto y no contiene un solo signo de las marcas."
+    },
+    {
+     "hacer": "El archivo resuelto se prepara con add, la confirmación cierra la fusión y el proceso se documenta en el README, con un commit propio: qué renglones chocaron, qué versiones competían y por qué ganó la final.",
+     "esperado": "El grafo muestra la fusión cerrada y el README guarda el aprendizaje, no solo el resultado."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: una fusión con conflicto real cerrada con su commit, el archivo final sin marcas y funcionando, y el proceso documentado en el README paso a paso.",
+   "verification": "(1) Ninguna marca de conflicto quedó dentro del archivo ni en la historia. (2) La versión final es una decisión explicada, no un borrado al azar de una de las dos. (3) El conflicto completo — por qué nació y cómo se cerró — queda documentado en el README."
+  },
+  {
+   "n": 4,
+   "title": "Ejercicio 4 · GitHub y pull request: remote, push, pull y la evidencia de 8-12 commits",
+   "objective": "Publicar el repositorio en GitHub conectando el remoto, completar el ciclo profesional completo — rama, push, pull request revisado y fusionado, pull de vuelta — y auditar la evidencia final del tema: un historial limpio de 8 a 12 commits en total, legible en el grafo y en la web.",
+   "steps": [
+    {
+     "hacer": "Creación del repositorio vacío en GitHub (sin README ni `.gitignore` de la web: la historia ya los trae), conexión del remoto con el nombre origin y verificación de la conexión.",
+     "esperado": "`git remote` -v muestra las direcciones de lectura y escritura apuntando al repositorio."
+    },
+    {
+     "hacer": "Main se sube con el primer push enlazado y GitHub se abre para ver la historia publicada: commits, mensajes y archivos tal como quedaron en local.",
+     "esperado": "La historia de la web y la del log coinciden commit a commit; lo que no estaba confirmado, correctamente, no apareció."
+    },
+    {
+     "hacer": "Creación de una rama de mejora en local, con 1 o 2 commits atómicos en ella, y subida con su primer push enlazado.",
+     "esperado": "La rama existe en GitHub con exactamente los commits de la rama local, ni uno más."
+    },
+    {
+     "hacer": "Apertura del pull request contra main con título en imperativo y descripción completa: qué cambia, por qué, cómo se probó y qué debe mirar quien revise. Antes de crearlo, la diferencia completa del PR se revisa como si se fuera otra persona.",
+     "esperado": "El PR muestra solo los cambios de la mejora y su descripción permite revisarlo sin preguntas."
+    },
+    {
+     "hacer": "La revisión en serio sobre la propia web: cada archivo de la diferencia se lee, al menos un comentario queda escrito y, si algo aparece, la corrección va en un commit nuevo sobre la misma rama y un push: el PR debe actualizarse solo. Después, aprobación y fusión en GitHub, y la rama remota se borra al cerrar.",
+     "esperado": "El PR queda en estado fusionado, con su conversación guardada como parte de la historia del proyecto."
+    },
+    {
+     "hacer": "En el local, de vuelta en main, el resultado se baja con pull, la copia de la rama se borra y se hace la auditoría final de la evidencia: log --oneline --graph --all completo y conteo total de commits, incluidos los de los ejercicios anteriores.",
+     "esperado": "La evidencia del tema está cumplida y demostrable: entre 8 y 12 commits limpios en total, mensajes en imperativo, la fusión local, el conflicto resuelto y el pull request cerrado, todo visible en una sola lectura del grafo y en GitHub."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la evidencia oficial de este tema: «Historial limpio con 8-12 commits» — repositorio publicado en GitHub, con su pull request fusionado y la historia completa legible de principio a fin.",
+   "verification": "(1) El conteo total de commits está entre 8 y 12 y ninguno es gigante ni lleva un mensaje vacío. (2) El pull request existe, está fusionado y su descripción cuenta el cambio sin ayuda. (3) El local y GitHub muestran la misma main después del pull final."
+  }
+ ],
+ "trabajo": {
+  "title": "Trabajo del Tema 5 · Historial limpio con 8-12 commits y pull request",
+  "description": "Situación nueva de este trabajo: los ejercicios del tema practicaron el flujo de Git sobre un mini-proyecto creado solo para practicar. Este trabajo se hace sobre tu PROYECTO REAL — el sitio que traes de los temas 1 a 4, con su página del evento y su formulario de inscripción — y el historial que se construya aquí queda como la historia oficial de ese proyecto, no como un ejercicio.\n\nPublica en GitHub el repositorio de tu proyecto y entrega aquí el enlace del repositorio. El repositorio debe demostrar el dominio completo del tema: (1) historial limpio con 8 a 12 commits en total — pequeños, atómicos y con mensajes en imperativo que cuenten el proyecto leyéndolos en orden con log --oneline; (2) el .gitignore presente desde el primer commit, sin secretos ni archivos generados en la historia; (3) al menos una rama de trabajo fusionada a main en local, visible en el grafo; (4) un conflicto provocado y resuelto, documentado en el README con las versiones que competían y por qué ganó la versión final; (5) al menos un pull request abierto por ti, revisado y fusionado en GitHub.\n\nCómo se desbloquea: este trabajo está bloqueado hasta que termines la fundamentación del Tema 5 en el Cuaderno. Cuando lo envíes, se abre la evaluación Fácil de este tema. Califica el experto de 0 a 10, con retroalimentación, en un plazo máximo de 24 horas desde la entrega.",
+  "estimated_minutes": 300
+ }
+}

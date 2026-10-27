@@ -1,0 +1,587 @@
+{
+ "week": 3,
+ "levels": {
+  "facil": [
+   {
+    "id": "03-f-01",
+    "prompt": "¿Cuál es la primera línea de un documento HTML válido y para qué sirve?",
+    "options": [
+     "`<html lang=\"es\">`, que abre el documento y declara en qué idioma está escrito todo el contenido de la página",
+     "`<!doctype html>`, que ordena al navegador interpretar el archivo como HTML moderno",
+     "`<head>`, que abre la cabeza del documento donde se declaran la codificación, el título y los demás metadatos",
+     "`<meta charset=\"utf-8\">`, que declara la codificación para que las tildes y la ñ se vean bien"
+    ],
+    "answer": 1,
+    "explanation": "La declaración de tipo va antes que todo y no es una etiqueta: activa el modo estándar sin compatibilidades antiguas. `<html>` es el elemento raíz y va después de ella."
+   },
+   {
+    "id": "03-f-02",
+    "prompt": "¿Qué contiene la etiqueta `<main>` en una página semántica?",
+    "options": [
+     "El menú de navegación principal con los enlaces para moverse por el sitio",
+     "Los metadatos del documento, como el título y la descripción",
+     "El contenido principal y único de esa página, aquello por lo que la persona llegó",
+     "El pie de página con la autoría, el contacto y los créditos"
+    ],
+    "answer": 2,
+    "explanation": "`main` es la región del contenido irrepetible de la página y solo puede haber uno. La navegación va en `nav` y el cierre en `footer`."
+   },
+   {
+    "id": "03-f-03",
+    "prompt": "¿Cuántos `<h1>` debe tener una página bien estructurada?",
+    "options": [
+     "Uno: el título del tema de esa página",
+     "Ninguno: el título ya está en `<title>` y no debe repetirse dentro del cuerpo de la página",
+     "Uno por cada sección, para que cada parte del documento tenga un título de primer nivel",
+     "Los que hagan falta, siempre que el diseño los muestre con el tamaño adecuado"
+    ],
+    "answer": 0,
+    "explanation": "El nivel 1 es el título del tema y solo hay uno por página. Un h1 por sección rompe el índice del documento; `title` es otra cosa (la pestaña y el buscador)."
+   },
+   {
+    "id": "03-f-04",
+    "prompt": "¿Para qué sirve el atributo `alt` de una imagen?",
+    "options": [
+     "Para ponerle un título decorativo que aparece al pasar el cursor sobre la imagen",
+     "Para indicar la ruta del archivo desde la raíz del sitio, de forma absoluta",
+     "Para fijar el ancho y el alto que la imagen ocupará en pantalla antes de descargarse",
+     "Para describir la imagen a quien no la ve y mostrar ese texto si el archivo no carga"
+    ],
+    "answer": 3,
+    "explanation": "`alt` es el texto alternativo que reemplaza a la imagen para lectores de pantalla, buscadores o conexiones fallidas. El tamaño se declara con `width` y `height`, y la ruta con `src`."
+   },
+   {
+    "id": "03-f-05",
+    "prompt": "¿Qué clase de información va dentro de `<head>`?",
+    "options": [
+     "Los párrafos y títulos visibles que el navegador pinta primero",
+     "Únicamente el enlace a la hoja de estilos, porque lo demás va en el cuerpo",
+     "Metadatos: codificación, viewport, título y descripción",
+     "El contenido que un lector de pantalla narra al abrir la página"
+    ],
+    "answer": 2,
+    "explanation": "La cabeza guarda lo que no es contenido pero gobierna su interpretación. El contenido visible y audible vive en `body`."
+   },
+   {
+    "id": "03-f-06",
+    "prompt": "¿Qué aporta construir la página con `<header>`, `<nav>`, `<main>` y `<footer>` en lugar de puros `<div>`?",
+    "options": [
+     "Cada región queda nombrada por su significado y las herramientas la reconocen sin adivinar por las clases",
+     "La página se ve mejor sin escribir una sola línea de CSS, porque el navegador aplica un diseño propio",
+     "El navegador descarga y pinta la página aproximadamente el doble de rápido",
+     "Los `<div>` dejan de funcionar dentro de esas etiquetas y hay que evitarlos por completo"
+    ],
+    "answer": 0,
+    "explanation": "La semántica sirve a lectores de pantalla (que saltan entre regiones), a buscadores y a quien mantiene el código. No cambia la velocidad ni el diseño, que es trabajo del CSS."
+   },
+   {
+    "id": "03-f-07",
+    "prompt": "¿Cuál jerarquía de encabezados es correcta en la página de un curso?",
+    "options": [
+     "Un h1 por cada sección del curso, para que todas se vean igual de importantes",
+     "Empezar directamente en h3 porque se ve más discreto y dejar los niveles altos para después",
+     "Elegir cada nivel según el tamaño de letra que se quiera ver, saltando niveles si el diseño lo pide",
+     "Un h1 con el título del curso, h2 por sección y h3 por apartado, sin saltar niveles"
+    ],
+    "answer": 3,
+    "explanation": "Los niveles son profundidad de un esquema, no tamaños. Elegir por apariencia o saltarse niveles destruye el índice que usan lectores de pantalla y buscadores."
+   },
+   {
+    "id": "03-f-08",
+    "prompt": "¿Qué hace la etiqueta `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">`?",
+    "options": [
+     "Define la codificación de caracteres para que se vean bien las tildes y la ñ",
+     "Indica al navegador móvil que el ancho de la página es el ancho real del dispositivo",
+     "Fija el tamaño máximo en píxeles que puede tener la ventana del navegador en un escritorio",
+     "Resume la página en una frase que el buscador muestra bajo el título en los resultados"
+    ],
+    "answer": 1,
+    "explanation": "Sin viewport, el teléfono simula un escritorio diminuto y el texto se vuelve ilegible. La codificación la da `charset` y el resumen la da `description`."
+   },
+   {
+    "id": "03-f-09",
+    "prompt": "¿Por qué `<meta charset=\"utf-8\">` va primero dentro de `<head>`?",
+    "options": [
+     "Porque el navegador debe saber cómo leer los caracteres antes de interpretar el resto de la cabeza",
+     "Porque el buscador solo lee la primera etiqueta de la cabeza para clasificar la página",
+     "Porque sin ella el documento deja de ser HTML válido y el navegador se niega a mostrarlo",
+     "Porque el título de la pestaña depende de ella y no se puede declarar antes"
+    ],
+    "answer": 0,
+    "explanation": "Sin codificación declarada, tildes y eñes pueden verse rotas; por eso se declara pronto. El navegador no rechaza el documento, solo lo interpreta mal."
+   },
+   {
+    "id": "03-f-10",
+    "prompt": "¿Qué lista corresponde a un glosario de términos con su descripción?",
+    "options": [
+     "La lista ordenada (`ol`), porque los términos del glosario van en orden alfabético y numerados",
+     "La lista sin orden (`ul`), porque cada término es un elemento suelto con viñeta",
+     "La lista de definiciones (`dl`, con `dt` y `dd`)",
+     "Una tabla de una sola columna con los términos en negrita"
+    ],
+    "answer": 2,
+    "explanation": "`dl` agrupa parejas de término y descripción. Que un glosario esté ordenado alfabéticamente no vuelve significativo el orden como en un procedimiento."
+   },
+   {
+    "id": "03-f-11",
+    "prompt": "¿Cómo se escribe un enlace que lleva a la sección con `id=\"cosecha\"` dentro de la misma página?",
+    "options": [
+     "`<a href=\"cosecha\">Ir a la cosecha</a>`, porque el navegador busca el identificador por su nombre",
+     "`<a id=\"#cosecha\">Ir a la cosecha</a>`, usando el atributo `id` en el enlace",
+     "`<a href=\"mailto:cosecha\">Ir a la cosecha</a>`",
+     "`<a href=\"#cosecha\">Ir a la cosecha</a>`"
+    ],
+    "answer": 3,
+    "explanation": "Un fragmento interno se escribe con `#` seguido del identificador. Sin `#`, `href=\"cosecha\"` apunta a un archivo llamado cosecha."
+   },
+   {
+    "id": "03-f-12",
+    "prompt": "¿Qué declara el atributo `scope=\"col\"` en una celda `<th>`?",
+    "options": [
+     "Que la celda abarca varias columnas y se fusiona con las vecinas",
+     "Que esa celda de encabezado titula toda su columna",
+     "Que la celda es el título de toda la tabla y debe leerse primero",
+     "Que la celda se muestra en negrita y centrada por ser un encabezado"
+    ],
+    "answer": 1,
+    "explanation": "`scope` indica el alcance del encabezado (columna o fila) para que el lector de pantalla anuncie cada dato con su etiqueta. Fusionar celdas es `colspan`."
+   },
+   {
+    "id": "03-f-13",
+    "prompt": "¿Qué elemento da a una tabla su título, que un lector de pantalla oye antes que cualquier celda?",
+    "options": [
+     "`<caption>`, escrito como primer elemento dentro de `<table>`",
+     "`<h2>` colocado justo encima de la tabla, porque visualmente queda cerca",
+     "`<thead>`, porque agrupa la fila de encabezados con los nombres de las columnas",
+     "`<title>` dentro de la tabla, igual que el de la cabeza del documento"
+    ],
+    "answer": 0,
+    "explanation": "`caption` asocia el título a la tabla. Un encabezado o un párrafo fuera de ella queda huérfano semánticamente aunque se vea cerca."
+   },
+   {
+    "id": "03-f-14",
+    "prompt": "¿Qué atributo permite que una persona reproduzca, pause y ajuste un `<video>` nativo?",
+    "options": [
+     "`autoplay`, que lo reproduce solo en cuanto la página carga",
+     "`poster`, que muestra una imagen mientras el video está parado y habilita los botones",
+     "`preload`, que le da al navegador la orden de mostrar la barra de reproducción",
+     "`controls`"
+    ],
+    "answer": 3,
+    "explanation": "Sin `controls` el archivo está en la página pero no hay cómo manejarlo. `poster` solo es la imagen previa y `preload` solo regula la descarga."
+   },
+   {
+    "id": "03-f-15",
+    "prompt": "¿Qué es obligatorio en un `<iframe>` que incrusta un mapa o un video de otra plataforma?",
+    "options": [
+     "Un `alt` con la descripción del contenido, igual que una imagen",
+     "Un `controls` para que la persona pueda detener el contenido incrustado",
+     "Un atributo `title` descriptivo, porque el lector de pantalla lista los marcos por su título",
+     "Un `download` para que la persona pueda guardar el contenido localmente"
+    ],
+    "answer": 2,
+    "explanation": "Un marco sin título es una ventana sin nombre para quien navega con lector de pantalla. `alt` es de imágenes y `controls` de audio y video."
+   },
+   {
+    "id": "03-f-16",
+    "prompt": "Dentro de un párrafo hay una advertencia que no debe pasarse por alto. ¿Qué etiqueta le corresponde?",
+    "options": [
+     "`<b>`, que solo pinta negrita sin decir nada del significado del texto",
+     "`<strong>`, énfasis fuerte que marca importancia o urgencia",
+     "`<em>`, que marca una palabra destacada por entonación, como un término nuevo",
+     "`<h3>`, para que la advertencia se vea grande y destaque en el párrafo"
+    ],
+    "answer": 1,
+    "explanation": "Importancia o urgencia se marca con `strong`. `em` es énfasis leve, y un encabezado para destacar un párrafo rompe el índice del documento."
+   }
+  ],
+  "medio": [
+   {
+    "id": "03-m-01",
+    "prompt": "La página de un restaurante debe presentar el nombre del local, las secciones de la carta (entradas, platos fuertes, postres) y los platos de cada sección. ¿Qué estructura de encabezados y listas le corresponde?",
+    "options": [
+     "Un h1 por cada plato, para que cada uno se vea con la misma importancia que el nombre del local",
+     "Solo párrafos con el texto en negrita, sin encabezados, porque la apariencia es lo que importa en una carta",
+     "Una tabla para toda la carta, con secciones y platos mezclados en filas",
+     "Un h1 para el nombre, un h2 por sección de la carta y una lista por los platos de cada sección"
+    ],
+    "answer": 3,
+    "explanation": "El nombre es el tema (h1), las secciones son las partes (h2) y los platos son un conjunto de elementos hermanos (lista). Varios h1 rompen el índice."
+   },
+   {
+    "id": "03-m-02",
+    "prompt": "La carta lleva la foto del plato principal, que la persona que no puede verla necesita conocer para decidir. ¿Qué texto alternativo le corresponde?",
+    "options": [
+     "`alt=\"imagen\"`",
+     "`alt=\"foto.jpg\"`",
+     "Un alt que describe el plato mostrado, porque la imagen aporta información",
+     "Ningún alt: las fotos de comida son decoración y el lector de pantalla las omite sola"
+    ],
+    "answer": 2,
+    "explanation": "Una imagen informativa lleva un alternativo que cuenta qué aporta. «imagen» y el nombre del archivo son ruido; omitir el atributo obliga al lector a leer el nombre del archivo."
+   },
+   {
+    "id": "03-m-03",
+    "prompt": "El procedimiento de inscripción a un curso tiene pasos que deben seguirse en orden: primero el pago, después el formulario, después la confirmación. ¿Qué lista lo marca correctamente?",
+    "options": [
+     "Una lista ordenada (`ol`): aquí el orden cambia el significado",
+     "Una lista sin orden (`ul`): el orden ya se entiende leyendo el texto de cada paso y las viñetas son suficientes",
+     "Párrafos separados por saltos de línea con los números escritos a mano",
+     "Una lista de definiciones, con cada paso como término y su fecha como descripción"
+    ],
+    "answer": 0,
+    "explanation": "Si el orden significa algo, corresponde `ol`, que además se renumera sola al reordenar. Los números a mano quedan mintiendo cuando el orden cambia."
+   },
+   {
+    "id": "03-m-04",
+    "prompt": "Un enlace de la página dice «haz clic aquí» y lleva a la carta en PDF. ¿Cuál es la corrección que pide el tema?",
+    "options": [
+     "Dejarlo como está: «haz clic aquí» es una frase que todo el mundo entiende en una página web",
+     "Quitar el enlace y pegar la carta como una imagen dentro de la página",
+     "Convertirlo en un botón dibujado con una tabla para que llame más la atención",
+     "Reescribir el texto para que se entienda solo, por ejemplo «Carta completa del restaurante (PDF)»"
+    ],
+    "answer": 3,
+    "explanation": "El texto del enlace se lee fuera de contexto en la lista de enlaces del lector de pantalla y lo usa el buscador. «Haz clic aquí» no dice a dónde lleva."
+   },
+   {
+    "id": "03-m-05",
+    "prompt": "La página incluye la tabla de horarios de atención, con los días como encabezado de cada columna. ¿Cómo se marcan esas celdas de encabezado?",
+    "options": [
+     "Como celdas `td` normales con el texto en negrita, porque se ve igual",
+     "Con `th` y `scope=\"col\"`, que declaran que cada celda titula su columna",
+     "Con un `h2` dentro de cada celda, para que el lector las anuncie como títulos",
+     "No se marcan: basta con que la primera fila se vea distinta mediante estilos"
+    ],
+    "answer": 1,
+    "explanation": "Un encabezado de tabla es una etiqueta de su columna o fila, no una celda de datos en negrita. Se ve igual pero se escucha fatal."
+   },
+   {
+    "id": "03-m-06",
+    "prompt": "El teléfono y la dirección del restaurante deben ir en la página. ¿En qué región semántica viven?",
+    "options": [
+     "En el pie (`footer`), donde vive la información de cierre y contacto",
+     "En el `main`, porque es información importante y todo lo importante va en el contenido principal",
+     "En el `header`, junto al nombre del local y antes de cualquier otra cosa",
+     "En un `aside`, porque es información secundaria y no forma parte del hilo principal"
+    ],
+    "answer": 0,
+    "explanation": "El pie reúne autoría, contacto, enlaces legales y créditos. El `main` es lo único de cada página, que aquí es la carta."
+   },
+   {
+    "id": "03-m-07",
+    "prompt": "Una imagen es a la vez un enlace: `<a href=\"catalogo.html\"><img src=\"img/portada.jpg\" alt=\"...\"></a>`. ¿Qué alt le corresponde?",
+    "options": [
+     "`alt=\"Foto de una pila de libros sobre una mesa de madera junto a una ventana\"`",
+     "`alt=\"portada.jpg\"`",
+     "`alt=\"Ir al catálogo completo\"`",
+     "`alt=\"imagen\"`"
+    ],
+    "answer": 2,
+    "explanation": "Cuando la imagen es el enlace, el alternativo describe el destino, porque es lo que oye quien escucha la lista de enlaces. Describir la foto o nombrar el archivo no dice a dónde lleva."
+   },
+   {
+    "id": "03-m-08",
+    "prompt": "La página `blog/entrada.html` debe mostrar `img/foto.jpg`, que está en la carpeta `img` de la raíz del sitio (al lado de la carpeta `blog`). ¿Qué ruta relativa al documento es correcta?",
+    "options": [
+     "`img/foto.jpg`, porque la carpeta `img` queda al lado de `blog` y el navegador la encuentra sola",
+     "`./blog/img/foto.jpg`, bajando a `blog` y luego a `img`",
+     "`.../img/foto.jpg`, con un punto por cada nivel que se sube",
+     "`../img/foto.jpg`"
+    ],
+    "answer": 3,
+    "explanation": "Las rutas se miden desde la carpeta de la página que enlaza; hay que subir un nivel con `..` antes de entrar a `img`. `img/foto.jpg` buscaría `blog/img/foto.jpg`."
+   },
+   {
+    "id": "03-m-09",
+    "prompt": "Un video informativo alojado en el propio sitio debe poder entenderse sin sonido. ¿Qué se añade dentro de `<video>`?",
+    "options": [
+     "Un `<source>` adicional con una versión del video sin sonido en otro formato",
+     "Una pista `<track kind=\"captions\" srclang=\"es\" src=\"video.vtt\">` con los subtítulos",
+     "El atributo `autoplay` para que se vea sin esperar, aunque quede en silencio",
+     "Un `poster` con una captura del video, que reemplaza el contenido hablado"
+    ],
+    "answer": 1,
+    "explanation": "La pista de texto ofrece subtítulos a quien no puede oír o no puede poner sonido. `source` da formatos alternativos y `poster` es solo la imagen previa."
+   },
+   {
+    "id": "03-m-10",
+    "prompt": "Se incrusta un mapa de otra plataforma al final de una página larga. ¿Qué configuración sigue el tema?",
+    "options": [
+     "`<iframe>` con `title` descriptivo, dimensiones declaradas y carga diferida (`loading=\"lazy\"`)",
+     "`<iframe>` sin título para no repetir el nombre que ya muestra el mapa, con carga inmediata para que esté listo",
+     "Una imagen del mapa dentro de un `<figure>`, que carga igual de rápido y no depende de nadie",
+     "`<video controls>` con el mapa como fuente, que es el elemento nativo para multimedia"
+    ],
+    "answer": 0,
+    "explanation": "Un marco necesita título, tamaño reservado y carga diferida para no castigar a quien solo lee el inicio. Un marco sin título es una ventana sin nombre."
+   },
+   {
+    "id": "03-m-11",
+    "prompt": "La página tiene dos regiones `<nav>`: los enlaces principales y los del pie. ¿Qué conviene hacer?",
+    "options": [
+     "Convertir una de las dos en `<section>`, porque solo puede haber una navegación por página",
+     "Dejarlas iguales: el lector de pantalla ya distingue las dos por su posición en el documento",
+     "Fusionarlas en una sola `<nav>` ubicada en el `main`",
+     "Darle a cada una un nombre accesible, por ejemplo `aria-label=\"Principal\"` y `aria-label=\"Pie\"`"
+    ],
+    "answer": 3,
+    "explanation": "Varias navegaciones sí son válidas, pero deben distinguirse con un nombre accesible. Lo que es único por página es `main`."
+   },
+   {
+    "id": "03-m-12",
+    "prompt": "Se quiere ofrecer la descarga de `docs/guia.pdf`. ¿Cuál es el enlace correcto?",
+    "options": [
+     "`<a href=\"docs/guia.pdf\" target=\"_blank\">Haz clic aquí</a>`, que abre el archivo en otra pestaña",
+     "`<a src=\"docs/guia.pdf\" download>Descargar la guía (PDF)</a>`",
+     "`<a href=\"docs/guia.pdf\" download>Descargar la guía (PDF)</a>`",
+     "`<button href=\"docs/guia.pdf\">Descargar</button>`, porque descargar es una acción"
+    ],
+    "answer": 2,
+    "explanation": "La descarga usa `href` con el atributo `download` y un texto que indica qué archivo es. `src` no es un atributo válido de `a`, y `button` no lleva `href`."
+   },
+   {
+    "id": "03-m-13",
+    "prompt": "En una tienda cada tarjeta de producto (foto, nombre, precio) tendría sentido aunque se copiara a otra página. ¿Qué etiqueta marca cada tarjeta?",
+    "options": [
+     "`<section>`, porque es una parte temática de la página con su título",
+     "`<article>`, una pieza completa e independiente",
+     "`<aside>`, porque cada tarjeta es un contenido relacionado pero secundario",
+     "`<div>`, porque una tarjeta es un contenedor visual y no tiene significado propio"
+    ],
+    "answer": 1,
+    "explanation": "Una pieza autónoma, como una ficha o una tarjeta de producto, es un `article`. `section` es una parte temática de un documento, no una pieza que se sostenga sola."
+   },
+   {
+    "id": "03-m-14",
+    "prompt": "Una imagen ornamental, que no aporta información, aparece en el cuerpo con `<img>`. ¿Cómo se marca?",
+    "options": [
+     "Sin el atributo `alt`, porque lo que no aporta nada no necesita descripción",
+     "Con `alt=\"\"`: presente pero vacío, para que el lector de pantalla la salte",
+     "Con `alt=\"decoración\"`, para avisar a quien escucha de que la imagen es solo adorno",
+     "Con el nombre del archivo en `alt`, para que al menos el texto sea único"
+    ],
+    "answer": 1,
+    "explanation": "Alt vacío le dice al lector «sáltame»; ausente le obliga a leer el nombre del archivo, que es ruido. Una palabra como «decoración» también se anuncia."
+   },
+   {
+    "id": "03-m-15",
+    "prompt": "En un texto se menciona por primera vez el término «beneficio húmedo» y se quiere destacar solo ese término por entonación. ¿Qué etiqueta corresponde?",
+    "options": [
+     "`<strong>`, porque un término técnico nuevo es lo más importante del párrafo",
+     "`<code>`, porque es una palabra técnica",
+     "`<em>`, énfasis leve",
+     "`<blockquote>`, porque el término viene de otra fuente"
+    ],
+    "answer": 2,
+    "explanation": "Un término nuevo destacado por entonación es énfasis leve. `strong` es importancia o urgencia y `code` nombra comandos o etiquetas, no términos."
+   },
+   {
+    "id": "03-m-16",
+    "prompt": "Una receta lista sus ingredientes: café, panela y plátano. El orden no importa. ¿Qué marcado corresponde?",
+    "options": [
+     "`<ul>` con un `<li>` por ingrediente",
+     "`<ol>` con un `<li>` por ingrediente, porque así quedan numerados y ordenados",
+     "`<dl>` con cada ingrediente como término y sin descripción",
+     "Un `<p>` con los ingredientes separados por saltos de línea `<br>`"
+    ],
+    "answer": 0,
+    "explanation": "Un conjunto sin orden significativo es una lista sin orden. `ol` diría falsamente que el orden importa y los saltos de línea no declaran ninguna lista."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "03-d-01",
+    "prompt": "Diagnóstico: una página usa cinco h1 (uno por sección) y los niveles se eligen «por el tamaño que se quiere ver». Un lector de pantalla anuncia una jerarquía confusa. ¿Cuál es el diagnóstico y la corrección?",
+    "options": [
+     "El lector de pantalla está desactualizado y no sabe interpretar varios encabezados de primer nivel, por lo que basta con actualizarlo y dejar el documento como está, porque cada sección merece su propio título principal",
+     "Hay que quitar todos los encabezados y marcar los títulos con párrafos en negrita para que se vean",
+     "Cada sección debe conservar su propio h1 y añadir un `aria-label` para que el lector lo anuncie con más fuerza",
+     "La jerarquía se construyó por apariencia: un solo h1 con el título de la página, h2 por sección y h3 por apartado, sin saltos, y el tamaño visual se resuelve con CSS"
+    ],
+    "answer": 3,
+    "explanation": "Los niveles son profundidad del índice, no tamaños: elegirlos por apariencia lo rompe para quien escucha. El tamaño es trabajo de CSS."
+   },
+   {
+    "id": "03-d-02",
+    "prompt": "Diagnóstico: toda la página está hecha con `div` y clases («cabecera», «menu», «pie»), la foto principal no tiene `alt` y el documento no declara el idioma. ¿Qué correcciones pide el tema?",
+    "options": [
+     "Dejar los `div` y solo añadir `alt`, porque las clases ya expresan el significado de cada región",
+     "Cambiar los `div` por `header`, `nav`, `main` y `footer`, dar a la imagen su alternativo y declarar `lang` en la raíz",
+     "Renombrar las clases con nombres más claros y más detallados, que es lo que leen los lectores de pantalla y buscadores",
+     "Pasar todo el texto a imágenes con una descripción larga, para controlar exactamente cómo se ve la página"
+    ],
+    "answer": 1,
+    "explanation": "Las clases no las interpretan los lectores de pantalla ni los buscadores; las etiquetas semánticas sí. Además la imagen informativa necesita `alt` y la raíz necesita `lang` para pronunciar bien."
+   },
+   {
+    "id": "03-d-03",
+    "prompt": "Análisis: para «que se vea en dos columnas» alguien maquetó la página con una tabla de una fila y dos celdas: el menú en una y el contenido en otra. ¿Por qué el tema lo considera incorrecto?",
+    "options": [
+     "Porque la tabla declara datos cruzados por filas y columnas, y eso miente sobre un maquetado; las regiones se marcan con etiquetas semánticas y el diseño es del CSS",
+     "Porque las tablas ya no funcionan en los navegadores modernos: se muestran rotas o desalineadas y por eso hoy cualquier tabla, incluso la de datos reales, debe sustituirse por columnas de CSS",
+     "Porque las tablas solo pueden contener números y el menú son textos",
+     "Porque la tabla no lleva bordes y sin ellos la separación en columnas no se ve"
+    ],
+    "answer": 0,
+    "explanation": "Una tabla es para datos que se entienden cruzando encabezados; usarla para colocar bloques hace que el lector de pantalla intente leer el diseño como datos."
+   },
+   {
+    "id": "03-d-04",
+    "prompt": "Caso combinado: el documento no declara la codificación ni el idioma, y el texto lleva tildes y eñes. Algunos caracteres se ven cambiados y el lector de pantalla pronuncia con la voz de otro idioma. ¿Qué dos declaraciones faltan?",
+    "options": [
+     "`<title>` y `<meta name=\"description\">`, que informan al navegador de qué trata la página y en qué idioma",
+     "El viewport y el favicon, que ajustan los caracteres y la voz al dispositivo en el que se abre la página, de modo que cada teléfono o lector use su propia configuración",
+     "`<meta charset=\"utf-8\">` en el head, que dice cómo interpretar los caracteres, y `lang=\"es\"` en la raíz, que dice en qué lengua está el contenido",
+     "El `doctype` repetido al principio del head y del body, para que la declaración alcance a todo el contenido"
+    ],
+    "answer": 2,
+    "explanation": "Los caracteres rotos se corrigen con la codificación y la voz equivocada con el idioma de la raíz. Título y descripción no afectan a ninguno de los dos síntomas."
+   },
+   {
+    "id": "03-d-05",
+    "prompt": "Diagnóstico: el validador marca un segundo `main` (el de «ofertas», pegado de otra página) y encabezados que saltan de `h1` a `h4`. ¿Qué dos reglas se rompen?",
+    "options": [
+     "El `main` no puede llevar texto y los `h4` están prohibidos en HTML5",
+     "Los `main` deben ordenarse alfabéticamente y los encabezados deben tener el mismo número de palabras",
+     "Ninguna: el validador exagera y el navegador lo muestra bien, de modo que se puede ignorar",
+     "Solo puede haber un `main` por página y los encabezados bajan nivel a nivel, sin saltos"
+    ],
+    "answer": 3,
+    "explanation": "La unicidad de `main` y la jerarquía sin saltos son reglas de estructura. Que el navegador lo muestre bien no significa que sea válido: perdona en silencio."
+   },
+   {
+    "id": "03-d-06",
+    "prompt": "Análisis: una imagen lleva `alt=\"La misma foto de siempre, muy bonita, que decora todas las páginas del sitio y no aporta nada\"`. La imagen es puramente decorativa. ¿Cuál es el tratamiento correcto?",
+    "options": [
+     "Mantener ese alt: más descripción siempre es mejor para quien usa lector de pantalla",
+     "`alt=\"\"`: una imagen sin información no debe anunciarse ni interrumpir la lectura",
+     "Quitar el atributo `alt` por completo, de modo que el lector de pantalla no encuentre nada que leer",
+     "Poner como alt el nombre del archivo, que al menos es corto y único"
+    ],
+    "answer": 1,
+    "explanation": "Alt vacío y presente le dice al lector «sáltame». Ausente, el lector lee el nombre del archivo; con ese texto largo, anuncia ruido cada vez."
+   },
+   {
+    "id": "03-d-07",
+    "prompt": "Síntoma: en el teléfono, la página se ve como un escritorio diminuto y hay que hacer zoom para leer; en el computador se ve bien. El `<head>` solo tiene `<meta charset=\"utf-8\">` y `<title>`. ¿Qué falta?",
+    "options": [
+     "`<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">`",
+     "`<meta name=\"description\">`, porque sin descripción el móvil no sabe cómo ajustar el texto",
+     "`lang=\"es\"` en la raíz, que indica al teléfono cómo escalar el texto en pantallas pequeñas",
+     "Un segundo `<meta charset>` específico para móviles, ya que la codificación del escritorio no aplica"
+    ],
+    "answer": 0,
+    "explanation": "Sin viewport, el móvil asume un ancho de escritorio y reduce la página. La descripción sirve a buscadores y `lang` al lector de pantalla; ninguna afecta al ancho."
+   },
+   {
+    "id": "03-d-08",
+    "prompt": "Un validador devuelve 14 errores en un documento. ¿Cuál es el método de corrección que recomienda el tema?",
+    "options": [
+     "Corregir los 14 a la vez, empezando por el último, para que ninguno interfiera con otro",
+     "Ignorar los que no se entienden, mientras la página se vea bien en el navegador que se usa",
+     "Reescribir el documento desde cero con un esqueleto nuevo, ya que 14 errores indican que el archivo no se puede reparar",
+     "Corregir solo el primer error, volver a validar y repetir, porque suele hacer desaparecer varios que eran su consecuencia"
+    ],
+    "answer": 3,
+    "explanation": "Un error de anidación o de cierre suele provocar errores en cadena. Lo que el validador marca y no se entiende se anota y se pregunta, nunca se ignora."
+   },
+   {
+    "id": "03-d-09",
+    "prompt": "Síntoma: una imagen no aparece. En Network, la petición a `img/Foto.jpg` devuelve 404, y en el proyecto el archivo se llama `foto.jpg` dentro de `img`. ¿Cuál es la corrección?",
+    "options": [
+     "Renombrar el archivo a `Foto.jpg`, porque el servidor distingue mayúsculas y el HTML tiene la razón",
+     "Añadir un texto en `alt`, porque el 404 se debe a que la imagen no declara su descripción",
+     "Corregir la ruta del HTML a `img/foto.jpg`, con el nombre y las minúsculas exactas del archivo real",
+     "Renombrar la carpeta `img` a `images` en todo el proyecto, porque las rutas relativas no encuentran archivos en carpetas con nombres cortos"
+    ],
+    "answer": 2,
+    "explanation": "El método es comparar la ruta pedida con la real y corregir la ruta, no el archivo. El `alt` no influye en que el archivo se encuentre."
+   },
+   {
+    "id": "03-d-10",
+    "prompt": "En una tabla de producción, los encabezados «Vereda», «Familias» y «Cargas» son celdas `<td>` con `<strong>`. Se ve bien, pero el lector de pantalla anuncia solo «42, 310». ¿Cuál es la causa y la corrección?",
+    "options": [
+     "El lector de pantalla no soporta tablas; debe sustituirse la tabla por párrafos separados",
+     "Los encabezados no están marcados como encabezados: deben ser `<th>` con `scope` de columna o fila, para que cada celda se anuncie con su etiqueta",
+     "Falta un `<caption>`, que es el único elemento que permite anunciar cada celda con su encabezado",
+     "Hay que repetir el nombre de la columna como texto dentro de cada celda de datos, por ejemplo «Cargas: 310», y así el lector de pantalla lo dice completo sin necesidad de encabezados"
+    ],
+    "answer": 1,
+    "explanation": "Un `th` con alcance declara que la celda etiqueta su columna o fila; la negrita solo es apariencia. El `caption` nombra la tabla, no cada celda."
+   },
+   {
+    "id": "03-d-11",
+    "prompt": "Un sitio publicado en `usuario.github.io/mi-sitio/` usa `<img src=\"/img/logo.png\">` y funciona en local pero da 404 en producción. ¿Cuál es la causa y la mejor corrección?",
+    "options": [
+     "GitHub Pages no admite imágenes PNG, por lo que hay que convertir el logo a otro formato",
+     "La ruta empieza con barra y se mide desde la raíz del dominio, no del proyecto; conviene una ruta relativa al documento como `img/logo.png`",
+     "El problema es el tamaño del archivo; basta con declarar `width` y `height` en la imagen",
+     "Falta el atributo `alt`, sin el cual el servidor no entrega la imagen"
+    ],
+    "answer": 1,
+    "explanation": "Una ruta con barra inicial busca en `usuario.github.io/img/logo.png`, fuera de la subcarpeta del proyecto. La ruta relativa al documento es robusta ante ese cambio."
+   },
+   {
+    "id": "03-d-12",
+    "prompt": "Se usa `<h3>` para un aviso destacado en medio de un artículo, solo porque el estilo por defecto se parece a lo que se quería. ¿Qué problema crea y qué corrige?",
+    "options": [
+     "Ninguno: mientras se vea destacado, el nivel de encabezado se elige por comodidad",
+     "El problema es que debería ser `<h1>` para destacar más y que el buscador lo valore",
+     "Inserta un título falso en el índice del documento; el aviso debe ser un `<p>` con `<strong>` y el aspecto se ajusta con CSS",
+     "Debe convertirse en un `<blockquote>`, que es la etiqueta de contenido llamativo"
+    ],
+    "answer": 2,
+    "explanation": "Los encabezados forman el índice; un aviso no titula nada. La importancia dentro de un párrafo se marca con `strong`. `blockquote` es para citas extensas."
+   },
+   {
+    "id": "03-d-13",
+    "prompt": "Alguien escribe `<ul><li>Café</li><ul><li>Arábica</li></ul></ul>` para anidar una lista. ¿Qué falla y cuál es la forma correcta?",
+    "options": [
+     "La lista hija está entre elementos de la madre; debe ir dentro de un `<li>`: `<ul><li>Café<ul><li>Arábica</li></ul></li></ul>`",
+     "Nada falla: el navegador la muestra con sangría y eso demuestra que la anidación es válida",
+     "Falta convertir la lista hija en `<ol>`, porque toda lista anidada debe ser ordenada",
+     "La lista hija debe ir fuera de la madre, en un `<ul>` hermano justo después"
+    ],
+    "answer": 0,
+    "explanation": "Un `ul` solo admite `li` como hijos directos; la lista hija pertenece al elemento que la contiene. Que se vea bien no la hace válida."
+   },
+   {
+    "id": "03-d-14",
+    "prompt": "Un video con `autoplay` y sonido, `preload=\"auto\"` y sin `controls` no se reproduce en varios navegadores y gasta datos móviles. ¿Qué cambios corresponden?",
+    "options": [
+     "Mantener `autoplay` y sumar `muted` y `loop` para que nunca se detenga, sin ofrecer controles",
+     "Cambiar a `preload=\"auto\"` en todos los videos para garantizar que carguen antes de que la persona los vea",
+     "Reemplazarlo por una imagen animada, que no necesita controles ni subtítulos",
+     "Quitar la reproducción automática con sonido, usar `preload=\"metadata\"` y añadir `controls`, `poster` y subtítulos"
+    ],
+    "answer": 3,
+    "explanation": "Los navegadores bloquean la reproducción automática con sonido. Forzar la descarga completa castiga a quien usa conexión móvil, y sin controles no hay cómo pausar."
+   },
+   {
+    "id": "03-d-15",
+    "prompt": "Alguien escribe los pasos de una receta como «1. Despulpar. 2. Fermentar. 3. Secar.» dentro de un párrafo. Después se inserta un paso nuevo al inicio y los números quedan mal. ¿Qué enfoque lo evita?",
+    "options": [
+     "Usar `<ul>` con los números escritos a mano dentro de cada `<li>`, que se ve igual",
+     "Separar los pasos con `<br>` y renumerarlos manualmente cada vez que cambie algo",
+     "Marcar los pasos con `<ol>` y un `<li>` por paso, de modo que el navegador numere y renumere solo",
+     "Usar una `<dl>`, con el número como término y el paso como descripción"
+    ],
+    "answer": 2,
+    "explanation": "El orden significativo pide `ol`, que corrige la numeración sola. Los números a mano, aunque estén en `li`, siguen mintiendo al reordenar."
+   },
+   {
+    "id": "03-d-16",
+    "prompt": "Una página tiene `<meta name=\"description\" content=\"...\">` dentro de `<body>`. El título aparece bien en la pestaña, pero los buscadores no muestran la descripción. ¿Qué pasa?",
+    "options": [
+     "Los metadatos pertenecen al `head`; en el `body` no hacen nada, así que hay que moverlo a la cabeza",
+     "Las descripciones solo se leen si están después del contenido principal, así que debe ir al final del `body`",
+     "El título y la descripción se excluyen mutuamente, y el buscador solo toma uno de los dos",
+     "Falta `lang` en la raíz; sin idioma declarado el buscador descarta cualquier descripción, aunque esté en la cabeza, y solo usa el texto del primer párrafo"
+    ],
+    "answer": 0,
+    "explanation": "Ningún metadato vive en `body`. Lo que no está en el sitio correcto del documento para el buscador no existe, aunque el navegador lo tolere."
+   }
+  ]
+ }
+}

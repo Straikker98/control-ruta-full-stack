@@ -1,0 +1,92 @@
+[
+ {
+  "id": "terminal",
+  "title": "Terminal y entorno",
+  "week": 1
+ },
+ {
+  "id": "html",
+  "title": "HTML",
+  "week": 3
+ },
+ {
+  "id": "git",
+  "title": "Git y GitHub",
+  "week": 5
+ },
+ {
+  "id": "css",
+  "title": "CSS",
+  "week": 7
+ },
+ {
+  "id": "javascript",
+  "title": "JavaScript",
+  "week": 13
+ },
+ {
+  "id": "sql",
+  "title": "SQL y PostgreSQL",
+  "week": 25
+ },
+ {
+  "id": "node",
+  "title": "Node.js",
+  "week": 31
+ },
+ {
+  "id": "rest",
+  "title": "APIs REST",
+  "week": 32
+ },
+ {
+  "id": "typescript",
+  "title": "TypeScript",
+  "week": 37
+ },
+ {
+  "id": "react",
+  "title": "React",
+  "week": 38
+ },
+ {
+  "id": "supabase",
+  "title": "Supabase",
+  "week": 43
+ },
+ {
+  "id": "vercel",
+  "title": "Despliegue en Vercel",
+  "week": 47
+ },
+ {
+  "id": "docker",
+  "title": "Docker",
+  "week": 50
+ },
+ {
+  "id": "cicd",
+  "title": "CI/CD",
+  "week": 51
+ },
+ {
+  "id": "nextjs",
+  "title": "Next.js",
+  "week": 53
+ },
+ {
+  "id": "seguridad",
+  "title": "Seguridad web",
+  "week": 54
+ },
+ {
+  "id": "algoritmos",
+  "title": "Algoritmos",
+  "week": 55
+ },
+ {
+  "id": "python",
+  "title": "Python",
+  "week": 57
+ }
+]

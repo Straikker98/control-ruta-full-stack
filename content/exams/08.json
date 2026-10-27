@@ -1,0 +1,587 @@
+{
+ "week": 8,
+ "levels": {
+  "facil": [
+   {
+    "id": "08-f-01",
+    "prompt": "¿Dónde se declara el layout de un grupo de cajas?",
+    "options": [
+     "En el contenedor padre: el contenedor manda y ordena a sus hijos directos",
+     "En cada hijo, uno por uno, repitiendo la misma propiedad en todos para que se ordenen igual",
+     "En el elemento raíz del documento, para que todas las páginas hereden un único reparto",
+     "En la hoja de estilos del navegador, que decide el orden de todas las cajas"
+    ],
+    "answer": 0,
+    "explanation": "El layout se escribe en el contenedor y ordena a sus hijos directos. Declararlo hijo por hijo es el error típico: la propiedad queda en el elemento equivocado."
+   },
+   {
+    "id": "08-f-02",
+    "prompt": "¿Cuál es la diferencia de fondo entre Flexbox y Grid?",
+    "options": [
+     "Grid es para texto y Flexbox para imágenes, porque cada sistema se creó para un tipo de contenido",
+     "Flexbox es el sistema moderno y Grid quedó en desuso porque los navegadores dejaron de ampliarlo",
+     "Son lo mismo con distinta sintaxis: cualquier layout se escribe igual con uno u otro sin diferencias",
+     "Flexbox ordena a lo largo de un solo eje; Grid controla filas y columnas a la vez (dos dimensiones)"
+    ],
+    "answer": 3,
+    "explanation": "Flexbox trabaja un eje cada vez y Grid dos dimensiones. No son equivalentes ni compiten: responden a preguntas distintas."
+   },
+   {
+    "id": "08-f-03",
+    "prompt": "En un contenedor flexible en fila, ¿qué reparte `justify-content`?",
+    "options": [
+     "El espacio entre filas cuando hay varias líneas de ítems",
+     "El tamaño de fuente de los hijos según el ancho que les toque",
+     "El espacio sobrante a lo largo del eje principal (la fila)",
+     "La alineación vertical de cada hijo dentro de la fila"
+    ],
+    "answer": 2,
+    "explanation": "En una fila el eje principal es el horizontal y `justify-content` reparte el sobrante sobre él. La alineación vertical es del eje transversal y la hace `align-items`."
+   },
+   {
+    "id": "08-f-04",
+    "prompt": "¿Cómo se comporta una caja de bloque en el flujo normal?",
+    "options": [
+     "Se coloca al lado de la anterior si hay espacio en la línea",
+     "Ocupa todo el ancho disponible y la siguiente caja empieza en una línea nueva",
+     "Flota sobre el contenido siguiente sin ocupar sitio en el flujo",
+     "Se ajusta al ancho de su texto, como una palabra dentro de un párrafo"
+    ],
+    "answer": 1,
+    "explanation": "Las cajas de bloque ocupan todo el ancho y se apilan. Ajustarse al contenido y correr junto a otras es el comportamiento de las cajas en línea."
+   },
+   {
+    "id": "08-f-05",
+    "prompt": "Una barra de navegación debe repartir sus enlaces en una sola fila, ajustándose a lo que ocupa cada enlace. ¿Qué sistema corresponde y por qué?",
+    "options": [
+     "Grid: toda zona con varios elementos debe declararse como una cuadrícula de filas y columnas",
+     "Flexbox: en esa zona manda el contenido y el orden es a lo largo de un solo eje",
+     "`position: absolute`: cada enlace se coloca con coordenadas propias para controlarlo con precisión",
+     "Ninguno: las barras de navegación se construyen con una tabla de una fila"
+    ],
+    "answer": 1,
+    "explanation": "Una sucesión sobre un eje cuyo reparto depende del tamaño de cada pieza es el caso de Flexbox. Grid se reserva para estructuras en dos dimensiones."
+   },
+   {
+    "id": "08-f-06",
+    "prompt": "¿Qué cambia al aplicar `display: flex` a un contenedor que estaba en flujo normal?",
+    "options": [
+     "Sus hijos directos pasan a ordenarse a lo largo de un eje según las reglas del contenedor",
+     "Todos los hijos quedan invisibles hasta que se pasa el cursor sobre el contenedor flexible",
+     "El contenedor se convierte automáticamente en una cuadrícula de dos dimensiones con filas y columnas",
+     "Los hijos salen del documento y flotan sobre la página sin ocupar espacio en el flujo normal"
+    ],
+    "answer": 0,
+    "explanation": "`display: flex` convierte a los hijos directos en ítems flexibles. No los saca del documento ni crea una cuadrícula: eso lo hace `display: grid`."
+   },
+   {
+    "id": "08-f-07",
+    "prompt": "¿Qué declaración activa Flexbox en un contenedor?",
+    "options": [
+     "`flex: 1` en el contenedor",
+     "`flex-direction: row` en cada hijo",
+     "`align-items: center` en el contenedor",
+     "`display: flex` en el contenedor"
+    ],
+    "answer": 3,
+    "explanation": "Ninguna propiedad de Flexbox hace nada hasta que el contenedor declara `display: flex`. `flex-direction` y `align-items` solo funcionan una vez activado el sistema."
+   },
+   {
+    "id": "08-f-08",
+    "prompt": "¿Cuál es el valor por defecto de `flex-direction` al activar Flexbox?",
+    "options": [
+     "`column`: los ítems se apilan de arriba abajo",
+     "`row-reverse`: la sucesión va contra el orden del documento",
+     "`row`: eje principal horizontal, de izquierda a derecha",
+     "`wrap`: los ítems saltan a una nueva línea cuando no caben"
+    ],
+    "answer": 2,
+    "explanation": "El valor por defecto es `row`. `wrap` no es una dirección sino un valor de `flex-wrap`."
+   },
+   {
+    "id": "08-f-09",
+    "prompt": "¿Qué diferencia a `gap` de un margen en cada hijo?",
+    "options": [
+     "`gap` se suma además en los extremos del contenedor, igual que un margen exterior",
+     "`gap` solo funciona en Grid y en Flexbox es obligatorio usar márgenes",
+     "`gap` pertenece al contenedor y existe solo entre ítems, nunca en los bordes",
+     "`gap` cambia el tamaño de los ítems para que quepan sin separación visible"
+    ],
+    "answer": 2,
+    "explanation": "El margen pertenece a cada caja y se suma en los extremos; `gap` separa únicamente ítems contiguos y funciona en los dos sistemas."
+   },
+   {
+    "id": "08-f-10",
+    "prompt": "En `grid-template-columns: 1fr 2fr`, ¿qué significa `fr`?",
+    "options": [
+     "Un porcentaje del ancho total del contenedor, de modo que `1fr 2fr` equivale a 1 % y 2 %",
+     "Una fracción del espacio que queda tras las pistas fijas; `2fr` vale el doble que `1fr`",
+     "Un píxel fijo escalado por el tamaño de la fuente del documento, igual que el `rem`",
+     "Una unidad que obliga a todas las columnas de la plantilla a medir exactamente lo mismo"
+    ],
+    "answer": 1,
+    "explanation": "`fr` reparte el espacio restante en proporción a su número; no es un porcentaje. Por eso `2fr` vale el doble que `1fr`, no lo mismo."
+   },
+   {
+    "id": "08-f-11",
+    "prompt": "En una retícula de tres columnas, ¿qué columnas ocupa un ítem con `grid-column: 1 / 3`?",
+    "options": [
+     "Las columnas 1 y 2: las líneas son las cercas y 3 es la de cierre",
+     "Las columnas 1, 2 y 3, porque ambos números se cuentan",
+     "Solo la columna 3, que es el destino indicado",
+     "Solo la columna 1, que es el inicio indicado"
+    ],
+    "answer": 0,
+    "explanation": "Ocupar N pistas exige N+1 líneas: de la línea 1 a la 3 hay dos pistas. Contar los números como columnas es el error habitual."
+   },
+   {
+    "id": "08-f-12",
+    "prompt": "Una `order` distinta de 0 en un ítem flexible, ¿qué cambia?",
+    "options": [
+     "El orden del documento completo, incluido el orden de foco del teclado y el de los lectores de pantalla",
+     "Nada en absoluto, porque `order` solo se admite dentro de contenedores de Grid",
+     "El tamaño que cada ítem ocupa en el eje principal, según el número declarado",
+     "Solo el orden visual de pintura; el HTML, el teclado y los lectores siguen el orden del documento"
+    ],
+    "answer": 3,
+    "explanation": "`order` cambia únicamente la pintura. Por eso crea páginas que se ven en un orden y se recorren en otro."
+   },
+   {
+    "id": "08-f-13",
+    "prompt": "¿Qué permite `flex-wrap: wrap` en un contenedor flexible?",
+    "options": [
+     "Que los ítems se ordenen en columna en lugar de en fila",
+     "Que el contenedor se convierta en una cuadrícula de dos dimensiones",
+     "Que los ítems se superpongan para ocupar el mismo sitio",
+     "Que un ítem que ya no cabe salte a una línea nueva en lugar de seguir encogiéndose"
+    ],
+    "answer": 3,
+    "explanation": "La envoltura cambia el contrato de una sola línea: los ítems saltan de línea conservando su base. La dirección en columna la decide `flex-direction`."
+   },
+   {
+    "id": "08-f-14",
+    "prompt": "En `grid-template-areas`, ¿qué declara un punto (`.`) en una celda?",
+    "options": [
+     "Una celda que se une a la siguiente",
+     "Una celda con el nombre del área anterior",
+     "Una celda vacía que ningún ítem ocupará",
+     "Un error que invalida el plano completo"
+    ],
+    "answer": 2,
+    "explanation": "El punto marca una celda sin área. Repetir una palabra es lo que une celdas en una sola área."
+   },
+   {
+    "id": "08-f-15",
+    "prompt": "¿Cuál es el valor por defecto de `align-items` en un contenedor flexible, y qué efecto tiene?",
+    "options": [
+     "Que los ítems se ordenen en columna en lugar de en fila, apilándose de arriba abajo",
+     "Que un ítem que no cabe salte a una línea nueva en lugar de seguir encogiéndose",
+     "Que el contenedor se convierta en una cuadrícula de dos dimensiones con filas y columnas",
+     "Que los ítems se superpongan para ocupar el mismo sitio en la misma línea"
+    ],
+    "answer": 1,
+    "explanation": "El valor automático estira los ítems en el eje transversal. Centrar o pegar al inicio exige declararlo."
+   },
+   {
+    "id": "08-f-16",
+    "prompt": "¿Qué declara `grid-area: contenido;` escrito en un hijo?",
+    "options": [
+     "Que el ítem ocupe el rectángulo que el nombre `contenido` dibuja en `grid-template-areas`",
+     "Que el ítem se convierta en contenedor de Grid",
+     "Que el ítem cambie su nombre de clase a `contenido`",
+     "Que el ítem se coloque en la fila 1 y columna 1 siempre"
+    ],
+    "answer": 0,
+    "explanation": "`grid-area` con un nombre coloca el ítem en el área del plano sin contar líneas. El nombre debe coincidir con el del plano."
+   }
+  ],
+  "medio": [
+   {
+    "id": "08-m-01",
+    "prompt": "Una barra lleva el logotipo a la izquierda y el grupo de enlaces a la derecha, en una sola fila. ¿Qué declaración en el contenedor lo reparte así?",
+    "options": [
+     "`display: flex` con `justify-content: space-between` en el contenedor",
+     "`display: grid` con las áreas del logotipo y de los enlaces escritas a mano en cada grupo",
+     "`position: absolute` en cada grupo, con coordenadas fijas a izquierda y a derecha",
+     "`float: left` en el logotipo y `float: right` en los enlaces, sin contenedor que los declare"
+    ],
+    "answer": 0,
+    "explanation": "`space-between` deja el primer y el último grupo pegados a los extremos. Los flotados y las posiciones absolutas son los parches que el tema descarta."
+   },
+   {
+    "id": "08-m-02",
+    "prompt": "Un aviso debe quedar centrado en horizontal Y en vertical dentro de su contenedor flexible en fila. ¿Qué combinación lo logra?",
+    "options": [
+     "Solo `justify-content: center`, porque la distribución del eje principal centra en los dos ejes a la vez",
+     "Solo `align-items: center`, porque la alineación transversal centra el grupo en los dos ejes a la vez",
+     "`margin: auto` en el contenedor flexible, sin tocar los ejes ni la distribución del grupo",
+     "`justify-content: center` (eje principal, horizontal) y `align-items: center` (transversal, vertical)"
+    ],
+    "answer": 3,
+    "explanation": "Cada propiedad actúa sobre un eje: una sola centra en una dirección. Hacen falta las dos."
+   },
+   {
+    "id": "08-m-03",
+    "prompt": "Las tarjetas de una parrilla deben alinearse en filas y columnas que se corresponden entre sí, con el mismo ancho de columna para todas. ¿Qué sistema manda y por qué?",
+    "options": [
+     "Flexbox: el contenido manda y cada fila de tarjetas se acomoda sola según lo que ocupa",
+     "El flujo normal con anchos en porcentaje escritos en cada una de las tarjetas",
+     "Grid: la estructura manda en dos dimensiones, con filas y columnas del contenedor",
+     "`position: absolute` con coordenadas calculadas por cada tarjeta de la parrilla"
+    ],
+    "answer": 2,
+    "explanation": "Solo Grid garantiza que las filas comparten columnas. Con Flexbox cada fila se alinea consigo misma y las columnas pueden no coincidir."
+   },
+   {
+    "id": "08-m-04",
+    "prompt": "Los hijos de un contenedor flexible quedaron pegados unos a otros, sin aire entre ellos. ¿Qué propiedad declara esa separación sin márgenes por hijo?",
+    "options": [
+     "`padding` en cada hijo, que separa las cajas vecinas entre sí",
+     "`gap` en el contenedor",
+     "`line-height` en el contenedor, que añade aire entre elementos",
+     "`border-spacing` en los hijos"
+    ],
+    "answer": 1,
+    "explanation": "`gap` es la separación que declara el contenedor entre ítems. `padding` solo aumenta el interior de cada caja y no la separa de su vecina."
+   },
+   {
+    "id": "08-m-05",
+    "prompt": "La página completa — encabezado, navegación, contenido, lateral y pie — debe componerse con cada zona en su sitio. ¿Dónde y con qué se declara esa estructura?",
+    "options": [
+     "En cada zona por separado, con márgenes calculados a mano para empujarla a su sitio",
+     "En el contenedor padre, con Grid por áreas con nombre",
+     "En el HTML, con una tabla de cinco celdas donde cada una guarda una zona",
+     "Con Flexbox anidado cinco niveles, de modo que cada nivel contenga una zona de la página"
+    ],
+    "answer": 1,
+    "explanation": "Una página es una estructura en dos dimensiones que se declara antes que las piezas, justo el caso de las áreas de Grid."
+   },
+   {
+    "id": "08-m-06",
+    "prompt": "En una fila flexible, los tres botones deben repartirse el ancho sobrante a partes iguales, creciendo todos lo mismo. ¿Qué declaración lo consigue?",
+    "options": [
+     "`flex: 1` en cada botón, para que el sobrante se reparta entre los que crecen",
+     "`width: 33%` escrito en cada botón, que reparte el ancho aunque haya huecos o márgenes",
+     "`justify-content: stretch` en el contenedor, que estira a los hijos hasta llenar la fila",
+     "Nada: en Flexbox los hijos nunca crecen y el sobrante siempre queda sin repartir"
+    ],
+    "answer": 0,
+    "explanation": "El factor de crecimiento reparte el sobrante en proporción. `justify-content` distribuye espacio, no hace crecer a los ítems."
+   },
+   {
+    "id": "08-m-07",
+    "prompt": "Un panel es `display: flex; flex-direction: column;`. Sus hijos deben quedar centrados en horizontal. ¿Qué propiedad lo hace?",
+    "options": [
+     "`justify-content: center`, que siempre centra en horizontal",
+     "`text-align: center` en el contenedor, que centra las cajas flexibles",
+     "`flex-wrap: wrap`, que centra los ítems al envolver",
+     "`align-items: center`, porque en columna el eje transversal es el horizontal"
+    ],
+    "answer": 3,
+    "explanation": "Al pasar a columna el eje principal es vertical, así que `justify-content` centraría en vertical. Horizontal y vertical no son sinónimos de principal y transversal."
+   },
+   {
+    "id": "08-m-08",
+    "prompt": "En una fila flexible, el lateral debe medir siempre `12rem` y el contenido ocupar el resto. ¿Qué declaración corresponde?",
+    "options": [
+     "`flex: 1` en el lateral y `flex: 0 0 12rem` en el contenido, que así recibe el sobrante",
+     "`width: 12rem` en el lateral y `flex: 0` en el contenido, que así cede el resto",
+     "`flex: 0 0 12rem` en el lateral y `flex: 1` en el contenido",
+     "`flex: 1 1 12rem` en ambos, para que los dos negocien por igual el sobrante"
+    ],
+    "answer": 2,
+    "explanation": "`flex: 0 0 12rem` ni crece ni encoge y fija la base. El contenido con `flex: 1` recibe el sobrante. Con `1 1 12rem` el lateral podría crecer o encogerse."
+   },
+   {
+    "id": "08-m-09",
+    "prompt": "Una página usa `grid-template-columns: 14rem 1fr;`. ¿Qué layout resulta?",
+    "options": [
+     "Dos columnas de igual ancho, de `14rem` cada una, repartidas dentro del contenedor",
+     "Una columna de `14rem` y otra de `1rem` fija, porque `1fr` es una medida de longitud",
+     "Una columna fija de `14rem` y otra con todo el ancho restante",
+     "Una columna del 14 % y otra del 1 % del ancho, calculadas sobre el contenedor"
+    ],
+    "answer": 2,
+    "explanation": "Las pistas fijas se descuentan primero y `1fr` recibe lo que queda. `fr` no es un tamaño absoluto ni un porcentaje."
+   },
+   {
+    "id": "08-m-10",
+    "prompt": "En una retícula de varias columnas, el encabezado debe ocupar todo el ancho sin importar cuántas columnas haya. ¿Qué colocación lo asegura?",
+    "options": [
+     "`grid-column: 1 / 3`",
+     "`grid-column: 1 / -1`",
+     "`grid-column: 1`",
+     "`grid-row: 1 / -1`"
+    ],
+    "answer": 1,
+    "explanation": "La línea `-1` es siempre la última de la retícula explícita, así que la colocación no se rompe si crece. `1 / 3` solo cubre dos columnas fijas y `grid-row` es otra dimensión."
+   },
+   {
+    "id": "08-m-11",
+    "prompt": "Una parrilla de tarjetas debe pasar de una columna en teléfono a tres o cuatro en escritorio, con tarjetas de al menos `16rem` y sin media queries. ¿Qué plantilla corresponde?",
+    "options": [
+     "`grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr))`",
+     "`grid-template-columns: repeat(3, 16rem)`",
+     "`grid-template-columns: 16rem 1fr 1fr`",
+     "`grid-template-columns: repeat(auto-fit, 16rem 1fr)`"
+    ],
+    "answer": 0,
+    "explanation": "`minmax(16rem, 1fr)` protege el mínimo y reparte el sobrante; el número de columnas lo decide el ancho. Con `repeat(3, 16rem)` el número queda fijo."
+   },
+   {
+    "id": "08-m-12",
+    "prompt": "Dentro de una tarjeta flexible en columna, la acción debe quedar al fondo aunque el texto sea corto. ¿Qué solución usa el sistema?",
+    "options": [
+     "Añadir un margen superior calculado en píxeles a la acción",
+     "Dar a la tarjeta una altura fija y colocar la acción con `position: absolute`",
+     "Aplicar `justify-content: center` a la tarjeta",
+     "Dar `flex: 1` al texto para que absorba el sobrante vertical y empuje la acción al fondo"
+    ],
+    "answer": 3,
+    "explanation": "El crecimiento de un ítem reparte el sobrante del eje principal. El margen calculado y las posiciones absolutas se rompen al cambiar el contenido."
+   },
+   {
+    "id": "08-m-13",
+    "prompt": "Un ítem de Grid debe empezar en la línea 2 y abarcar dos pistas de columna. ¿Qué declaración lo expresa?",
+    "options": [
+     "Un margen superior calculado en píxeles en la acción, ajustado a la altura que tenga hoy el texto",
+     "Una altura fija en la tarjeta y la acción colocada con `position: absolute` en la esquina",
+     "`justify-content: center` en la tarjeta, que reparte el sobrante hacia la acción",
+     "`flex: 1` en el texto, que absorbe el sobrante vertical y empuja la acción al fondo"
+    ],
+    "answer": 3,
+    "explanation": "`span 2` declara la longitud en lugar del destino; de la línea 2 a la 4 hay dos pistas. `2 / 3` abarca solo una y `grid-row` actúa en la otra dimensión."
+   },
+   {
+    "id": "08-m-14",
+    "prompt": "Todos los botones de una fila flexible van centrados a lo alto, pero uno solo debe quedar pegado al final del eje transversal. ¿Qué declaración lo logra?",
+    "options": [
+     "`align-items: flex-end` en ese botón",
+     "`justify-content: flex-end` en el contenedor",
+     "`align-self: flex-end` en ese botón",
+     "`order: 1` en ese botón"
+    ],
+    "answer": 2,
+    "explanation": "`align-self` exceptúa la alineación del contenedor para un solo ítem. `align-items` se escribe en el contenedor, y `justify-content` actúa en el eje principal."
+   },
+   {
+    "id": "08-m-15",
+    "prompt": "En una cuadrícula, cada ítem debe quedar centrado dentro de su celda, sin estirarse. ¿Qué declaración en el contenedor lo hace?",
+    "options": [
+     "`justify-content: center` y `align-content: center`",
+     "`justify-items: center` y `align-items: center`",
+     "`gap: center` en el contenedor",
+     "`grid-template-columns: center`"
+    ],
+    "answer": 1,
+    "explanation": "Las propiedades `items` alinean cada ítem dentro de su área; las `content` reparten las pistas dentro del contenedor, y esa es otra escala."
+   },
+   {
+    "id": "08-m-16",
+    "prompt": "Con `grid-template-areas: \"encabezado encabezado\" \"lateral contenido\";`, ¿dónde cae un ítem con `grid-area: contenido`?",
+    "options": [
+     "En la segunda fila, segunda columna",
+     "En la primera fila, abarcando las dos columnas",
+     "En la segunda fila, primera columna",
+     "En la primera fila, segunda columna"
+    ],
+    "answer": 0,
+    "explanation": "El plano se lee por filas y la palabra `contenido` aparece solo en la segunda celda de la segunda fila."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "08-d-01",
+    "prompt": "Diagnóstico: una barra declarada con `display: flex` muestra sus enlaces en COLUMNA, uno debajo de otro, aunque nadie pidió eso. En la regla aparece `flex-direction: column`, heredado de un ejemplo copiado. ¿Cuál es la explicación completa?",
+    "options": [
+     "Con la dirección en columna el eje principal es el vertical y los hijos se suceden hacia abajo; la barra necesita fila, la dirección por defecto",
+     "Flexbox ordena siempre en columna al activarse, y para pasar a fila hay que declarar `flex-wrap` en el contenedor",
+     "Los enlaces son elementos en línea y no pueden ir en fila dentro de un contenedor flexible sin recurrir a Grid",
+     "El navegador ignora la dirección declarada en las barras de navegación y aplica la de la hoja de estilos de usuario"
+    ],
+    "answer": 0,
+    "explanation": "La dirección declarada en el contenedor decide el eje principal; basta quitar la columna o declarar `row`. El valor por defecto de Flexbox es fila, no columna."
+   },
+   {
+    "id": "08-d-02",
+    "prompt": "Diagnóstico de ejes: en una fila flexible, alguien centra con `align-items` esperando centrar en horizontal, y los hijos se mueven en vertical. ¿Qué confusión hay y cuál es la corrección?",
+    "options": [
+     "`align-items` está roto en las filas flexibles y solo funciona cuando el contenedor declara columna, como se comprueba al inspeccionar el contenedor en DevTools con el overlay de ejes",
+     "Hay que cambiar la fila a columna para que `align-items` pase a centrar en horizontal los hijos",
+     "El centrado horizontal en Flexbox solo se logra con márgenes automáticos escritos en cada uno de los hijos",
+     "En fila, `align-items` trabaja el eje transversal (vertical); centrar en horizontal es `justify-content: center`"
+    ],
+    "answer": 3,
+    "explanation": "Principal y transversal son papeles que asigna la dirección. En fila, `align-items` es vertical; cambiar a columna invertiría los papeles sin resolver el centrado horizontal que se buscaba con `justify-content`."
+   },
+   {
+    "id": "08-d-03",
+    "prompt": "Diagnóstico de plano: el plano de áreas de una página declara la primera fila con tres celdas («cabecera cabecera cabecera») y la segunda con dos («menu contenido»), y el navegador ignora toda la declaración. ¿Por qué?",
+    "options": [
+     "Grid no admite nombres de área con tildes ni con letras minúsculas, y obliga a escribirlos sin acentos, según se aprecia al abrir la declaración en el inspector y comparar sus nombres",
+     "Falta declarar el `gap` en el contenedor, sin el cual las áreas con nombre no llegan a pintarse",
+     "Un plano válido exige el mismo número de celdas en cada fila; con filas desiguales se descarta entero",
+     "Las áreas deben nombrarse en inglés y en mayúsculas para que el navegador las reconozca como tales"
+    ],
+    "answer": 2,
+    "explanation": "Una fila con distinto número de celdas invalida toda la plantilla, que se ignora en silencio. Los nombres son libres y el `gap` no interviene."
+   },
+   {
+    "id": "08-d-04",
+    "prompt": "Análisis: un layout entero se construyó con `position: absolute` y coordenadas en píxeles por elemento. En la pantalla de su autor se ve perfecto; en cualquier otra, todo se descuadra. ¿Cuál es el diagnóstico?",
+    "options": [
+     "Las coordenadas estaban mal calculadas, y hay que ajustarlas una a una para cada pantalla donde se vea descuadrado",
+     "Lo absoluto saca a los elementos del flujo y los clava a unas coordenadas; el layout se declara con Grid para la estructura y Flexbox para los grupos",
+     "`position` quedó obsoleto y ningún navegador moderno admite ya sus valores, por lo que el layout falla",
+     "El problema es exclusivo de la resolución del monitor secundario del autor y desaparece al cambiar de pantalla"
+    ],
+    "answer": 1,
+    "explanation": "Una posición lograda empujando cajas se rompe al cambiar el ancho o el contenido. Reajustar coordenadas mantiene el defecto; `position` sigue siendo válido, pero no sustituye al layout."
+   },
+   {
+    "id": "08-d-05",
+    "prompt": "Diagnóstico fino: con `justify-content: space-between`, el primer y el último hijo quedan PEGADOS a los bordes del contenedor y alguien lo reporta como error de espaciado. ¿Lo es?",
+    "options": [
+     "Sí lo es: `space-between` está mal declarado y el valor correcto para separar los hijos del borde es `space-around`",
+     "No es un error: `space-between` reparte el sobrante ENTRE los hijos; para aire en los extremos se usa `space-around` o `space-evenly`",
+     "Sí lo es, y el origen está en el `gap`, que debería añadir aire en los bordes al repartir los hijos del contenedor",
+     "No es un error, pero el efecto solo aparece cuando el contenedor tiene exactamente tres hijos en la fila"
+    ],
+    "answer": 1,
+    "explanation": "El reparto entre ítems por definición pega los extremos a los bordes. `gap` solo existe entre ítems y nunca cambia los extremos."
+   },
+   {
+    "id": "08-d-06",
+    "prompt": "Caso combinado: la estructura de la página es Grid por áreas; dentro del área de contenido, una fila de fichas debe repartirse según lo que ocupe cada ficha, envolviéndose si no cabe. Alguien propone forzar también esa fila con Grid de columnas fijas. ¿Qué decide el tema?",
+    "options": [
+     "Cada zona con su sistema: dentro de la zona manda el contenido de las fichas en un eje, que es Flexbox con envoltura",
+     "Grid para todo: la uniformidad de un único sistema en la página y en cada zona interior es lo correcto, de forma que cada zona deba declararse con exactamente el mismo sistema que la página",
+     "Flexbox dentro de Grid está prohibido, porque los dos sistemas se anulan entre sí cuando se anidan",
+     "La fila de fichas debe sacarse del área de contenido para no mezclar sistemas de layout en la misma zona"
+    ],
+    "answer": 0,
+    "explanation": "Un ítem de un sistema puede ser contenedor de otro; la estructura va en Grid y la sucesión en Flexbox. Forzar uno solo pierde la negociación del contenido."
+   },
+   {
+    "id": "08-d-07",
+    "prompt": "Un contenedor `display: flex` de 800 px tiene tres hijos con `width: 300px` y sin más declaraciones. ¿Qué ocurre?",
+    "options": [
+     "Desbordan el contenedor, porque el ancho declarado es inamovible, porque `flex-wrap` por sí solo cambia el eje principal del contenedor de fila a columna y fuerza ese resultado",
+     "Dos se quedan en 300 px y el tercero salta a otra línea",
+     "Los tres se quedan en 300 px y se solapan unos con otros",
+     "Los tres encogen por su factor de encogimiento por defecto (1) hasta unos 267 px cada uno y caben sin desbordar"
+    ],
+    "answer": 3,
+    "explanation": "Las bases suman 900 px y faltan 100: con encogimiento 1 cada uno cede lo mismo (unos 33 px). Saltar de línea exige `flex-wrap: wrap`."
+   },
+   {
+    "id": "08-d-08",
+    "prompt": "Un contenedor flexible de 600 px tiene tres ítems con base de 100 px y factores de crecimiento 1, 2 y 3. ¿Cuánto mide el tercero?",
+    "options": [
+     "300 px, porque el tercero es el único con factor 3 y recibe todo el sobrante, porque el ancho declarado manda siempre sobre cualquier factor de encogimiento del contenedor",
+     "200 px, porque los tres reciben el mismo sobrante y se redondea",
+     "250 px: el sobrante de 300 px se reparte en pesos 1:2:3 (50, 100 y 150 px) sobre la base",
+     "150 px, porque solo se suma el sobrante a la base sin repartirlo"
+    ],
+    "answer": 2,
+    "explanation": "Sobran 300 px y los pesos suman 6: 300/6 = 50 por unidad, así que el tercero crece 150 y mide 100 + 150 = 250 px. 150 px es solo su parte del sobrante, sin la base."
+   },
+   {
+    "id": "08-d-09",
+    "prompt": "Una retícula de 1000 px declara `grid-template-columns: 200px 1fr 3fr` sin separación. ¿Cuánto mide la tercera columna?",
+    "options": [
+     "750 px, porque `3fr` es el 75 % del ancho total, porque `repeat` crea una columna adicional en cuanto un ítem supera la última línea",
+     "333 px, porque las tres columnas se reparten el total a partes iguales",
+     "600 px: restan 800 px tras la pista fija y se reparten en 4 partes de 200 px",
+     "800 px, porque las fracciones ocupan todo el espacio y la fija se ajusta"
+    ],
+    "answer": 2,
+    "explanation": "Las pistas fijas se descuentan y el resto (800 px) se reparte entre 1 + 3 = 4 fracciones. La fracción no es un porcentaje del total."
+   },
+   {
+    "id": "08-d-10",
+    "prompt": "Tres columnas declaradas como `33.33% 33.33% 33.33%` con `gap: 1rem` producen desbordamiento horizontal. ¿Cuál es la causa y la mejor corrección?",
+    "options": [
+     "Los porcentajes no se admiten en Grid y hay que sustituirlos por píxeles calculados a mano en cada columna, ya que las fracciones son una forma de porcentaje y las dos unidades se comportan de manera idéntica",
+     "El porcentaje no descuenta los huecos y la suma supera el contenedor; `repeat(3, 1fr)` reparte lo que queda",
+     "El `gap` se suma únicamente a la última columna, de modo que basta con quitarle el margen a ese ítem",
+     "Falta `display: flex` en el contenedor, que absorbe el exceso de ancho sobre el eje principal"
+    ],
+    "answer": 1,
+    "explanation": "Las fracciones se calculan sobre el espacio restante tras separaciones y pistas fijas, de modo que nunca desbordan. Los porcentajes sí son válidos, pero no descuentan el `gap`."
+   },
+   {
+    "id": "08-d-11",
+    "prompt": "Una parrilla con `grid-template-columns: repeat(3, 1fr)` coloca una tarjeta con `grid-column: 4` y aparece una columna estrecha extra a la derecha. ¿Cuál es el diagnóstico?",
+    "options": [
+     "La tarjeta cayó en una línea no declarada y Grid creó una pista implícita del tamaño de su contenido",
+     "Es un fallo de `repeat`, que siempre crea una columna de más al final de la plantilla declarada, por lo que es habitual encontrarla incluso cuando todas las tarjetas se colocan dentro de la plantilla",
+     "El navegador rechaza la colocación fuera de la plantilla y la sustituye por una columna de reserva",
+     "El `gap` genera una columna adicional cuando la parrilla recibe más de tres ítems en total"
+    ],
+    "answer": 0,
+    "explanation": "Colocar un ítem fuera de la plantilla crea pistas implícitas. La plantilla estaba bien: hay que colocar el ítem dentro de la retícula o declarar la pista que falta."
+   },
+   {
+    "id": "08-d-12",
+    "prompt": "Una parrilla usa `repeat(auto-fill, minmax(16rem, 1fr))`. Con dos tarjetas en pantalla ancha quedan a su tamaño, con un hueco vacío a la derecha. Si se quiere que las dos llenen el ancho, ¿qué cambio corresponde?",
+    "options": [
+     "Cambiar `1fr` por `100%` para forzar el estiramiento de las tarjetas, porque `align-items: center` ya centra los ítems en el eje principal y el transversal de la fila a la vez",
+     "Añadir `justify-content: center` al contenedor para ocupar el hueco",
+     "Subir el mínimo de `16rem` a `32rem`, que siempre llena el ancho",
+     "Cambiar `auto-fill` por `auto-fit`, que colapsa las pistas vacías y reparte el ancho entre las que llevan ítems"
+    ],
+    "answer": 3,
+    "explanation": "`auto-fill` conserva las pistas vacías como huecos; `auto-fit` las colapsa. Centrar o cambiar el mínimo solo desplaza el problema."
+   },
+   {
+    "id": "08-d-13",
+    "prompt": "Un enlace de la barra lleva `order: -1` para aparecer primero. Quien navega con teclado nota que el foco entra en otro orden del que se ve. ¿Cuál es la lectura correcta?",
+    "options": [
+     "Un ancho fijo en píxeles para todas las tarjetas de cada fila, calculado para que quepan tres por línea, y solo así las tarjetas dejan de depender del contenido que lleve cada una de ellas en su fila",
+     "`justify-content: space-between` en la última fila, que reparte sus dos tarjetas hasta los bordes",
+     "`flex: 1` en la última fila, para que sus tarjetas crezcan hasta igualar el ancho de las de arriba",
+     "Una sola cuadrícula con columnas declaradas, donde todas las filas comparten las mismas columnas"
+    ],
+    "answer": 3,
+    "explanation": "Un orden visual distinto del orden del documento deja la página con dos órdenes. Las direcciones invertidas tienen la misma limitación que `order`."
+   },
+   {
+    "id": "08-d-14",
+    "prompt": "Se maquetan tarjetas con una fila flexible por cada tres tarjetas. La última fila tiene dos tarjetas más anchas que las de arriba, y las columnas no coinciden. ¿Qué enfoque resuelve el problema de raíz?",
+    "options": [
+     "Dar un ancho fijo en píxeles a todas las tarjetas de cada fila",
+     "Añadir `justify-content: space-between` a la última fila",
+     "Una sola cuadrícula con columnas declaradas: todas las filas comparten las mismas columnas",
+     "Usar `flex: 1` en la última fila para igualar su ancho"
+    ],
+    "answer": 2,
+    "explanation": "Cada contenedor flexible alinea sus ítems consigo mismo y no con las filas de otros contenedores. Grid garantiza columnas compartidas; los anchos fijos rompen al cambiar la pantalla."
+   },
+   {
+    "id": "08-d-15",
+    "prompt": "Un contenedor tiene `align-content: center`, pero no se aprecia ningún efecto en sus ítems flexibles, que ocupan una sola línea. ¿Cuál es la explicación?",
+    "options": [
+     "`align-content` solo funciona en Grid, y Flexbox lo ignora siempre sin importar cuántas líneas haya, como ocurre al combinar las propiedades de alineación con la dirección en columna del contenedor",
+     "`align-content` solo reparte las LÍNEAS cuando hay varias por la envoltura; con una sola línea no hay nada que repartir",
+     "`align-content` debería escribirse en cada ítem y no en el contenedor, igual que `align-self`",
+     "Es el mismo efecto que `align-items`, solo que sobrescrito por el valor por defecto del contenedor"
+    ],
+    "answer": 1,
+    "explanation": "`align-items` coloca cada ítem en su línea; `align-content` reparte las líneas entre sí. Con una sola línea no hace nada, el error más frecuente de esa hoja."
+   },
+   {
+    "id": "08-d-16",
+    "prompt": "Un plano declara `grid-template-areas: \"cabecera cabecera\" \"menu contenido\";` pero el ítem principal lleva `grid-area: contenidos;` y no aparece en el sitio previsto. ¿Cuál es la causa?",
+    "options": [
+     "El nombre debe coincidir letra por letra con el del plano; `contenidos` no existe y el ítem no cae en ningún área",
+     "Faltan los puntos que marcan las celdas vacías en el plano, sin los cuales el navegador no reconoce áreas, y es la solución habitual cuando la plantilla de áreas parece ignorarse por completo en pantalla",
+     "Las áreas solo funcionan cuando se combinan con `grid-column` y `grid-row` en cada uno de los ítems",
+     "El plano quedó invalidado porque `menu` y `contenido` ocupan una celda cada uno en la segunda fila"
+    ],
+    "answer": 0,
+    "explanation": "El nombre de la propiedad del ítem debe coincidir exactamente con el del plano. Dos áreas de una celda cada una son válidas y los puntos son opcionales."
+   }
+  ]
+ }
+}

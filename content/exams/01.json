@@ -1,0 +1,611 @@
+{
+ "week": 1,
+ "levels": {
+  "facil": [
+   {
+    "id": "01-f-01",
+    "prompt": "¿Qué es una ruta absoluta?",
+    "options": [
+     "La dirección de un archivo medida desde la carpeta en la que se está parado",
+     "La dirección de un archivo que solo funciona en Windows, porque en Linux y Mac todo se mide desde el directorio actual",
+     "La dirección completa de un archivo o carpeta, que empieza desde la raíz del sistema",
+     "La dirección de un recurso publicado en internet, que se escribe con http o https"
+    ],
+    "answer": 2,
+    "explanation": "La ruta absoluta parte de la raíz (`C:\\Users\\...` o `/home/...`). La que se mide desde donde se está parado es la relativa; confundirlas es el error más común."
+   },
+   {
+    "id": "01-f-02",
+    "prompt": "Si la terminal está en la carpeta `proyectos`, ¿a qué archivo apunta la ruta relativa `mi-sitio/index.html`?",
+    "options": [
+     "A un `index.html` ubicado en la raíz del disco, sin importar la carpeta actual, como ocurre con las rutas que empiezan con una barra",
+     "Al archivo `index.html` que está dentro de `mi-sitio`, que a su vez está dentro de `proyectos`",
+     "A un archivo llamado `mi-sitio` que contiene el texto `index.html`",
+     "A ningún archivo concreto: las rutas relativas solo sirven para nombrar carpetas"
+    ],
+    "answer": 1,
+    "explanation": "Una ruta relativa se mide desde la carpeta actual, así que se resuelve como `proyectos/mi-sitio/index.html`. Apuntar a la raíz es propio de una ruta absoluta."
+   },
+   {
+    "id": "01-f-03",
+    "prompt": "¿Qué muestra el comando `pwd` en la terminal?",
+    "options": [
+     "La lista de archivos de la carpeta actual, incluidos los ocultos",
+     "Las versiones de las herramientas instaladas en el equipo",
+     "El historial de comandos ejecutados en la sesión",
+     "La ruta completa de la carpeta en la que se está parado"
+    ],
+    "answer": 3,
+    "explanation": "`pwd` informa dónde se está parado. Listar archivos es función de `ls`; confundirlos lleva a trabajar en la carpeta equivocada."
+   },
+   {
+    "id": "01-f-04",
+    "prompt": "En PowerShell el comando `touch` no existe. ¿Cuál es su equivalente para crear un archivo vacío?",
+    "options": [
+     "`mkdir`, que crea el archivo si se le da una extensión",
+     "`cat`, que crea el archivo si no existe",
+     "`New-Item`",
+     "`ls -Force`, que fuerza la creación de lo que falte"
+    ],
+    "answer": 2,
+    "explanation": "En PowerShell se usa `New-Item index.html`. `mkdir` crea carpetas, no archivos, y `cat` solo muestra contenido."
+   },
+   {
+    "id": "01-f-05",
+    "prompt": "La página carga sin estilos y en DevTools el archivo de estilos aparece con código 404. ¿Qué significa ese 404?",
+    "options": [
+     "Que el archivo de estilos tiene un error de sintaxis en su contenido CSS, por ejemplo una llave sin cerrar o una propiedad mal escrita",
+     "Que en la ruta pedida no existe ningún archivo: casi siempre una ruta o un nombre mal escrito",
+     "Que el servidor tardó demasiado en responder y se agotó el tiempo",
+     "Que el navegador bloqueó el archivo por razones de seguridad"
+    ],
+    "answer": 1,
+    "explanation": "404 significa «no encontrado»: el problema está en la ruta o el nombre, no en el contenido. Un error de CSS no produce 404, porque el archivo sí se entregó."
+   },
+   {
+    "id": "01-f-06",
+    "prompt": "¿En qué pestaña de DevTools se ven los errores de JavaScript y los mensajes que se dejan con `console.log`?",
+    "options": [
+     "Console",
+     "Elements, que muestra el HTML y los errores del código escrito",
+     "Network, que registra todo lo que el programador imprime",
+     "Styles, que reúne los mensajes de depuración de la página"
+    ],
+    "answer": 0,
+    "explanation": "Console recoge errores y `console.log`. Elements sirve para ver el HTML real y editar estilos; Network, para las peticiones y sus códigos de estado."
+   },
+   {
+    "id": "01-f-07",
+    "prompt": "¿Qué hace `git add` dentro del flujo mínimo de Git?",
+    "options": [
+     "Prepara los cambios elegidos para el siguiente commit",
+     "Crea el repositorio por primera vez en la carpeta",
+     "Sube los commits a un repositorio remoto en internet",
+     "Deshace el último cambio guardado y devuelve el archivo a su versión anterior"
+    ],
+    "answer": 0,
+    "explanation": "`git add` prepara cambios; `git commit` los guarda en la historia. Deshacer cambios no confirmados es trabajo de `git restore`."
+   },
+   {
+    "id": "01-f-08",
+    "prompt": "Según la regla fundamental del entorno, ¿cuándo existe un cambio importante para un equipo de trabajo?",
+    "options": [
+     "Cuando el archivo está guardado con Ctrl + S en el editor",
+     "Cuando está en Git y documentado en el README",
+     "Cuando la página se ve bien en el navegador del autor",
+     "Cuando la carpeta del proyecto se copió a otra ubicación como respaldo"
+    ],
+    "answer": 1,
+    "explanation": "La regla dice: si no está en Git y no está documentado, no existe para un equipo. Guardar en el editor o copiar la carpeta no deja historia ni explicación."
+   },
+   {
+    "id": "01-f-09",
+    "prompt": "La terminal está en `C:\\Users\\alejo\\proyectos` y un archivo se referencia con la ruta relativa `mi-sitio\\css\\estilos.css`. ¿Cuál es su ruta absoluta?",
+    "options": [
+     "`C:\\mi-sitio\\css\\estilos.css`",
+     "`proyectos\\mi-sitio\\css\\estilos.css`",
+     "`C:\\Users\\alejo\\css\\estilos.css`",
+     "`C:\\Users\\alejo\\proyectos\\mi-sitio\\css\\estilos.css`"
+    ],
+    "answer": 3,
+    "explanation": "La absoluta se forma uniendo la carpeta actual con la relativa. Quitar tramos intermedios o dejar la ruta sin raíz da una dirección distinta."
+   },
+   {
+    "id": "01-f-10",
+    "prompt": "¿Cuál es el orden correcto del ciclo de trabajo con el entorno de desarrollo?",
+    "options": [
+     "Comprobar en DevTools, editar el código y borrar el historial de Git",
+     "Publicar el sitio, editar el código y documentar solo si sobra tiempo",
+     "Editar en el editor, comprobar en el navegador con DevTools, y luego guardar la versión con Git y documentarla",
+     "Editar el código, copiar la carpeta como respaldo y cerrar sin revisar el resultado, dejando el control de versiones para el final del curso"
+    ],
+    "answer": 2,
+    "explanation": "El ciclo es escribir, probar, corregir y registrar con Git y README. Copiar carpetas no sustituye a Git ni a la verificación."
+   },
+   {
+    "id": "01-f-11",
+    "prompt": "¿Qué es el Shell dentro de la terminal?",
+    "options": [
+     "La ventana donde se escribe el texto de los comandos, que recibe el teclado y muestra la salida de cada comando",
+     "El editor de texto integrado en la terminal",
+     "El sistema de archivos que guarda carpetas y permisos",
+     "El programa que interpreta los comandos escritos, como bash, zsh o PowerShell"
+    ],
+    "answer": 3,
+    "explanation": "La terminal es la ventana; el Shell es el programa que interpreta lo que se escribe en ella. Es la confusión más habitual entre ambos términos."
+   },
+   {
+    "id": "01-f-12",
+    "prompt": "En la terminal, ¿qué representa `..` dentro de una ruta?",
+    "options": [
+     "El directorio padre, es decir, el nivel de arriba",
+     "El directorio actual, donde se está parado",
+     "La raíz del sistema de archivos",
+     "La carpeta personal del usuario"
+    ],
+    "answer": 0,
+    "explanation": "`.` es el directorio actual y `..` el padre. La raíz se escribe `/` en Linux y Mac."
+   },
+   {
+    "id": "01-f-13",
+    "prompt": "En la pestaña Network de DevTools, ¿qué indica un código de estado `200`?",
+    "options": [
+     "Que el recurso no se encontró en la ruta pedida, que en algunos Shells se escribe también con una barra al final",
+     "Que el servidor falló al procesar la petición",
+     "Que el recurso tardó 200 milisegundos en cargar",
+     "Que el recurso existe en esa ruta y el navegador lo recibió sin problema"
+    ],
+    "answer": 3,
+    "explanation": "200 es éxito. 404 es «no encontrado» y 500, error del servidor; el número no mide tiempo."
+   },
+   {
+    "id": "01-f-14",
+    "prompt": "¿Qué es un proceso en un sistema operativo?",
+    "options": [
+     "Un archivo ejecutable guardado en el disco mientras no se abre",
+     "Un programa en ejecución, con un PID que lo identifica y que consume CPU y memoria",
+     "Una carpeta temporal donde el sistema guarda los comandos usados",
+     "Un comando de la terminal que solo funciona en primer plano"
+    ],
+    "answer": 1,
+    "explanation": "Un proceso es un programa corriendo y tiene PID único. El archivo guardado en el disco solo es el programa antes de ejecutarse."
+   },
+   {
+    "id": "01-f-15",
+    "prompt": "¿Qué permite hacer la pestaña Elements de DevTools?",
+    "options": [
+     "Ver el HTML real que construyó el navegador y probar estilos editándolos en vivo",
+     "Ver cada petición de red con su tiempo y su código de estado, y compararlas entre sí para encontrar cuellos de botella",
+     "Leer los mensajes de `console.log` y los errores de JavaScript",
+     "Modificar de forma permanente el archivo `estilos.css` del proyecto"
+    ],
+    "answer": 0,
+    "explanation": "Elements muestra el HTML construido y permite probar estilos, pero lo editado no se guarda en el archivo. Las peticiones se ven en Network."
+   },
+   {
+    "id": "01-f-16",
+    "prompt": "¿Cómo se reconoce que una terminal de Windows es PowerShell?",
+    "options": [
+     "El indicador muestra usuario, equipo y ruta con barras inclinadas y termina en `$`",
+     "El indicador incluye siempre el nombre de la rama de Git",
+     "El indicador empieza por `PS` seguido de la ruta, por ejemplo `PS C:\\Users\\alejo>`",
+     "El indicador está vacío y solo muestra un cursor parpadeante"
+    ],
+    "answer": 2,
+    "explanation": "`PS` al inicio identifica a PowerShell; el formato `usuario@equipo ruta $` corresponde a Git Bash."
+   },
+   {
+    "id": "01-f-17",
+    "prompt": "¿Qué guarda `git commit -m \"Crea estructura base\"`?",
+    "options": [
+     "Los cambios preparados, como un punto de la historia al que se puede volver",
+     "Una copia de la carpeta completa en el Escritorio",
+     "Todos los archivos nuevos, incluso los que no pasaron por `git add`",
+     "El mensaje solamente, sin los cambios de los archivos"
+    ],
+    "answer": 0,
+    "explanation": "`commit` guarda lo preparado con `git add` y deja un punto de retorno. Lo que no se preparó no entra en el commit."
+   }
+  ],
+  "medio": [
+   {
+    "id": "01-m-01",
+    "prompt": "Un proyecto debe crearse dentro de `proyectos`, pero al terminar las carpetas quedaron en el Escritorio. ¿Qué comando, ejecutado ANTES de crear nada, habría confirmado dónde estaba parada la terminal?",
+    "options": [
+     "`ls`",
+     "`pwd`",
+     "`cat`",
+     "`mkdir`"
+    ],
+    "answer": 1,
+    "explanation": "`pwd` muestra la ruta actual. `ls` lista contenido, que no basta para saber en qué carpeta se está."
+   },
+   {
+    "id": "01-m-02",
+    "prompt": "Hay que guardar una copia de `estilos.css` dentro de `respaldo`, sin que el original desaparezca de `css/`. ¿Qué comando lo hace?",
+    "options": [
+     "`cp css/estilos.css respaldo/`",
+     "`mv css/estilos.css respaldo/`",
+     "`rm css/estilos.css` y luego crearlo de nuevo en `respaldo/`",
+     "`cat css/estilos.css`"
+    ],
+    "answer": 0,
+    "explanation": "`cp` duplica y conserva el original. `mv` lo traslada, por lo que desaparecería de `css/`."
+   },
+   {
+    "id": "01-m-03",
+    "prompt": "En PowerShell se escribe `touch notas.txt` y aparece `CommandNotFoundException`. ¿Qué se usa en su lugar para crear ese archivo vacío?",
+    "options": [
+     "`mkdir notas.txt`, que crea el archivo vacío dentro de la carpeta actual",
+     "`cp notas.txt`",
+     "`git add notas.txt`",
+     "`New-Item notas.txt`"
+    ],
+    "answer": 3,
+    "explanation": "Ese error indica que el comando no existe en ese Shell. `New-Item` es el equivalente; `mkdir` crearía una carpeta llamada `notas.txt`."
+   },
+   {
+    "id": "01-m-04",
+    "prompt": "El archivo de estilos se movió a `css/`, pero `index.html` sigue enlazándolo con `href=\"estilos.css\"`. La página se ve sin estilos. ¿Cuál es la corrección?",
+    "options": [
+     "Renombrar la carpeta `css` a `estilos` para que coincida con el enlace",
+     "Mover `index.html` dentro de la carpeta `css`",
+     "Cambiar el enlace a la ruta relativa `css/estilos.css`, que es donde el archivo vive ahora",
+     "Borrar el enlace y pegar todos los estilos dentro del HTML, con lo que la hoja de estilos deja de ser un archivo aparte y el enlace desaparece"
+    ],
+    "answer": 2,
+    "explanation": "La ruta debe reflejar dónde está realmente el archivo. Renombrar o mover otras cosas no arregla el enlace."
+   },
+   {
+    "id": "01-m-05",
+    "prompt": "Un archivo que ya estaba guardado en un commit se renombró por accidente y el proyecto dejó de funcionar. ¿Cómo se recupera tal como estaba en ese commit?",
+    "options": [
+     "Con `git status`, que deshace el renombrado",
+     "Con `git add` sobre el nombre nuevo, que restablece el contenido original",
+     "Con `git restore`, que devuelve el archivo a su versión del último commit",
+     "No se puede: hay que escribirlo de nuevo"
+    ],
+    "answer": 2,
+    "explanation": "`git restore` recupera lo ya confirmado. `git status` solo informa, y `git add` prepararía el estado roto."
+   },
+   {
+    "id": "01-m-06",
+    "prompt": "Otra persona abre el proyecto y no sabe qué es, qué herramientas se usaron ni cómo está organizado. ¿Dónde debe encontrar esa explicación?",
+    "options": [
+     "En el README del repositorio, junto al código guardado en Git",
+     "En el nombre de la carpeta del proyecto, que debe describir claramente qué contiene el sitio y quién lo escribió",
+     "En el historial de la terminal del autor",
+     "En la pestaña Elements de DevTools"
+    ],
+    "answer": 0,
+    "explanation": "El README documenta el proyecto; el historial de la terminal es local y no viaja con el proyecto."
+   },
+   {
+    "id": "01-m-07",
+    "prompt": "El indicador de la terminal es `alejo@PC ~/proyectos $`. ¿Qué Shell es y qué se puede usar para crear `index.html`?",
+    "options": [
+     "Git Bash; `touch index.html` funciona tal como está escrito",
+     "PowerShell; hay que usar `New-Item index.html`",
+     "PowerShell; `touch index.html` falla con `CommandNotFoundException`",
+     "Git Bash; `touch` no existe y se debe usar `New-Item`"
+    ],
+    "answer": 0,
+    "explanation": "El formato `usuario@equipo ruta $` es de Git Bash, que entiende los comandos de Linux. `New-Item` es el equivalente en PowerShell."
+   },
+   {
+    "id": "01-m-08",
+    "prompt": "Se necesita listar los archivos ocultos de la carpeta actual estando en PowerShell. ¿Qué comando corresponde?",
+    "options": [
+     "`ls -la`",
+     "`pwd -Force`",
+     "`cat -hidden`",
+     "`ls -Force`"
+    ],
+    "answer": 3,
+    "explanation": "En PowerShell los ocultos se muestran con `ls -Force`; `ls -la` es la forma de Git Bash."
+   },
+   {
+    "id": "01-m-09",
+    "prompt": "Se cambia el color del `h1` desde Elements en DevTools y se ve bien, pero al pulsar `F5` vuelve al color anterior. ¿Qué hay que hacer para dejarlo fijo?",
+    "options": [
+     "Pulsar `Ctrl + S` dentro de DevTools para guardar el cambio, ya que el panel Styles escribe sobre el archivo abierto",
+     "Escribir el nuevo valor en `css/estilos.css` y guardar el archivo",
+     "Recargar con `Ctrl + F5` hasta que el navegador lo recuerde",
+     "Cambiar el valor en Network, que sí conserva los cambios"
+    ],
+    "answer": 1,
+    "explanation": "Los cambios de Elements viven solo en la memoria del navegador. Lo definitivo se escribe en el archivo de estilos."
+   },
+   {
+    "id": "01-m-10",
+    "prompt": "Se quiere guardar en `lista.txt` el contenido de la carpeta, listado con `ls -la`. ¿Qué comando lo logra?",
+    "options": [
+     "`ls -la > lista.txt`",
+     "`ls -la | lista.txt`",
+     "`cat lista.txt ls -la`",
+     "`ls -la && lista.txt`"
+    ],
+    "answer": 0,
+    "explanation": "`>` redirige la salida estándar a un archivo. `|` encadena la salida a otro comando, no a un archivo."
+   },
+   {
+    "id": "01-m-11",
+    "prompt": "Se trabaja en el Shell y se obtiene `Permission denied` al intentar modificar un archivo. ¿Qué es lo más razonable hacer?",
+    "options": [
+     "Borrar el archivo con `rm` y volver a crearlo",
+     "Reinstalar el Shell, porque el comando está mal instalado",
+     "Averiguar por qué el archivo o la carpeta está protegido antes de forzar nada",
+     "Cambiar de carpeta hasta que el error desaparezca"
+    ],
+    "answer": 2,
+    "explanation": "`Permission denied` significa que no hay permiso sobre ese recurso. Forzarlo sin entender el motivo puede dañar archivos del sistema."
+   },
+   {
+    "id": "01-m-12",
+    "prompt": "Desde la carpeta `mi-sitio/css` hay que referirse a `mi-sitio/img/foto.jpg`. ¿Qué ruta relativa corresponde?",
+    "options": [
+     "`img/foto.jpg`",
+     "`./img/foto.jpg`",
+     "`../../img/foto.jpg`",
+     "`../img/foto.jpg`"
+    ],
+    "answer": 3,
+    "explanation": "`..` sube de `css` a `mi-sitio` y desde ahí se entra a `img`. `img/foto.jpg` buscaría dentro de `css`."
+   },
+   {
+    "id": "01-m-13",
+    "prompt": "¿Cuál de estos valores de `src` respeta la regla de rutas para la web?",
+    "options": [
+     "`C:\\Users\\alejo\\proyectos\\mi-sitio\\img\\foto.jpg`",
+     "`Img/Mi Foto.jpg`",
+     "`img/fotó.jpg`",
+     "`img/foto.jpg`"
+    ],
+    "answer": 3,
+    "explanation": "En web se usan rutas relativas, en minúsculas, sin espacios ni tildes. La ruta absoluta de un computador no existe en otro."
+   },
+   {
+    "id": "01-m-14",
+    "prompt": "Se ejecuta `ps aux | grep node` en la terminal. ¿Qué obtiene el usuario?",
+    "options": [
+     "La lista de todos los archivos con nombre `node` del disco, recorriendo todas las carpetas del equipo",
+     "Los procesos en ejecución cuyo texto contiene `node`, con su PID",
+     "La instalación de Node si no existe en el equipo",
+     "La detención de todos los procesos de Node"
+    ],
+    "answer": 1,
+    "explanation": "`ps aux` lista procesos y `grep` filtra por texto; no detiene nada. Para detener se usa `kill <PID>`."
+   },
+   {
+    "id": "01-m-15",
+    "prompt": "Después de editar varios archivos, ¿qué secuencia registra el avance con Git de forma correcta?",
+    "options": [
+     "`git status`, `git add .`, `git commit -m \"mensaje\"`",
+     "`git commit -m \"mensaje\"`, `git add .`, `git status`",
+     "`git log --oneline`, `git restore`, `git add .`",
+     "`git add .`, `git status`, `git restore .`"
+    ],
+    "answer": 0,
+    "explanation": "Se revisa el estado, se preparan los cambios y se confirman. Hacer `commit` antes de `add` no guarda los cambios nuevos."
+   },
+   {
+    "id": "01-m-16",
+    "prompt": "En Git Bash se ejecuta `git log --oneline`. ¿Qué se obtiene?",
+    "options": [
+     "El estado de los archivos modificados pendientes de preparar",
+     "La lista de archivos preparados para el próximo commit",
+     "La historia del repositorio, con una línea por cada commit",
+     "El contenido completo de todos los archivos del último commit"
+    ],
+    "answer": 2,
+    "explanation": "`git log --oneline` muestra commits resumidos. El estado actual de los archivos se consulta con `git status`."
+   },
+   {
+    "id": "01-m-17",
+    "prompt": "Al ejecutar `cd proyectos/mi-sitio` la terminal responde `No such file or directory`. ¿Cuál es la primera verificación?",
+    "options": [
+     "Reiniciar el computador por si el sistema de archivos falló",
+     "Ejecutar `pwd` y `ls` para ver en qué carpeta se está y si `mi-sitio` existe ahí",
+     "Ejecutar `rm -rf proyectos` y empezar de nuevo",
+     "Instalar otro Shell"
+    ],
+    "answer": 1,
+    "explanation": "Ese error indica otra carpeta o una ruta mal escrita. `pwd` y `ls` lo confirman antes de tocar nada más."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "01-d-01",
+    "prompt": "Diagnóstico: el proyecto funciona en el computador del autor, pero en otro la página abre sin estilos y Network muestra 404 en `css/Estilos.css`, aunque la carpeta `css` viajó completa. En el disco el archivo se llama `estilos.css`. ¿Cuál es la causa?",
+    "options": [
+     "La ruta pedida no coincide exactamente con el nombre real, pues difiere en la mayúscula, y el sistema que sirve la página distingue mayúsculas",
+     "La caché del segundo navegador conserva una versión vieja de la página, y basta vaciarla",
+     "El segundo computador no tiene Git instalado, por lo que no puede leer la carpeta `css`",
+     "El archivo de estilos es incompatible entre sistemas operativos y debe regenerarse"
+    ],
+    "answer": 0,
+    "explanation": "El 404 indica que en esa ruta no hay archivo; la diferencia `Estilos`/`estilos` basta. Por eso se usan minúsculas en web."
+   },
+   {
+    "id": "01-d-02",
+    "prompt": "Diagnóstico: un archivo con apuntes se borró con `rm`. Nunca se le hizo `git add` ni formó parte de un commit. Alguien propone recuperarlo con `git restore`. ¿Qué ocurre?",
+    "options": [
+     "Se recupera sin problema, porque Git guarda todo lo que pasa por la carpeta, incluso los archivos que nunca se agregaron al repositorio",
+     "Se recupera solo si el repositorio está publicado en GitHub",
+     "`git restore` lo baja de la papelera del sistema",
+     "No se puede: `git restore` devuelve archivos a lo guardado en Git, y lo que nunca entró a Git no existe para él"
+    ],
+    "answer": 3,
+    "explanation": "Git solo recupera lo confirmado. Además `rm` no usa papelera, así que esa tampoco sirve."
+   },
+   {
+    "id": "01-d-03",
+    "prompt": "Análisis: la terminal está en `proyectos` y se ejecuta el comando para crear `mi-sitio/index.html`, pero el sistema dice que la carpeta no existe. ¿Cuál es el orden correcto de diagnóstico y corrección?",
+    "options": [
+     "Reinstalar la terminal, porque no reconoce las rutas con carpetas, y repetir después el mismo comando sin cambiar nada más",
+     "Usar la ruta del Escritorio para todo y evitar rutas relativas",
+     "Confirmar dónde se está (`pwd`) y qué hay (`ls`), crear primero `mi-sitio` con `mkdir` y después el archivo dentro, pues cada tramo de la ruta debe existir",
+     "Borrar la carpeta `proyectos` y empezar de cero para que quede limpia"
+    ],
+    "answer": 2,
+    "explanation": "Una ruta relativa se resuelve desde la carpeta actual, y la carpeta intermedia debe existir antes de crear archivos dentro."
+   },
+   {
+    "id": "01-d-04",
+    "prompt": "Caso combinado: hay que entregar el proyecto a un docente que nunca lo ha visto, en otro computador. ¿Qué conjunto lo deja completo y explicable, según la regla fundamental del tema?",
+    "options": [
+     "La carpeta copiada tal cual en una memoria USB, sin README ni historial, confiando en que quien la reciba entienda la estructura por sí solo",
+     "El repositorio con su historial en Git y un README completo con qué es el proyecto, versiones, tabla de comandos y estructura",
+     "El enlace a la carpeta en la nube, sin más indicaciones",
+     "Capturas de pantalla de la página funcionando"
+    ],
+    "answer": 1,
+    "explanation": "Sin Git no hay historia y sin README no hay explicación. Una copia suelta no permite entender ni reproducir el trabajo."
+   },
+   {
+    "id": "01-d-05",
+    "prompt": "Diagnóstico: dentro de `proyectos` hay dos carpetas con página, `mi-sitio/index.html` y `respaldo/index.html`. Desde `proyectos` se abre `respaldo/index.html` buscando la principal y se ve una versión vieja. ¿Qué explica lo ocurrido?",
+    "options": [
+     "La ruta relativa se resolvió tal como se escribió y apunta a la copia de respaldo; el error está en el tramo elegido",
+     "El navegador mezcla las dos páginas cuando tienen el mismo nombre, mostrando el contenido de una y los estilos de la otra",
+     "Git cambió el contenido de la página principal sin avisar",
+     "Los archivos `index.html` siempre se confunden entre sí"
+    ],
+    "answer": 0,
+    "explanation": "Las rutas se obedecen literalmente; el sistema no adivina qué archivo se quería abrir."
+   },
+   {
+    "id": "01-d-06",
+    "prompt": "Caso de proceso: el programa de práctica dejó un proceso colgado que ocupa el puerto y hay varios procesos parecidos en la lista. ¿Cuál es el procedimiento correcto antes de detenerlo?",
+    "options": [
+     "Detener todos los procesos parecidos, por si acaso, asegurando así que el puerto quede libre sin importar cuál era",
+     "Reiniciar el computador sin mirar la lista de procesos",
+     "Borrar la carpeta del programa para que el proceso termine",
+     "Identificar con nombre y PID cuál es el proceso de la práctica, detener solo ese con `kill <PID>` y comprobar que el puerto quedó libre"
+    ],
+    "answer": 3,
+    "explanation": "Detener un PID equivocado puede cerrar un programa importante. Borrar la carpeta no libera el puerto de un proceso vivo."
+   },
+   {
+    "id": "01-d-07",
+    "prompt": "Una guía dice `touch index.html; ls -la`. Se ejecuta en una terminal cuyo indicador es `PS C:\\Users\\alejo\\mi-sitio>`. ¿Cómo se adapta correctamente a ese Shell?",
+    "options": [
+     "Se deja igual: PowerShell acepta `touch` y `ls -la` como cualquier Shell, y el resultado es idéntico al de Git Bash",
+     "`mkdir index.html` y `ls -la`, que sí funcionan en PowerShell",
+     "`New-Item index.html` para crear el archivo y `ls -Force` para listar también los ocultos",
+     "`touch index.html` y `ls -Force`, porque solo `ls -la` cambia"
+    ],
+    "answer": 2,
+    "explanation": "El indicador `PS` revela PowerShell. Allí `touch` produce `CommandNotFoundException` y `ls -la` no es la forma válida para ocultos."
+   },
+   {
+    "id": "01-d-08",
+    "prompt": "Se compara guardar versiones con copias de carpeta (`final-v2-definitivo`) frente a Git. ¿Por qué Git es la opción correcta?",
+    "options": [
+     "Cada commit es un punto de retorno con historia ordenada, y se puede ver qué cambió y recuperar un archivo sin duplicar todo el proyecto",
+     "Porque ocupa menos espacio, aunque no conserva versiones anteriores; además impide que alguien modifique archivos sin autorización",
+     "Porque las copias de carpeta no pueden abrirse en otro computador",
+     "Porque Git evita que los archivos se rompan al editarlos"
+    ],
+    "answer": 0,
+    "explanation": "Git no impide errores; da un registro al que volver. Las copias con nombres como `final-v2-definitivo` no dicen qué cambió y acumulan versiones mezcladas."
+   },
+   {
+    "id": "01-d-09",
+    "prompt": "Tras `mv index.html inicio.html` en un repositorio con un commit previo, `git status` muestra `index.html` como borrado e `inicio.html` como sin seguimiento. ¿Cuál es la recuperación correcta?",
+    "options": [
+     "`git restore inicio.html`, porque es el archivo que cambió, y así Git lo reemplaza por la versión guardada en el último commit",
+     "`git restore index.html` y luego `rm inicio.html` para quitar el archivo suelto",
+     "`git add .` y `git commit` para guardar el estado actual",
+     "`git init` de nuevo para que Git detecte los archivos"
+    ],
+    "answer": 1,
+    "explanation": "`index.html` sí estaba en el commit y se restaura. `inicio.html` nunca entró a Git, así que `git restore inicio.html` no tiene qué recuperar."
+   },
+   {
+    "id": "01-d-10",
+    "prompt": "Se ejecuta `ls > lista.txt` y la terminal no muestra nada. ¿Cuál es la interpretación correcta?",
+    "options": [
+     "El comando falló en silencio y no creó ningún archivo, ya que ningún servidor web admite el formato JPG y exige convertir cada imagen antes de publicarla",
+     "`ls` no funciona cuando se usa con el símbolo `>`",
+     "El listado se mostrará cuando se cierre la terminal",
+     "No hay error: la salida estándar se redirigió al archivo `lista.txt`, donde está el listado"
+    ],
+    "answer": 3,
+    "explanation": "Todo comando escribe por canales separados, y `>` desvía la salida estándar a un archivo. Un error real aparecería por el canal de errores."
+   },
+   {
+    "id": "01-d-11",
+    "prompt": "Una imagen se enlaza con `src=\"C:\\Users\\alejo\\proyectos\\mi-sitio\\img\\foto.jpg\"`. Se ve en el computador del autor, pero al publicar falla. ¿Cuál es la causa y la corrección?",
+    "options": [
+     "El servidor no acepta imágenes `.jpg`; se corrige convirtiéndolas a otro formato",
+     "La carpeta `img` debe estar en la raíz del disco del servidor",
+     "La ruta absoluta solo existe en ese computador; se corrige con la relativa `img/foto.jpg`, en minúsculas y sin espacios",
+     "La ruta es correcta; basta vaciar la caché del navegador"
+    ],
+    "answer": 2,
+    "explanation": "Una ruta absoluta no es portable. En web se usan siempre relativas, de modo que funcionan mientras se mantenga la estructura."
+   },
+   {
+    "id": "01-d-12",
+    "prompt": "Al ejecutar un script en la terminal aparece `Permission denied`. Según la arquitectura en capas, ¿dónde conviene buscar la causa?",
+    "options": [
+     "En la capa de Tú y tu flujo, reescribiendo el script desde cero, porque el navegador conserva en caché la carpeta con su nombre anterior",
+     "En la capa de Sistema (permisos de archivos), ya que el error lo produce el sistema al negar el acceso",
+     "En el navegador, revisando la pestaña Elements",
+     "En la versión de VS Code, actualizándolo a la última"
+    ],
+    "answer": 1,
+    "explanation": "La arquitectura dice que se mira la capa donde apareció el error y luego las de abajo que la sostienen. Los permisos pertenecen al sistema."
+   },
+   {
+    "id": "01-d-13",
+    "prompt": "Se renombra `css` a `css2` y se recarga la página. ¿Qué combinación describe lo que se ve y la corrección?",
+    "options": [
+     "Con estilos, 200 en Network y Console limpia; no hace falta corregir nada",
+     "Sin estilos, 200 en Network pero error en Elements; se reescribe el HTML, probando varias cosas hasta que volvió a verse bien",
+     "Sin estilos, 404 en rojo para `estilos.css` en Console y Network; se corrige con `mv css2 css` y al recargar vuelve el 200",
+     "Sin estilos y 500 en Network; se corrige reiniciando el servidor"
+    ],
+    "answer": 2,
+    "explanation": "Una carpeta con otro nombre hace que la ruta no exista, de ahí el 404. El 500 es error del servidor, que aquí no interviene."
+   },
+   {
+    "id": "01-d-14",
+    "prompt": "Se pide un README de evidencia. ¿Cuál de estas entradas cumple el requisito de documentar un error?",
+    "options": [
+     "«404 en `estilos.css`: la carpeta `css` se renombró a `css2`; se corrigió con `mv css2 css`»",
+     "«Todo funcionó bien a la primera y no hubo errores que anotar»",
+     "«Hubo un problema con los estilos y se arregló de alguna forma», y así garantizar que el borrado se complete aunque la carpeta esté protegida",
+     "«Lo importante es que la página abrió en mi computador»"
+    ],
+    "answer": 0,
+    "explanation": "Un registro útil incluye síntoma, causa y arreglo. Las frases vagas no permiten reproducir ni entender lo ocurrido."
+   },
+   {
+    "id": "01-d-15",
+    "prompt": "Un instructivo copiado de internet pide `rm -rf carpeta` y no se sabe con certeza en qué carpeta está parada la terminal. ¿Cuál es la actitud correcta?",
+    "options": [
+     "Ejecutarlo: el instructivo es de una fuente conocida y no debe fallar, y confiar en que lo borrado se pueda recuperar con Git después",
+     "Verificar con `pwd` y `ls` dónde se está y qué se borraría, porque `rm -rf` no tiene papelera",
+     "Ejecutarlo con `sudo` para evitar errores de permisos",
+     "Ejecutarlo y recuperar lo borrado luego desde la papelera"
+    ],
+    "answer": 1,
+    "explanation": "No se ejecuta nada copiado sin entender qué borra. El borrado con `rm` es definitivo."
+   },
+   {
+    "id": "01-d-16",
+    "prompt": "Desde `mi-sitio/css` se ejecuta `cat ../index.html`. ¿Qué ocurre si `mi-sitio` contiene `index.html`?",
+    "options": [
+     "Error `No such file or directory`, porque `index.html` no está en `css`, ya que `cat` solo busca en la carpeta actual y nunca en la superior",
+     "Se muestra el contenido de `css/index.html`, que se crea automáticamente",
+     "Se imprime la ruta absoluta de `index.html` y nada más",
+     "La terminal muestra el contenido de `mi-sitio/index.html`, pues `..` sube un nivel"
+    ],
+    "answer": 3,
+    "explanation": "`..` es el directorio padre, así que `../index.html` equivale a `mi-sitio/index.html`."
+   }
+  ]
+ }
+}

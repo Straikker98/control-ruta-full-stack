@@ -1,0 +1,357 @@
+{
+ "week": 4,
+ "estado": "completo",
+ "sections": [
+  {
+   "page": 1,
+   "kind": "heading",
+   "title": "1.1. El formulario: donde la web empieza a escuchar",
+   "body": "Todo lo construido con estructura, texto, enlaces, imágenes y tablas es la web mirando hacia la persona: la página habla y la persona lee. El formulario es el primer momento en que la conversación cambia de sentido: la persona habla y la página escucha. Registrarse, buscar, comprar, subir una evidencia, dejar un comentario: casi todo lo que la web «hace» empieza con alguien llenando un formulario.\n\nPor eso un formulario mal hecho no es un detalle menor: es la puerta principal de cualquier aplicación, y si la puerta es confusa, inaccesible o acepta datos imposibles, todo lo que hay detrás hereda el problema. Un dato que entra mal nace mal y contamina la base, el reporte y la decisión que se tome con ellos: un formulario que acepta una fecha futura o un correo sin arroba produce exactamente el informe equivocado que luego nadie sabe explicar.\n\nEsa puerta se construye con oficio: cada campo con su nombre visible y asociado, cada tipo de campo elegido por lo que el dato ES, la validación nativa del navegador trabajando a favor del dato y errores que la persona entiende y puede corregir sin adivinar."
+  },
+  {
+   "page": 1,
+   "kind": "warning",
+   "title": "REGLA FUNDAMENTAL",
+   "body": "Un formulario no es un dibujo de cajitas: es un contrato de datos. Cada campo promete «lo que escribas aquí se guardará con este nombre, con este tipo y con estas reglas». Si el nombre falta, el dato no viaja; si el tipo está mal elegido, el dato viaja torcido; si la regla no existe, entra cualquier cosa. Diseña el contrato antes que la cajita."
+  },
+  {
+   "page": 1,
+   "kind": "definition",
+   "title": "1.2. Qué es un formulario y qué pasa cuando se envía",
+   "body": "Definición: un formulario HTML es la región de la página que agrupa controles — campos de texto, listas de opciones, casillas, botones — cuyos valores la persona diligencia y que, al enviarse, viajan juntos como un paquete de datos con nombre y valor hacia un destino que procesa la respuesta.\n\nEl viaje completo, con lo ya visto en los temas anteriores:\n\n• La persona llena los controles y activa el botón de envío (o pulsa Enter en un campo de texto).\n• Antes de enviar nada, el navegador valida: si algún campo obligatorio está vacío o algún valor no cumple su regla, el envío se detiene y el navegador señala el primer campo con problema. Nada viaja.\n• Si todo pasa, el navegador empaqueta los datos como parejas nombre–valor: cada control aporta su nombre y el valor que la persona escribió o eligió. Los controles sin nombre no aportan nada: quedan fuera del paquete, en silencio.\n• El paquete viaja como una petición HTTP (Tema 2): con el método y hacia la dirección que el formulario declara. Con un método los datos van visibles en la URL; con el otro viajan en el cuerpo de la petición.\n• El destino procesa el paquete — lo guarda, lo verifica, responde — y la persona ve la página de respuesta: una confirmación, un error o el mismo formulario con correcciones pedidas.\n\nEl trabajo en este tema es dominar todo lo que ocurre dentro de la página: los controles, sus nombres, sus tipos y su validación. El procesamiento del lado del servidor llega en las fases de backend; pero un paquete mal construido no lo arregla ningún servidor."
+  },
+  {
+   "page": 1,
+   "kind": "diagram",
+   "title": "El viaje de los datos de un formulario",
+   "body": "La persona llena los controles del formulario\n        ▼\nEl navegador VALIDA ──► algo falla ──► se señala el campo y NADA viaja\n        │ todo pasa\n        ▼\nPaquete nombre–valor ──► petición HTTP ──► el destino procesa\n        ▼\nRespuesta: confirmación, o el formulario con errores por corregir"
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.1. La anatomía del form: destino, método y el botón que envía",
+   "body": "El elemento que crea el formulario envuelve todos sus controles y declara dos cosas que deciden el viaje entero:\n\n• El destino (a dónde van los datos): la dirección que procesará el paquete. En las prácticas de esta fase apuntará a una página de confirmación o quedará en la misma página, pero la declaración siempre existe: un formulario sin destino claro es un paquete sin dirección.\n• El método (cómo viajan los datos): solo hay dos, y la siguiente sección de esta hoja los compara a fondo. La regla corta: leer pide un método, enviar datos para guardar pide el otro.\n\nY dos avisos de oficio antes del código. Primero: el botón que envía debe decir que envía — su tipo declarado es el de envío — y dentro de un formulario, un botón sin tipo declarado se comporta como botón de envío; ese detalle ha roto más formularios reales que ningún otro. Segundo: los controles que viven FUERA del elemento formulario no se envían con él, aunque en pantalla parezcan al lado; la pertenencia es por el código, no por la cercanía visual."
+  },
+  {
+   "page": 2,
+   "kind": "code",
+   "title": "El formulario mínimo completo, pieza por pieza",
+   "body": "```\n<form action=\"guardar-evidencia.html\" method=\"post\">\n\n  <label for=\"nombre\">Nombre de la actividad</label>\n  <input id=\"nombre\" name=\"nombre\" type=\"text\" required>\n\n  <label for=\"correo\">Correo de contacto</label>\n  <input id=\"correo\" name=\"correo\" type=\"email\" required>\n\n  <button type=\"submit\">Enviar evidencia</button>\n</form>\n```\n\nSu lectura es así: el `form` declara destino y método; cada campo\ntiene su label asociado y su nombre (`name`), que es la\nllave con la que su valor viaja en el paquete; el botón\ndeclara su tipo: enviar. Quita el name a un campo y su\ndato deja de viajar, aunque se vea perfecto en pantalla."
+  },
+  {
+   "page": 2,
+   "kind": "table",
+   "title": "Tabla comparativa — los dos métodos de envío",
+   "body": "Criterio | GET (pedir) | POST (entregar)\nDónde viajan los datos | Visibles en la URL, como parámetros | En el cuerpo de la petición, no en la URL\nPara qué se usa | Buscar, filtrar, paginar: pedir información | Guardar, registrar, enviar: entregar información\nSe puede marcar y compartir | Sí: la URL lleva los datos y reproduce la vista | No tiene sentido: la URL sola no lleva el paquete\nSeguridad práctica | Todo queda en historial y registros del servidor | Los datos no quedan expuestos en la dirección\nEjemplo de esta ruta | El buscador del sitio de práctica | El formulario de registro de evidencias"
+  },
+  {
+   "page": 2,
+   "kind": "warning",
+   "title": "REGLA CRÍTICA DE MÉTODO",
+   "body": "Jamás se envían contraseñas ni datos sensibles con el método que los deja visibles en la URL: quedarían en el historial del navegador, en los registros del servidor y en cualquier captura de pantalla de la barra de direcciones. Entregar datos es trabajo del método POST. Y la regla gemela: una acción que cambia datos (registrar, borrar, pagar) nunca se dispara con un enlace GET, porque un enlace se puede precargar, compartir o activar por accidente."
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.1. El label: el nombre visible y accesible de cada campo",
+   "body": "Definición: el label es el texto que nombra un campo — «Nombre de la actividad», «Correo de contacto» — y la asociación entre ese texto y su campo es una de las piezas más importantes de todo este tema, porque de ella dependen tres públicos a la vez:\n\n• La persona que ve la página: el label le dice qué escribir en cada cajita, sin tener que adivinarlo por el hueco vacío.\n• La persona que usa lector de pantalla: cuando el foco llega al campo, el lector anuncia su label. Un campo sin label asociado se anuncia como «campo de edición, sin nombre»: la persona escucha una cajita muda y no sabe qué escribir en ella.\n• La persona con movilidad reducida o en una pantalla pequeña: hacer clic o tocar el label también pone el foco en su campo. Un label asociado es un blanco de toque más grande; sin asociación, hay que acertar justo en la cajita.\n\nAsociar no es «poner el texto cerca»: es declararlo en el código, con uno de los dos mecanismos de la siguiente sección. Texto que solo está dibujado al lado de un campo, sin asociación, para el lector de pantalla no existe como nombre: es ruido suelto en la página."
+  },
+  {
+   "page": 3,
+   "kind": "code",
+   "title": "Las dos formas de asociar un label, y cuándo usar cada una",
+   "body": "```\n<!-- Forma 1 · Explícita: el label apunta al id del campo.\n     Es la forma estándar: úsala por defecto. -->\n<label for=\"fecha\">Fecha de la actividad</label>\n<input id=\"fecha\" name=\"fecha\" type=\"date\" required>\n\n<!-- Forma 2 · Implícita: el campo vive dentro del label.\n     Válida, pero separa peor el texto del control al\n     maquetar y se olvida con más facilidad al editar. -->\n<label>\n  Municipio\n  <input name=\"municipio\" type=\"text\">\n</label>\n```\n\nRegla de trabajo: explícita siempre que puedas: el `for`\ndel label y el `id` del campo dicen el mismo nombre, y\ncada id es único en la página — dos campos con el\nmismo id rompen la asociación del segundo en silencio."
+  },
+  {
+   "page": 3,
+   "kind": "warning",
+   "title": "EL PLACEHOLDER NO ES UN LABEL",
+   "body": "El texto fantasma que aparece dentro de la cajita vacía y desaparece al escribir (el placeholder) es una ayuda menor — un ejemplo de formato, nada más — y como label es un desastre: desaparece justo cuando la persona empieza a escribir y más lo necesita, suele tener contraste bajo, y hay lectores de pantalla que ni lo anuncian. Campo con placeholder y sin label es campo sin nombre. Si el formulario «se entiende» solo por sus placeholders, no se entiende."
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.2. name, id y value: las tres identidades de un campo",
+   "body": "Cada control maneja hasta tres nombres distintos, y confundirlos es la fuente de la mitad de los errores de principiante:\n\n• El id identifica al campo dentro de la página: es único, sirve para asociar el label y para que los scripts lo encuentren. No viaja al servidor.\n• El name es la llave del dato en el paquete de envío: el valor del campo viaja con ese nombre («correo=ana@ejemplo.co»). Sin name, el campo no existe para el envío, escribas lo que escribas en él. Los nombres se escriben cortos, en minúsculas y sin espacios ni tildes, como las rutas del Tema 1.\n• El value es el valor: lo que la persona escribió, o el que se declara por adelantado en controles de elección — en una casilla o un botón de opción, el value es lo que viajará si esa opción queda marcada, y sin él viaja un genérico «on» que no dice qué se eligió.\n\nAñade a esto los atributos de ayuda que completan un campo profesional: el texto de ejemplo dentro de la cajita (solo como ejemplo de formato, nunca como label), la pista de autocompletado que le dice al navegador «esto es un correo», «esto es un nombre» para que pueda rellenarlo desde los datos guardados de la persona, y el valor inicial cuando de verdad hay un valor por defecto con sentido."
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.1. Los tipos de input: el teclado y la validación empiezan aquí",
+   "body": "El control de entrada tiene un atributo que declara qué clase de dato recoge, y esa declaración es mucho más que un adorno: decide qué teclado muestra un teléfono, qué validación regala el navegador y qué expectativa crea en la persona. Los de texto y datos directos, que son la base:\n\n• Texto libre: el genérico, para nombres, títulos y respuestas cortas sin formato especial.\n• Correo: el navegador comprueba la forma básica de una dirección (que tenga su arroba y su dominio) y el teléfono muestra el teclado con la arroba a la mano.\n• Teléfono: no valida un formato concreto — cada país escribe los teléfonos distinto — pero en el móvil abre el teclado numérico telefónico.\n• Dirección web (URL): comprueba que lo escrito tenga forma de dirección y facilita el teclado con los caracteres propios de las direcciones.\n• Número: solo acepta valores numéricos, con sus reglas de mínimo, máximo y paso que verás en la Hoja 7. Ojo: es para cantidades que se calculan, no para «números que son códigos» — un documento de identidad o un número de teléfono no son cantidades: nadie les suma 1, y el control numérico puede mostrar flechas, quitar ceros a la izquierda y otros desastres.\n• Contraseña: oculta lo escrito puntos mediante. Ocultar no es cifrar: protege de la mirada por encima del hombro, nada más; la seguridad real del viaje es HTTPS (Tema 2).\n• Búsqueda: pensado para las cajas de buscar, con su comportamiento propio en varios navegadores."
+  },
+  {
+   "page": 4,
+   "kind": "code",
+   "title": "Un tipo para cada dato: el mismo formulario, bien y mal tipado",
+   "body": "```\n<!-- MAL: todo texto libre; el navegador no ayuda en nada\n     y la validación queda entera al cargo. -->\n<input type=\"text\" name=\"correo\">\n<input type=\"text\" name=\"edad\">\n<input type=\"text\" name=\"telefono\">\n\n<!-- BIEN: cada tipo declara qué dato es; el navegador\n     valida la forma, elige el teclado y la persona\n     entiende qué se espera antes de escribir. -->\n<label for=\"c-correo\">Correo</label>\n<input id=\"c-correo\" type=\"email\" name=\"correo\"\n       autocomplete=\"email\" required>\n\n<label for=\"c-edad\">Edad</label>\n<input id=\"c-edad\" type=\"number\" name=\"edad\"\n       min=\"5\" max=\"99\">\n\n<label for=\"c-tel\">Teléfono de contacto</label>\n<input id=\"c-tel\" type=\"tel\" name=\"telefono\"\n       autocomplete=\"tel\">\n```"
+  },
+  {
+   "page": 4,
+   "kind": "table",
+   "title": "Tabla comparativa — tipos de entrada por el dato que recogen",
+   "body": "Tipo | Dato que recoge | Qué regala el navegador\ntext | Texto libre sin formato especial | Nada: por eso se reserva para lo que no tiene tipo propio\nemail | Una dirección de correo | Valida la forma básica y adapta el teclado móvil\ntel | Un teléfono (es un código, no una cantidad) | Teclado telefónico en el móvil, sin validación de formato\nurl | Una dirección web | Valida la forma de dirección y adapta el teclado\nnumber | Una cantidad que puede calcularse | Valida que sea número y obedece mínimo, máximo y paso\npassword | Un secreto que no debe verse | Oculta lo escrito mientras se digita\nsearch | Un término de búsqueda | Comportamiento propio de buscador en varios navegadores"
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.1. Fechas, horas y otros tipos con formato propio",
+   "body": "Hay datos cuyo formato es tan conocido que el navegador pone un control especial para recogerlos, y usarlo ahorra casi toda la validación de formato:\n\n• Fecha: calendario desplegable en escritorio y selector propio en el móvil; el valor viaja siempre en formato año-mes-día, lo escriba como lo escriba la persona en su idioma. Adiós a discutir si «03/04» es 3 de abril o 4 de marzo.\n• Hora y fecha con hora: la misma idea para horas y para el momento completo.\n• Rango (slider): un deslizador entre un mínimo y un máximo. Sirve para valores aproximados — volumen, nivel de satisfacción — y es pésimo para valores exactos: acertar el 37 con un dedo en un deslizador es una lotería. Si el número exacto importa, que se escriba.\n• Archivo: el control que abre el selector de archivos del dispositivo. Es la puerta de subida de las evidencias: foto, PDF, documento. Su etiqueta anuncia qué se sube; con JavaScript y backend (fases siguientes) llegarás a limitar tipo y tamaño, pero la estructura correcta nace aquí.\n• Color: un selector de color del sistema. Poco frecuente en formularios de datos, pero existe como tipo propio y conviene conocerlo.\n\nLa moraleja de la hoja: antes de pedir un dato como texto libre y sufrir validándolo, pregúntate si el navegador ya tiene un tipo para ese dato. Casi siempre lo tiene."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.2. Elegir en vez de escribir: casillas, opciones excluyentes y listas",
+   "body": "Cuando la respuesta válida es una entre pocas conocidas, no se pide que la escriban: se ofrece para elegir. Escribir invita al error («Sí», «si», «SÍ», «sip»); elegir garantiza valores limpios. Hay tres herramientas, y cada una responde a una pregunta distinta:\n\n• Casillas de verificación (checkbox): cada una es una decisión sí/no independiente. En grupo responden «¿cuáles de estas aplican?» y se pueden marcar varias o ninguna: intereses, permisos, servicios recibidos. Cada casilla lleva su propio label, y su valor declarado es lo que viaja si queda marcada.\n• Botones de opción (radio): un grupo donde solo cabe UNA respuesta: «¿cuál de estas?». Todas las opciones del grupo comparten el mismo nombre — eso es lo que las hace excluyentes — y cada una lleva su propio valor y su label. Al enviar viaja una sola pareja: el nombre del grupo con el valor de la opción elegida. Si en el grupo se pueden marcar dos, el problema casi siempre es que no comparten nombre.\n• La lista desplegable y el área de texto llegan en la siguiente hoja: la primera es la prima compacta de los radios para grupos largos; la segunda, el espacio para textos largos.\n\nRegla de elección entre radios y lista desplegable: pocas opciones (hasta 4 o 5) y que conviene ver todas a la vez, radios; lista larga o espacio escaso, desplegable. Y una verdad incómoda: una casilla única («Acepto los términos») es una decisión legal, no un adorno: nace desmarcada siempre."
+  },
+  {
+   "page": 5,
+   "kind": "code",
+   "title": "Casillas y radios bien construidos, con sus valores",
+   "body": "```\n<!-- Grupo radio: UN nombre compartido = una sola\n     respuesta posible. Cada label con su opción. -->\n<p>¿La actividad fue presencial o virtual?</p>\n<label>\n  <input type=\"radio\" name=\"modalidad\" value=\"presencial\">\n  Presencial\n</label>\n<label>\n  <input type=\"radio\" name=\"modalidad\" value=\"virtual\">\n  Virtual\n</label>\n\n<!-- Casillas: decisiones independientes, cada una\n     con su nombre y su valor propio. -->\n<p>¿Qué evidencias se recogieron? (marca todas las que apliquen)</p>\n<label>\n  <input type=\"checkbox\" name=\"ev_fotos\" value=\"fotos\">\n  Fotografías\n</label>\n<label>\n  <input type=\"checkbox\" name=\"ev_lista\" value=\"asistencia\">\n  Lista de asistencia\n</label>\n```"
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.1. La lista desplegable y el área de texto",
+   "body": "Dos controles que no son «input de una línea» completan el juego básico:\n\n• La lista desplegable (select): presenta un grupo de opciones en un control compacto que se abre al activarlo. Cada opción declara su valor — lo que viaja — y su texto visible — lo que la persona lee — y pueden ser distintos: el texto habla el idioma de la persona; el valor, el de los datos. Sirve también para grupos largos (los municipios de un departamento) y permite, con un atributo propio, seleccionar varias opciones a la vez, aunque esa variante se maneja peor en móvil y con teclado: úsala solo si no hay alternativa. Detalle profesional: la primera opción de una lista obligatoria suele ser una invitación sin valor («Elige un municipio…»), para que «no elegí nada» se detecte como lo que es.\n• El área de texto (textarea): el control para respuestas largas — la descripción de la actividad, la observación, el comentario. Se declara con un número de filas visibles y acepta texto en varias líneas. No lleva su contenido como atributo: el texto inicial, si lo hay, va dentro del elemento. Su label importa igual que el de cualquier campo; su placeholder, como ejemplo breve de lo que se espera («Cuenta qué se hizo, quiénes participaron…»), aquí sí es un uso legítimo de la ayuda.\n\nCon esto cierras el inventario: texto y sus tipos, fechas, elección con casillas, radios y desplegables, texto largo y archivo. Todo formulario que verás en la ruta es una combinación de estas piezas."
+  },
+  {
+   "page": 6,
+   "kind": "code",
+   "title": "Desplegable y área de texto en el formulario de evidencias",
+   "body": "```\n<label for=\"municipio\">Municipio donde se realizó</label>\n<select id=\"municipio\" name=\"municipio\" required>\n  <option value=\"\">Elige un municipio…</option>\n  <option value=\"manizales\">Manizales</option>\n  <option value=\"villamaria\">Villamaría</option>\n  <option value=\"la-dorada\">La Dorada</option>\n</select>\n\n<label for=\"descripcion\">Descripción de la actividad</label>\n<textarea id=\"descripcion\" name=\"descripcion\" rows=\"4\"\n  placeholder=\"Cuenta qué se hizo, quiénes participaron y qué se logró…\"\n  required></textarea>\n```\n\nLa opción sin valor («Elige un municipio…») hace que\ndejar la lista sin elegir cuente como campo vacío en\nla validación: obligatorio de verdad, no de adorno."
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.2. Agrupar campos: el fieldset y su legend",
+   "body": "Definición: un formulario real no es una fila de campos sueltos: tiene partes — datos de la actividad, datos de contacto, evidencias adjuntas — y HTML permite declarar esos grupos con un elemento de agrupación cuyo título interno nombra el grupo.\n\nPor qué importa, más allá del orden visual:\n\n• Para la persona que ve: un título de grupo («Datos de la actividad») orienta antes de leer campo por campo; el formulario largo se vuelve recorrible por partes.\n• Para el lector de pantalla: al entrar a un grupo anuncia su título, y — clave en radios y casillas — cada opción se escucha junto al título de su grupo. Sin grupo declarado, «Presencial» flota sin contexto: ¿presencial qué? Con grupo, se escucha «¿La actividad fue presencial o virtual?: Presencial». Los grupos de radios y de casillas hermanas deben declararse siempre: ahí el agrupamiento no es opcional, es lo que da sentido a cada opción.\n• Para ti: el grupo es también la unidad que luego mostrarás por pasos, validarás por partes o reutilizarás.\n\nNota de alcance: el elemento de grupo dibuja por defecto un borde en la mayoría de navegadores. Que se quede o se vaya es decisión del CSS de la Fase 2; el significado — esto es un grupo con este nombre — es de este tema."
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.1. Validación nativa: las reglas que el navegador hace cumplir gratis",
+   "body": "Definición: la validación nativa es el conjunto de comprobaciones que el navegador ejecuta solo, antes de enviar, a partir de lo que se declara en cada campo. Sin una línea de JavaScript, el navegador impide el envío, señala el campo que falla y muestra un mensaje. Las declaraciones que la activan:\n\n• Obligatorio: el campo no puede viajar vacío. Es la regla más usada, y la que la persona debe conocer ANTES de equivocarse: un campo obligatorio se anuncia en su label o junto a él («obligatorio» o el asterisco explicado), nunca es una sorpresa al enviar.\n• Longitud mínima y máxima en textos: para claves, códigos y respuestas con tamaño sensato. La máxima también protege de pegados accidentales de documentos enteros en una cajita.\n• Mínimo, máximo y paso en números y fechas: la edad entre 5 y 99; la fecha de la actividad no posterior a hoy; cantidades de asistentes de 1 en 1. El paso define el salto permitido: 1 para personas, 0.5 para medias jornadas.\n• El tipo ya valida: correo y dirección web comprueban su forma básica sin que declares nada más.\n• El patrón: una expresión regular que el valor debe cumplir, para formatos con estructura exacta; la siguiente hoja lo dedica por entero.\n\nLa combinación se lee como el contrato del formulario hecho código: cada campo declara qué es, si es obligatorio y dentro de qué límites vive su valor."
+  },
+  {
+   "page": 7,
+   "kind": "code",
+   "title": "Un campo por regla: el contrato escrito en atributos",
+   "body": "```\n<label for=\"codigo\">Código de la sede (3 letras y 2 dígitos) *</label>\n<input id=\"codigo\" name=\"codigo\" type=\"text\" required\n       pattern=\"[A-Za-z]{3}[0-9]{2}\"\n       title=\"Formato: tres letras y dos dígitos, ej. MAN05\">\n\n<label for=\"asistentes\">Número de asistentes *</label>\n<input id=\"asistentes\" name=\"asistentes\" type=\"number\"\n       min=\"1\" max=\"500\" step=\"1\" required>\n\n<label for=\"clave\">Contraseña (mínimo 8 caracteres) *</label>\n<input id=\"clave\" name=\"clave\" type=\"password\"\n       minlength=\"8\" required>\n\n<label for=\"fecha-act\">Fecha de la actividad *</label>\n<input id=\"fecha-act\" name=\"fecha\" type=\"date\"\n       max=\"2026-12-31\" required>\n```\n\nFíjate en el campo del código: el atributo de título\nacompaña al patrón y el navegador lo suma a su mensaje\nde error, para que la persona sepa QUÉ formato cumplir."
+  },
+  {
+   "page": 7,
+   "kind": "table",
+   "title": "Tabla comparativa — atributos de validación y qué comprueban",
+   "body": "Atributo | Aplica a | Qué comprueba antes de enviar\nrequired | Todos los campos | Que el valor no viaje vacío (ni la opción sin elegir, ni la casilla sin marcar)\nminlength / maxlength | Texto, correo, contraseña, área de texto | Que la longitud esté dentro del rango declarado\nmin / max | Número, fecha, hora, rango | Que el valor esté dentro del límite inferior y superior\nstep | Número, fecha, rango | Que el valor avance en los saltos permitidos (1, 0.5, 7 días…)\npattern | Texto, correo, teléfono, contraseña | Que el valor cumpla la expresión regular declarada\ntype (el propio) | Correo, dirección web, número | La forma básica propia de ese tipo de dato"
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.1. El patrón: validación con expresión regular",
+   "body": "Definición: el patrón es una expresión regular — una mini-lenguaje que describe la FORMA exacta que debe tener un texto — que declaras en el campo, y el navegador exige que el valor completo la cumpla. No valida significados (no sabe si el código de sede existe); valida estructuras: tantos caracteres, de estas clases, en este orden.\n\nLo mínimo para trabajar con dignidad:\n\n• Clases entre corchetes: [0-9] cualquier dígito, [A-Za-z] cualquier letra, [A-Z] solo mayúsculas.\n• Cantidades entre llaves: {3} exactamente tres, {2,4} entre dos y cuatro, y los atajos + (uno o más) y * (cero o más).\n• El patrón se entiende anclado: debe cumplirlo el valor ENTERO, de principio a fin, no un pedazo en el medio. Por eso no hace falta marcar inicio ni fin.\n• El atributo de título acompaña siempre: la expresión regular se lee directamente; la persona necesita la traducción («Formato: tres letras y dos dígitos, ej. MAN05»), y el navegador la muestra junto a su mensaje de error.\n\nEjemplos con oficio: un código postal de 6 dígitos, [0-9]{6}; un usuario que solo admite minúsculas, dígitos y guion bajo, [a-z0-9_]{4,20}. Y el límite honesto del patrón: puede exigir que un correo «tenga forma de correo», jamás que ese correo exista o sea de la persona. Cada validación promete solo lo que puede cumplir."
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.2. Cómo y cuándo valida el navegador: el momento del envío",
+   "body": "La validación nativa tiene un momento preciso, y conocerlo explica su comportamiento completo:\n\n• Al pulsar enviar, el navegador recorre los campos en orden y se detiene en el PRIMERO que falla: le pone el foco, desplaza la vista hasta él y muestra allí su mensaje. No hay lista de errores nativa: hay una corrección guiada, campo a campo, envío tras envío. En formularios cortos es suficiente; en formularios largos entenderás en la Hoja 9 por qué los errores bien diseñados añaden un resumen.\n• Cambiar un campo y volver a enviar repite el recorrido desde el principio. Un campo corregido deja de fallar en el siguiente intento: la validación no guarda rencor ni memoria.\n• El formulario puede renunciar a todo esto con un atributo que desactiva la validación nativa — existe para cuando el equipo valida por su cuenta con JavaScript (Fase 3) — pero desactivarla sin tener el reemplazo listo es dejar el formulario sin ninguna red. Habrá además quien intente enviar saltándose el navegador (con herramientas, no con clics): por eso la regla de oro de la siguiente advertencia.\n\nEl mensaje nativo tiene además dos rasgos fijos: su texto lo escribe el navegador, en su idioma, y su aspecto no se puede estilizar con CSS — la Hoja 9 explica qué hacer con esa limitación en lugar de pelear contra ella."
+  },
+  {
+   "page": 8,
+   "kind": "warning",
+   "title": "LA VALIDACIÓN DEL NAVEGADOR NO ES SEGURIDAD",
+   "body": "La validación nativa protege la EXPERIENCIA: ayuda a la persona honesta a no equivocarse y ahorra viajes inútiles al servidor. Pero no protege los datos: cualquiera puede desactivarla, editar el HTML en DevTools o enviar el paquete a mano con datos imposibles. Por eso todo formulario serio valida dos veces: aquí, en el navegador, por amabilidad; y en el servidor (fases de backend), por verdad. Lo que el servidor no comprueba, no está comprobado."
+  },
+  {
+   "page": 8,
+   "kind": "diagram",
+   "title": "El recorrido de validación al enviar",
+   "body": "Pulsar «Enviar»\n        ▼\n¿Todos los campos cumplen sus reglas?\n   ├── NO ──► foco al primer campo que falla\n   │            + su mensaje de error\n   │            + la persona corrige y reintenta\n   └── SÍ ──► se empaqueta nombre–valor y viaja la petición"
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.1. Errores que la persona entiende: qué decir y dónde decirlo",
+   "body": "Un error de formulario bien comunicado cumple cuatro cosas, y el mensaje nativo solo garantiza la primera:\n\n• Dice QUÉ campo falla: junto al campo, no en un aviso genérico al final de la página («Hubo errores» no es un mensaje, es un abandono).\n• Dice QUÉ está mal en lenguaje de la persona, no del sistema: «La fecha no puede ser futura» se entiende; «value out of range» es el problema técnico asomado a la pantalla.\n• Dice CÓMO se arregla: el formato esperado, el rango permitido, el ejemplo. El campo del código de sede con su «ej. MAN05» vale más que diez mensajes que solo dicen «inválido».\n• Conserva lo que ya estaba bien: corregir un campo jamás borra los otros. Perder el texto largo de una descripción porque el correo tenía un error es el fallo de formulario que más personas hace abandonar.\n\nHay además un momento de escribir los errores que separa al profesional: las etiquetas y ayudas se redactan ANTES del error. La persona que lee en su label «Código de la sede (3 letras y 2 dígitos)» casi nunca produce el error; el mensaje solo recoge a quien aun así se equivocó. Prevenir el error con buena señalización es la mitad de este tema; comunicarlo bien cuando ocurre es la otra mitad."
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.2. Errores accesibles: que también los oiga quien no ve la página",
+   "body": "Si la persona usa lector de pantalla, un error que solo se «ve» (un borde rojo, un texto que apareció lejos) es un error que no existe. Lo que la práctica profesional exige:\n\n• El aviso debe llegar al lector: al fallar el envío, el foco se mueve al campo con error — la validación nativa ya lo hace — y los mensajes propios (cuando validas con JavaScript en fases siguientes) se anuncian mediante regiones que el lector lee en voz alta apenas aparecen, además de estar junto a su campo.\n• Cada campo declara en el código su estado de error y su texto de ayuda o de error asociado: existen atributos para unir el campo con la frase que lo describe, y con esa unión el lector anuncia «Correo, error: escribe una dirección completa, con @ y dominio» al llegar al campo, sin cazar textos por la página.\n• En formularios largos, un resumen de errores al inicio, con enlaces a cada campo, es lo que permite corregir 4 fallos sin enviar 4 veces: es el equivalente accesible de la lista que la persona que ve sí puede escanear.\n• Y la regla que atraviesa todo: NUNCA comuniques solo con color. El borde rojo no lo ve quien no ve, ni quien tiene daltonismo, ni en una pantalla al sol. Color sí; color solo, jamás: siempre hay texto, siempre hay mensaje.\n\nEstas piezas — foco al error, textos asociados y resumen navegable — son lo que hace que un formulario sea accesible también en sus errores."
+  },
+  {
+   "page": 9,
+   "kind": "warning",
+   "title": "ERRORES QUE EXPULSAN A LA PERSONA",
+   "body": "• Marcar el error solo con color y ningún texto: la mitad de los usuarios no sabrá qué pasó.\n• Borrar el formulario entero al fallar un campo: castigar todo lo bien escrito por un solo error es la forma más rápida de perder el envío.\n• Errores en idioma técnico o en otro idioma: el mensaje habla a la persona en su lengua y en sus palabras.\n• Descubrir la regla al enviar, sin haberla anunciado en el label: si la contraseña exigía 8 caracteres, eso se lee antes de escribirla, no después de fallar."
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.1. Botones con oficio y el envío completo: qué sale de la página",
+   "body": "El formulario se cierra con sus botones, y cada uno tiene un tipo que declara su intención:\n\n• El botón de envío: dispara la validación y, si todo pasa, el viaje del paquete. Su texto dice la acción y su consecuencia: «Enviar evidencia», «Registrar actividad» — nunca un desnudo «OK» ni un «Enviar» a secas en formularios donde la persona no tiene claro qué pasará.\n• El botón de reinicio: devuelve cada campo a su valor inicial. Suena útil y en la práctica es una trampa: está junto al de enviar, se pulsa por accidente y borra minutos de escritura sin confirmación. La práctica profesional actual es sencilla: no ponerlo. Si alguien quiere empezar de nuevo, que recargue la página.\n• El botón genérico: no hace nada por sí mismo; existe para que JavaScript le dé comportamiento (fases siguientes). Dentro de un formulario, declararle el tipo genérico es obligatorio si no se quiere que envíe: un botón sin tipo dentro de un form ENVÍA.\n\nY al enviar, el paquete se construye con reglas fijas: entran los controles con nombre que no estén deshabilitados; de los radios, solo el elegido de cada grupo; de las casillas, las marcadas; el botón con el que se envió puede aportar su propio nombre y valor. Los deshabilitados se muestran pero no viajan ni se pueden editar — distinto de los de solo lectura, que sí viajan y son para datos que se muestran sin tocar."
+  },
+  {
+   "page": 10,
+   "kind": "code",
+   "title": "La evidencia del tema: formulario accesible de evidencias, completo",
+   "body": "```\n<form action=\"confirmar-evidencia.html\" method=\"post\">\n\n  <fieldset>\n    <legend>Datos de la actividad</legend>\n\n    <label for=\"ev-nombre\">Nombre de la actividad *</label>\n    <input id=\"ev-nombre\" name=\"nombre\" type=\"text\" required>\n\n    <label for=\"ev-fecha\">Fecha de la actividad *</label>\n    <input id=\"ev-fecha\" name=\"fecha\" type=\"date\" required>\n\n    <label for=\"ev-municipio\">Municipio *</label>\n    <select id=\"ev-municipio\" name=\"municipio\" required>\n      <option value=\"\">Elige un municipio…</option>\n      <option value=\"manizales\">Manizales</option>\n      <option value=\"villamaria\">Villamaría</option>\n    </select>\n\n    <label for=\"ev-asistentes\">Número de asistentes *</label>\n    <input id=\"ev-asistentes\" name=\"asistentes\"\n           type=\"number\" min=\"1\" max=\"500\" required>\n  </fieldset>\n\n  <fieldset>\n    <legend>Contacto y descripción</legend>\n\n    <label for=\"ev-correo\">Correo de contacto *</label>\n    <input id=\"ev-correo\" name=\"correo\" type=\"email\"\n           autocomplete=\"email\" required>\n\n    <label for=\"ev-desc\">Descripción de la actividad *</label>\n    <textarea id=\"ev-desc\" name=\"descripcion\" rows=\"4\"\n      placeholder=\"Qué se hizo, quiénes participaron, qué se logró…\"\n      required></textarea>\n\n    <label for=\"ev-foto\">Fotografía de evidencia</label>\n    <input id=\"ev-foto\" name=\"foto\" type=\"file\">\n  </fieldset>\n\n  <button type=\"submit\">Enviar evidencia</button>\n</form>\n```\n\nTodo el tema en un solo formulario: grupos con título,\ncada campo con label asociado y nombre, el tipo que su\ndato pide, la validación declarada y un solo botón,\nde tipo envío, que dice exactamente lo que hará."
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.2. Diseñar el formulario antes de escribirlo: el orden que ahorra errores",
+   "body": "El método de trabajo que usan los equipos:\n\n• Primero se listan los datos que se necesitan de verdad. Cada campo pedido cuesta esfuerzo a la persona y datos a la custodia: el campo que nadie usa no se pide. El formulario pide lo que el informe necesita, ni un dato más «por si acaso».\n• Ordena por la lógica de la persona, no por la de la base de datos: primero lo que sabe de memoria (qué actividad, cuándo), después lo que consulta (asistentes, municipio), al final lo que redacta (la descripción) y adjunta (la foto).\n• Agrupa con título cada parte y deja lo obligatorio señalado desde el label.\n• Elige el tipo y la regla de cada campo al escribirlo, no «al final si queda tiempo»: la validación es parte del campo, como su nombre.\n• Recorre el formulario terminado con el teclado, en orden, antes de entregarlo: si el orden de tabulación salta sin lógica, la persona que no usa ratón sufre el desorden campo a campo."
+  },
+  {
+   "page": 12,
+   "kind": "list",
+   "title": "Práctica previa · Un campo completo y su validación, paso a paso",
+   "body": "Construcción de un campo completo: se escribe un grupo con su `label` asociado (el atributo `for` del `label` igual al `id` del campo), el `input` con su tipo, su nombre de envío (`name`), y el conjunto se guarda dentro de un formulario con método `POST`. → El resultado es un campo entero y correcto, la pieza que los ejercicios repiten con tipos distintos.\nComprobación de la asociación: en la página abierta se hace clic sobre el texto del `label`. → El foco entra en su campo: la asociación funciona; si no entra, `for` e `id` no coinciden.\nRecorrido con Tab: la tecla `Tab` se pulsa desde el inicio del formulario. → El foco visita los campos en el orden en que están escritos y el orden se entiende sin ver la pantalla.\nValidación nativa forzada: el campo obligatorio se deja vacío y se pulsa el botón de envío. → El navegador detiene el envío y muestra su mensaje junto al campo: ese comportamiento es el que los ejercicios prueban campo a campo.\nDato inválido provocado: en un campo de tipo correo se escribe un correo sin arroba y el formulario se envía. → El navegador lo rechaza antes de enviar; el mensaje indica qué formato espera.\nLectura del paquete que viaja: DevTools se abre en Network, el formulario se envía con datos correctos y se hace clic en la petición del envío. → En la carga (payload) se ven los pares nombre y valor de cada campo con `name`; un campo sin `name` no aparece: su dato no viaja."
+  },
+  {
+   "page": 12,
+   "kind": "list",
+   "title": "Ejercicios concretos del Tema 4 · Etapa 2: Práctica",
+   "body": "Ejercicio 1 · Levanta la estructura accesible: se crea el formulario de evidencias con su destino y su método POST, los grupos con su título (datos de la actividad, contacto y descripción) y los primeros campos de texto, cada uno con su label asociado por for e id y su nombre de envío; termina con el botón de envío declarado y con su texto claro.\nEjercicio 2 · Cada dato con su tipo: el formulario se completa eligiendo el tipo que cada dato pide — correo como correo, fecha como fecha, asistentes como número con su rango, municipio como lista desplegable con su opción sin valor, modalidad como grupo de radios con un solo nombre, evidencias recogidas como casillas independientes y descripción como área de texto.\nEjercicio 3 · Validación nativa completa y a prueba: declara obligatorios, longitudes y rangos en cada campo, añade el patrón con su título al campo con formato exacto, y prueba el formulario vacío, con datos imposibles y corregidos, anotando qué detuvo el navegador, en qué campo y con qué mensaje.\nEjercicio 4 · Uso real: teclado, lector y usuario descuidado: el formulario se recorre solo con Tab comprobando orden y foco, se revisa que cada campo se anuncie con su label, se repite la sesión de descuidos verificando que los errores se entienden y no borran lo bien escrito, todo se corrige y el formulario final queda como evidencia del tema."
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "12.1. El flujo completo para construir un formulario",
+   "body": "Los datos que se necesitan de verdad se listan y se ordenan por la lógica de quien llena el formulario, no por la de la base de datos.\nCrea el formulario declarando destino y método: entregar datos es POST; pedir o filtrar, GET.\nAgrupa los campos por partes con su título; dentro de cada grupo, un campo a la vez y completo.\nDe cada campo se escriben el label asociado, el nombre de envío y el tipo que su dato pide — texto solo para lo que no tiene tipo propio.\nDeclara la validación al escribir cada campo: obligatorio, límites, patrón con su título explicado en lenguaje humano.\nCierra con un único botón de envío de texto claro, sin botón de reinicio, y prueba: vacío, con descuidos, solo con teclado y con datos correctos hasta que el paquete viaja completo."
+  },
+  {
+   "page": 13,
+   "kind": "warning",
+   "title": "REGLAS CRÍTICAS DE CIERRE",
+   "body": "• Ningún campo sin label asociado, ninguno sin nombre de envío: el primero deja el campo mudo para un lector de pantalla; el segundo, su dato fuera del paquete.\n• El placeholder ayuda con el formato, nunca nombra un campo; el tipo de cada input lo decide el dato, no la costumbre: cantidades con número, códigos como texto o teléfono.\n• Valida en el navegador por amabilidad y asume que el servidor validará por verdad: la nativa sola no es seguridad.\n• Errores con texto, junto a su campo y diciendo cómo corregir; nunca solo con color, nunca borrando lo que ya estaba bien."
+  }
+ ],
+ "exercises": [
+  {
+   "n": 1,
+   "title": "Ejercicio 1 · Levanta la estructura accesible: formulario, grupos y labels asociados",
+   "objective": "Construir el esqueleto completo del formulario de registro de evidencias — destino y método declarados, campos agrupados con título y cada campo con su label asociado y su nombre de envío — hasta que el formulario, aún con campos básicos, ya se puede recorrer y entender solo con teclado.",
+   "steps": [
+    {
+     "hacer": "La lista de datos que el formulario necesita de verdad (actividad, fecha, municipio, asistentes, correo, descripción, fotografía) y al lado de cada uno, para qué lo pide el informe.",
+     "esperado": "Una lista cerrada de 6 o 7 datos justificados; todo dato sin uso en el informe queda fuera del formulario."
+    },
+    {
+     "hacer": "Creación de la página del formulario con su estructura semántica del Tema 3 y, dentro del contenido principal, el formulario con destino a una página de confirmación y método POST.",
+     "esperado": "El formulario existe como región propia de la página, con su encabezado, y su declaración ya dice a dónde y cómo viajarán los datos."
+    },
+    {
+     "hacer": "Declaración de los dos grupos con su título: «Datos de la actividad» y «Contacto y descripción», usando el elemento de agrupación con su leyenda.",
+     "esperado": "En el navegador los grupos se distinguen y al leer el código cada campo queda dentro del grupo al que pertenece."
+    },
+    {
+     "hacer": "Adición de los campos de texto del primer grupo (nombre de la actividad y los demás que sean texto simple), cada uno con su label asociado de forma explícita — for e id con el mismo nombre, id único — y su name corto, en minúsculas y sin espacios.",
+     "esperado": "Al hacer clic en cada label, el foco cae en su campo; ningún campo queda sin nombre visible ni sin llave de envío."
+    },
+    {
+     "hacer": "Cierra con el botón de envío, con su tipo declarado y el texto «Enviar evidencia».",
+     "esperado": "Al pulsarlo con los campos básicos llenos, el formulario intenta enviar (la validación completa llega en el Ejercicio 3); si un campo no tuviera name, su dato no viajaría: la comprobación se hace quitando uno, probando y reponiéndolo, y lo observado queda registrado."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: el formulario de evidencias en su estructura accesible — grupos con título, labels asociados comprobados con clics y el experimento del name documentado.",
+   "verification": "(1) Clic en cualquier label pone el foco en su campo. (2) Todos los campos tienen id único, label asociado y name válido. (3) El efecto sobre el dato de un campo sin name queda comprobado con el experimento."
+  },
+  {
+   "n": 2,
+   "title": "Ejercicio 2 · Cada dato con su tipo: inputs, radios, casillas, desplegable y área de texto",
+   "objective": "Completar el formulario eligiendo para cada dato el control que le corresponde — tipos de input, grupo de radios excluyente, casillas independientes, lista desplegable y área de texto — hasta que el formulario recoge todos los datos de la evidencia con el control correcto en cada caso.",
+   "steps": [
+    {
+     "hacer": "Conversión del correo a su tipo propio, con su pista de autocompletado, y la fecha de la actividad en el control de fecha.",
+     "esperado": "El correo ya gana la validación de forma del navegador y la fecha se elige en un calendario, viajando siempre en formato año-mes-día."
+    },
+    {
+     "hacer": "Los asistentes pasan al tipo número con su rango sensato (mínimo 1) y queda definido por qué el teléfono del contacto — si se añade — NO va como número sino como teléfono.",
+     "esperado": "Cantidades con control numérico y códigos con el suyo; la distinción queda explicada con palabras propias."
+    },
+    {
+     "hacer": "Adición del municipio como lista desplegable con su primera opción sin valor («Elige un municipio…») y al menos cinco municipios reales de Caldas, cada opción con su valor corto y su texto completo.",
+     "esperado": "Sin elegir, la lista muestra la invitación; al elegir, viaja el valor corto y se lee el nombre completo."
+    },
+    {
+     "hacer": "Adición de la modalidad como grupo de radios (presencial / virtual) dentro de su grupo con título, compartiendo un solo name y con su value propio en cada opción; y las evidencias recogidas como casillas independientes, cada una con su nombre y valor.",
+     "esperado": "En los radios solo se puede marcar una opción a la vez (la comprobación es inmediata); en las casillas, todas, alguna o ninguna."
+    },
+    {
+     "hacer": "Cierre del formulario con la descripción como área de texto de varias filas, su label y un placeholder que ejemplifica lo esperado, y el campo de archivo para la fotografía de evidencia con su label claro.",
+     "esperado": "El formulario completo recoge los 7 datos de la lista del Ejercicio 1, cada uno con el control que su dato pide."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: el formulario de evidencias completo en controles — tipos correctos, radios excluyentes comprobados, desplegable con opción vacía y área de texto — listo para declarar su validación.",
+   "verification": "(1) Cada dato usa el tipo o control que le corresponde y cada elección queda justificada. (2) El grupo de radios solo admite una opción y las casillas son independientes. (3) El desplegable sin elegir se distingue de una elección real."
+  },
+  {
+   "n": 3,
+   "title": "Ejercicio 3 · Validación nativa completa: declara las reglas y rómpelas todas",
+   "objective": "Declarar la validación nativa entera del formulario — obligatorios, rangos, longitudes y un patrón con su título — y someterla a una batería de envíos fallidos hasta comprobar, campo por campo, que el navegador detiene lo imposible, señala el primer error y conserva lo bien escrito.",
+   "steps": [
+    {
+     "hacer": "Marcado como obligatorios de los campos que el informe no puede recibir vacíos (actividad, fecha, municipio, asistentes, correo, descripción) y señálalo en cada label desde el principio, con el asterisco explicado en una línea al inicio del formulario («* Campo obligatorio»).",
+     "esperado": "Ninguna obligatoriedad es sorpresa: se lee antes de escribir, no se descubre al fallar."
+    },
+    {
+     "hacer": "Declaración de los límites: asistentes entre 1 y 500, fecha no futura según lo que el control permita acotar, descripción con longitud mínima razonable y contraseña no aplica aquí — en su lugar, el código de la sede como campo con formato exacto: patrón de tres letras y dos dígitos, con su atributo de título en lenguaje humano («Formato: tres letras y dos dígitos, ej. MAN05»).",
+     "esperado": "Cada campo lleva escritas, en sus atributos, las reglas que su dato debe cumplir."
+    },
+    {
+     "hacer": "Prueba del envío con el formulario completamente vacío.",
+     "esperado": "El navegador detiene el envío, lleva el foco al primer campo obligatorio y muestra su mensaje; nada viaja. Quedan registrados qué campo fue y qué dijo el mensaje."
+    },
+    {
+     "hacer": "El formulario se llena como lo haría un usuario descuidado: correo sin arroba, fecha imposible de justificar o fuera de rango, asistentes en cero, código de sede con el formato roto y desplegable sin elegir; el envío se intenta y las correcciones se hacen de una en una.",
+     "esperado": "Cada error lo detiene el campo correcto con un mensaje comprensible, y lo que ya estaba bien NUNCA se borra al corregir otro campo; cada fallo y su mensaje quedan anotados en rojo."
+    },
+    {
+     "hacer": "Cierre con el envío correcto completo: todos los datos válidos, en orden.",
+     "esperado": "El formulario pasa la validación entera y viaja a la página de confirmación; la batería de errores provocados queda registrada, con qué regla detuvo cada uno y qué mensaje se mostró."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: el formulario de evidencias con su contrato de validación declarado y probado — la batería de errores documentada campo por campo.",
+   "verification": "(1) Ningún dato imposible de la batería logró enviarse. (2) Cada error lo señaló el campo correcto y su mensaje se entendía sin ayuda. (3) Corregir un campo nunca borró los demás."
+  },
+  {
+   "n": 4,
+   "title": "Ejercicio 4 · Uso real y entrega: teclado, anuncio accesible y la evidencia cerrada",
+   "objective": "Someter el formulario terminado a las condiciones reales de uso — recorrido completo solo con teclado, comprobación de que cada campo se anuncia con su label y una última sesión de descuidos — corrigiendo lo que aparezca y dejando el formulario accesible de evidencias listo para entregar como trabajo del tema.",
+   "steps": [
+    {
+     "hacer": "Recorrido del formulario entero solo con el teclado (Tab para avanzar, Shift+Tab para volver, espacio para casillas y radios, flechas dentro del grupo de radios y de la lista).",
+     "esperado": "Se llega a todos los campos en el orden en que se llenan, el foco se ve en cada parada y ningún control queda inalcanzable ni atrapado; cada salto ilógico encontrado se corrige en el orden del código."
+    },
+    {
+     "hacer": "Comprobación de los anuncios accesibles: con la lista de campos de un lector de pantalla (o imaginando la escucha campo a campo), con verificación de que cada control se anuncia con el texto de su label y que cada grupo de radios y casillas se entiende con el título de su grupo.",
+     "esperado": "Ningún campo se anuncia mudo ni ninguna opción flota sin su pregunta; si algo suena vacío, la asociación o el grupo están mal declarados y se corrigen."
+    },
+    {
+     "hacer": "Validación del documento completo de la página hasta cero errores, como en el cierre del Tema 3, y repetición de la sesión del usuario descuidado del Ejercicio 3 sobre la versión final.",
+     "esperado": "Validador en cero y la validación nativa comportándose igual que en la batería documentada, sin regresiones."
+    },
+    {
+     "hacer": "Guardado del archivo final con nombre claro en la estructura del sitio de práctica y commit de cierre si el trabajo es con Git.",
+     "esperado": "La evidencia queda en un solo lugar, abre sin errores y es exactamente la versión que probaste en los pasos anteriores."
+    },
+    {
+     "hacer": "El contrato completo del formulario, reunido: qué datos pide y por qué, qué tipo y qué regla tiene cada campo, qué ocurre al enviar con un error y qué hace accesible al formulario.",
+     "esperado": "Cada parte del contrato queda verificada; cualquier tramo que falte señala la hoja exacta a repasar antes de entregar."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la evidencia oficial de este tema: «Formulario accesible de evidencias» — validado, recorrible con teclado, con labels que anuncian cada campo y validación nativa probada.",
+   "verification": "(1) El formulario se completa entero solo con teclado. (2) Cada campo y cada grupo se anuncian con su nombre. (3) El formulario está listo para entregarse en Trabajos y defenderse en la evaluación del tema."
+  }
+ ],
+ "trabajo": {
+  "title": "Trabajo del Tema 4 · Formulario de inscripción a un taller",
+  "description": "Situación nueva de este trabajo: los ejercicios del tema construyeron el formulario de registro de evidencias. Este trabajo es otro formulario, para otra situación: la inscripción a un taller (de robótica, de programación o el que elijas de tu entorno), que vive dentro de la página del evento del Tema 3 o como página propia del mismo proyecto.\n\nEl formulario debe demostrar el dominio completo del tema y lo acumulado: (1) la estructura semántica del Tema 3 a su alrededor: la página o sección que lo contiene, con sus regiones y su jerarquía de encabezados; (2) destino y método declarados y defendibles en el README: una inscripción con datos personales viaja por POST; (3) los campos agrupados con su título: datos de la persona, datos del taller y confirmaciones; (4) cada dato con el control que le corresponde: texto, correo, número o fecha según el dato, un grupo de radios de opción única con su propio name, casillas independientes para lo que admite varias respuestas y un desplegable donde la lista es cerrada; (5) cada campo con su label asociado por for e id y su name de envío; (6) la validación nativa completa — obligatorios, longitudes o rangos y un pattern con su title — sometida a la batería de envíos fallidos, con el registro de qué rechazó y por qué; (7) el recorrido completo solo con teclado, sin quedar atrapado en ningún campo. Entrega aquí el enlace de tu repositorio con el formulario y el registro de la validación en el README.\n\nCómo se desbloquea: este trabajo está bloqueado hasta que termines la fundamentación del Tema 4 en el Cuaderno. Cuando lo envíes, se abre la evaluación Fácil de este tema. Califica el experto de 0 a 10, con retroalimentación, en un plazo máximo de 24 horas desde la entrega.",
+  "estimated_minutes": 240
+ }
+}

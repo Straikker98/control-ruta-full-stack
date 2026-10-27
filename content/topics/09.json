@@ -1,0 +1,405 @@
+{
+ "week": 9,
+ "estado": "completo",
+ "sections": [
+  {
+   "page": 1,
+   "kind": "heading",
+   "title": "1.1. Responsive: el mismo documento en cada ancho de pantalla",
+   "body": "Responsive (diseño adaptable) es la propiedad de una página que se presenta bien en cualquier ancho de pantalla sin cambiar su documento: el mismo HTML y la misma hoja de estilos componen una presentación en el teléfono, otra en la tableta y otra en el monitor, y lo único que cambia entre una y otra es la forma — cuántas columnas hay, cuánto mide cada pieza y cómo se reparte el espacio.\n\nSin diseño adaptable, la página nace pensada para un solo ancho, normalmente el del monitor donde se escribió. En una pantalla menor, esa composición o se encoge hasta lo ilegible o se sale por los lados y obliga a desplazarse en horizontal para leer cada línea. El contenido es el mismo; lo que falla es que su forma fue declarada para un único ancho.\n\nTres piezas componen todo el tema, y cada hoja que sigue desarrolla una:\n\n• La base móvil (mobile-first): los estilos que valen para el ancho menor se escriben primero, sin ninguna condición, y forman la presentación de partida para todos los anchos.\n• Las media queries: preguntas escritas en la hoja que activan reglas nuevas solo cuando el ancho disponible alcanza un punto declarado.\n• Las piezas fluidas: imágenes y medidas que se ajustan al espacio que las contiene, en lugar de imponer el suyo."
+  },
+  {
+   "page": 1,
+   "kind": "warning",
+   "title": "REGLA FUNDAMENTAL",
+   "body": "El diseño se construye desde el ancho menor y crece: primero la presentación que funciona en 360px, después las que el espacio extra permite en 768px y en 1200px. Una página que nace en el monitor y se «arregla» después para el teléfono acumula parches en orden contrario y rompe en cada ancho intermedio; la que nace pequeña y crece con consultas ordenadas conserva una base que funciona en todos los anchos, incluso en los que nadie probó."
+  },
+  {
+   "page": 1,
+   "kind": "definition",
+   "title": "1.2. El viewport: el ancho contra el que se compone la página",
+   "body": "Definición: el viewport es la ventana visible de la página en la pantalla: el rectángulo donde el navegador pinta el documento. Su ancho, medido en píxeles CSS, es el ancho contra el que se compone todo el layout — cuando una media query pregunta por el ancho, pregunta por el del viewport, no por el tamaño físico del aparato.\n\nEse ancho no se da por sentado en un teléfono: sin instrucción, el navegador móvil supone que la página fue hecha para escritorio, representa un viewport de 980px y encoge el resultado completo con un zoom de alejamiento para que quepa en la pantalla. La página «se ve entera», pero con el texto diminuto y exigiendo zoom con los dedos en cada párrafo.\n\nLa instrucción que lo corrige es una sola línea en el `head` del documento, la misma que el Tema 6 presentó como requisito de la revisión móvil:\n\n`<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">`\n\n• `width=device-width`: el viewport mide el ancho real del dispositivo en píxeles CSS, ni 980 ni ningún valor supuesto.\n• `initial-scale=1`: la escala inicial es 1 a 1, sin alejamiento aplicado al abrir.\n\nCon la línea declarada, un teléfono de 360px de viewport compone la página contra 360px reales: las media queries de este tema reciben el ancho verdadero y la base móvil se presenta como fue escrita."
+  },
+  {
+   "page": 1,
+   "kind": "diagram",
+   "title": "Del dispositivo a la página",
+   "body": "Dispositivo — su pantalla física\n        ▼\nViewport — el ancho en píxeles CSS\nque la página puede usar\n        ▼\nLayout — se compone contra ESE ancho:\nlas consultas lo preguntan y las\nmedidas fluidas se miden contra él"
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.1. El desbordamiento horizontal: contenido más ancho que la ventana",
+   "body": "Definición: hay desbordamiento horizontal cuando alguna parte del contenido queda más ancha que el viewport. El síntoma es inconfundible: la página entera se desplaza hacia los lados, aparece la barra de desplazamiento horizontal y cada línea de lectura exige un vaivén. En un teléfono, un solo desbordamiento arruina la página completa, aunque todo lo demás esté bien compuesto.\n\nEl desbordamiento nunca es un misterio: siempre lo produce un elemento concreto, o una suma concreta, que exige más ancho del disponible. Las causas, en el orden en que se revisan:\n\n• Un ancho fijo en píxeles mayor que la pantalla: una caja de 900px no cabe en 360px por mucho que su contenedor se ajuste.\n• Una imagen a su tamaño natural, sin la regla fluida de la Hoja 6: una foto de 1600px de ancho impone sus 1600px.\n• Una palabra o una dirección muy largas y sin espacios: la línea no encuentra dónde partirla y la caja crece hasta contenerla entera (Hoja 7).\n• Una retícula de columnas fijas cuya suma supera el ancho: tres columnas de 300px piden 900px antes de contar separaciones.\n• Un `width: 100%` sumado a rellenos y bordes sin el ajuste `border-box` del Tema 7: la caja mide el 100 % del contenedor MÁS su relleno y su borde, y el exceso desborda.\n\nLocalizar el desbordamiento es localizar al culpable de esa lista: la Hoja 10 convierte la lista en procedimiento de diagnóstico."
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.2. Mobile-first: primero la pantalla pequeña, después el crecimiento",
+   "body": "Definición: mobile-first (primero el móvil) es la estrategia de escritura de la hoja en la que los estilos base — los que no llevan ninguna condición — son los de la pantalla pequeña, y cada presentación mayor se añade encima con una media query de `min-width`. En la base, la página se lee en una sola columna, con las zonas apiladas en su orden del documento: encabezado, navegación, contenido, lateral y pie, uno debajo de otro.\n\nLa estrategia contraria, desktop-first, escribe como base la presentación de escritorio y deshace partes con consultas de `max-width` al estrechar. Sus dos problemas son estructurales:\n\n• La base deja de ser red de seguridad: en mobile-first, si una consulta no se entiende o no aplica, queda la presentación pequeña, que funciona en cualquier ancho; en desktop-first queda la de escritorio, que en un teléfono se encoge o desborda.\n• Estrechar es quitar: cada ancho menor hereda todas las decisiones del mayor y debe declarar excepciones una a una. Crecer, en cambio, es añadir: la base pequeña no declara nada que el ancho mayor tenga que deshacer, porque en una columna casi no hay reparto que deshacer.\n\nPor eso el orden de la hoja mobile-first es también el orden de la cascada de la Hoja 4.2: base primero, consultas después, de menor a mayor ancho."
+  },
+  {
+   "page": 2,
+   "kind": "table",
+   "title": "Tabla comparativa — mobile-first frente a desktop-first",
+   "body": "Criterio | Mobile-first | Desktop-first\nEstilos base | Los de la pantalla pequeña: una columna | Los del escritorio: el layout completo\nConsulta típica | min-width: añade al crecer | max-width: deshace al estrechar\nSi una consulta no aplica | Queda la base pequeña, que funciona | Queda la base de escritorio, que desborda\nOrden de la hoja | Base, luego 768px, luego 1200px | Base, luego los anchos menores en descenso\nRiesgo típico | Olvidar un crecimiento necesario | Heredar decisiones que hay que deshacer una a una"
+  },
+  {
+   "page": 2,
+   "kind": "code",
+   "title": "Los dos órdenes sobre la misma parrilla",
+   "body": "```\n/* MOBILE-FIRST (la forma de trabajo) */\n.parrilla { display: grid; grid-template-columns: 1fr; gap: 1rem; }\n@media (min-width: 768px) {\n  .parrilla { grid-template-columns: 1fr 1fr; }\n}\n@media (min-width: 1200px) {\n  .parrilla { grid-template-columns: 1fr 1fr 1fr; }\n}\n  → la base es una columna; cada consulta\n    AÑADE una columna cuando el ancho la admite\n\n/* DESKTOP-FIRST (la forma contraria) */\n.parrilla { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }\n@media (max-width: 1199px) {\n  .parrilla { grid-template-columns: 1fr 1fr; }\n}\n@media (max-width: 767px) {\n  .parrilla { grid-template-columns: 1fr; }\n}\n  → la base exige el ancho mayor; cada\n    consulta DESHACE una parte al estrechar\n```\n\nMismo resultado en los tres anchos, dos\nórdenes opuestos de escribirlo y de mantenerlo."
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.1. Media queries: la hoja pregunta por el ancho antes de aplicar",
+   "body": "Definición: una media query (consulta de medio) es una condición escrita en la hoja de estilos que envuelve a un bloque de reglas: el navegador evalúa la condición y aplica las reglas de dentro solo si la respuesta es afirmativa. La evaluación no ocurre una vez al cargar: se repite en vivo cada vez que el ancho cambia, al girar el teléfono o al arrastrar el borde de la ventana, y las reglas entran y salen sin recargar la página.\n\nLa sintaxis completa, pieza por pieza:\n\n• `@media`: la arroba que abre la consulta; sin ella, el bloque no es una condición sino un error que el navegador descarta en silencio.\n• El tipo de medio: a quién va dirigida la presentación. `screen` es la pantalla; `print`, la impresión en papel. Si se omite, la consulta vale para todos los medios.\n• El conector `and`: une el tipo de medio con la característica, o varias características entre sí. Todas las unidas por `and` deben cumplirse a la vez.\n• La característica entre paréntesis: la pregunta concreta, con su nombre, dos puntos y el valor comparado — en este tema, casi siempre el ancho mínimo: `(min-width: 768px)`.\n\nLas reglas dentro de la consulta son reglas CSS ordinarias, con sus selectores y declaraciones de siempre: la consulta no cambia cómo se escribe una regla, cambia CUÁNDO existe."
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.2. min-width y max-width: el sentido exacto de cada pregunta",
+   "body": "Las dos características de ancho se distinguen por el sentido de su comparación, y confundirlas invierte el diseño entero:\n\n• `min-width` con un valor pregunta: «¿el viewport mide AL MENOS este valor?». La condición es falsa por debajo del valor y verdadera desde el valor en adelante, sin techo. Es la pregunta del crecimiento y, por tanto, la de mobile-first: cada consulta declara el ancho a partir del cual su presentación ya cabe.\n• `max-width` con un valor pregunta: «¿el viewport mide COMO MÁXIMO este valor?». La condición es verdadera por debajo y falsa al superarlo. Es la pregunta de desktop-first y, dentro de una hoja mobile-first, queda reservada a excepciones acotadas.\n• Las dos se combinan con `and` para declarar una franja: `(min-width: 768px) and (max-width: 1199px)` aplica solo entre esos dos anchos, el caso de un diseño que vale para la tableta y para nadie más.\n\nLa precisión que sostiene todo el tema: el valor comparado es el ancho del viewport en píxeles CSS, el mismo de la Hoja 1.2. En el ancho exacto del punto de corte la condición de `min-width` ya es verdadera: en 768px la consulta de 768px está activa, y en 767px todavía no."
+  },
+  {
+   "page": 3,
+   "kind": "code",
+   "title": "Una media query completa, pieza por pieza",
+   "body": "```\n/* Base móvil: el panel se lee en una columna */\n.panel {\n  border: 2px solid #212121;\n  padding: 1rem;\n}\n\n/* Desde 768px: el panel reparte su interior\n   en dos columnas */\n@media screen and (min-width: 768px) {\n  .panel {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 1rem;\n  }\n}\n\n@media        → abre la consulta\nscreen        → tipo de medio: la pantalla\nand           → conector: esto Y lo siguiente\n(min-width: 768px)\n              → la pregunta: ¿el viewport\n                mide al menos 768px?\n{ ... }       → las reglas que existen\n                solo si la respuesta es sí\n```\n\nEn 360px el panel es una columna; en 768px,\ndos. La base no se tocó: la consulta añadió."
+  },
+  {
+   "page": 3,
+   "kind": "diagram",
+   "title": "El ancho crece y las consultas se encienden en orden",
+   "body": "Base móvil — vale en todo ancho\n        ▼ al llegar a 768px\n@media 768px — se activa y se SUMA a la base\n        ▼ al llegar a 1200px\n@media 1200px — se activa y se SUMA a las dos\nUna consulta de min-width nunca se apaga\nal seguir creciendo: se acumula en orden"
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.1. Puntos de corte: el ancho donde el contenido pide otra forma",
+   "body": "Definición: un punto de corte (breakpoint) es el valor de ancho en el que una media query cambia la presentación. Elegirlo bien es la decisión de diseño central del tema, y su criterio es el contenido, nunca el catálogo de dispositivos:\n\n• El procedimiento es observar: la ventana se estrecha poco a poco desde el escritorio y se anota el ancho en el que la composición empieza a fallar — las columnas se aprietan hasta lo ilegible, la barra ya no cabe en una línea, el texto queda en líneas de tres palabras. Ese ancho, redondeado, es un punto de corte ganado.\n• Elegir por modelos de teléfono («el ancho de tal aparato») produce consultas que caducan con el siguiente modelo y que no responden a lo que la página necesita: dos páginas con el mismo aparato y distinto contenido necesitan puntos de corte distintos.\n• Pocos y con trabajo cada uno: cada punto de corte multiplica las pruebas (cada ancho declarado se recorre entero) y las reglas que mantener. En esta ruta bastan dos: 768px, donde la página gana su segunda columna, y 1200px, donde el layout de escritorio se completa y el contenedor alcanza su límite. Un tercer punto solo entra si el contenido lo pide en la observación, con su ancho anotado y su cambio concreto."
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.2. La cascada dentro de las media queries: manda el orden, no la consulta",
+   "body": "Una regla dentro de una media query no pesa más que la misma regla fuera de ella: la consulta decide si la regla existe en este ancho, pero entre las reglas que existen decide la cascada del Tema 7 — especificidad primero y, en empate, orden de aparición. De ahí salen las dos consecuencias prácticas del tema:\n\n• El orden obligatorio de una hoja mobile-first es ascendente: primero la base, después la consulta de 768px y después la de 1200px. En un viewport de 1200px están activas LAS TRES capas, y donde la de 1200 y la de 768 declaran lo mismo para el mismo elemento, gana la que va después: si la de 768 se escribiera después de la de 1200, en escritorio mandaría la presentación de tableta.\n• Una regla de base escrita AL FINAL de la hoja, después de las consultas, tapa a las de dentro en todos los anchos, porque en igualdad de especificidad gana la última. El síntoma «la media query no hace nada» se diagnostica casi siempre aquí o en un selector de menor peso dentro de la consulta, no en la consulta misma.\n\nLa lectura correcta de toda consulta, entonces, es en dos pasos: primero si está activa en este ancho; después, si sus reglas ganan la cascada contra las demás capas activas."
+  },
+  {
+   "page": 4,
+   "kind": "table",
+   "title": "Tabla — los tres anchos de verificación del tema",
+   "body": "Ancho | Qué representa | Qué se espera de la página\n360px | El teléfono estrecho | Una sola columna en el orden del documento, sin desplazamiento horizontal, texto legible sin zoom\n768px | La tableta y el teléfono apaisado | La segunda columna o las áreas laterales activas, la navegación en fila si el contenido lo pide\n1200px | El escritorio | El layout completo, con el contenedor en su ancho límite y centrado, sin líneas de texto interminables"
+  },
+  {
+   "page": 4,
+   "kind": "code",
+   "title": "La estructura completa de una hoja mobile-first",
+   "body": "```\n/* 1 · BASE (el teléfono): una columna */\n.pagina { display: grid; gap: 1rem; }\n.parrilla { display: grid; grid-template-columns: 1fr; gap: 1rem; }\n\n/* 2 · DESDE 768px: dos columnas */\n@media (min-width: 768px) {\n  .parrilla { grid-template-columns: 1fr 1fr; }\n}\n\n/* 3 · DESDE 1200px: tres columnas */\n@media (min-width: 1200px) {\n  .parrilla { grid-template-columns: 1fr 1fr 1fr; }\n}\n```\n\nLectura del orden: la base no lleva condición\nporque vale siempre; cada consulta declara\nsu ancho en su pregunta y se escribe DESPUÉS\nde la capa anterior, para ganarle en la\ncascada cuando las dos están activas.\nNinguna capa borra a la anterior: la suma."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.1. Unidades fluidas: medidas que se ajustan al espacio que las contiene",
+   "body": "Una medida es fluida cuando su valor final depende del espacio disponible, de modo que la caja puede encogerse y crecer con su contenedor en lugar de imponer un tamaño. Las unidades del Tema 7 se releen aquí con esa pregunta — ¿esta medida se adapta o desborda?:\n\n• El porcentaje (`%`): se calcula contra el ancho del contenedor. Una columna al 50 % ocupa la mitad de lo que haya, en 360px y en 1200px: es la unidad fluida por excelencia para anchos.\n• El `rem`: no depende del ancho, pero tampoco lo contradice: vale siempre lo mismo contra la raíz, así que sirve para espaciados y tipografía que deben conservar su ritmo en todos los anchos.\n• Las unidades de ventana (`vw`, `vh`): cada unidad es el 1 % del ancho o del alto del viewport. Un titular al 5vw crece con la pantalla; sin un límite declarado en una consulta, en un monitor grande crece sin medida, así que su uso serio lleva siempre un tope.\n• El píxel (`px`): su valor nunca se adapta, y por eso su lugar es el detalle fino — bordes, líneas, sombras. El píxel no desborda por ser píxel: desborda cuando declara el ANCHO DE UNA ESTRUCTURA mayor que el viewport que debe contenerla.\n\nLa regla de reparto del tema es la del Tema 7 con su porqué responsive: estructura en porcentaje y fracciones, espaciado y texto en rem, detalle en píxeles, y ningún ancho estructural en píxeles fuera de la consulta que lo admite."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.2. El contenedor con límite: fluido hasta un ancho, centrado después",
+   "body": "En el extremo ancho el problema se invierte: sin límite, el contenido se estira hasta el borde de un monitor grande y las líneas de texto se vuelven interminables, ilegibles por largas. La solución es un contenedor que es fluido en los anchos menores y deja de crecer en el mayor:\n\n• `max-width` declara el techo: el contenedor crece con el viewport solo hasta esa medida. A diferencia de `width`, que impone, `max-width` permite: por debajo del techo manda el espacio disponible; por encima, el techo.\n• Los márgenes laterales automáticos reparten el sobrante a partes iguales: todo lo que el viewport pasa del techo queda mitad a cada lado y la página queda centrada.\n• El relleno lateral declarado en el mismo contenedor separa el contenido del borde en el teléfono; con el ajuste `border-box` del Tema 7, ese relleno queda dentro de la medida y no suma desbordamiento.\n\nEl límite se declara en `rem` para que siga el ritmo del texto: 72rem contra la raíz por defecto de 16px son 1152px, el ancho que una página de lectura aprovecha sin estirar las líneas, y el que la consulta de 1200px encuentra ya centrado."
+  },
+  {
+   "page": 5,
+   "kind": "code",
+   "title": "El contenedor fluido con límite, completo",
+   "body": "```\n.contenedor {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1rem;\n}\n```\n\nQué hace cada declaración:\n\n```\n  max-width: 72rem → el contenedor crece\n    hasta 1152px (72 × 16) y ahí se detiene\n  margin: 0 auto   → el sobrante de un\n    viewport mayor se reparte a los lados:\n    la página queda centrada\n  padding: 0 1rem  → en el teléfono, el\n    contenido nunca se pega al borde físico\n```\n\nEn 360px el contenedor mide 360px; en\n1200px mide 1152px, centrado. Una sola\nregla, sin ninguna media query."
+  },
+  {
+   "page": 5,
+   "kind": "warning",
+   "title": "NINGÚN ANCHO DE ESTRUCTURA EN PÍXELES SIN SU CONSULTA",
+   "body": "Un ancho fijo de estructura declarado en la base — una columna de 300px, una parrilla de 1100px — rompe todos los anchos menores que él, que son exactamente los que la base debe proteger. El ancho grande en píxeles solo tiene dos lugares legítimos: dentro de la media query cuyo mínimo lo admite, o como max-width, que limita sin imponer. Fuera de esos dos lugares, el ancho de una estructura se declara en porcentaje, en fracciones o no se declara."
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.1. Imágenes fluidas: ninguna imagen más ancha que su contenedor",
+   "body": "Toda imagen trae un tamaño natural (intrínseco): el de su archivo, por ejemplo 1600px de ancho por 900px de alto. Sin ninguna regla, el navegador la pinta a ese tamaño, y en un viewport de 360px la imagen sola produce el desbordamiento de la Hoja 2. La imagen fluida es la que obedece a su contenedor, y obedece con dos declaraciones:\n\n• `max-width: 100%`: la imagen nunca pasa del ancho de su contenedor. Si el contenedor mide 340px, la imagen se presenta a 340px aunque su archivo mida 1600px.\n• `height: auto`: el alto se recalcula desde el ancho presentado, conservando la proporción del archivo. Sin esta declaración, un alto fijado por otro lado se conserva y la imagen se deforma: se achata o se estira.\n\nDos precisiones que completan la regla:\n\n• `max-width` limita, no agranda: una imagen de 300px dentro de un contenedor de 600px se presenta a 300px. Llenar el contenedor exigiría `width: 100%`, que sí estira la imagen por encima de su tamaño y paga el coste en nitidez.\n• La regla se declara una sola vez, en la base de la hoja y para el selector de imagen en general: cada imagen presente y futura del sitio nace fluida, sin que haya que acordarse foto por foto."
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.2. Versiones por ancho: srcset y sizes, el peso también se adapta",
+   "body": "La regla fluida resuelve el desbordamiento, pero no el peso: el teléfono de 360px descarga el mismo archivo de 1600px que el monitor, con su coste de datos y de espera, para presentarlo reducido a 340px. La adaptación completa sirve a cada ancho una versión del archivo acorde a lo que va a ocupar:\n\n• `srcset`: el atributo que declara las versiones disponibles del mismo contenido, cada una con el ancho de su archivo — una versión de 480px, una de 900px, la completa de 1600px, por ejemplo.\n• `sizes`: el atributo que declara cuánto ocupará la imagen en cada ancho de viewport — todo el ancho en el teléfono, la mitad desde 768px, un tercio desde 1200px. Es, en forma de atributo, la misma información que las media queries de la hoja declaran para el layout.\n• La elección la hace el navegador con los dos datos: cruza lo que la imagen ocupará según `sizes` con las versiones de `srcset` y descarga la menor que alcanza, contando además la densidad de la pantalla.\n\nLa distinción que no se confunde: `srcset` adapta el PESO; la regla fluida de la Hoja 6.1 adapta la PRESENTACIÓN. Sin la regla fluida, una imagen con `srcset` sigue desbordando; sin `srcset`, la imagen fluida se ve bien y pesa de más."
+  },
+  {
+   "page": 6,
+   "kind": "code",
+   "title": "Imagen fluida e imagen con versiones, completas",
+   "body": "```\n/* La regla fluida: una vez, en la base */\nimg {\n  max-width: 100%;\n  height: auto;\n}\n\n/* La imagen con sus versiones, en el HTML */\n<img src=\"img/foto-900.jpg\"\n     srcset=\"img/foto-480.jpg 480w,\n             img/foto-900.jpg 900w,\n             img/foto-1600.jpg 1600w\"\n     sizes=\"(min-width: 1200px) 33vw,\n            (min-width: 768px) 50vw,\n            100vw\"\n     alt=\"Estudiantes en la huerta escolar\">\n```\n\nLectura: `src` declara la versión de reserva;\n`srcset` lista las tres versiones con el ancho\nde cada archivo; `sizes` declara la parte del\nviewport que la imagen ocupa en cada franja.\nEl navegador descarga solo la que alcanza."
+  },
+  {
+   "page": 6,
+   "kind": "table",
+   "title": "Tabla — qué resuelve cada técnica de imagen",
+   "body": "Técnica | Qué resuelve | Qué no resuelve\nmax-width: 100% con height: auto | El desbordamiento y la proporción en pantalla | El peso: se descarga el archivo completo\nsrcset con sizes | El peso: cada ancho descarga la versión que ocupa | El desbordamiento, si falta la regla fluida\nwidth: 100% | Que la imagen llene su contenedor | La nitidez, cuando el archivo es menor que el contenedor"
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.1. Textos largos: la palabra que no cabe en ninguna línea",
+   "body": "El texto ordinario se parte solo por los espacios: el navegador compone líneas buscando espacios donde cortar. Una palabra sin espacios — una dirección web larga, un correo, un término compuesto — no ofrece ningún corte, y el navegador prefiere desbordar la caja antes que partir la palabra: la línea crece hasta contenerla entera y empuja el ancho de la página con ella.\n\nLa corrección declara el permiso de corte en la propia caja del texto:\n\n• `overflow-wrap: break-word`: cuando una palabra no cabe entera en la línea, se parte por donde quepa. El permiso es de emergencia: las palabras normales, que sí caben, nunca se parten.\n• `hyphens: auto`: con el idioma del documento declarado, el corte puede además marcarse con guion, como en un libro. Es un refinamiento del anterior, no su sustituto.\n\nEl otro texto que desborda es el titular con tamaño fijo pensado para escritorio: un título a 48px en una palabra larga no cabe en 360px. La tipografía también es mobile-first: el tamaño base es el que cabe en el teléfono, declarado en `rem`, y los tamaños mayores entran dentro de las consultas de 768px y de 1200px, donde el ancho los admite."
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.2. Contenido ancho en pantallas estrechas: tablas y bloques de código",
+   "body": "Hay contenido cuyo ancho es suyo por naturaleza: una tabla de datos con ocho columnas dice menos si se aplasta hasta que cada celda sea una torre de palabras, y un bloque de código pierde su sentido si sus líneas se parten. Ese contenido no se fuerza a caber: se contiene.\n\nLa técnica es un contenedor envolvente con desplazamiento propio:\n\n• La tabla (o el bloque `pre`) se envuelve en un contenedor declarado con `overflow-x: auto`.\n• La PÁGINA sigue midiendo el ancho del viewport y no se desplaza: el desplazamiento horizontal queda confinado dentro de la franja del contenedor, donde la persona lo usa solo para ese contenido, como quien corre una hoja ancha bajo una ventana.\n• La tabla conserva dentro sus anchos legibles y el resto de la página, su única columna tranquila.\n\nLa distinción es de alcance y es la que separa la técnica del error: desplazamiento de la página entera, prohibido siempre; desplazamiento interno y confinado a un contenido que lo exige, legítimo y declarado a propósito."
+  },
+  {
+   "page": 7,
+   "kind": "code",
+   "title": "Texto largo y contenido ancho bajo control, completos",
+   "body": "```\n/* La palabra que no cabe, con permiso de corte */\n.texto-largo { overflow-wrap: break-word; }\n\n/* La tabla ancha, en su contenedor con\n   desplazamiento propio */\n.tabla-scroll { overflow-x: auto; }\n.tabla-scroll table { min-width: 40rem; }\n```\n\nEn el HTML, la tabla va dentro del contenedor:\n\n```\n  <div class=\"tabla-scroll\">\n    <table> ... </table>\n  </div>\n```\n\nLectura: la página no se mueve; la tabla se\nrecorre dentro de su franja y conserva sus\ncolumnas legibles en cualquier ancho."
+  },
+  {
+   "page": 7,
+   "kind": "warning",
+   "title": "EL DESPLAZAMIENTO INTERNO NO ES EL DESPLAZAMIENTO DE LA PÁGINA",
+   "body": "La evidencia de este tema — tres anchos sin desbordamiento — se juzga sobre la página entera: si el documento completo se desplaza hacia los lados en 360px, hay un culpable sin corregir, aunque el resto se vea perfecto. El desplazamiento confinado de la Hoja 7.2 no cuenta como desbordamiento porque la página no se mueve: mover la tabla dentro de su franja es decisión declarada; que la página entera baile al leer es el defecto que este tema existe para eliminar."
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.1. Flexbox adaptable: envolver, y cambiar de dirección por consulta",
+   "body": "Flexbox aporta al diseño adaptable dos mecanismos de naturaleza distinta, y saber cuál corresponde a cada cambio es la mitad de esta hoja:\n\n• La envoltura (`flex-wrap: wrap`, del Tema 8) no necesita ninguna consulta: la fila que no cabe deja caer sus ítems a la línea siguiente por sí misma, en el ancho exacto en que dejan de caber. La barra cuyos enlaces pasan a una segunda línea en el teléfono ya es adaptable sin una sola media query, si sus ítems conservan un tamaño legible al caer.\n• El cambio de dirección sí es decisión de consulta: en la base móvil, un grupo puede leerse en columna (`flex-direction: column`) y, desde 768px, pasar a fila dentro de su media query. La dirección base es la de la columna porque en 360px casi ningún grupo con varios ítems cabe en fila sin aplastarse.\n\nLa regla de reparto entre los dos mecanismos: lo que la envoltura resuelve sola no se duplica con una consulta; la consulta entra donde cambia la FORMA del grupo — su dirección, su distribución o qué ítems se ven primero — no donde solo cambia cuántos caben por línea."
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.2. Grid adaptable: la parrilla sola, las áreas por consulta",
+   "body": "Grid reparte su trabajo adaptable en las mismas dos naturalezas:\n\n• La parrilla de piezas repetidas ya es adaptable sin consultas desde el Tema 8: las columnas declaradas con `repeat(auto-fit, minmax(16rem, 1fr))` nacen y mueren según el ancho disponible, protegiendo el mínimo legible de cada tarjeta. Ninguna media query debe repetir ese trabajo: añadir una consulta que fije las columnas de esa parrilla en 768px DESACTIVA en la práctica su regla automática y convierte en mantenimiento manual lo que el sistema ya resolvía.\n• La estructura de la página, en cambio, cambia por consulta: el plano de áreas de la base declara una sola columna — cada zona en su fila, en el orden del documento — y la consulta de 768px declara el plano de dos columnas, con el lateral junto al contenido; la de 1200px puede ajustar las medidas de esas columnas sin tocar el plano.\n\nCada sistema declara así su parte: la repetición se automatiza una vez y la estructura se decide por ancho, consulta a consulta."
+  },
+  {
+   "page": 8,
+   "kind": "code",
+   "title": "La página por áreas en los tres anchos, completa",
+   "body": "```\n/* Base: una columna, en el orden del documento */\n.pagina {\n  display: grid;\n  gap: 1rem;\n  grid-template-areas:\n    \"encabezado\"\n    \"navegacion\"\n    \"contenido\"\n    \"lateral\"\n    \"pie\";\n}\n\n/* Desde 768px: el lateral junto al contenido */\n@media (min-width: 768px) {\n  .pagina {\n    grid-template-columns: 14rem 1fr;\n    grid-template-areas:\n      \"encabezado encabezado\"\n      \"navegacion navegacion\"\n      \"lateral    contenido\"\n      \"pie        pie\";\n  }\n}\n\n/* Desde 1200px: el lateral gana aire */\n@media (min-width: 1200px) {\n  .pagina { grid-template-columns: 18rem 1fr; }\n}\n```\n\nCada zona se coloca una sola vez, por su\nárea, fuera de las consultas: lo que cambia\npor ancho es el plano, no las piezas."
+  },
+  {
+   "page": 8,
+   "kind": "diagram",
+   "title": "La misma página en 360px, 768px y 1200px",
+   "body": "360px ▼ una columna\nencabezado · navegación · contenido\n· lateral · pie, apilados en orden\n768px ▼ dos columnas\nencabezado a todo lo ancho ──►\nlateral · contenido ──► pie completo\n1200px ▼ la misma estructura,\ndentro del contenedor con su límite"
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.1. Qué cambia en cada ancho y qué no cambia nunca",
+   "body": "El inventario de lo que una media query puede tocar tiene dos columnas, y la segunda es la que protege el documento:\n\nCambia con el ancho — la forma:\n\n• El número de columnas y el plano de áreas.\n• Los tamaños de las piezas, los espaciados y los tamaños de la tipografía.\n• La dirección de un grupo flexible y su distribución.\n\nNo cambia con el ancho — el documento:\n\n• El contenido: ningún texto, enlace o imagen deja de existir por verse en un teléfono.\n• El orden de lectura: el orden visual de cada ancho sigue el orden del documento, con la misma regla del Tema 8 para el orden y las direcciones.\n• El significado del HTML: la semántica no se adapta porque no depende de la pantalla.\n\nLa cautela que nace de ese inventario recae sobre `display: none`: ocultar una pieza en el teléfono la retira también del teclado y de los lectores de pantalla, no solo de la vista. Una navegación oculta sin alternativa deja su contenido inalcanzable justo en el aparato más usado. En esta ruta no se oculta contenido esencial en ningún ancho: se reorganiza."
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.2. Otras características de consulta: orientación y tacto",
+   "body": "El ancho es la característica central del tema, pero la sintaxis de la Hoja 3 admite cualquier característica del medio, y dos aparecen en cuanto la página sale a aparatos reales:\n\n• La orientación (`orientation`): el viewport es `portrait` cuando mide más de alto que de ancho y `landscape` en caso contrario. Una consulta por orientación puede ajustar lo que en apaisado se aprovecha distinto — una cabecera más baja, por ejemplo — sin tocar los puntos de corte por ancho.\n• El tacto: una consulta por la capacidad de pasar el puntero por encima (`hover`) distingue el ratón del dedo. Donde no hay hover posible, ningún contenido esencial puede depender de «pasar por encima para que aparezca»: con el dedo no existe ese gesto previo al toque. La regla práctica es anterior a la consulta: lo que solo se revela al hover se rediseña para que exista también al tacto, y la consulta queda para el refinamiento visual de quien sí tiene ratón.\n\nLas dos confirman el principio del tema: la consulta pregunta por una capacidad o una medida real del medio, nunca por el nombre de un aparato."
+  },
+  {
+   "page": 9,
+   "kind": "table",
+   "title": "Tabla — características de consulta de este tema",
+   "body": "Característica | La pregunta que responde | Su uso en este tema\nmin-width | ¿El viewport mide al menos este ancho? | Los puntos de corte del crecimiento: 768px y 1200px\nmax-width | ¿El viewport mide como máximo este ancho? | La excepción acotada, o la franja combinada con min-width\norientation | ¿El viewport es vertical o apaisado? | Ajustes de lo que en apaisado se reparte distinto\nhover | ¿El medio permite pasar el puntero por encima? | Refinamiento para ratón, sin esconder nada al tacto"
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.1. La prueba de los tres anchos: procedimiento de verificación",
+   "body": "Un diseño adaptable no se declara terminado cuando «se ve bien» en la pantalla de trabajo: se verifica ancho por ancho, con un procedimiento que se repite igual en los tres. La emulación se hace con la barra de dispositivos de DevTools, que fija el viewport al ancho exacto declarado y muestra su medida mientras se trabaja.\n\nEn cada ancho — 360px, 768px y 1200px — la prueba recorre lo mismo, en este orden:\n\n• La página se recarga en ese ancho y se recorre entera, de arriba abajo: cualquier desplazamiento horizontal del documento ya es un fallo, esté donde esté su causa.\n• Se comprueba la forma que ese ancho promete: la columna única en 360px, la segunda columna en 768px, el contenedor centrado en 1200px.\n• Se lee un texto largo completo y se mira la imagen mayor: la prueba se hace con el contenido EXTREMO de la página real — su título más largo, su dirección más larga, su foto más grande — porque el contenido amable no desborda nunca y el extremo es el que llega en producción.\n\nY entre punto de corte y punto de corte se barre también la franja intermedia arrastrando el ancho poco a poco: muchos desbordamientos viven solo entre 500px y 700px, en anchos que ninguna captura oficial visita."
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.2. Diagnóstico de un desbordamiento: síntoma, culpable y corrección",
+   "body": "Ante el síntoma — la página se desplaza en horizontal en un ancho dado — el diagnóstico procede por descarte ordenado, de la causa más frecuente a la menos:\n\n1. Las imágenes: se busca la primera sin la regla fluida de la Hoja 6, comparando su ancho presentado con el de su contenedor en DevTools.\n2. Los anchos fijos: se localiza en la hoja cualquier ancho de estructura en píxeles mayor que el viewport en prueba, declarado en la base o en una consulta de mínimo menor.\n3. Los textos sin corte: la palabra o la dirección que ocupa una línea imposible de larga dentro de su caja.\n4. Las sumas: la retícula cuyas columnas y separaciones suman más que el contenedor, o el `width: 100%` con relleno y borde fuera del ajuste `border-box`.\n\nEn DevTools, la comparación decisiva es siempre la misma: el ancho del elemento sospechoso contra el ancho del viewport en prueba. El elemento que pasa del viewport es el culpable; los demás, por sospechosos que parezcan, son inocentes en este ancho. La corrección cae sobre la MEDIDA del culpable — su regla, su unidad o su consulta — y la prueba de la Hoja 10.1 se repite entera, porque una corrección puede mover el desbordamiento a otro ancho."
+  },
+  {
+   "page": 10,
+   "kind": "diagram",
+   "title": "Diagnóstico de un desbordamiento",
+   "body": "Aparece desplazamiento horizontal\nen uno de los tres anchos\n        ▼\nCandidatos en orden: imágenes sin regla\nfluida · anchos fijos · textos sin corte\n· sumas que pasan del contenedor\n        ▼\nEl sospechoso se mide contra el viewport\nen DevTools; el que lo pasa es el culpable\n        ▼\nLa corrección cae sobre su medida\ny la prueba se repite en los tres anchos"
+  },
+  {
+   "page": 10,
+   "kind": "warning",
+   "title": "PROHIBIDO TAPAR EL DESBORDAMIENTO CON OVERFLOW-X: HIDDEN",
+   "body": "Declarar `overflow-x: hidden` sobre el cuerpo o la raíz esconde el síntoma sin tocar la causa: la página deja de desplazarse porque el contenido que sobra queda RECORTADO, no compuesto — una parte de la página se vuelve inalcanzable y el error de medida sigue declarado en la hoja, esperando al siguiente ancho. Como diagnóstico temporal para aislar zonas puede tener un momento; como corrección entregada, es la única salida prohibida de este tema. Todo desbordamiento se corrige en la medida del elemento que lo causa."
+  },
+  {
+   "page": 11,
+   "kind": "table",
+   "title": "Tabla de consulta — las piezas de una media query",
+   "body": "Pieza | Significado exacto\n@media | Abre la consulta: lo que sigue es una condición, no reglas sueltas\nscreen | El tipo de medio: la pantalla (print sería la impresión)\nand | Conector: la condición completa exige que todo lo unido se cumpla\n(min-width: 768px) | La característica: el viewport mide al menos 768px\nLas llaves { } | Envuelven las reglas que existen solo si la condición se cumple"
+  },
+  {
+   "page": 11,
+   "kind": "code",
+   "title": "Hoja responsive completa de referencia",
+   "body": "```\n/* ===== Base móvil (todos los anchos) ===== */\n* { box-sizing: border-box; }\nimg { max-width: 100%; height: auto; }\n.texto-largo { overflow-wrap: break-word; }\n.contenedor {\n  max-width: 72rem;\n  margin: 0 auto;\n  padding: 0 1rem;\n}\n.pagina {\n  display: grid;\n  gap: 1rem;\n  grid-template-areas:\n    \"encabezado\" \"navegacion\" \"contenido\"\n    \"lateral\" \"pie\";\n}\n.parrilla {\n  display: grid;\n  gap: 1rem;\n  grid-template-columns:\n    repeat(auto-fit, minmax(16rem, 1fr));\n}\n\n/* ===== Desde 768px ===== */\n@media (min-width: 768px) {\n  .pagina {\n    grid-template-columns: 14rem 1fr;\n    grid-template-areas:\n      \"encabezado encabezado\"\n      \"navegacion navegacion\"\n      \"lateral    contenido\"\n      \"pie        pie\";\n  }\n}\n\n/* ===== Desde 1200px ===== */\n@media (min-width: 1200px) {\n  .pagina { grid-template-columns: 18rem 1fr; }\n}\n```\n\nLectura de conjunto: la base trae el ajuste\nde cajas del Tema 7, la imagen fluida, el\ntexto con corte y el contenedor con límite;\nla parrilla se adapta sola con auto-fit y\nsolo la estructura de la página gasta\nconsultas, en orden ascendente."
+  },
+  {
+   "page": 11,
+   "kind": "table",
+   "title": "Tabla de consulta — síntoma, causa probable y corrección",
+   "body": "Síntoma en un ancho | Causa probable | Corrección\nLa página entera se representa encogida en el teléfono | Falta la línea del viewport o está mal escrita | Declarar la línea completa en el head y volver a probar\nDesplazamiento horizontal solo en 360px | Una imagen sin regla fluida o un ancho fijo de la base | Aplicar la regla de imágenes o pasar el ancho a su consulta\nLa consulta de 768px también cambia 360px | La pregunta se escribió con max-width o sin mínimo | Reescribir la condición con min-width y el punto de corte\nEn 1200px manda la presentación de 768px | Las consultas están en orden descendente en la hoja | Reordenar: base, 768px, 1200px\nUna palabra se sale de su tarjeta | Texto largo sin permiso de corte | Declarar overflow-wrap: break-word en esa caja\nLa tabla obliga a desplazar toda la página | Tabla ancha sin contenedor propio | Envolverla en su contenedor con overflow-x: auto"
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "Práctica previa · Viewport, emulación de anchos y primera media query, paso a paso",
+   "body": "Revisión de la línea del viewport: en el `head` de la página de layout del Tema 8 se localiza la línea `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">`; si falta, se añade dentro del `head` y el archivo se guarda. → Sin esa línea el teléfono representa la página como escritorio de `980px` encogido y ninguna prueba de anchos posterior sería válida.\nActivación de la emulación de anchos: con la página abierta se pulsa `F12`, se activa la barra de dispositivos con `Ctrl + Mayús + M` y el ancho se fija en `360px` exactos. → La página se representa al ancho de un teléfono, con la medida del viewport visible: ese es el banco de pruebas de todos los ejercicios del tema.\nPrimera media query de prueba: al final de la hoja de estilos se copia la consulta completa de la Hoja 3 — el panel que gana su segunda columna en `768px` — y el ancho emulado se arrastra despacio de `767px` a `768px`. → El cambio ocurre exactamente al cruzar el punto de corte: la consulta se enciende en su ancho, ni un píxel antes ni uno después.\nImagen fluida de prueba: en el contenido se inserta una imagen del proyecto con su ruta relativa y a la hoja se le añade la regla fluida de la Hoja 6; el ancho emulado se baja a `360px`. → La imagen ocupa como máximo el ancho de su contenedor y conserva su proporción; sin la regla ocuparía su tamaño natural y desbordaría la página.\nDesbordamiento provocado y retirado: en una caja del contenido se declara temporalmente `width: 900px` y la página se recarga en `360px`. → Aparece el desplazamiento horizontal de la página entera: ese es el síntoma que los ejercicios dejan en cero; al retirar la declaración, el síntoma desaparece y la causa queda identificada por contraste."
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "Ejercicios concretos del Tema 9 · Etapa 2: Práctica",
+   "body": "Ejercicio 1 · La base móvil en 360px: una columna sin desbordamiento — sobre la página de layout del Tema 8 se verifica la línea del viewport, la base queda en una sola columna con medidas fluidas y la regla de imágenes aplicada, hasta recorrer el ancho de 360px completo sin desplazamiento horizontal.\nEjercicio 2 · La primera media query: el salto a 768px — la consulta de mínimo 768px reorganiza la página en dos columnas y la navegación en fila sin tocar la base; la verificación cruza el punto de corte en los dos sentidos y confirma que en 360px nada cambió.\nEjercicio 3 · El ancho de escritorio en 1200px y el contenedor con límite — la segunda consulta completa el layout de escritorio y el contenedor con su máximo centra la página; la franja entre 768px y 1199px conserva intacto el diseño intermedio.\nEjercicio 4 · Prueba de extremos en los tres anchos y cierre de la evidencia — el contenido se lleva al extremo con el título más largo, una dirección sin espacios y la imagen más grande; cada desbordamiento se diagnostica por su causa y se corrige en su medida, hasta dejar registrada la tabla de los tres anchos sin desbordamiento."
+  },
+  {
+   "page": 14,
+   "kind": "list",
+   "title": "13.1. El flujo completo para adaptar una página",
+   "body": "La línea del viewport se verifica en la cabeza de la página antes que cualquier estilo: sin ella, el teléfono representa escritorio encogido y toda prueba posterior miente.\nLa base se escribe para el ancho menor: una columna en el orden del documento, medidas fluidas, la imagen con su regla y el texto largo con su corte permitido.\nEl contenedor recibe su límite y su centrado en la propia base: fluido en los anchos menores, detenido y centrado en los mayores, sin gastar ninguna consulta.\nCada punto de corte se gana observando dónde el diseño se aprieta al estrechar, y su consulta se añade al final de la hoja, en orden ascendente de ancho mínimo.\nDentro de cada consulta solo cambia la forma — columnas, plano de áreas, dirección de los grupos, tamaños — y el documento queda intacto: mismo contenido y mismo orden de lectura en los tres anchos.\nLa prueba recorre los tres anchos y barre la franja entre puntos de corte, con el contenido extremo de la página: el título más largo, la dirección sin espacios y la imagen más grande.\nCada desbordamiento se corrige en la medida del elemento que lo causa, y la prueba completa se repite hasta que los tres anchos quedan en cero."
+  },
+  {
+   "page": 14,
+   "kind": "warning",
+   "title": "REGLAS CRÍTICAS DE CIERRE",
+   "body": "• Mobile-first siempre: la base es el teléfono y cada ancho mayor añade su consulta en orden ascendente; ninguna capa posterior tapa a la base ni a la consulta menor.\n• Ningún ancho de estructura fijo en píxeles fuera de la consulta que lo admite, ninguna imagen sin su regla fluida, ningún texto largo sin su corte permitido.\n• El desbordamiento se corrige en la medida del elemento que lo causa: `overflow-x: hidden` sobre la página queda prohibido como corrección, porque recorta el contenido en lugar de componerlo.\n• El contenido y su orden de lectura son los mismos en 360px, en 768px y en 1200px: lo que cambia por ancho es la forma, nunca el documento."
+  }
+ ],
+ "exercises": [
+  {
+   "n": 1,
+   "title": "Ejercicio 1 · La base móvil en 360px: una columna sin desbordamiento",
+   "objective": "Dejar la página de layout construida en el Tema 8 funcionando en su base móvil: línea del viewport verificada, una sola columna en el orden del documento, medidas fluidas y la regla de imágenes aplicada, con el recorrido completo en 360px sin desplazamiento horizontal de la página.",
+   "steps": [
+    {
+     "hacer": "Apertura de la página de layout del Tema 8 (la del primer o el segundo layout completo) y verificación de su línea del viewport en el `head`, siguiendo la práctica previa: si falta, se añade la línea completa y el archivo se guarda.",
+     "esperado": "La página ya se compone contra el ancho real del dispositivo: toda medición posterior parte del viewport verdadero, no de los `980px` supuestos."
+    },
+    {
+     "hacer": "Revisión de la base de la hoja de estilos con la lista de causas de la Hoja 2 en la mano: se localiza cada ancho de estructura declarado en píxeles en la base y cada imagen sin la regla fluida, y cada hallazgo queda anotado antes de corregir nada.",
+     "esperado": "La base tiene su inventario de riesgos escrito: qué medida podría desbordar en 360px y por qué, elemento por elemento."
+    },
+    {
+     "hacer": "Corrección de la base según el inventario: la página pasa a una sola columna en el orden del documento (el plano de áreas de una columna de la Hoja 8), los anchos de estructura quedan en porcentaje o fracciones, la regla fluida de imágenes se declara una vez para todas y el contenedor recibe su límite y su centrado.",
+     "esperado": "La base móvil existe como presentación completa y deliberada, no como el escritorio encogido: cada zona ocupa su fila y ninguna medida impone un ancho mayor que la pantalla."
+    },
+    {
+     "hacer": "Emulación del ancho en `360px` con la barra de dispositivos y recorrido completo de la página, de arriba abajo, buscando el síntoma del tema: cualquier desplazamiento horizontal del documento. Cada aparición se anota con la zona donde se detecta, sin corregir todavía.",
+     "esperado": "El estado real de la base en 360px queda registrado: o el recorrido es limpio, o cada desbordamiento tiene su zona localizada."
+    },
+    {
+     "hacer": "Corrección de cada desbordamiento anotado en la medida de su elemento — nunca con `overflow-x: hidden` — y repetición del recorrido hasta completarlo sin desplazamiento.",
+     "esperado": "La base móvil queda aprobada en su ancho: es la presentación de la que crecen los dos anchos siguientes."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la página del Tema 8 convertida en base móvil completa — viewport declarado, una columna fluida, imágenes obedientes a su contenedor — recorrida en 360px sin desplazamiento horizontal, como primer ancho de la evidencia «Tres anchos sin desbordamiento».",
+   "verification": "(1) La línea del viewport está declarada y la página se compone contra el ancho real del dispositivo. (2) En 360px no existe desplazamiento horizontal de la página, verificado en el recorrido completo y no solo en la primera pantalla. (3) Ninguna corrección usa overflow-x: hidden global: cada desbordamiento se resolvió en la medida de su elemento."
+  },
+  {
+   "n": 2,
+   "title": "Ejercicio 2 · La primera media query: el salto a 768px",
+   "objective": "Añadir la primera media query de la página — la de mínimo 768px — que reorganiza la base móvil en su forma intermedia (el lateral junto al contenido y la navegación en fila) sin alterar la base, y verificar que el cambio ocurre exactamente en el punto de corte y que en 360px nada se movió.",
+   "steps": [
+    {
+     "hacer": "Predicción escrita del cambio antes de tocar la hoja: qué zonas pasan a compartir fila en 768px, qué grupo flexible cambia de columna a fila y qué queda exactamente igual que en la base.",
+     "esperado": "El diseño intermedio está decidido en palabras: la consulta que se escribe después solo traduce esa decisión, no la improvisa."
+    },
+    {
+     "hacer": "Escritura de la consulta al final de la hoja, DESPUÉS de la base, con su pregunta completa: `(min-width: 768px)`. Dentro, el plano de áreas pasa a dos columnas — el lateral junto al contenido, el encabezado y el pie a todo lo ancho — con las medidas de columna de la Hoja 8.",
+     "esperado": "La estructura intermedia existe solo desde 768px: la base no recibió ni una declaración nueva."
+    },
+    {
+     "hacer": "El grupo de navegación recibe dentro de la misma consulta su forma de fila — dirección en fila y su reparto entre extremos — partiendo de la columna que la base declara.",
+     "esperado": "En 768px la navegación se despliega en horizontal; en 360px sigue en su columna completa y legible."
+    },
+    {
+     "hacer": "Verificación cruzando el punto de corte en los dos sentidos con la emulación: el ancho se arrastra de 767px a 768px y de vuelta, observando que el cambio de forma ocurre al cruzar y solo al cruzar.",
+     "esperado": "El punto de corte se comporta como lo declara su pregunta: falso en 767px, verdadero en 768px, sin anchos fantasma."
+    },
+    {
+     "hacer": "Regreso al ancho de `360px` y recorrido completo de comprobación: la base debe presentarse idéntica a como quedó aprobada en el Ejercicio 1.",
+     "esperado": "La primera media query demostró la propiedad central del sistema: añadió una presentación sin tocar la anterior."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la página con sus dos primeras presentaciones vivas — la base móvil de 360px intacta y la forma intermedia de 768px activa solo desde su punto de corte — como segundo ancho de la evidencia «Tres anchos sin desbordamiento».",
+   "verification": "(1) La consulta está escrita después de la base y su pregunta usa min-width con el punto de corte de 768px. (2) El cambio de forma ocurre exactamente al cruzar de 767px a 768px. (3) En 360px la página es idéntica a la base aprobada en el Ejercicio 1: la consulta no filtró ni una declaración."
+  },
+  {
+   "n": 3,
+   "title": "Ejercicio 3 · El ancho de escritorio en 1200px y el contenedor con límite",
+   "objective": "Completar el tercer ancho de la página con la segunda media query — la de mínimo 1200px, escrita después de la de 768px — que despliega el layout de escritorio completo sobre el contenedor ya limitado y centrado, verificando que la franja intermedia conserva su diseño intacto.",
+   "steps": [
+    {
+     "hacer": "Observación previa de la franja intermedia: con la emulación entre `768px` y `1199px` se recorre la página y se anota qué le falta para ser escritorio — dónde el lateral se queda estrecho, qué titular puede crecer, qué separación puede respirar.",
+     "esperado": "El contenido de la segunda consulta sale de esa observación: cada cambio de escritorio responde a una falta anotada, no a una costumbre."
+    },
+    {
+     "hacer": "Escritura de la segunda consulta al final de la hoja, después de la de `768px`, con su pregunta completa: `(min-width: 1200px)`. Dentro se declaran solo los cambios de escritorio decididos: las columnas de la página en su medida final y los tamaños que el ancho ya admite.",
+     "esperado": "Las tres capas de la hoja quedan en orden ascendente — base, 768px, 1200px — y en el escritorio manda la última donde las tres declaran lo mismo."
+    },
+    {
+     "hacer": "Comprobación del contenedor en el ancho mayor: en `1200px` la página se presenta dentro de su límite de `72rem` (1152px), centrada con el sobrante repartido a los lados, y ninguna línea de texto se estira de borde a borde del monitor.",
+     "esperado": "El problema inverso al del teléfono también quedó resuelto: el ancho sobrante se reparte como margen, no como línea infinita."
+    },
+    {
+     "hacer": "Barrido de la franja completa arrastrando la emulación de `360px` a `1200px` sin saltos: se observan los dos cruces de punto de corte y se busca cualquier ancho intermedio donde algo desborde o se apriete hasta lo ilegible.",
+     "esperado": "Entre los anchos oficiales no vive ningún ancho roto: el diseño es continuo, no tres capturas sueltas."
+    },
+    {
+     "hacer": "Registro de la estructura final de la hoja con su lectura completa: qué declara la base, qué añade cada consulta y en qué orden ganan cuando coinciden.",
+     "esperado": "La hoja responsive se defiende leyéndola de arriba abajo: tres capas, dos preguntas, un orden."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la página con sus tres presentaciones completas — base móvil, forma intermedia y escritorio centrado en su contenedor con límite — como tercer ancho de la evidencia «Tres anchos sin desbordamiento».",
+   "verification": "(1) Las consultas están en orden ascendente en la hoja y en 1200px manda la de 1200px donde coincide con la de 768px. (2) El contenedor se detiene en su max-width y queda centrado, sin líneas de texto de borde a borde. (3) La franja entre 768px y 1199px conserva intacta la forma intermedia y ningún ancho intermedio desborda."
+  },
+  {
+   "n": 4,
+   "title": "Ejercicio 4 · Prueba de extremos en los tres anchos y cierre de la evidencia",
+   "objective": "Someter la página terminada a su contenido extremo — el título más largo, una dirección sin espacios y la imagen más grande del proyecto — en los tres anchos oficiales, diagnosticando cada desbordamiento por su causa y corrigiéndolo en su medida, hasta dejar registrada la tabla de verificación que cierra la evidencia del tema.",
+   "steps": [
+    {
+     "hacer": "Preparación del contenido extremo sin tocar la estructura: el titular principal se sustituye temporalmente por el título real más largo que la página podría llevar, en el contenido se inserta una dirección larga sin espacios y la imagen más grande del proyecto se coloca en su contenedor habitual.",
+     "esperado": "La página de prueba es la página real llevada a su peor caso: si el extremo no desborda, el contenido ordinario tampoco lo hará."
+    },
+    {
+     "hacer": "Recorrido de la prueba en `360px` registrando cada síntoma con su elemento: qué desborda, en qué zona y a cuál de las causas de la Hoja 2 pertenece cada hallazgo.",
+     "esperado": "Cada fallo tiene nombre y causa asignada antes de corregir: el registro separa los desbordamientos reales de las impresiones."
+    },
+    {
+     "hacer": "Corrección causa por causa con la técnica de su hoja: el permiso de corte para el texto largo, la regla fluida si la imagen escapó, la medida o la consulta si una estructura impone su ancho. La página se recorre de nuevo en 360px tras cada corrección.",
+     "esperado": "Cada corrección cae sobre la medida del culpable y su efecto se verifica en el mismo ancho donde el fallo apareció."
+    },
+    {
+     "hacer": "La misma prueba completa — contenido extremo incluido — se repite en `768px` y en `1200px`, y después en 360px una última vez, porque una corrección de escritorio puede mover un desbordamiento al teléfono.",
+     "esperado": "Los tres anchos quedan aprobados con el mismo procedimiento y con el contenido extremo puesto, no con el contenido amable."
+    },
+    {
+     "hacer": "El contenido extremo temporal se retira, la página vuelve a su contenido real y la tabla de verificación se registra junto a la entrega: un renglón por ancho (360px, 768px y 1200px) con su resultado y los desbordamientos que salieron en la prueba y su corrección.",
+     "esperado": "La evidencia «Tres anchos sin desbordamiento» está completa y es auditable ancho por ancho."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la evidencia oficial de este tema: «Tres anchos sin desbordamiento» — la página adaptada con mobile-first, sus dos media queries en orden y sus piezas fluidas, verificada con contenido extremo en 360px, 768px y 1200px, con la tabla de la prueba registrada.",
+   "verification": "(1) La prueba se hizo con el contenido extremo en los tres anchos, no solo con el contenido ordinario. (2) Cada desbordamiento encontrado quedó registrado con su causa y corregido en su medida, sin overflow-x: hidden global. (3) La tabla final muestra los tres anchos sin desbordamiento horizontal de la página, incluido el barrido entre puntos de corte."
+  }
+ ],
+ "trabajo": {
+  "title": "Trabajo del Tema 9 · Tres anchos sin desbordamiento",
+  "description": "Situación nueva de este trabajo: los ejercicios del tema adaptaron la página de layout de la práctica. Este trabajo adapta EL SITIO COMPLETO de tu proyecto — las páginas con los layouts del Tema 8 — en los tres anchos, y la tabla de verificación cubre el sitio, no una página suelta.\n\nEntrega aquí el enlace de tu sitio adaptado (publicado o en tu repositorio), acompañado de la tabla de verificación de los tres anchos registrada en el README o en tu registro del tema. El sitio debe demostrar el dominio completo del tema: (1) la línea del viewport completa en el head de cada página, para que el teléfono componga contra su ancho real; (2) base mobile-first: una sola columna en el orden del documento, medidas fluidas y el contenedor con su max-width centrado, sin anchos de estructura fijos en píxeles en la base; (3) las media queries de 768px y de 1200px en orden ascendente en la hoja, cada una cambiando solo la forma — columnas, plano de áreas, dirección de los grupos y tamaños — sin tocar el contenido ni su orden de lectura; (4) imágenes fluidas con max-width: 100% y height: auto (y versiones por ancho con srcset donde el peso lo pida), textos largos con su corte permitido y el contenido ancho confinado en su contenedor, nunca desbordando la página; (5) la prueba registrada en los tres anchos — 360px, 768px y 1200px — hecha con el contenido extremo (título más largo, dirección sin espacios e imagen más grande), sin desplazamiento horizontal de la página en ninguno y sin ningún desbordamiento tapado con overflow-x: hidden global.\n\nCómo se desbloquea: este trabajo está bloqueado hasta que termines la fundamentación del Tema 9 en el Cuaderno. Cuando lo envíes, se abre la evaluación Fácil de este tema. Califica el experto de 0 a 10, con retroalimentación, en un plazo máximo de 24 horas desde la entrega.",
+  "estimated_minutes": 300
+ }
+}

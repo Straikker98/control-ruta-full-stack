@@ -1,0 +1,587 @@
+{
+ "week": 6,
+ "levels": {
+  "facil": [
+   {
+    "id": "06-f-01",
+    "prompt": "¿Qué archivo busca GitHub Pages como página de entrada de un sitio?",
+    "options": [
+     "home.html",
+     "inicio.html",
+     "index.html",
+     "main.html"
+    ],
+    "answer": 2,
+    "explanation": "Pages sirve por defecto `index.html`, en minúsculas y en la raíz de la carpeta fuente. Nombres como `inicio.html` o `home.html` no se buscan solos, aunque parezcan lógicos."
+   },
+   {
+    "id": "06-f-02",
+    "prompt": "¿Cómo se llama el repositorio de un sitio de usuario en GitHub Pages?",
+    "options": [
+     "<usuario>.github.io, con el nombre de usuario exacto",
+     "El nombre del proyecto seguido de `.pages`, porque cada cuenta puede tener muchos sitios de usuario",
+     "docs, siempre",
+     "El mismo nombre sirve para los dos tipos de sitio"
+    ],
+    "answer": 0,
+    "explanation": "El sitio de usuario nace de un repositorio especial cuyo nombre es el usuario seguido del dominio de GitHub. El sitio de proyecto, en cambio, puede salir de cualquier otro repositorio."
+   },
+   {
+    "id": "06-f-03",
+    "prompt": "Tras activar GitHub Pages, el sitio publicado muestra 404 en un recurso que en el computador sí existía. ¿La causa más probable?",
+    "options": [
+     "Que GitHub tarda días en copiar los archivos",
+     "Que el navegador local guarda una caché corrupta",
+     "Que el repositorio es privado",
+     "Una ruta o un nombre de archivo que no coincide exactamente con el pedido (mayúsculas, carpeta o extensión)"
+    ],
+    "answer": 3,
+    "explanation": "El servidor distingue mayúsculas y minúsculas y no conoce rutas del computador, así que una diferencia mínima produce 404. La demora de Pages es de minutos, no de días."
+   },
+   {
+    "id": "06-f-04",
+    "prompt": "¿Qué ocurre justo después de guardar la fuente de publicación en GitHub Pages?",
+    "options": [
+     "El sitio queda en línea al instante, sin espera",
+     "GitHub construye y despliega el sitio: la primera publicación tarda unos minutos y se confirma visitando la dirección",
+     "Hay que subir los archivos de nuevo a otra rama",
+     "El sitio solo se puede ver desde la cuenta dueña"
+    ],
+    "answer": 1,
+    "explanation": "La primera publicación no es instantánea: durante la espera la dirección puede responder que la página no existe, y eso no es un error del sitio."
+   },
+   {
+    "id": "06-f-05",
+    "prompt": "¿Qué cambia realmente cuando un sitio se publica, frente a abrir su `index.html` local?",
+    "options": [
+     "El archivo `index.html` se convierte automáticamente a otro formato",
+     "Un servidor guarda los archivos y los entrega a cualquiera que visite la dirección pública, sin depender del computador de su autor",
+     "El sitio solo cambia de nombre: sigue leyéndose desde el disco local",
+     "Publicar es lo mismo que hacer un commit, sin servidor de por medio"
+    ],
+    "answer": 1,
+    "explanation": "Publicar coloca los archivos en un servidor conectado a internet que los entrega por URL. Un commit solo guarda historia en el repositorio local."
+   },
+   {
+    "id": "06-f-06",
+    "prompt": "Al verificar un sitio recién publicado, un recurso aparece en Network con 404 y la Console muestra el error. ¿Cuál es el primer paso correcto?",
+    "options": [
+     "Ignorarlo mientras la página se abra, y repasar los 404 solo si algún visitante se queja de que algo falta en la página",
+     "Borrar el repositorio y volver a crearlo",
+     "Cambiar el nombre del sitio en GitHub Pages",
+     "Comparar la dirección que se pidió con la ruta y el nombre exactos del archivo publicado"
+    ],
+    "answer": 3,
+    "explanation": "Cada 404 nombra el archivo que falta y la ruta por la que se buscó; el arreglo sale de leer esa diferencia. Un solo 404 deja el tema sin cerrar."
+   },
+   {
+    "id": "06-f-07",
+    "prompt": "¿Qué tipo de contenido puede servir GitHub Pages?",
+    "options": [
+     "Sitios estáticos: archivos servidos tal cual, sin código de servidor ni base de datos",
+     "Cualquier aplicación, incluido código de servidor que procesa formularios y guarda datos",
+     "Solo páginas escritas en HTML, sin hojas de estilo ni imágenes",
+     "Solo sitios privados, visibles para los colaboradores del repositorio"
+    ],
+    "answer": 0,
+    "explanation": "Pages es alojamiento estático: entrega HTML, CSS, imágenes y otros recursos, pero no ejecuta lógica propia de servidor. Los estilos e imágenes sí se sirven normalmente."
+   },
+   {
+    "id": "06-f-08",
+    "prompt": "¿Qué indica un código de estado 404 en la pestaña Network?",
+    "options": [
+     "Que el recurso llegó correctamente",
+     "Que el servidor falló por un error interno",
+     "Que el servidor no encontró el recurso en la dirección pedida",
+     "Que el recurso se sirvió desde la caché del navegador y por eso no se descargó de nuevo desde el servidor"
+    ],
+    "answer": 2,
+    "explanation": "404 significa recurso no encontrado en esa dirección; los códigos de la familia 200 indican que llegó. Un fallo interno del servidor pertenece a otra familia, la de 500."
+   },
+   {
+    "id": "06-f-09",
+    "prompt": "¿Qué línea del `head` permite que el teléfono presente la página a su ancho real?",
+    "options": [
+     "`<meta charset=\"utf-8\">`, que declara la codificación de caracteres y adapta el ancho al dispositivo",
+     "`<link rel=\"stylesheet\" href=\"css/estilos.css\">`",
+     "`<title>Mi sitio</title>`",
+     "`<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">`"
+    ],
+    "answer": 3,
+    "explanation": "La etiqueta `viewport` ordena usar el ancho del dispositivo en su escala natural. `charset` solo define la codificación de caracteres y no influye en el ancho."
+   },
+   {
+    "id": "06-f-10",
+    "prompt": "¿Cuál es el atajo que activa la barra de dispositivos de DevTools para emular un teléfono?",
+    "options": [
+     "`F12`, que abre DevTools pero no activa la emulación",
+     "`Ctrl + Mayús + M`",
+     "`Ctrl + S`",
+     "`Ctrl + Mayús + N`"
+    ],
+    "answer": 1,
+    "explanation": "La barra de dispositivos se activa con `Ctrl + Mayús + M`. `F12` solo abre DevTools, sin elegir ancho de teléfono."
+   },
+   {
+    "id": "06-f-11",
+    "prompt": "¿Qué efecto tiene hacer push a la rama que Pages tiene declarada como fuente?",
+    "options": [
+     "No tiene efecto por sí mismo: hay que volver a Settings, entrar a Pages y pulsar de nuevo el botón de publicar",
+     "Crea un segundo sitio con otra dirección",
+     "Ordena republicar: el ciclo se repite solo, sin reactivar nada",
+     "Borra la versión anterior sin dejar historia"
+    ],
+    "answer": 2,
+    "explanation": "El push ES la orden de republicar; no existe otro botón. La historia de Git conserva las versiones anteriores, por lo que nada se pierde."
+   },
+   {
+    "id": "06-f-12",
+    "prompt": "¿Por qué conviene abrir la dirección pública en una ventana de incógnito al verificar?",
+    "options": [
+     "Porque arranca sin la caché del sitio y muestra lo que ve un visitante nuevo",
+     "Porque el modo incógnito descarga los archivos más rápido y por eso los errores de carga se notan menos",
+     "Porque así Pages publica una versión distinta del sitio",
+     "Porque oculta los errores de la consola"
+    ],
+    "answer": 0,
+    "explanation": "La verificación debe hacerse como visitante nuevo para no confundir la caché propia con la versión publicada. Incógnito no cambia lo que publica el servidor ni oculta errores."
+   },
+   {
+    "id": "06-f-13",
+    "prompt": "¿Cómo deben nombrarse los archivos de un sitio que se va a publicar?",
+    "options": [
+     "Con mayúsculas iniciales y espacios para que sean legibles",
+     "En minúsculas, sin espacios ni tildes, unidos con guiones",
+     "Con tildes, para respetar la ortografía del idioma",
+     "Con cualquier nombre, porque el servidor ignora mayúsculas"
+    ],
+    "answer": 1,
+    "explanation": "El servidor lee los nombres de forma literal y las URL codifican espacios y tildes, lo que vuelve frágil la ruta. Por eso se usan minúsculas y guiones."
+   },
+   {
+    "id": "06-f-14",
+    "prompt": "¿Cuántos sitios de usuario puede tener una cuenta de GitHub?",
+    "options": [
+     "Uno por cada repositorio de la cuenta, porque cada repositorio puede publicarse desde su propia rama",
+     "Hasta tres, uno por rama",
+     "Ninguno: todos los sitios son de proyecto",
+     "Uno, el del repositorio especial con el nombre de usuario"
+    ],
+    "answer": 3,
+    "explanation": "El sitio de usuario sale de un único repositorio especial. Los sitios de proyecto son los que existen uno por repositorio."
+   },
+   {
+    "id": "06-f-15",
+    "prompt": "¿Dónde debe estar `index.html` para que la dirección principal muestre la página?",
+    "options": [
+     "En el primer nivel de la carpeta elegida como fuente de la publicación",
+     "Dentro de una subcarpeta `html/` de la raíz del repositorio",
+     "En cualquier carpeta del repositorio, porque Pages recorre todos los niveles hasta encontrar un archivo con ese nombre",
+     "Fuera del repositorio, enlazado desde el disco"
+    ],
+    "answer": 0,
+    "explanation": "Pages sirve el contenido de la carpeta fuente y busca ahí, en su primer nivel, el archivo de entrada. No lo rastrea por todo el repositorio."
+   },
+   {
+    "id": "06-f-16",
+    "prompt": "¿Qué dirección tiene un sitio de proyecto frente a uno de usuario?",
+    "options": [
+     "Exactamente la misma que la del sitio de usuario, en la raíz del dominio y sin ninguna subruta adicional",
+     "Un dominio nuevo con el nombre del repositorio",
+     "El dominio del usuario más una subruta con el nombre del repositorio",
+     "La dirección del repositorio en `github.com`"
+    ],
+    "answer": 2,
+    "explanation": "El sitio de proyecto vive una carpeta más abajo, bajo el nombre del repositorio; esa subruta es la causa de los problemas con rutas que empiezan por barra."
+   }
+  ],
+  "medio": [
+   {
+    "id": "06-m-01",
+    "prompt": "GitHub Pages está activado para publicar desde la carpeta `/docs`, pero el `index.html` del sitio quedó en la raíz del repositorio. ¿Qué ve quien visita la dirección pública?",
+    "options": [
+     "El sitio completo: Pages busca el index donde esté",
+     "Un error 404, porque Pages sirve el contenido de la carpeta fuente elegida y ahí no hay página de entrada",
+     "La página de la raíz como respaldo, porque `/docs` es opcional",
+     "El repositorio completo para descargar"
+    ],
+    "answer": 1,
+    "explanation": "La carpeta elegida se convierte en la raíz del sitio y lo que queda fuera no se sirve. Pages no rastrea otras carpetas en busca del archivo de entrada."
+   },
+   {
+    "id": "06-m-02",
+    "prompt": "El sitio publicado se ve sin el logotipo, aunque en el computador la imagen carga perfecta y el archivo sí se subió. En Network, la petición del logo responde 404. ¿La causa más probable?",
+    "options": [
+     "GitHub tarda un día en copiar las imágenes",
+     "El navegador del visitante es incompatible",
+     "La imagen pesa demasiado para Pages, que descarta los archivos grandes en silencio",
+     "El nombre o la ruta pedidos no coinciden exactamente con el archivo subido (por ejemplo, `Logo.png` frente a `logo.png`)"
+    ],
+    "answer": 3,
+    "explanation": "El servidor distingue mayúsculas y minúsculas y el computador local, en Windows, no. Un 404 indica que el servidor no halló esa dirección exacta."
+   },
+   {
+    "id": "06-m-03",
+    "prompt": "Se corrigió un error, se hizo commit y push, pero la dirección pública sigue mostrando la versión vieja al recargar. ¿Cuál es el primer paso de verificación?",
+    "options": [
+     "Abrir la dirección en incógnito o con recarga forzada; si ahí se ve lo nuevo, era la caché del navegador",
+     "Borrar el repositorio y publicarlo de nuevo",
+     "Esperar una semana a que Pages actualice",
+     "Cambiar el nombre del repositorio"
+    ],
+    "answer": 0,
+    "explanation": "Antes de tocar la configuración se descarta la caché como visitante nuevo. Si en incógnito tampoco aparece, se revisa que el push haya llegado y se espera la propagación."
+   },
+   {
+    "id": "06-m-04",
+    "prompt": "En la verificación del sitio publicado, ¿qué debe mostrar la pestaña Network al cargar cada página?",
+    "options": [
+     "Solo la petición del documento principal",
+     "Ninguna petición: eso indicaría que el sitio es rápido",
+     "Todas las peticiones — documento, estilos, imágenes, enlaces internos — con respuesta correcta y ningún 404",
+     "Solo las peticiones con error, porque las demás no se registran"
+    ],
+    "answer": 2,
+    "explanation": "Network lista cada recurso con su código de estado y la verificación exige que todos lleguen bien. Un solo 404 deja el tema sin cerrar."
+   },
+   {
+    "id": "06-m-05",
+    "prompt": "El proyecto vive en el repositorio «taller-robotica» de la cuenta «alejo». ¿Cuál es la dirección pública de ese sitio de proyecto?",
+    "options": [
+     "`alejo.github.io`, la misma dirección que el sitio de usuario, porque el nombre del repositorio no forma parte de la URL",
+     "`github.com/alejo/taller-robotica`",
+     "`alejo.github.io/taller-robotica`: la dirección del usuario seguida del nombre del repositorio",
+     "`taller-robotica.github.io`"
+    ],
+    "answer": 2,
+    "explanation": "El sitio de proyecto se sirve desde el dominio del usuario más la subruta con el nombre del repositorio. `github.com/...` es la página del repositorio, no el sitio publicado."
+   },
+   {
+    "id": "06-m-06",
+    "prompt": "El sitio publicado abre con el candado de HTTPS activo. ¿Qué garantiza ese candado a quien lo visita?",
+    "options": [
+     "Que la comunicación entre su navegador y el servidor viaja cifrada",
+     "Que el sitio nunca tendrá errores 404, porque el servidor revisa y corrige las rutas antes de entregarlas",
+     "Que el sitio es de una empresa verificada",
+     "Que la página carga más rápido"
+    ],
+    "answer": 0,
+    "explanation": "HTTPS cifra la conexión, pero no asegura que las rutas estén bien ni la identidad comercial del autor."
+   },
+   {
+    "id": "06-m-07",
+    "prompt": "Una página `secciones/detalle.html` necesita la hoja `css/estilos.css`, ubicada en la raíz del sitio. ¿Cuál es el enlace correcto?",
+    "options": [
+     "`css/estilos.css`, que buscaría dentro de `secciones/`",
+     "`/css/estilos.css`, que apunta a la raíz del dominio",
+     "`../../css/estilos.css`",
+     "`../css/estilos.css`"
+    ],
+    "answer": 3,
+    "explanation": "La ruta se mide desde `secciones/`: se sube un nivel con `../` y se entra a `css`. Sin subir, la busca dentro de `secciones/css`, donde no existe."
+   },
+   {
+    "id": "06-m-08",
+    "prompt": "El código tiene `<link rel=\"stylesheet\" href=\"/css/estilos.css\">` en el `index.html` de un sitio de proyecto, y publicado se ve sin estilos. ¿Qué corrección aplica?",
+    "options": [
+     "Cambiarlo a `C:/proyecto/css/estilos.css`",
+     "Cambiar el `href` a `css/estilos.css`, relativo al documento",
+     "Mantenerlo y mover el repositorio a la cuenta de otra persona",
+     "Renombrar `estilos.css` a `ESTILOS.css`"
+    ],
+    "answer": 1,
+    "explanation": "La barra inicial manda a la raíz del dominio, fuera del repositorio, y da 404. La ruta del disco falla para todo visitante."
+   },
+   {
+    "id": "06-m-09",
+    "prompt": "En el repositorio hay un archivo `Mi Foto.jpg` y la página lo pide con `img/mi-foto.jpg`. ¿Cuál es la corrección profesional?",
+    "options": [
+     "Renombrar el archivo a `mi-foto.jpg` y actualizar todas sus rutas en un mismo commit",
+     "Escribir en la ruta `img/Mi Foto.jpg`, con el espacio tal cual",
+     "Dejar el nombre tal cual y confiar en que el servidor de Pages ignora los espacios y las mayúsculas al buscar archivos",
+     "Subir una copia con otro nombre y mantener las dos en el repositorio"
+    ],
+    "answer": 0,
+    "explanation": "La corrección es ordenar el nombre con la disciplina correcta, no adaptar la ruta a un nombre desordenado. Los espacios se codifican en la URL y vuelven frágil el enlace."
+   },
+   {
+    "id": "06-m-10",
+    "prompt": "Recién activado Pages, la dirección responde que la página no existe. Han pasado dos minutos. ¿Qué se hace?",
+    "options": [
+     "Borrar la configuración de Pages y activarla otra vez de inmediato, porque dos minutos ya son demasiado para una primera publicación",
+     "Cambiar la carpeta fuente cada minuto hasta que responda",
+     "Esperar unos minutos más y mirar el estado de la última publicación en la sección Pages",
+     "Renombrar el repositorio para forzar el despliegue"
+    ],
+    "answer": 2,
+    "explanation": "La primera publicación tarda normalmente minutos y mientras tanto la respuesta es esperable. Solo si persiste se revisa fuente, nombre del archivo de entrada y repositorio."
+   },
+   {
+    "id": "06-m-11",
+    "prompt": "En Network aparece `foto.jpg` con 404 y el resto con 200. En el repositorio el archivo está en `img/foto.jpg`, y la dirección pedida fue `.../taller/foto.jpg`. ¿Qué indica?",
+    "options": [
+     "Que el servidor de Pages está caído en ese momento y hay que esperar a que se restablezca el servicio",
+     "Que la ruta omite la carpeta `img/`: hay que escribir `img/foto.jpg`",
+     "Que la imagen está dañada y hay que volver a exportarla",
+     "Que la caché guarda una versión antigua de la imagen"
+    ],
+    "answer": 1,
+    "explanation": "La dirección pedida delata la diferencia con la ruta real: falta un nivel de carpeta. Una caché vieja no produce un 404."
+   },
+   {
+    "id": "06-m-12",
+    "prompt": "Se arreglaron a la vez tres rutas en un solo commit y el sitio mejoró. ¿Qué desventaja tiene esa forma de trabajar?",
+    "options": [
+     "Ninguna: agrupar varias correcciones en un solo commit es siempre mejor, porque deja la historia más corta y ordenada",
+     "Que Pages solo publica commits con una única modificación",
+     "Que GitHub rechaza commits con más de un archivo",
+     "No se sabe cuál de las tres causas era el fallo real, y un arreglo puede haber roto otra cosa"
+    ],
+    "answer": 3,
+    "explanation": "La disciplina del tema es corregir una causa por commit y repetir la verificación completa. Git no impone límites de archivos por commit."
+   },
+   {
+    "id": "06-m-13",
+    "prompt": "La página publicada incluye un formulario de contacto que se ve bien, pero al enviarlo no se guarda nada. ¿Qué explica el comportamiento?",
+    "options": [
+     "El formulario tiene un error de mayúsculas en el nombre del archivo de destino, que el servidor no logra encontrar",
+     "Falta activar HTTPS para que los formularios envíen datos",
+     "Pages guarda los envíos, pero solo los muestra al dueño",
+     "Pages solo sirve archivos estáticos: el destino del formulario debe vivir en otro servicio"
+    ],
+    "answer": 3,
+    "explanation": "Pages no ejecuta código de servidor ni guarda envíos. El formulario se ve, pero su procesamiento requiere otra herramienta."
+   },
+   {
+    "id": "06-m-14",
+    "prompt": "Al abrir el sitio en el teléfono, se ve como un escritorio en miniatura y obliga a pellizcar la pantalla. ¿Qué falta, con más probabilidad?",
+    "options": [
+     "Un archivo `movil.html` en la raíz del sitio, que el teléfono pide automáticamente en lugar de `index.html`",
+     "La etiqueta `meta viewport` en el `head` de la página",
+     "Renombrar `index.html` a `index-movil.html`",
+     "Activar la rama `movil` en la configuración de Pages"
+    ],
+    "answer": 1,
+    "explanation": "Sin `viewport` el teléfono finge un escritorio ancho. No existe un archivo o rama especial para móvil en Pages."
+   },
+   {
+    "id": "06-m-15",
+    "prompt": "Se va a subir un archivo `.txt` con contraseñas de prueba «en una carpeta escondida» del repositorio que publica el sitio. ¿Es aceptable?",
+    "options": [
+     "Sí, mientras la carpeta no esté enlazada desde ninguna página del sitio, porque nadie podría llegar hasta ella",
+     "Sí, si el archivo se nombra en minúsculas",
+     "No: lo que no debe ver nadie no se sube, porque publicado lo escondido no existe",
+     "Sí, porque Pages cifra todos los archivos"
+    ],
+    "answer": 2,
+    "explanation": "Los archivos de un repositorio que publica pueden servirse o leerse públicamente aunque ninguna página los enlace. Claves y datos privados jamás entran."
+   },
+   {
+    "id": "06-m-16",
+    "prompt": "Se cambió el color de un título, se probó en local, se hizo commit y push. ¿Cuál es el siguiente paso del ciclo de actualización?",
+    "options": [
+     "Esperar la propagación breve y verificar en la dirección pública, en incógnito, con Network y Console abiertas",
+     "Dar el trabajo por terminado, porque ya funcionó en local",
+     "Activar Pages de nuevo para que tome el cambio",
+     "Verificar solo en la pestaña de siempre"
+    ],
+    "answer": 0,
+    "explanation": "Tras el push se espera y se comprueba la dirección pública como visitante nuevo; «en local funciona» no cierra ninguna publicación."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "06-d-01",
+    "prompt": "Diagnóstico completo: en local todo carga; en la dirección pública, la página abre pero sin estilos, y Network muestra 404 en la hoja pedida como `/css/estilos.css`, mientras en el repositorio el archivo vive en `/CSS/estilos.css`. ¿Cuál es el procedimiento correcto, en orden?",
+    "options": [
+     "Borrar el repositorio y crearlo con otro nombre para empezar limpio",
+     "Ignorarlo: en algunos computadores se verá bien",
+     "Cambiar el enlace a la ruta del disco local del autor, que sí contiene el archivo",
+     "Leer en Network la dirección pedida, compararla con la ruta real, corregir, hacer commit y push, y verificar en la URL pública hasta cero errores"
+    ],
+    "answer": 3,
+    "explanation": "Cada 404 nombra la dirección pedida; la corrección sale de compararla con la real (aquí `CSS` frente a `css`, además de la barra inicial). La ruta del disco falla para cualquier visitante."
+   },
+   {
+    "id": "06-d-02",
+    "prompt": "Diagnóstico: la dirección pública del sitio muestra el contenido del README en vez de la página, aunque el repositorio tiene todo el código. ¿Cuál es la causa?",
+    "options": [
+     "GitHub Pages siempre muestra el README del repositorio como portada y solo sirve el sitio cuando el visitante pulsa un enlace",
+     "No hay `index.html` con ese nombre exacto en la carpeta fuente: sin página de entrada se muestra el README",
+     "El sitio es demasiado pesado y Pages lo resume",
+     "Falta activar HTTPS en la configuración del repositorio"
+    ],
+    "answer": 1,
+    "explanation": "Sin archivo de entrada en la raíz fuente, el README puede hacerse pasar por sitio. Se corrige creando `index.html` en esa raíz y republicando."
+   },
+   {
+    "id": "06-d-03",
+    "prompt": "Análisis: alguien afirma que «ya publiqué: hice push a GitHub». Su repositorio tiene el código, pero GitHub Pages nunca se activó. ¿Está publicado el sitio?",
+    "options": [
+     "Sí: push y publicación son lo mismo",
+     "Sí, aunque Pages siga apagado: el sitio queda publicado de forma privada y solo lo puede abrir el dueño de la cuenta",
+     "No: el push solo guarda el código; falta configurar Pages para entregarlo desde una dirección pública",
+     "Está publicado en privado hasta que alguien lo visite"
+    ],
+    "answer": 2,
+    "explanation": "Publicar exige un servidor que entregue los archivos por URL. Sin Pages activado nadie puede visitar el sitio, aunque el repositorio sea público."
+   },
+   {
+    "id": "06-d-04",
+    "prompt": "Diagnóstico fino: tras un push de corrección, en el navegador de siempre sigue la versión vieja, pero en incógnito ya se ve la nueva. ¿Qué se concluye y qué NO hace falta hacer?",
+    "options": [
+     "Que la corrección sí está publicada y la vieja era caché; no hace falta tocar repositorio ni configuración",
+     "Que el push falló a medias, así que hay que repetirlo y además volver a elegir la rama y la carpeta fuente en Pages",
+     "Que Pages tarda un día: hay que esperar sin tocar nada",
+     "Que el sitio tiene dos versiones y hay que borrar una"
+    ],
+    "answer": 0,
+    "explanation": "Lo que se ve sin caché es lo que recibe un visitante nuevo. Repetir el push o cambiar la configuración no arregla una caché local."
+   },
+   {
+    "id": "06-d-05",
+    "prompt": "Análisis: la hoja de estilos se enlazó con `/css/estilos.css`. En el sitio de usuario funciona, pero el mismo código, en un sitio de proyecto (`…github.io/taller/`), da 404. ¿Por qué?",
+    "options": [
+     "La ruta con barra se resuelve contra el dominio, sin el nombre del proyecto, y pide los estilos fuera del sitio",
+     "Los sitios de proyecto no admiten hojas de estilo externas: el CSS debe ir incrustado en cada página con la etiqueta `style`",
+     "El repositorio del proyecto es privado",
+     "Pages cambia las rutas al publicar"
+    ],
+    "answer": 0,
+    "explanation": "El sitio de usuario vive en la raíz del dominio, donde la barra inicial coincide con el sitio; el de proyecto vive en una subruta. Se corrige con ruta relativa."
+   },
+   {
+    "id": "06-d-06",
+    "prompt": "Caso combinado: la revisión móvil del sitio publicado obliga a hacer zoom para leer y una imagen obliga a desplazar de lado, aunque en el computador se ve perfecto. ¿Qué dos frentes hay que revisar?",
+    "options": [
+     "El nombre del repositorio y el color de fondo",
+     "Solo el tamaño de la imagen: el viewport es opcional y el teléfono ya compone la página a su ancho real sin él",
+     "Primero `viewport` en el `head` de cada página y luego el recurso que desborda, con la emulación",
+     "Nada: en el teléfono todos los sitios se ven así"
+    ],
+    "answer": 2,
+    "explanation": "Sin `viewport` el teléfono no compone contra su ancho real, y el elemento que se sale causa el desplazamiento lateral. Después se repite la revisión en emulación y en teléfono real."
+   },
+   {
+    "id": "06-d-07",
+    "prompt": "La página `secciones/detalle.html` enlaza `../../css/estilos.css` y publicada se ve sin estilos; en Network la dirección pedida queda fuera del sitio. ¿Cuál es la causa y la corrección?",
+    "options": [
+     "Falta la barra inicial: debe ser `/css/estilos.css`, que el servidor resuelve desde la raíz del sitio de proyecto",
+     "Sube dos niveles desde una carpeta que está a uno de la raíz; basta `../css/estilos.css`",
+     "La carpeta `secciones` debe llamarse `css` para que coincida",
+     "Hay que copiar `estilos.css` dentro de cada subcarpeta"
+    ],
+    "answer": 1,
+    "explanation": "Cada `../` sale un nivel; desde una carpeta a un nivel de la raíz, dos subidas dejan la petición fuera del sitio. Contar niveles da la ruta."
+   },
+   {
+    "id": "06-d-08",
+    "prompt": "En Windows se renombró `Logo.png` a `logo.png`, la ruta usa minúsculas y `git status` no muestra ningún cambio. En el sitio publicado el logo da 404. ¿Qué pasó y cómo se resuelve?",
+    "options": [
+     "El servidor de Pages ignora las minúsculas y compara los nombres sin distinguirlas, así que solo hay que esperar la propagación",
+     "La ruta en el HTML debe volver a `Logo.png` y se descarta el renombre",
+     "El archivo se perdió y hay que borrar el repositorio",
+     "Git no registró el renombre solo de mayúsculas y GitHub conserva `Logo.png`; se renombra en dos pasos"
+    ],
+    "answer": 3,
+    "explanation": "En sistemas que no distinguen mayúsculas, un cambio solo de capitalización puede no quedar en la historia, y el servidor sigue con el nombre viejo. Se verifica con `git status`."
+   },
+   {
+    "id": "06-d-09",
+    "prompt": "Un sitio con Pages configurado en la rama `produccion` no refleja las correcciones que se hacen push a `main`. ¿Qué explica el comportamiento?",
+    "options": [
+     "La caché de la red de distribución de Pages dura exactamente una semana y hasta entonces ninguna rama se actualiza",
+     "Pages ignora los push hechos desde Windows",
+     "Pages solo republica con push a la rama declarada como fuente; los cambios deben llegar a `produccion`",
+     "El archivo `README.md` bloquea las actualizaciones"
+    ],
+    "answer": 2,
+    "explanation": "El push a la rama fuente es la orden de republicar. Una rama distinta queda en el repositorio, pero no cambia lo servido."
+   },
+   {
+    "id": "06-d-10",
+    "prompt": "Network muestra el CSS con 200, recargado con recarga forzada, y aun así el nuevo color no aparece. ¿Qué se concluye?",
+    "options": [
+     "Que el problema está en el contenido del archivo publicado y no en la caché; hay que revisar qué contiene",
+     "Que sigue siendo la caché, aunque la recarga forzada la ignore, y hay que esperar uno o dos días sin tocar nada",
+     "Que Pages no sirve CSS modificado",
+     "Que hay que borrar el historial del navegador y no tocar el archivo"
+    ],
+    "answer": 0,
+    "explanation": "Si el archivo llega con 200 tras una recarga forzada, lo que se ve es lo que el servidor entrega. Quizá el cambio no se subió o la regla tiene otro error."
+   },
+   {
+    "id": "06-d-11",
+    "prompt": "La Console de la página segura indica que se bloqueó un recurso pedido por `http://`. ¿Cuál es la mejor solución?",
+    "options": [
+     "Desactivar HTTPS en el repositorio",
+     "Aceptar el bloqueo del navegador y dejar la imagen sin cargar, porque los recursos inseguros no se pueden corregir",
+     "Escribir la dirección en mayúsculas para que el servidor la acepte",
+     "Enlazar los recursos internos con rutas relativas, que heredan el esquema de la página"
+    ],
+    "answer": 3,
+    "explanation": "Una página con HTTPS puede bloquear recursos pedidos sin seguridad. Las rutas relativas heredan el esquema de la página."
+   },
+   {
+    "id": "06-d-12",
+    "prompt": "Tras activar Pages, la dirección responde 404 y el repositorio contiene `Index.html` en la raíz. ¿Qué se hace?",
+    "options": [
+     "Nada: el servidor busca `Index.html` sin importar mayúsculas, así que el 404 se debe solo a la espera de la propagación",
+     "Renombrarlo a `index.html`, comprobar con `git status` que el renombre quedó en la historia, subirlo y verificar",
+     "Cambiar el título dentro del archivo",
+     "Mover el sitio a otra cuenta"
+    ],
+    "answer": 1,
+    "explanation": "El nombre de entrada es exacto: una mayúscula equivale a que no exista. El renombre debe llegar al repositorio, no solo al disco."
+   },
+   {
+    "id": "06-d-13",
+    "prompt": "Una página de subcarpeta se copió del `index.html`, con sus mismos `href` y `src`, y publicada pierde estilos e imágenes. ¿Qué error la explica?",
+    "options": [
+     "Las páginas de subcarpeta no pueden usar CSS ni imágenes de la raíz; cada una necesita su propia copia de los recursos",
+     "Las rutas se miden desde la carpeta de la página: sin ajustarlas, piden los recursos dentro de la subcarpeta",
+     "Las rutas deben empezar por barra en subcarpetas",
+     "El navegador cachea solo la página principal"
+    ],
+    "answer": 1,
+    "explanation": "Los enlaces que servían desde la raíz piden aquí los archivos dentro de la subcarpeta. El método es contar niveles: dónde estoy, dónde está el archivo, cuántos subo."
+   },
+   {
+    "id": "06-d-14",
+    "prompt": "Una persona dice «en mi computador sí funciona» ante un 404 público. ¿Cuál es la respuesta técnicamente correcta?",
+    "options": [
+     "Es un problema del visitante, no del sitio: su navegador es el que no interpreta bien las rutas publicadas",
+     "Se acepta como funcionando si la carpeta local está bien",
+     "Hay que enlazar los archivos desde el disco del autor",
+     "Lo que cuenta es la dirección pública: se compara la ruta pedida en Network con la real del repositorio"
+    ],
+    "answer": 3,
+    "explanation": "Local y publicado difieren en mayúsculas, subruta y archivos subidos. La única realidad de publicación es la que sirve la URL."
+   },
+   {
+    "id": "06-d-15",
+    "prompt": "Tras un arreglo de una ruta de imagen, la página corregida carga bien, pero otra página que usaba la misma imagen ahora da 404. ¿Qué práctica se omitió?",
+    "options": [
+     "Repetir la verificación completa, no solo la del recurso corregido, porque otras páginas podían enlazarlo",
+     "Verificar solo la página corregida, porque es la única que cambió y el resto del sitio no puede verse afectado",
+     "Esperar más tiempo de propagación",
+     "Borrar la caché del servidor desde el panel de Pages"
+    ],
+    "answer": 0,
+    "explanation": "Un arreglo puede romper otra página que enlazaba el mismo archivo; por eso tras cada arreglo se verifica el sitio entero."
+   },
+   {
+    "id": "06-d-16",
+    "prompt": "Una imagen no carga en el teléfono real, aunque en el portátil, con la misma URL, se ve. El archivo no existe con ese nombre en el repositorio. ¿Cuál es la explicación más probable?",
+    "options": [
+     "El teléfono es incompatible con las imágenes de Pages y solo las muestra si se activa la versión de escritorio",
+     "El portátil tiene una versión distinta del repositorio",
+     "El portátil mostraba una copia en caché que enmascaraba la ruta rota; el teléfono, sin caché, revela el 404",
+     "Las imágenes solo cargan en navegadores de escritorio"
+    ],
+    "answer": 2,
+    "explanation": "La revisión en teléfono real, sin caché del proyecto, destapa rutas rotas que el navegador de escritorio disfrazaba."
+   }
+  ]
+ }
+}

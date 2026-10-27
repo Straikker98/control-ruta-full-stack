@@ -1,0 +1,611 @@
+{
+ "week": 7,
+ "levels": {
+  "facil": [
+   {
+    "id": "07-f-01",
+    "prompt": "En la regla `p { color: red; }`, ¿qué es `color`?",
+    "options": [
+     "El selector",
+     "El valor",
+     "Un combinador",
+     "La propiedad"
+    ],
+    "answer": 3,
+    "explanation": "`color` dice QUÉ cambia, es decir, la propiedad; `red` es el valor y `p` el selector. Confundirla con el selector es el error típico de quien lee solo la primera palabra de la regla."
+   },
+   {
+    "id": "07-f-02",
+    "prompt": "¿Cómo se escribe el selector de la clase `tarjeta`?",
+    "options": [
+     "#tarjeta",
+     ".tarjeta",
+     "*tarjeta",
+     "@tarjeta"
+    ],
+    "answer": 1,
+    "explanation": "El selector de clase lleva un punto delante. La almohadilla `#` es del identificador (id), que alcanza a un único elemento."
+   },
+   {
+    "id": "07-f-03",
+    "prompt": "Tres reglas compiten por el mismo elemento: una por tipo (`p`), una por clase (`.nota`) y una por id (`#aviso`). ¿Cuál gana por especificidad?",
+    "options": [
+     "La de id",
+     "La de tipo",
+     "La de clase",
+     "Gana la última que se escribió, sin importar el selector"
+    ],
+    "answer": 0,
+    "explanation": "El id suma en la columna mayor de la especificidad y vence a cualquier cantidad de clases y tipos. El orden de aparición solo desempata cuando la especificidad es igual, así que no decide aquí."
+   },
+   {
+    "id": "07-f-04",
+    "prompt": "¿Cuál de las tres formas de aplicar CSS es la recomendada para un sitio real y por qué?",
+    "options": [
+     "En línea, porque la regla va pegada al elemento y así se ve de inmediato qué estilo lleva cada etiqueta",
+     "Interna, porque el bloque de estilo viaja dentro del propio documento y no exige archivos adicionales que mantener",
+     "Externa, porque una sola hoja da estilo a todas las páginas y se mantiene en un único lugar",
+     "Da igual: las tres rinden lo mismo en un proyecto de varias páginas, solo cambia la preferencia personal"
+    ],
+    "answer": 2,
+    "explanation": "La hoja externa se enlaza desde cada página y cambiar una regla cambia todo el sitio. La interna obliga a copiar el diseño en cada página y la de línea no se reutiliza y mezcla presentación con HTML."
+   },
+   {
+    "id": "07-f-05",
+    "prompt": "¿Qué elige el combinador `div > p`?",
+    "options": [
+     "Todos los párrafos dentro de un `div`, a cualquier profundidad",
+     "Solo los párrafos hijos directos de un `div`",
+     "El párrafo hermano que sigue a un `div`",
+     "Los `div` que están dentro de un párrafo"
+    ],
+    "answer": 1,
+    "explanation": "El signo `>` es el hijo directo y no baja más de un nivel. La opción de «cualquier profundidad» describe el combinador descendiente, que es un simple espacio."
+   },
+   {
+    "id": "07-f-06",
+    "prompt": "Dos reglas compiten por el mismo elemento y la misma propiedad. ¿En qué orden se decide cuál gana en la cascada?",
+    "options": [
+     "Gana siempre la primera regla escrita en la hoja, porque el navegador deja de leer las reglas del mismo elemento tras encontrar la primera",
+     "Gana la regla de la hoja con menos líneas, porque el navegador prioriza los bloques más cortos y sencillos",
+     "Primero origen e importancia (`!important`), después la especificidad y, si todo empata, el orden de aparición: gana la última escrita",
+     "Se decide por el orden alfabético del selector, de modo que las reglas de `a` ganan a las de `p`"
+    ],
+    "answer": 2,
+    "explanation": "Los filtros son origen e importancia, especificidad y orden de aparición; después viene la herencia. El orden de aparición solo entra si los anteriores empatan, y entonces gana la última, no la primera."
+   },
+   {
+    "id": "07-f-07",
+    "prompt": "¿Por qué un id no es simplemente «una clase con otro nombre»?",
+    "options": [
+     "Son idénticos: solo cambia el símbolo con el que se escriben, y se pueden usar de forma indistinta para el mismo fin",
+     "La clase tiene más especificidad que el id, por eso conviene repetir ids en varios elementos del documento",
+     "El id se puede repetir en varios elementos y la clase no, por eso el id es la vía general de estilo",
+     "Identifica a un único elemento y pesa más en la especificidad; estilar todo con id vuelve la hoja rígida"
+    ],
+    "answer": 3,
+    "explanation": "El id es único por documento y su selector pesa más que cualquier clase, lo que impide reutilizar y corregir estilos. Es justo al revés de lo que afirma la opción que dice que el id se repite."
+   },
+   {
+    "id": "07-f-08",
+    "prompt": "¿Cuál es la sintaxis correcta de un comentario en CSS?",
+    "options": [
+     "`/* propósito del bloque */`",
+     "`// propósito del bloque`",
+     "`<!-- propósito del bloque -->`",
+     "`# propósito del bloque`"
+    ],
+    "answer": 0,
+    "explanation": "CSS solo conoce `/* ... */`. `<!-- -->` es el comentario de HTML y `//` no existe en CSS: la línea quedaría como una declaración inválida."
+   },
+   {
+    "id": "07-f-09",
+    "prompt": "En el modelo de caja, ¿cuál es el orden de las capas de dentro hacia afuera?",
+    "options": [
+     "Contenido, borde, relleno, margen",
+     "Contenido, relleno (`padding`), borde, margen",
+     "Contenido, margen, borde, relleno",
+     "Relleno, contenido, borde, margen"
+    ],
+    "answer": 1,
+    "explanation": "El relleno está entre el contenido y el borde, y el margen es la capa exterior, fuera de la caja. Poner el borde antes del relleno es el error más común."
+   },
+   {
+    "id": "07-f-10",
+    "prompt": "¿Qué unidad se mide contra el tamaño de fuente del elemento raíz (`html`)?",
+    "options": [
+     "`rem`",
+     "`em`",
+     "`vw`",
+     "`px`"
+    ],
+    "answer": 0,
+    "explanation": "`rem` toma siempre el tamaño de la raíz (16px por defecto) y no compone. `em` se mide contra la fuente del propio elemento o su padre, y `vw` contra el ancho de la ventana."
+   },
+   {
+    "id": "07-f-11",
+    "prompt": "¿Qué selector alcanza a todos los elementos del documento sin excepción?",
+    "options": [
+     "`.`",
+     "`#`",
+     "`:root`",
+     "`*`"
+    ],
+    "answer": 3,
+    "explanation": "El asterisco es el selector universal. Su uso serio en el tema es `* { box-sizing: border-box; }`; `:root` apunta solo al elemento raíz."
+   },
+   {
+    "id": "07-f-12",
+    "prompt": "¿Cuál de los siguientes selectores contiene un pseudoelemento?",
+    "options": [
+     "`a:hover`",
+     "`li:first-child`",
+     "`p::first-line`",
+     "`a:visited`"
+    ],
+    "answer": 2,
+    "explanation": "El pseudoelemento se escribe con dos pares de dos puntos y elige un fragmento de un elemento, como la primera línea. Las otras tres son pseudoclases, de dos puntos simples, que eligen elementos enteros por estado o posición."
+   },
+   {
+    "id": "07-f-13",
+    "prompt": "¿Cuál de estas propiedades se hereda del elemento padre cuando ninguna regla la declara?",
+    "options": [
+     "`margin`",
+     "`border`",
+     "`background`",
+     "`font-family`"
+    ],
+    "answer": 3,
+    "explanation": "Las propiedades del texto (color, fuente, altura de línea) se heredan; las de la caja (margen, relleno, borde, ancho, fondo) pertenecen a cada elemento y no bajan."
+   },
+   {
+    "id": "07-f-14",
+    "prompt": "¿Cuál es el valor por defecto de `box-sizing`?",
+    "options": [
+     "En el `body`, con una etiqueta `<style src=\"css/estilos.css\">` colocada al final de la página",
+     "En el `head`, con `<script src=\"css/estilos.css\">`, igual que se enlazan los archivos de JavaScript",
+     "`content-box`",
+     "En cada elemento, con el atributo `style=\"css/estilos.css\"` escrito en la etiqueta correspondiente"
+    ],
+    "answer": 2,
+    "explanation": "Por defecto el ancho declarado mide solo el contenido y el relleno y el borde se suman por fuera. `border-box` hay que pedirlo, normalmente con la regla universal."
+   },
+   {
+    "id": "07-f-15",
+    "prompt": "¿Dónde y cómo se enlaza una hoja externa en una página HTML?",
+    "options": [
+     "El espacio interior entre contenido y borde, que lleva el fondo de la caja",
+     "El espacio exterior entre esta caja y las vecinas, que no lleva el fondo de la caja",
+     "La línea que dibuja el límite de la caja, con su grosor, estilo y color",
+     "El tamaño del texto dentro de la caja, que se hereda desde el elemento padre"
+    ],
+    "answer": 0,
+    "explanation": "La hoja externa se enlaza con `link` desde la cabeza y su ruta sigue las mismas reglas relativas del Tema 6. `style` escribe reglas, no enlaza archivos, y `script` es para JavaScript."
+   },
+   {
+    "id": "07-f-16",
+    "prompt": "En el modelo de caja, ¿qué es el `padding`?",
+    "options": [
+     "Descarta toda la hoja de estilos y muestra un mensaje de error en la pantalla del usuario",
+     "El espacio interior entre el contenido y el borde, que lleva el fondo de la caja",
+     "Descarta la regla entera, incluidas sus declaraciones válidas, hasta que se corrija",
+     "Detiene la carga de la página hasta que el autor corrija la propiedad desconocida"
+    ],
+    "answer": 1,
+    "explanation": "El relleno separa por dentro y pertenece a la caja; el espacio exterior es el margen. El borde es la línea del límite."
+   },
+   {
+    "id": "07-f-17",
+    "prompt": "¿Qué ocurre cuando el navegador encuentra una propiedad que no reconoce dentro de una regla?",
+    "options": [
+     "Descarta toda la hoja de estilos y muestra un error en pantalla",
+     "Descarta la regla entera, incluidas sus declaraciones válidas",
+     "Ignora solo esa declaración y aplica las demás",
+     "Detiene la carga de la página hasta que se corrija"
+    ],
+    "answer": 2,
+    "explanation": "CSS falla en silencio, declaración a declaración, y por eso hay que verificar siempre en DevTools. Ni la hoja ni la regla completa se descartan."
+   }
+  ],
+  "medio": [
+   {
+    "id": "07-m-01",
+    "prompt": "Solo los enlaces del menú de navegación deben verse en el color de acento; los demás enlaces de la página, no. ¿Qué selector lo logra?",
+    "options": [
+     "`a`, y dejar una nota en el README sobre los enlaces que no deben cambiar de color",
+     "`#enlace`, repetido como id en cada uno de los enlaces del menú de navegación",
+     "El descendiente que acota la zona: `nav a`",
+     "`* a`, que llega a todos los enlaces del documento sin distinguir su zona"
+    ],
+    "answer": 2,
+    "explanation": "El combinador descendiente restringe el alcance a la zona. `a` y `* a` alcanzan todos los enlaces de la página y un id solo puede identificar a un elemento."
+   },
+   {
+    "id": "07-m-02",
+    "prompt": "Una tarjeta se declara con `width: 200px`, `padding: 20px` a cada lado y `border: 2px` a cada lado, con el modelo por defecto (`content-box`). ¿Cuánto ocupa de ancho en pantalla?",
+    "options": [
+     "200px, porque el relleno y el borde van dentro del ancho declarado en cualquier caso",
+     "220px, porque solo se suma el relleno y el borde no cuenta para el ancho",
+     "164px, porque el relleno y el borde se restan del ancho que se declara",
+     "244px: al ancho del contenido se suman 40px de relleno y 4px de borde"
+    ],
+    "answer": 3,
+    "explanation": "200 + 20 + 20 + 2 + 2 = 244. Los 200px son solo el contenido; que relleno y borde vayan dentro ocurre únicamente con `border-box`."
+   },
+   {
+    "id": "07-m-03",
+    "prompt": "Una tarjeta pasa al ajuste `border-box` con `width: 300px`, `padding` de 20px a cada lado y borde de 2px a cada lado. ¿Cuánto queda para el contenido?",
+    "options": [
+     "256px: del ancho total se descuentan 40px de relleno y 4px de borde",
+     "300px completos, porque el ancho declarado se reserva por entero al contenido",
+     "260px, porque solo se descuenta el relleno y no el borde",
+     "344px, porque con `border-box` se suman el relleno y el borde por fuera"
+    ],
+    "answer": 0,
+    "explanation": "Con `border-box` la caja entera mide 300, y 300 − 40 − 4 = 256. 344px es lo que ocuparía con `content-box`."
+   },
+   {
+    "id": "07-m-04",
+    "prompt": "La base tipográfica del proyecto es 16px y un título debe medir 24px usando `rem`. ¿Cómo se declara?",
+    "options": [
+     "`font-size: 24rem`",
+     "`font-size: 1.5rem`, porque 24 ÷ 16 = 1.5",
+     "`font-size: 0.66rem`",
+     "`font-size: 24px` con un comentario que diga «en rem»"
+    ],
+    "answer": 1,
+    "explanation": "`rem` es un factor sobre la fuente de la raíz: 1.5 × 16 = 24. `24rem` sería 384px, y `0.66rem` resulta de dividir al revés (16 ÷ 24)."
+   },
+   {
+    "id": "07-m-05",
+    "prompt": "Los botones del sitio deben oscurecerse cuando el cursor pasa sobre ellos. ¿Con qué se declara ese estado?",
+    "options": [
+     "Con una clase nueva aplicada a mano a cada botón",
+     "Con la pseudoclase `:hover`",
+     "Con el atributo `style` de cada botón",
+     "Con un segundo archivo de estilos solo para el cursor"
+    ],
+    "answer": 1,
+    "explanation": "`:hover` elige al elemento mientras el puntero está encima y deja de aplicar cuando se retira. Una clase manual no reacciona al puntero sin ayuda de otro mecanismo."
+   },
+   {
+    "id": "07-m-06",
+    "prompt": "Un color se repite en doce reglas de la hoja escritas a mano, y hay que cambiarlo en todo el sitio. ¿Qué habría evitado ese trabajo?",
+    "options": [
+     "Usar `!important` en la primera regla, para que el resto de las reglas la copien",
+     "Copiar la hoja doce veces, una por regla, para cambiar cada copia por separado",
+     "Nombrar las clases con el color incluido en su nombre, de modo que se identifiquen mejor",
+     "Declarar el color una vez como variable en `:root` y usar `var()`"
+    ],
+    "answer": 3,
+    "explanation": "Con una variable el cambio se hace en un solo sitio. `!important` solo altera quién gana un conflicto y no centraliza el valor."
+   },
+   {
+    "id": "07-m-07",
+    "prompt": "¿Cuál es la especificidad, como terna (ids, clases, tipos), del selector `nav .activo`?",
+    "options": [
+     "(0, 0, 2)",
+     "(1, 1, 1)",
+     "(0, 1, 1)",
+     "(0, 2, 0)"
+    ],
+    "answer": 2,
+    "explanation": "Hay una clase y una etiqueta; el espacio es un combinador y no suma. (0, 0, 2) sería `nav a`."
+   },
+   {
+    "id": "07-m-08",
+    "prompt": "Compiten por el mismo enlace `#menu a { color: blue; }` y `.nav .item .link { color: red; }`. ¿De qué color se ve, y por qué?",
+    "options": [
+     "Azul: (1, 0, 1) frente a (0, 3, 0); el id decide antes que cualquier cantidad de clases",
+     "Rojo: tiene tres clases y la suma de piezas es mayor que la de la otra regla, así que pesa más",
+     "Rojo, porque es la más larga y cuando hay disputa gana la que tiene más piezas en el selector",
+     "Depende de cuál esté escrita después, porque la especificidad aquí queda empatada"
+    ],
+    "answer": 0,
+    "explanation": "Las columnas se comparan en orden y no se convierten entre sí: un id vence a tres clases. El orden de aparición solo entra si la especificidad empata, y aquí no lo hace."
+   },
+   {
+    "id": "07-m-09",
+    "prompt": "Con `li + li { margin-left: 1rem; }`, ¿a qué elementos de una lista de tres `li` alcanza?",
+    "options": [
+     "Solo al primero de la lista, porque abre la secuencia de hermanos",
+     "Solo al segundo `li`, porque es el único que sigue a otro",
+     "A los tres, porque todos son hermanos dentro del mismo `ul`",
+     "Al segundo y al tercero"
+    ],
+    "answer": 3,
+    "explanation": "El hermano adyacente alcanza al `li` que viene inmediatamente después de otro `li`. El primero no tiene hermano anterior, por eso queda sin margen."
+   },
+   {
+    "id": "07-m-10",
+    "prompt": "Una caja tiene `margin-bottom: 24px` y la caja que la sigue, hermana, tiene `margin-top: 16px`. ¿Qué separación vertical hay entre ellas?",
+    "options": [
+     "24px: los márgenes verticales se fusionan en el mayor",
+     "40px, la suma de ambos márgenes, porque el espacio se acumula entre las dos cajas",
+     "16px, el menor de los dos, porque el margen inferior queda anulado por el superior",
+     "8px, la diferencia entre ambos márgenes, que es lo que realmente separa las cajas"
+    ],
+    "answer": 0,
+    "explanation": "Dos márgenes verticales que se tocan colapsan y valen el mayor. La suma solo ocurriría en horizontal, donde no hay colapso."
+   },
+   {
+    "id": "07-m-11",
+    "prompt": "Un bloque declara `font-size: 20px` y un hijo suyo declara `font-size: 2em`. ¿Cuánto mide la fuente del hijo?",
+    "options": [
+     "32px",
+     "2px",
+     "40px",
+     "20px"
+    ],
+    "answer": 2,
+    "explanation": "`2em` toma como referencia la fuente del padre: 2 × 20 = 40. Los 32px corresponderían a `2rem` con la raíz por defecto."
+   },
+   {
+    "id": "07-m-12",
+    "prompt": "Un contenedor mide 640px de ancho y su hijo declara `width: 50%`. ¿Cuánto mide el hijo?",
+    "options": [
+     "320px, la mitad del ancho de la pantalla del usuario",
+     "320px, la mitad del ancho que ofrece el contenedor",
+     "50px, porque el porcentaje se toma como si fueran píxeles",
+     "640px, el ancho completo del contenedor, porque el porcentaje se ignora"
+    ],
+    "answer": 1,
+    "explanation": "En anchos, el porcentaje se calcula contra el ancho del contenedor, no contra la pantalla (eso lo hacen `vw`) ni contra el propio elemento."
+   },
+   {
+    "id": "07-m-13",
+    "prompt": "Se escribe `li:last-child { margin-bottom: 0; }`. ¿A qué elemento alcanza?",
+    "options": [
+     "A todos los `li` de la página",
+     "Al `li` que es el último hijo de su contenedor",
+     "Al último `li` escrito en la hoja de estilos",
+     "Al `li` que el usuario visitó por última vez"
+    ],
+    "answer": 1,
+    "explanation": "`:last-child` es una pseudoclase de posición entre hermanos: se comprueba en cada contenedor, sin tocar el HTML."
+   },
+   {
+    "id": "07-m-14",
+    "prompt": "Se escribe `padding: 20 px;`. ¿Qué hace el navegador con esa declaración?",
+    "options": [
+     "La interpreta como 20px porque el navegador ignora el espacio entre número y unidad",
+     "Aplica 20 unidades de la unidad por defecto, que en pantalla es el píxel",
+     "La descarta en silencio por inválida; las demás declaraciones siguen aplicando",
+     "Descarta toda la regla, incluidas las demás declaraciones, hasta que se corrija"
+    ],
+    "answer": 2,
+    "explanation": "Entre número y unidad no puede haber espacio, de modo que `20 px` no es una medida. CSS ignora solo la declaración inválida, no la regla entera."
+   },
+   {
+    "id": "07-m-15",
+    "prompt": "Con `body { color: #212121; margin: 0; }` y sin más reglas, ¿qué recibe un `p` dentro del `body`?",
+    "options": [
+     "Hereda el color, pero no el margen",
+     "Hereda el margen, pero no el color, porque el margen está declarado en el padre directo",
+     "Hereda el color y también el margen, porque todo valor declarado arriba baja por el árbol",
+     "No hereda nada: debe declarar las dos propiedades en su propia regla para recibirlas"
+    ],
+    "answer": 0,
+    "explanation": "El color es de la lectura del texto y baja por el árbol; el margen es de la caja de cada elemento y no se hereda."
+   },
+   {
+    "id": "07-m-16",
+    "prompt": "En la hoja aparece primero `a:hover { color: red; }` y después `a:link { color: blue; }`. Un enlace sin visitar con el puntero encima, ¿de qué color se ve?",
+    "options": [
+     "Rojo, porque `:hover` siempre tiene prioridad sobre `:link` sin importar el orden de las reglas",
+     "Rojo, porque describe un estado más reciente y el navegador prefiere el estado más nuevo",
+     "Una mezcla de rojo y azul, porque las dos reglas pesan igual y el navegador combina sus valores",
+     "Azul: los dos pesan (0, 1, 1) y gana la que aparece después"
+    ],
+    "answer": 3,
+    "explanation": "Los dos estados son verdad a la vez y la especificidad empata, así que decide el orden de aparición. Por eso se escribe el orden `link`, `visited`, `hover`, `focus`, `active`."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "07-d-01",
+    "prompt": "Diagnóstico: la regla `.nota { color: gray; }` está escrita DESPUÉS en la hoja, pero los párrafos con clase `nota` se ven del color de la regla `p.nota { color: blue; }`, escrita antes. Alguien concluye que «gana la última». ¿Cuál es la explicación correcta?",
+    "options": [
+     "Gana la última siempre: la conclusión es correcta y el navegador falló al ignorar la regla de la clase sola, escrita más abajo",
+     "A igualdad de lo demás ganaría la última, pero aquí `p.nota` suma un tipo y una clase, (0, 1, 1), frente a la clase sola (0, 1, 0); la especificidad se decide antes que el orden",
+     "Gana la regla cuyo selector tiene el nombre más corto, porque el navegador compara primero la longitud del texto de los selectores",
+     "Las reglas con clase nunca ganan a las que incluyen una etiqueta, ni aunque vayan después en la hoja ni aunque empaten en lo demás"
+    ],
+    "answer": 1,
+    "explanation": "Los filtros se aplican en orden: origen, especificidad y luego orden de aparición. El orden solo desempata cuando la especificidad es igual."
+   },
+   {
+    "id": "07-d-02",
+    "prompt": "Diagnóstico: se cambia el valor del color de acento en `:root` y casi todo el sitio se actualiza, menos el botón principal, que conserva el color viejo. ¿Dónde está la causa?",
+    "options": [
+     "La caché del navegador conserva la hoja anterior, por lo que el botón no recibe el valor nuevo aunque el resto del sitio sí lo reciba",
+     "El botón necesita `!important` en su color para poder recibir el valor actualizado de la variable declarada en `:root`",
+     "Las variables definidas en `:root` solo llegan a los elementos de texto y no a los botones, que son controles de formulario",
+     "El botón declara el color escrito directamente en su regla, sin consumir la variable: lo que no pasa por `var()` no se entera del cambio en `:root`"
+    ],
+    "answer": 3,
+    "explanation": "Una variable solo cambia en los lugares que la usan con `var()`. Si fuera la caché, tampoco se habría actualizado el resto del sitio."
+   },
+   {
+    "id": "07-d-03",
+    "prompt": "Análisis: una hoja está llena de `!important` «para que las reglas obedezcan». Cada arreglo nuevo exige otro `!important` más fuerte. ¿Cuál es el diagnóstico?",
+    "options": [
+     "Es la práctica recomendada en proyectos grandes porque garantiza que cada regla importante gane siempre sin depender de la especificidad",
+     "Falta un `!important` global al final de la hoja que resuelva de una vez todos los conflictos pendientes entre reglas",
+     "`!important` rompe la cascada: saca la decisión del orden natural y obliga a escalar; el arreglo de fondo es ordenar la hoja por zonas y usar la especificidad con intención",
+     "`!important` solo falla en los botones y en los enlaces, así que basta con quitarlo de esos elementos para ordenar la hoja"
+    ],
+    "answer": 2,
+    "explanation": "Cada marca obliga al siguiente conflicto a necesitar otra, hasta que nadie predice qué se pinta. El tema lo reserva a emergencias puntuales y comentadas."
+   },
+   {
+    "id": "07-d-04",
+    "prompt": "Diagnóstico de caja: una tarjeta con `width: 250px` debe caber EXACTA en un hueco de 250px, pero sobresale por la derecha. Lleva `padding` de 16px y borde de 1px a cada lado, sin el ajuste `border-box`. ¿Cuánto sobresale y por qué?",
+    "options": [
+     "34px: con el modelo por defecto el ancho declarado es solo el contenido y se suman 32px de relleno y 2px de borde",
+     "No sobresale: 250px son 250px, porque el ancho declarado siempre incluye el relleno y el borde en cualquier navegador",
+     "16px, solo por el relleno del lado derecho, ya que el izquierdo queda dentro del ancho declarado de la tarjeta",
+     "El doble de su ancho, porque el relleno y el borde se cuentan una vez por cada lado y además por cada eje"
+    ],
+    "answer": 0,
+    "explanation": "250 + 32 + 2 = 284, es decir, 34 más que el hueco. Con `* { box-sizing: border-box; }` la caja ocuparía justo 250."
+   },
+   {
+    "id": "07-d-05",
+    "prompt": "Diagnóstico de cascada: el enlace a la hoja externa está en el `head` ANTES de un bloque `<style>` que repite la misma regla con la misma especificidad, y se aplica la del bloque interno. Un compañero dice que «la externa siempre manda por ser externa». ¿Quién tiene razón?",
+    "options": [
+     "El compañero: la hoja externa tiene prioridad por su origen, ya que el navegador siempre prefiere el archivo enlazado al bloque interno",
+     "Gana la regla que esté en el archivo más grande, porque el navegador pesa las reglas según el tamaño de la hoja que las contiene",
+     "Las dos se suman y el valor resultante se mezcla, porque el navegador combina las declaraciones iguales de reglas distintas",
+     "Se aplica la interna porque, con la misma especificidad, decide el orden de aparición y el bloque interno viene después del enlace"
+    ],
+    "answer": 3,
+    "explanation": "Externa e interna son del mismo origen (el autor) y compiten por especificidad y orden. No hay jerarquía entre ellas por el sitio donde están escritas."
+   },
+   {
+    "id": "07-d-06",
+    "prompt": "Diagnóstico de alcance: para que un párrafo concreto no herede el color de su tarjeta, alguien «resolvió» pasando toda la hoja a selectores con id. ¿Cuál es el costo de esa salida?",
+    "options": [
+     "El id ata el estilo a un único elemento: nada se reutiliza y la hoja se vuelve rígida; lo fino va con clases",
+     "Ninguno: los id son la herramienta fina de CSS y permiten dar estilo a cada elemento sin interferir con los demás",
+     "Los id dejan de funcionar cuando se usan en la hoja externa y solo se aplican si están en un bloque interno",
+     "La hoja se hace más lenta de cargar, porque el navegador tarda más en resolver selectores con id que con clase"
+    ],
+    "answer": 0,
+    "explanation": "El id no es una clase con otro nombre. La penalización es de mantenimiento, no de velocidad de carga."
+   },
+   {
+    "id": "07-d-07",
+    "prompt": "Síntoma: un aviso con fondo de color tiene el texto pegado a su borde, aunque se le dio `margin: 1rem`. ¿Qué capa falta y por qué no la corrige el margen?",
+    "options": [
+     "Falta `border`: sin borde el texto no puede separarse del límite de su caja, y el margen no alcanza para ello",
+     "Falta `padding`: el relleno es espacio interior entre contenido y borde; el margen separa por fuera",
+     "El margen necesita un valor mayor, porque el navegador lo reduce a la mitad cuando la caja tiene fondo de color",
+     "Falta `box-sizing`, que decide el espacio entre el texto y el borde de la caja en cada elemento"
+    ],
+    "answer": 1,
+    "explanation": "Relleno y margen se confunden a menudo: uno separa por dentro y el otro por fuera. Agregar `padding: 1rem` resuelve el síntoma."
+   },
+   {
+    "id": "07-d-08",
+    "prompt": "Síntoma: un `h1` con `margin-top: 40px` es el primer hijo de un `div` sin borde ni relleno. Al abrir la página, es todo el `div` el que aparece 40px más abajo y el título sigue pegado al borde superior del `div`. ¿Cuál es la causa y la solución más ajustada?",
+    "options": [
+     "Herencia del margen: el margen del padre baja al hijo, y se corrige con `margin: inherit` en el `div`",
+     "Error del navegador: se corrige con `!important` en el margen del `h1` para forzar que no escape",
+     "Colapso de márgenes: el del hijo escapa y empuja al padre; un borde o relleno en el padre lo corta",
+     "Falta `box-sizing: border-box` en el `div`, que absorbería el margen del hijo dentro de su propia caja"
+    ],
+    "answer": 2,
+    "explanation": "Un padre sin borde ni relleno deja pasar el margen del primer hijo. El margen no se hereda y `box-sizing` no afecta al colapso."
+   },
+   {
+    "id": "07-d-09",
+    "prompt": "Síntoma: en una lista anidada con `ul { font-size: 1.2em; }`, cada nivel de lista se ve más grande que el anterior sin que ninguna regla parezca mal escrita. ¿Cuál es la causa y una solución coherente con el tema?",
+    "options": [
+     "`em` se mide contra la raíz y en listas anidadas el navegador suma 1.2 en cada nivel; se corrige cambiando a `px`",
+     "La herencia de `font-size` falla en `ul` anidadas; se corrige con `!important` en cada nivel",
+     "`font-size` no admite unidades relativas dentro de listas, solo píxeles y porcentajes de la pantalla",
+     "`em` compone en cada nivel (1.2, 1.44, ...); se corrige declarando el tamaño en `rem`, que mide contra la raíz"
+    ],
+    "answer": 3,
+    "explanation": "`rem` no depende del anidamiento. La causa no es un fallo de herencia: es la multiplicación del factor."
+   },
+   {
+    "id": "07-d-10",
+    "prompt": "Síntoma: `#menu a { color: blue; }` aparece antes de `.activo { color: red; }`, y el enlace con clase `activo` dentro de `#menu` sigue azul. ¿Cuál es la solución más sana?",
+    "options": [
+     "Mover `.activo` aún más abajo en la hoja, porque el orden de aparición siempre decide por encima de todo",
+     "Cambiar `#menu` por una clase para bajar el peso de la regla general, sin recurrir a `!important`",
+     "Añadir `!important` a `.activo`, que es el uso habitual y recomendado para las excepciones de una hoja",
+     "Duplicar la regla `.activo` varias veces seguidas para que sume peso por repetición"
+    ],
+    "answer": 1,
+    "explanation": "(1, 0, 1) vence a (0, 1, 0) sin importar el orden, de modo que mover la regla no sirve. `!important` iniciaría una guerra de marcas."
+   },
+   {
+    "id": "07-d-11",
+    "prompt": "En DevTools, una declaración del panel Styles aparece tachada. ¿Qué indica y cuál es el siguiente paso de depuración?",
+    "options": [
+     "Es una declaración con error de sintaxis; basta con borrarla de la hoja y recargar la página",
+     "Es una declaración que el navegador aún no ha cargado de la hoja externa y que se aplicará luego",
+     "Es una declaración válida que perdió contra otra regla, por especificidad o por orden",
+     "Es una declaración en vigor, que el panel marca así para recordar que se hereda del padre"
+    ],
+    "answer": 2,
+    "explanation": "Las declaraciones perdedoras se muestran tachadas, en el orden exacto en que perdieron. Que haya perdido no significa que esté mal escrita."
+   },
+   {
+    "id": "07-d-12",
+    "prompt": "Síntoma: en `.aviso { color: #b71c1c font-weight: bold; margin: 1rem; }`, el texto no sale ni rojo ni en negrita, pero el margen sí se aplica. ¿Por qué?",
+    "options": [
+     "Falta el `;` tras el color: las dos declaraciones se leen como una sola inválida y se descarta",
+     "Falta cerrar la llave del bloque, así que solo se aplica la última declaración que aparece en él",
+     "El color hexadecimal es inválido, y esto invalida también `font-weight` por heredar el error",
+     "`margin` anula a `color` y a `font-weight` por aparecer al final del bloque de declaraciones"
+    ],
+    "answer": 0,
+    "explanation": "El punto y coma separa declaraciones; sin él se fusionan en una sola inválida. CSS descarta declaración por declaración."
+   },
+   {
+    "id": "07-d-13",
+    "prompt": "Síntoma: tres columnas con `width: 33.33%`, `padding: 20px` y `border: 1px solid`, sin más reglas, no caben en una fila y la tercera baja. ¿Cuál es la causa y la corrección?",
+    "options": [
+     "El porcentaje se calcula contra la pantalla entera; se corrige cambiando `%` por `vw` en cada columna",
+     "Tres columnas de 33.33% siempre superan el 100%; se corrige bajando a 30% cada una de ellas",
+     "El `border` no debe llevar unidades; se corrige escribiéndolo en `rem` en lugar de píxeles",
+     "Relleno y borde suman por fuera en `content-box`; se corrige con `* { box-sizing: border-box; }`"
+    ],
+    "answer": 3,
+    "explanation": "El ancho declarado es solo el contenido en el modelo por defecto. Con `border-box` cada columna ocupa 33.33% de verdad."
+   },
+   {
+    "id": "07-d-14",
+    "prompt": "Síntoma: `body { color: #212121; }` está declarado, pero los enlaces dentro de un párrafo siguen azules. ¿Por qué no heredan el color del `body`, y cómo se corrige?",
+    "options": [
+     "`color` no se hereda en los enlaces; se corrige repitiendo el color en cada párrafo de la hoja",
+     "Los enlaces son hijos directos del `body` y la herencia solo alcanza a los nietos del árbol",
+     "El navegador declara un color propio para `a`, que gana al heredado; `a { color: inherit; }`",
+     "La herencia solo funciona si se escribe `!important` en la regla del `body`; sin él no baja"
+    ],
+    "answer": 2,
+    "explanation": "La herencia solo actúa cuando ninguna regla declara la propiedad para ese elemento. `inherit` pide expresamente el valor del padre."
+   },
+   {
+    "id": "07-d-15",
+    "prompt": "Análisis: un autor propone mostrar el texto «Aviso:» únicamente con `.alerta::before { content: \"Aviso:\"; }`. ¿Cuál es el problema?",
+    "options": [
+     "Es presentación pura: no está en el HTML y el lector de pantalla puede no leerlo; la información va en el HTML",
+     "Ninguno: `::before` inserta contenido que se comporta exactamente como texto escrito en el HTML, igual de accesible",
+     "`::before` solo admite números, no texto, así que la declaración se descarta por completo",
+     "El contenido generado se puede seleccionar con el cursor, pero no se puede estilizar con CSS"
+    ],
+    "answer": 0,
+    "explanation": "Un pseudoelemento no debe cargar información que el lector necesite. Sirve para adornos y marcadores."
+   },
+   {
+    "id": "07-d-16",
+    "prompt": "Se comparan dos selectores: uno con once clases encadenadas, `.a.b.c.d.e.f.g.h.i.j.k`, y otro con un solo id, `#x`. Ambos alcanzan al mismo elemento y declaran el mismo color. ¿Cuál gana?",
+    "options": [
+     "El de las once clases, porque (0, 11, 0) suma más que (1, 0, 0) cuando se comparan totales",
+     "El del id: (1, 0, 0) frente a (0, 11, 0); las columnas no se convierten entre sí",
+     "Empatan en peso, y entonces decide el orden de aparición en la hoja de estilos",
+     "Ninguno: un selector con más de diez clases queda invalidado y el navegador lo ignora"
+    ],
+    "answer": 1,
+    "explanation": "La comparación es lexicográfica, como las cifras de un número. La primera columna (ids) decide antes de mirar las clases."
+   },
+   {
+    "id": "07-d-17",
+    "prompt": "Se quita el anillo de foco con `a:focus { outline: none; }` y no se pone nada en su lugar. ¿Cuál es la consecuencia?",
+    "options": [
+     "Ninguna: el foco solo importa a quien usa el ratón, que ya ve el elemento bajo el cursor",
+     "Quien usa teclado pierde la señal de por dónde va; hay que reemplazar el foco",
+     "Los enlaces dejan de poder activarse con el teclado, aunque sigan funcionando con el ratón",
+     "El navegador aplica el estado `:hover` en su lugar y muestra el mismo realce al enfocar"
+    ],
+    "answer": 1,
+    "explanation": "`:focus` es el estado de teclado, la «brújula» de quien navega sin ratón. El enlace sigue funcionando, pero ya no se ve cuál está seleccionado."
+   }
+  ]
+ }
+}

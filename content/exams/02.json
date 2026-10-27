@@ -1,0 +1,599 @@
+{
+ "week": 2,
+ "levels": {
+  "facil": [
+   {
+    "id": "02-f-01",
+    "prompt": "¿Qué hace el DNS cuando se escribe el nombre de un sitio en el navegador?",
+    "options": [
+     "Cifra la conexión entre el navegador y el servidor para que nadie en el camino pueda leer el contenido intercambiado",
+     "Traduce el nombre de dominio a la dirección IP del servidor que lo aloja",
+     "Guarda una copia de la página para cargarla más rápido",
+     "Decide qué anuncios muestra la página"
+    ],
+    "answer": 1,
+    "explanation": "El DNS es la guía telefónica de internet: convierte nombre en IP. Cifrar la conexión es trabajo de TLS (HTTPS), no del DNS."
+   },
+   {
+    "id": "02-f-02",
+    "prompt": "En la dirección `https://ejemplo.com/blog?tema=css#comentarios`, ¿qué parte es el fragmento?",
+    "options": [
+     "`https`",
+     "`tema=css`",
+     "`/blog`",
+     "`#comentarios`"
+    ],
+    "answer": 3,
+    "explanation": "El fragmento empieza con `#` y salta a un punto interno de la página. `tema=css` es un parámetro de consulta (va tras `?`)."
+   },
+   {
+    "id": "02-f-03",
+    "prompt": "¿Qué método HTTP se usa para pedir un recurso sin modificar nada en el servidor?",
+    "options": [
+     "`GET`",
+     "`POST`",
+     "`PUT`",
+     "`DELETE`"
+    ],
+    "answer": 0,
+    "explanation": "`GET` solo lee. `POST` crea o envía datos para procesar, por lo que no es una simple lectura."
+   },
+   {
+    "id": "02-f-04",
+    "prompt": "El servidor responde con el código 500. ¿Qué indica?",
+    "options": [
+     "Que la página no existe",
+     "Que todo salió bien",
+     "Que hubo un error interno del servidor al procesar la petición",
+     "Que el recurso se movió a otra dirección y el navegador debe seguir la cabecera indicada para encontrarlo"
+    ],
+    "answer": 2,
+    "explanation": "Los 5xx son fallas del servidor por dentro. Que la página no existe corresponde al 404, un error del cliente (4xx)."
+   },
+   {
+    "id": "02-f-05",
+    "prompt": "¿Quién inicia la comunicación en el modelo petición–respuesta de HTTP?",
+    "options": [
+     "El servidor, cuando tiene datos nuevos para el usuario",
+     "El DNS, que abre la conexión antes de que el navegador hable",
+     "El cliente (el navegador), que envía la petición",
+     "Ambos a la vez, porque HTTP es una conversación simétrica"
+    ],
+    "answer": 2,
+    "explanation": "En HTTP el cliente siempre habla primero y el servidor solo responde. El servidor no envía nada por iniciativa propia."
+   },
+   {
+    "id": "02-f-06",
+    "prompt": "¿Cuál es el orden correcto del viaje de una página, desde que se escribe la URL hasta que se ve en pantalla?",
+    "options": [
+     "URL → DNS traduce a IP → petición HTTP → respuesta del servidor → el navegador interpreta y dibuja",
+     "URL → el navegador dibuja la página → DNS busca el servidor → el servidor responde con el HTML",
+     "El servidor envía la página → el DNS la guarda → el navegador la pide → se escribe la URL, en ese orden",
+     "El DNS crea la página → HTTP la traduce a una IP → el servidor la escribe directamente en el navegador"
+    ],
+    "answer": 0,
+    "explanation": "Primero se necesita la IP (DNS), luego se pide, se responde y al final se dibuja. Dibujar antes de recibir la respuesta es imposible."
+   },
+   {
+    "id": "02-f-07",
+    "prompt": "¿Cuál es la diferencia real entre HTTP y HTTPS al enviar los datos de un formulario?",
+    "options": [
+     "HTTPS es simplemente HTTP con mayor velocidad de transferencia",
+     "HTTPS no necesita DNS para encontrar el servidor y HTTP sí",
+     "HTTPS cambia todas las respuestas del servidor a código 200",
+     "HTTPS cifra la comunicación; con HTTP los datos viajan en texto plano, legibles en el camino"
+    ],
+    "answer": 3,
+    "explanation": "HTTPS es HTTP dentro de un canal TLS: mismo contenido, distinto transporte. No tiene que ver con la velocidad ni con los códigos."
+   },
+   {
+    "id": "02-f-08",
+    "prompt": "¿Qué significa que HTTP sea un protocolo «sin estado» (stateless)?",
+    "options": [
+     "El servidor no puede devolver códigos de estado porque solo conoce el nombre del cliente y nunca sus peticiones anteriores",
+     "Cada petición llega como si fuera la primera: el servidor no recuerda nada entre una y otra",
+     "Las peticiones no pueden llevar cabeceras",
+     "La conexión nunca se cifra, ni siquiera con HTTPS"
+    ],
+    "answer": 1,
+    "explanation": "Sin estado se refiere a la falta de memoria entre peticiones; las cookies y sesiones lo compensan. No tiene relación con los códigos de estado."
+   },
+   {
+    "id": "02-f-09",
+    "prompt": "¿Cuál es el puerto por defecto de HTTPS, que casi nunca se escribe en la URL?",
+    "options": [
+     "`80`",
+     "`443`",
+     "`8080`",
+     "`21`"
+    ],
+    "answer": 1,
+    "explanation": "HTTPS usa el 443 por defecto. El 80 es el de HTTP sin cifrar, que es la confusión más común."
+   },
+   {
+    "id": "02-f-10",
+    "prompt": "¿Qué familia de códigos de estado indica un error del cliente?",
+    "options": [
+     "2xx",
+     "3xx",
+     "5xx",
+     "4xx"
+    ],
+    "answer": 3,
+    "explanation": "Los 4xx señalan que la petición está mal (ruta inexistente, falta permiso, dato inválido). Los 5xx son fallas del servidor."
+   },
+   {
+    "id": "02-f-11",
+    "prompt": "¿Qué significa el código `404`?",
+    "options": [
+     "No encontrado: la ruta pedida no existe en ese servidor",
+     "Error interno: el código del servidor falló al procesar la petición",
+     "Prohibido: se sabe quién es el cliente y no tiene permiso",
+     "Redirección permanente: el recurso se mudó a otra dirección"
+    ],
+    "answer": 0,
+    "explanation": "El 404 indica que la ruta no existe. El 403 es el de falta de permiso y el 500 un fallo interno del servidor."
+   },
+   {
+    "id": "02-f-12",
+    "prompt": "¿Qué es una cookie, según el tema?",
+    "options": [
+     "Un programa que el navegador ejecuta para acelerar la carga de imágenes",
+     "Una copia completa de la página guardada para verla sin conexión a internet",
+     "Un pequeño texto que el servidor entrega con `Set-Cookie` y el navegador devuelve en cada petición a ese dominio",
+     "Un certificado que prueba la identidad del servidor"
+    ],
+    "answer": 2,
+    "explanation": "La cookie es un papelito de texto que viaja en las cabeceras `Set-Cookie` y `Cookie`. La copia de recursos es la caché, no las cookies."
+   },
+   {
+    "id": "02-f-13",
+    "prompt": "¿Qué pestaña de DevTools registra cada petición que hace la página, con su código de estado y tiempo?",
+    "options": [
+     "Elements",
+     "Console",
+     "Network",
+     "Application"
+    ],
+    "answer": 2,
+    "explanation": "Network es la radiografía de las peticiones. Elements muestra el DOM ya construido, no las peticiones."
+   },
+   {
+    "id": "02-f-14",
+    "prompt": "¿Qué representa el DOM que construye el navegador?",
+    "options": [
+     "Un árbol de objetos creado a partir del HTML, donde cada etiqueta es un nodo",
+     "Un archivo con las reglas de estilo aplicadas a cada elemento, que el navegador combina luego con el HTML para decidir qué se pinta",
+     "La lista de peticiones pendientes que debe hacer el navegador",
+     "Una copia cifrada de la respuesta del servidor"
+    ],
+    "answer": 0,
+    "explanation": "El DOM es el árbol del HTML. El árbol de reglas de estilo es el CSSOM, que es lo que sugiere la opción tentadora."
+   },
+   {
+    "id": "02-f-15",
+    "prompt": "¿Qué comando de terminal permite ver la IP asociada a un nombre de dominio?",
+    "options": [
+     "`git status`",
+     "`npm start`",
+     "`cd ..`",
+     "`nslookup`"
+    ],
+    "answer": 3,
+    "explanation": "`nslookup` consulta el DNS y muestra el servidor que respondió y la IP del dominio. Los otros comandos no resuelven nombres."
+   },
+   {
+    "id": "02-f-16",
+    "prompt": "¿Qué cabecera de la respuesta indica el tipo de contenido del cuerpo (HTML, JSON, imagen)?",
+    "options": [
+     "`Accept`",
+     "`Content-Type`",
+     "`Host`",
+     "`Location`"
+    ],
+    "answer": 1,
+    "explanation": "`Content-Type` dice qué es el cuerpo. `Accept` viaja en la petición y declara los formatos que el cliente acepta."
+   }
+  ],
+  "medio": [
+   {
+    "id": "02-m-01",
+    "prompt": "En la dirección `https://tienda.ejemplo.com/productos/zapatos?id=7&color=rojo`, ¿qué parte es la ruta?",
+    "options": [
+     "`tienda.ejemplo.com`, el nombre del servidor al que va dirigida la petición",
+     "`id=7&color=rojo`",
+     "`/productos/zapatos`",
+     "`https`"
+    ],
+    "answer": 2,
+    "explanation": "La ruta es lo que va tras el dominio y antes del `?`. `id=7&color=rojo` son los parámetros de consulta."
+   },
+   {
+    "id": "02-m-02",
+    "prompt": "Un buscador de una tienda envía su formulario con el método `GET`. La persona busca «zapatos rojos». ¿Dónde viaja ese dato?",
+    "options": [
+     "En la dirección, como parámetros visibles tras el signo `?`",
+     "En el cuerpo de la petición, invisible en la dirección",
+     "En el servidor de DNS, que guarda la búsqueda y la reenvía luego a la tienda como respuesta",
+     "No viaja: la búsqueda ocurre solo dentro del navegador"
+    ],
+    "answer": 0,
+    "explanation": "En un `GET` los datos van en la URL como query. Quedar en el cuerpo es propio de `POST`."
+   },
+   {
+    "id": "02-m-03",
+    "prompt": "Antes de pedir una página por primera vez, el navegador consulta el DNS del dominio. ¿Qué obtiene de esa consulta?",
+    "options": [
+     "El código HTML de la página, que el DNS guarda para entregarlo sin consultar al servidor",
+     "El certificado de seguridad del sitio",
+     "La lista de imágenes que usa la página",
+     "La dirección IP del servidor que aloja el sitio"
+    ],
+    "answer": 3,
+    "explanation": "El DNS solo traduce nombre a IP. El HTML llega después, en la respuesta del servidor a la petición HTTP."
+   },
+   {
+    "id": "02-m-04",
+    "prompt": "En DevTools, la petición del documento principal responde 200 pero una imagen responde 404. ¿Qué se concluye?",
+    "options": [
+     "El servidor está caído y hay que esperar a que vuelva, porque ninguna de sus respuestas es confiable",
+     "El servidor respondió bien, pero ese recurso no existe en la dirección pedida",
+     "El navegador no pudo conectarse con el servidor",
+     "La página completa falló y la única solución es recargarla"
+    ],
+    "answer": 1,
+    "explanation": "Un 404 es una respuesta del servidor, así que hubo comunicación; falló la ruta de la imagen. Un servidor caído no habría respondido 200 en el documento."
+   },
+   {
+    "id": "02-m-05",
+    "prompt": "Al escribir la dirección con `http://`, el sitio termina cargando con `https://`. ¿Qué pasó en el viaje?",
+    "options": [
+     "El DNS cambió el protocolo al traducir el nombre, porque junto con la IP entrega el esquema que debe usarse",
+     "El servidor respondió con una redirección (3xx) a la dirección segura y el navegador la siguió",
+     "El navegador inventó la versión segura por su cuenta",
+     "La página se cargó dos veces por un error de red"
+    ],
+    "answer": 1,
+    "explanation": "Una respuesta 3xx con la cabecera `Location` apunta a la nueva dirección. El DNS solo traduce nombres a IP, no toca el protocolo."
+   },
+   {
+    "id": "02-m-06",
+    "prompt": "Un formulario de contacto se envía con `POST` y el servidor responde con el código `201`. ¿Qué está diciendo el servidor?",
+    "options": [
+     "Que el recurso pedido no existe",
+     "Que hubo un error interno al procesar el formulario",
+     "Que la página se movió a otra dirección",
+     "Que la petición se procesó y se creó un recurso nuevo, por ejemplo el mensaje guardado"
+    ],
+    "answer": 3,
+    "explanation": "Los 2xx son éxito y el 201 en concreto significa «creado». El error interno sería un 5xx."
+   },
+   {
+    "id": "02-m-07",
+    "prompt": "Un usuario ya inició sesión y navega a una sección de administración. El servidor responde `403`. ¿Cómo se interpreta?",
+    "options": [
+     "El servidor sabe quién es, pero esa cuenta no tiene permiso para ese recurso",
+     "El servidor no sabe quién es el cliente y por eso exige iniciar sesión antes de entrar a esa sección",
+     "La ruta de administración no existe en el servidor",
+     "El código del servidor falló al procesar la petición"
+    ],
+    "answer": 0,
+    "explanation": "El 403 es «se sabe quién eres y aun así no hay permiso»; el 401 sería «identifícate». Un 404 diría que la ruta no existe."
+   },
+   {
+    "id": "02-m-08",
+    "prompt": "Una petición lleva `Cookie: sesion=abc123`. ¿Qué información viaja realmente en esa cookie?",
+    "options": [
+     "La contraseña cifrada del usuario junto con sus datos personales, para que el servidor lo reconozca sin consultar nada más",
+     "El carrito completo con todos los productos y precios",
+     "Un identificador de sesión; los datos reales (identidad, carrito) están en el servidor",
+     "La IP del servidor resuelta por el DNS"
+    ],
+    "answer": 2,
+    "explanation": "La cookie solo transporta un identificador sin significado propio y el servidor busca los datos con él. Guardar contraseñas allí sería un riesgo grave."
+   },
+   {
+    "id": "02-m-09",
+    "prompt": "Un desarrollador abre Network y, solo después, recarga la página. ¿Por qué es el orden correcto?",
+    "options": [
+     "Porque abrir la pestaña es lo que fuerza al servidor a enviar las cabeceras",
+     "Porque la recarga borra la caché DNS si la pestaña está cerrada",
+     "Porque Network solo registra lo que ocurre mientras está abierta; si se recarga antes, se pierden las primeras peticiones",
+     "Porque Network solo funciona con páginas servidas por HTTPS"
+    ],
+    "answer": 2,
+    "explanation": "DevTools registra en vivo, no hacia atrás. Las otras opciones inventan efectos que la herramienta no tiene."
+   },
+   {
+    "id": "02-m-10",
+    "prompt": "Se quiere cambiar únicamente el teléfono de un perfil de usuario sin reenviar el resto de sus datos. ¿Qué método HTTP corresponde?",
+    "options": [
+     "`PATCH`",
+     "`PUT`",
+     "`POST`",
+     "`GET`"
+    ],
+    "answer": 0,
+    "explanation": "`PATCH` modifica solo una parte del recurso. `PUT` reemplaza el recurso completo, por lo que obligaría a reenviar todo el perfil."
+   },
+   {
+    "id": "02-m-11",
+    "prompt": "Se carga `https://tienda.ejemplo.com/ofertas#descuentos`. ¿Qué parte NO se envía al servidor?",
+    "options": [
+     "`/ofertas`, porque la ruta solo la usa el navegador",
+     "`tienda.ejemplo.com`, porque el dominio solo lo usa el DNS",
+     "`https`, porque el protocolo solo decide el color del candado",
+     "`#descuentos`, porque el navegador la resuelve en local para saltar a un punto de la página"
+    ],
+    "answer": 3,
+    "explanation": "El fragmento nunca llega al servidor. La ruta sí viaja en la primera línea de la petición, y el dominio va en la cabecera `Host`."
+   },
+   {
+    "id": "02-m-12",
+    "prompt": "Se recarga una página normalmente y varias filas de Network aparecen como «from disk cache». ¿Qué significa?",
+    "options": [
+     "El servidor respondió con un error 5xx a esos recursos y el navegador mostró lo último que pudo descargar de ellos",
+     "El navegador usó copias guardadas porque la caché seguía vigente, sin volver a pedir el recurso",
+     "Los recursos se descargaron cifrados desde el servidor DNS",
+     "Esos recursos fallaron y el navegador los sustituyó por otros"
+    ],
+    "answer": 1,
+    "explanation": "La caché permite ahorrar el viaje mientras el `Cache-Control` lo permita. No indica ningún error."
+   },
+   {
+    "id": "02-m-13",
+    "prompt": "La respuesta de un servidor incluye `Cache-Control: max-age=3600`. ¿Qué le ordena al navegador?",
+    "options": [
+     "Cerrar la sesión del usuario pasada una hora, invalidando el identificador guardado en la cookie correspondiente",
+     "Guardar una copia del recurso y reutilizarla hasta por una hora sin volver a pedirlo",
+     "Redirigir al usuario a otra dirección tras una hora",
+     "Cifrar el recurso con TLS durante una hora"
+    ],
+    "answer": 1,
+    "explanation": "`Cache-Control` define si se guarda copia y por cuánto tiempo (3600 s = 1 hora). La redirección la gobierna `Location`."
+   },
+   {
+    "id": "02-m-14",
+    "prompt": "Una página incluye una hoja de estilos en `<head>` y una imagen en el cuerpo. ¿Cuál de las dos bloquea el primer pintado hasta descargarse?",
+    "options": [
+     "La imagen, porque sin ella no se puede calcular el layout",
+     "Las dos por igual, porque el navegador procesa los recursos uno tras otro",
+     "Ninguna: el pintado siempre ocurre antes de pedir recursos",
+     "La hoja de estilos del `<head>`, porque sin ella el navegador evita pintar la página «desnuda»"
+    ],
+    "answer": 3,
+    "explanation": "El CSS bloquea el primer pintado; las imágenes no, y van llegando a sus huecos."
+   },
+   {
+    "id": "02-m-15",
+    "prompt": "En una terminal se ejecuta `nslookup ejemplo.com` y devuelve una dirección IP junto con el servidor que respondió. ¿Qué paso del viaje se acaba de observar?",
+    "options": [
+     "La resolución DNS: la traducción del nombre de dominio a número",
+     "El envío de la petición HTTP al servidor, con su método, su ruta y sus cabeceras completas",
+     "La construcción del DOM por el navegador",
+     "La negociación del cifrado TLS"
+    ],
+    "answer": 0,
+    "explanation": "`nslookup` consulta el DNS, que es el primer paso. HTTP no ha empezado todavía."
+   },
+   {
+    "id": "02-m-16",
+    "prompt": "Una página muestra una imagen rota. En Network esa fila tiene estado `404` y su URL contiene `imagenes/logo.png`, mientras que el archivo real está en `img/logo.png`. ¿Cuál es el arreglo?",
+    "options": [
+     "Reiniciar el servidor y limpiar su memoria para que reconozca la imagen en la nueva ubicación",
+     "Cambiar el método de la petición de `GET` a `POST`",
+     "Corregir la ruta en el HTML para que apunte a `img/logo.png`",
+     "Forzar HTTPS para que la imagen se descargue cifrada"
+    ],
+    "answer": 2,
+    "explanation": "El 404 por ruta mal escrita se arregla corrigiendo la ruta. Cambiar de método o protocolo no hace que exista un archivo en esa ubicación."
+   }
+  ],
+  "dificil": [
+   {
+    "id": "02-d-01",
+    "prompt": "Diagnóstico: un sitio carga escribiendo su dirección IP en el navegador, pero con su nombre de dominio el navegador dice que no puede encontrar el servidor. ¿Dónde está la falla?",
+    "options": [
+     "En el servidor web, que está caído y no puede responder a nadie",
+     "En el método HTTP usado, que el servidor no acepta por nombre",
+     "En el navegador, que no admite ese dominio",
+     "En la resolución DNS: el nombre no se traduce a la IP, que es el paso que convierte el nombre en destino"
+    ],
+    "answer": 3,
+    "explanation": "Si por IP funciona, el servidor está vivo y atiende; lo que falla es traducir el nombre. Un servidor caído tampoco habría respondido por IP."
+   },
+   {
+    "id": "02-d-02",
+    "prompt": "Diagnóstico: el documento principal de una página responde 200, pero la página se ve «rota»: sin estilos, sin imágenes y sin el script. ¿Qué explica mejor lo ocurrido?",
+    "options": [
+     "El viaje salió mal desde el DNS, por lo que la página llegó incompleta y los demás recursos no pudieron localizarse en ningún servidor de la red",
+     "El documento es solo la primera petición: cada recurso secundario viaja en su propia petición y esas son las que están fallando",
+     "El código 200 del documento garantiza que todo cargó, así que el problema es del monitor",
+     "El servidor envió una página equivocada en vez de la pedida"
+    ],
+    "answer": 1,
+    "explanation": "El 200 solo avala el HTML; CSS, imágenes y scripts son peticiones aparte que pueden dar 404 u otro error. Si el DNS fallara, no habría llegado ni el documento."
+   },
+   {
+    "id": "02-d-03",
+    "prompt": "Análisis: un formulario de pago de una tienda está servido por HTTP, no por HTTPS. ¿Cuál es el riesgo concreto, según el tema?",
+    "options": [
+     "Ninguno, porque HTTP y HTTPS solo se diferencian en la velocidad de carga y en el candado que muestra el navegador junto a la dirección",
+     "El formulario no puede usar el método POST sobre HTTP",
+     "Los datos viajan en texto plano, legibles para quien intercepte el camino; con HTTPS viajarían cifrados",
+     "El navegador no deja escribir la tarjeta en ningún campo"
+    ],
+    "answer": 2,
+    "explanation": "Sin TLS no hay confidencialidad, integridad ni identidad. `POST` no protege nada por sí mismo: el cuerpo también viaja en claro."
+   },
+   {
+    "id": "02-d-04",
+    "prompt": "Diagnóstico fino: dos personas reportan «la página no carga». En el primer caso DevTools muestra un 404; en el segundo, ninguna petición llega a tener código de estado. ¿En qué se diferencian?",
+    "options": [
+     "El 404 es una respuesta del servidor (hubo comunicación y el recurso no existe); sin código ni siquiera hubo respuesta, la falla está antes, en el DNS o la conexión",
+     "Son la misma falla con distinta suerte: las dos son del servidor",
+     "El 404 significa que el servidor está apagado y por eso no encuentra nada",
+     "Sin código de estado, la página en realidad cargó bien y es un problema visual"
+    ],
+    "answer": 0,
+    "explanation": "Un código de estado prueba que el servidor contestó. Sin código, el viaje se cortó antes de recibir respuesta."
+   },
+   {
+    "id": "02-d-05",
+    "prompt": "Análisis: una tienda quiere que el enlace de un producto lleve por sí solo al producto exacto y que la búsqueda del catálogo quede en la dirección. ¿Qué partes de la URL hacen ese trabajo?",
+    "options": [
+     "La ruta, que señala el recurso, y los parámetros, que llevan los datos de la búsqueda visibles y compartibles",
+     "El protocolo y el dominio, que identifican cada producto del catálogo y por sí solos bastan para compartir la búsqueda exacta",
+     "El fragmento, que el servidor lee para buscar el producto",
+     "El puerto, que cambia según el producto pedido"
+    ],
+    "answer": 0,
+    "explanation": "Ruta + query viajan al servidor y se pueden compartir. El fragmento no llega al servidor, por lo que no sirve para que él busque."
+   },
+   {
+    "id": "02-d-06",
+    "prompt": "Caso combinado: una página tarda muchísimo en verse. En Network, el documento responde rápido, hay dos imágenes enormes que tardan 8 s y un script que responde 500. ¿Cuál es el diagnóstico ordenado?",
+    "options": [
+     "Un único problema: el servidor, que tarda en todo",
+     "Recargar hasta que el 500 desaparezca, pues es transitorio",
+     "Hay dos fallas: el peso de las imágenes domina el tiempo de carga, y aparte el script falla con un error interno que hay que corregir en el servidor",
+     "El DNS está lento y eso explica también el 500"
+    ],
+    "answer": 2,
+    "explanation": "Lentitud y 500 son problemas independientes: uno de peso, otro de código del servidor. Un DNS lento no produce un 500 y recargar no corrige un fallo interno."
+   },
+   {
+    "id": "02-d-07",
+    "prompt": "Un usuario inicia sesión, pero al pasar a la siguiente página el sitio vuelve a pedirle que se identifique (401). Si el navegador no está devolviendo la cabecera `Cookie`, ¿qué se concluye?",
+    "options": [
+     "La contraseña quedó mal guardada dentro de la cookie y hay que volver a escribirla de nuevo en el servidor para que reconozca la sesión",
+     "El servidor no recibe el identificador de sesión y trata cada petición como la de un desconocido (HTTP no guarda estado)",
+     "El servidor está caído y por eso responde 401",
+     "La caché DNS tiene la IP vieja y envía la petición a otro sitio"
+    ],
+    "answer": 1,
+    "explanation": "Sin `Cookie` el servidor no puede reconstruir la sesión y devuelve 401. El 401 no es una caída: es una respuesta que pide identificarse."
+   },
+   {
+    "id": "02-d-08",
+    "prompt": "Se actualiza un archivo CSS en el servidor, pero en el navegador de un visitante sigue viéndose el diseño viejo; en una ventana nueva sin caché se ve bien. ¿Cuál es la causa más probable y cómo se comprueba?",
+    "options": [
+     "El servidor sirve dos versiones del archivo a la vez y entrega una u otra al azar; la solución es reiniciarlo para que unifique las copias del disco y de la memoria",
+     "El DNS apunta a otro servidor; se comprueba cambiando el método a POST",
+     "El archivo CSS está cifrado con TLS y no puede actualizarse",
+     "El navegador usa la copia guardada con `Cache-Control` vigente; se comprueba con recarga forzada (`Ctrl + Shift + R`) o `Disable cache` en Network"
+    ],
+    "answer": 3,
+    "explanation": "Si se ve bien sin caché, el archivo nuevo está en el servidor y lo que falla es la copia local. Una recarga normal respeta la caché; la forzada la ignora."
+   },
+   {
+    "id": "02-d-09",
+    "prompt": "Un sitio migró a otro servidor y desde la oficina todavía aparece el sitio viejo, mientras desde un teléfono con datos móviles ya aparece el nuevo. ¿Qué explica la diferencia?",
+    "options": [
+     "El método HTTP que usa la oficina es distinto al del teléfono, por lo que el servidor devuelve un sitio diferente a cada red de acceso",
+     "El certificado del sitio tiene dos versiones según el operador",
+     "El fragmento de la URL se resuelve distinto en cada red",
+     "Cachés DNS con el TTL aún vigente en la red de la oficina, que siguen devolviendo la IP antigua mientras otras ya renovaron"
+    ],
+    "answer": 3,
+    "explanation": "Los cambios de dominio «tardan en propagarse» porque cada caché renueva a su ritmo según el TTL. El método y el fragmento no dependen de la red."
+   },
+   {
+    "id": "02-d-10",
+    "prompt": "Un formulario de inicio de sesión usa `GET` y la URL queda `https://app.ejemplo.com/entrar?usuario=ana&clave=1234`. Aunque use HTTPS, ¿por qué es un error de diseño?",
+    "options": [
+     "Porque HTTPS cifra únicamente el cuerpo de la petición y deja los parámetros de consulta visibles para cualquiera que observe la red, incluida la clave del usuario",
+     "Porque los parámetros quedan en historiales, registros del servidor y enlaces compartidos, así que la contraseña queda expuesta aunque viaje cifrada",
+     "Porque `GET` es más lento que `POST` y puede agotar el tiempo de espera",
+     "Porque el servidor rechaza cualquier URL con más de un parámetro"
+    ],
+    "answer": 1,
+    "explanation": "El cifrado protege el trayecto, pero la URL se guarda en historiales y registros del servidor. La opción que dice que HTTPS no cifra la query es falsa: el problema es el rastro que queda."
+   },
+   {
+    "id": "02-d-11",
+    "prompt": "Una petición válida llega al servidor y este responde `500`. El desarrollador abre DevTools y no ve ningún detalle del fallo. ¿Dónde debe buscar la causa?",
+    "options": [
+     "En la ruta escrita en el navegador, que debe de estar mal formada, y por eso hay que corregirla antes de volver a intentarlo",
+     "En las cookies del navegador, que hay que borrar",
+     "En el servidor (sus registros y su código), porque el error ocurrió allí al procesar la petición",
+     "En la caché DNS local, que hay que vaciar"
+    ],
+    "answer": 2,
+    "explanation": "Un 5xx significa que la petición era válida y el servidor falló por dentro; el detalle vive en el servidor. Un error en la ruta sería un 404."
+   },
+   {
+    "id": "02-d-12",
+    "prompt": "Una página incluye `<script src=\"app.js\"></script>` al comienzo del `<body>`, antes de todo el contenido, y tarda en mostrar contenido mientras `app.js` es lento. ¿Por qué ocurre?",
+    "options": [
+     "Un script encontrado al leer el HTML detiene la construcción del DOM hasta descargarse y ejecutarse, porque podría cambiarlo",
+     "Porque el script se descarga por HTTP y bloquea la resolución DNS de todos los demás recursos hasta que termine de ejecutarse por completo en el servidor",
+     "Porque el navegador no puede pedir imágenes hasta que termine el script",
+     "Porque el servidor responde 304 a todo lo demás mientras el script carga"
+    ],
+    "answer": 0,
+    "explanation": "El script detiene el parseo del HTML, no el DNS. Por eso importa el orden en que se cargan los recursos."
+   },
+   {
+    "id": "02-d-13",
+    "prompt": "Se escribe una URL con un dominio mal tecleado (`ejemplo.cmo`). DevTools muestra la petición fallida sin código de estado. ¿En qué eslabón del viaje se rompió?",
+    "options": [
+     "En la resolución DNS: ese nombre no tiene IP, así que nunca se llegó a enviar la petición a un servidor",
+     "En el servidor, que devolvió un 404 que DevTools no alcanzó a mostrar porque el dominio escrito apuntaba a otro sitio distinto",
+     "En el render del navegador, que no supo dibujar el dominio",
+     "En el método HTTP, que debía ser `POST`"
+    ],
+    "answer": 0,
+    "explanation": "Sin IP no hay conexión ni respuesta, por eso no existe código de estado. Un 404 requeriría que algún servidor hubiera contestado."
+   },
+   {
+    "id": "02-d-14",
+    "prompt": "Un cliente recibe `301` para `http://ejemplo.com/viejo` con `Location: https://ejemplo.com/nuevo`. ¿Qué hará el navegador y qué distingue al 301 del 302?",
+    "options": [
+     "Mostrará el error al usuario sin seguir nada; el 301 es un error del cliente y el 302 un error del servidor, como indican sus familias",
+     "Repetirá la misma petición hasta recibir un 200; ambos códigos significan lo mismo",
+     "Seguirá automáticamente la dirección de `Location`; el 301 indica mudanza definitiva y el 302 una temporal",
+     "Borrará las cookies del dominio; el 301 es temporal y el 302 permanente"
+    ],
+    "answer": 2,
+    "explanation": "Los 3xx son redirecciones que el navegador sigue con `Location`. 301 = permanente, 302 = temporal; tenerlos al revés es el error típico."
+   },
+   {
+    "id": "02-d-15",
+    "prompt": "Un servicio devuelve un cuerpo JSON pero con `Content-Type: text/html`, y el navegador lo muestra como texto de página. ¿Cuál es la causa?",
+    "options": [
+     "El servidor respondió con el método equivocado, y por eso el navegador trató el cuerpo como texto de página en lugar de como datos",
+     "La cabecera `Content-Type` declara un tipo incorrecto; el navegador decide cómo interpretar el cuerpo según esa cabecera",
+     "La cookie de sesión impide mostrar JSON",
+     "El DNS devolvió la IP de otro servidor"
+    ],
+    "answer": 1,
+    "explanation": "`Content-Type` dice qué ES el cuerpo y manda sobre su interpretación. Una descarga que llega como texto se explica leyendo esa cabecera."
+   },
+   {
+    "id": "02-d-16",
+    "prompt": "Un usuario filtra en Network por `Img` y ve 40 filas, 3 de ellas con estado `304`. ¿Cómo se interpreta lo que ocurrió con esas 3?",
+    "options": [
+     "El servidor reenvió las tres imágenes completas por un error",
+     "Las tres imágenes no existen y se sustituyeron por otras",
+     "El servidor las movió de ruta y el navegador las siguió",
+     "El navegador preguntó si su copia seguía vigente y el servidor confirmó que no cambió, sin reenviar el cuerpo"
+    ],
+    "answer": 3,
+    "explanation": "El 304 es «sin cambios»: la caché ahorra el cuerpo. Las rutas movidas serían 301/302 y las inexistentes 404."
+   },
+   {
+    "id": "02-d-17",
+    "prompt": "Un colega afirma: «si me roban la cookie de sesión, solo podrían entrar conociendo mi contraseña». ¿Qué falla en esa afirmación?",
+    "options": [
+     "Las cookies viajan siempre cifradas, por lo que no se pueden robar",
+     "La cookie contiene la contraseña, por eso es peligroso perderla",
+     "Solo el método `GET` envía cookies, así que `POST` es seguro",
+     "La cookie contiene el identificador de sesión: quien lo robe puede suplantar a la persona sin conocer la contraseña"
+    ],
+    "answer": 3,
+    "explanation": "El servidor usa el identificador para reconstruir el contexto, sin pedir la contraseña. Por eso las sesiones serias van solo por HTTPS, caducan y se invalidan al cerrar sesión."
+   }
+  ]
+ }
+}

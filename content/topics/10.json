@@ -1,0 +1,399 @@
+{
+ "week": 10,
+ "estado": "completo",
+ "sections": [
+  {
+   "page": 1,
+   "kind": "heading",
+   "title": "1.1. Sistema visual: las mismas decisiones, declaradas una sola vez",
+   "body": "Un sistema visual (o sistema de diseño, en su versión mínima) es el conjunto cerrado de decisiones de apariencia de un sitio — qué colores existen, qué tamaños de texto existen, qué separaciones existen y qué forma tiene cada pieza que se repite — declarado una sola vez y consumido por todas las páginas. Su unidad de trabajo no es la página: es la decisión. Cada decisión se toma una vez, queda escrita en un solo lugar y todas las piezas que la necesitan la toman de ahí.\n\nLa situación contraria es la hoja de estilos escrita página a página: el mismo azul declarado en catorce reglas con tres valores casi iguales, los titulares en cinco tamaños distintos según la página donde nacieron, las separaciones elegidas caso por caso. Cada página, mirada sola, puede verse bien; el sitio entero se ve como varios sitios pegados, y cualquier cambio de apariencia — otro color principal, otro tamaño base — exige cazar el valor en decenas de reglas con el riesgo de dejar la mitad sin cambiar.\n\nEl sistema de este tema es deliberadamente mini: un bloque de variables, dos escalas y cuatro componentes. Su tamaño no es lo que lo hace sistema: lo es que ninguna decisión de apariencia viva fuera de él."
+  },
+  {
+   "page": 1,
+   "kind": "warning",
+   "title": "REGLA FUNDAMENTAL",
+   "body": "Toda decisión de apariencia se declara una sola vez, en el sistema, y se consume por referencia en todas partes: un color, un tamaño o una separación que aparece escrito en dos lugares ya no es una decisión, es una coincidencia esperando a romperse. Cambiar el sistema es cambiar un valor en su declaración; si un cambio de apariencia obliga a editar más de un lugar, el sistema tiene una fuga y la corrección es cerrar la fuga, no editar más rápido."
+  },
+  {
+   "page": 1,
+   "kind": "definition",
+   "title": "1.2. De valores sueltos a sistema: qué cambia exactamente",
+   "body": "Entre una hoja con valores sueltos y una hoja con sistema no cambia el lenguaje: son las mismas propiedades de los Temas 7 a 9. Cambia dónde vive cada valor y cómo llega a cada regla:\n\n• El valor suelto se escribe dentro de cada regla que lo necesita: el color del botón, el de los enlaces y el del titular repiten el mismo código hexadecimal, y el navegador no sabe que son «el mismo» color — son tres textos que casualmente coinciden.\n• El valor del sistema se escribe una vez, con un nombre, en el bloque de variables: cada regla lo pide por su nombre y el navegador sustituye el nombre por el valor al aplicar la regla. La coincidencia deja de ser casual: es la misma declaración alimentando a todas.\n• El cambio se propaga solo: al editar la declaración única, todas las reglas que piden ese nombre presentan el valor nuevo al recargar, sin tocar ninguna de ellas.\n\nLas piezas del sistema, en el orden en que las hojas siguientes las construyen: las variables que guardan los valores con nombre (Hojas 2 y 3), la escala tipográfica (Hoja 4), la paleta de color por papeles (Hoja 5), la escala de espaciado (Hoja 6) y los componentes que consumen todo lo anterior (Hojas 7 y 8)."
+  },
+  {
+   "page": 1,
+   "kind": "diagram",
+   "title": "De la decisión a la página",
+   "body": "Decisión — se toma una vez: este es\nel color de acento del sitio\n        ▼\nVariable — la decisión queda escrita\ncon su nombre en un solo lugar\n        ▼\nComponentes — botón, tarjeta y alerta\npiden el valor por su nombre\n        ▼\nPáginas — presentan los componentes:\nninguna página declara el valor"
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.1. Variables CSS: un nombre para cada valor que se repite",
+   "body": "Definición: una variable CSS (propiedad personalizada) es un valor guardado bajo un nombre que empieza por dos guiones, declarado como una propiedad más y consumido con la función `var()`. La declaración y el consumo son dos momentos distintos:\n\n• La declaración asigna el valor al nombre: `--color-acento: #0d47a1;`. El nombre es libre — tras los dos guiones vale cualquier identificador — pero el sistema lo elige por la función del valor, como desarrolla la Hoja 2.2.\n• El consumo inserta el valor donde la regla lo necesita: `background: var(--color-acento);`. Al aplicar la regla, el navegador sustituye la llamada por el valor declarado, y la propiedad recibe exactamente ese valor, como si estuviera escrito ahí.\n• El lugar de declaración del sistema es el selector `:root`, que apunta al elemento raíz del documento: lo declarado en `:root` alcanza a todos los elementos de todas las páginas que enlacen la hoja. Por eso el bloque de variables del sistema vive ahí y solo ahí: es la declaración única de la Regla Fundamental con dirección concreta."
+  },
+  {
+   "page": 2,
+   "kind": "definition",
+   "title": "2.2. Nombrar por la función, no por el valor",
+   "body": "El nombre de una variable es un contrato sobre el papel que el valor cumple, y se elige por ese papel, nunca por el valor que hoy guarda:\n\n• `--color-acento` dice qué es el valor dentro del sistema: el color de las acciones y los énfasis. Si el sistema cambia su acento de azul a verde, el nombre sigue diciendo la verdad y ninguna regla que lo consume se toca.\n• `--azul` describe el valor de hoy. Con el mismo cambio, la variable llamada `--azul` guardaría un verde: cada regla que la usa pasaría a leerse mal, y el siguiente cambio exigiría renombrar en todas partes — exactamente el trabajo que el sistema existe para eliminar.\n• La misma regla ordena las demás familias: los tamaños se nombran por su papel tipográfico (`--texto-titulo`), no por su medida (`--24px`); las separaciones, por su paso en la escala (`--espacio-4`), no por dónde se usaron primero (`--margen-tarjeta`), porque la tarjeta de mañana usará también los pasos de hoy.\n\nUn nombre por función solo se lee mal cuando el valor cambia de papel — que una variable de acento pase a usarse como fondo —, y ese caso se corrige renombrando la variable y sus consumos, porque el contrato cambió de verdad."
+  },
+  {
+   "page": 2,
+   "kind": "code",
+   "title": "El bloque :root mínimo de un sistema",
+   "body": "El bloque de variables se escribe al principio de la hoja, antes que cualquier regla que lo consuma. Su explicación va fuera de la caja: dentro solo hay declaraciones.\n\n```\n:root {\n  --color-fondo: #fafaf7;\n  --color-superficie: #ffffff;\n  --color-texto: #212121;\n  --color-acento: #0d47a1;\n  --texto-base: 1rem;\n  --texto-titulo: 1.563rem;\n  --espacio-4: 1rem;\n}\n```\n\nLectura: cada línea declara UNA variable con su nombre por función y su valor. Nada se aplica todavía a ningún elemento: el bloque es el almacén del sistema, y las reglas de los componentes son las que piden cada valor por su nombre con `var()`."
+  },
+  {
+   "page": 2,
+   "kind": "table",
+   "title": "Tabla — qué se guarda en variables y qué no",
+   "body": "Se guarda en variables | No se guarda en variables\nLos valores que se repiten o que definen el sistema: colores por papel, tamaños de la escala tipográfica, pasos de la escala de espaciado, radios y sombras comunes | Los valores únicos de una sola pieza sin papel en el sistema: una medida estructural de un layout concreto\nLos valores que un cambio de apariencia debe poder tocar en un solo lugar | Las declaraciones completas: una variable guarda UN valor (un color, una medida), no una regla entera\nLos valores que varios componentes comparten | El valor que solo existe porque un componente concreto lo forzó una vez: primero se decide si tiene papel en el sistema"
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.1. El valor de reserva: qué pasa cuando una variable no está definida",
+   "body": "La función `var()` admite un segundo argumento, separado por una coma: el valor de reserva, que el navegador usa solo si la variable pedida no está definida en el alcance del elemento. En `color: var(--color-texto-suave, #4f4f4f)`, si `--color-texto-suave` existe, manda su valor y la reserva ni se mira; si no existe, la propiedad recibe `#4f4f4f`.\n\nSin reserva, una variable no definida deja la declaración inválida: la propiedad cae a su valor heredado o inicial, en silencio y sin ningún error en la consola. El síntoma — un texto que de pronto hereda el color de su padre — se diagnostica buscando el nombre pedido y comparándolo con los nombres declarados: casi siempre es una letra de diferencia entre la declaración y el consumo.\n\nEl uso serio de la reserva en este sistema es acotado: protege los valores que un componente podría recibir de fuera (un componente pensado para vivir en varias hojas declara sus reservas) y sirve de red en la primera escritura de un sistema que aún está naciendo. No es un sustituto de declarar la variable: un sistema donde la mitad de los consumos caen en su reserva es un sistema cuya declaración única no se escribió."
+  },
+  {
+   "page": 3,
+   "kind": "definition",
+   "title": "3.2. El alcance de una variable: dónde vale cada declaración",
+   "body": "Una variable vale en el elemento donde se declara y en todos sus descendientes: el alcance de `:root` es el documento entero, y por eso el sistema vive ahí. La misma propiedad permite el ajuste local deliberado: una sección concreta puede redeclarar una variable para su interior — una banda de acento que redefine `--color-superficie` solo dentro de ella — y sus componentes internos, que consumen por nombre, presentan el valor local sin que sus reglas cambien.\n\nLas dos consecuencias prácticas se derivan de esa única regla:\n\n• La redeclaración local no toca el sistema: fuera de esa sección, la variable sigue valiendo lo de `:root`. El ajuste es una excepción con frontera, no un cambio global disfrazado.\n• El orden de lectura de cualquier valor es siempre el mismo: la declaración más cercana al elemento que lo consume. Ante un color inesperado, DevTools muestra en el panel Styles la variable con su valor resuelto y desde qué regla llega: el diagnóstico es localizar esa regla, no reescribir el consumo.\n\nEl sistema usa el alcance con parsimonia: la norma es `:root` para todo, y la redeclaración local queda reservada a la pieza que de verdad presenta una variante de ambiente (la banda oscura, la alerta) declarada como parte del componente."
+  },
+  {
+   "page": 3,
+   "kind": "code",
+   "title": "Consumo con reserva y ajuste local, completos",
+   "body": "La explicación de cada bloque va fuera de su caja; dentro, solo las declaraciones exactas.\n\n```\n/* Consumo con valor de reserva */\n.nota {\n  color: var(--color-texto-suave, #4f4f4f);\n}\n```\n\n```\n/* Ajuste local: solo dentro de la banda */\n.banda-acento {\n  --color-superficie: #0d47a1;\n  --color-texto: #ffffff;\n  background: var(--color-superficie);\n  color: var(--color-texto);\n}\n```\n\nLectura: en el primer bloque, la reserva cubre la ausencia de la variable. En el segundo, la banda redefine dos variables para su interior: los componentes de dentro que piden `--color-superficie` y `--color-texto` por su nombre presentan los valores de la banda, y el resto del documento sigue con los de `:root`."
+  },
+  {
+   "page": 3,
+   "kind": "warning",
+   "title": "EL SISTEMA NO ADMITE VALORES SUELTOS EN LOS COMPONENTES",
+   "body": "Un componente que escribe un color, un tamaño o una separación directamente en su regla — en vez de pedir la variable de su función — rompe el contrato entero: ese valor ya no se actualiza cuando el sistema cambia y, peor, parece sistema sin serlo, porque el componente se ve igual que los demás hasta el primer cambio. La revisión del sistema es mecánica y no admite excepciones: cada valor de apariencia dentro de un componente es una llamada `var()` o es una fuga que se corrige llevando el valor a su variable."
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.1. Tipografía del sistema: familia, tamaño base y escala",
+   "body": "La tipografía del sistema se decide en tres declaraciones y ninguna más:\n\n• La familia: la pila de fuentes del texto (`font-family`) se declara una vez, en la raíz o en el cuerpo, y se hereda (Tema 7). La pila nombra la fuente preferida y sus reservas del sistema operativo, de modo que el texto nunca depende de un archivo que pueda fallar.\n• El tamaño base: el tamaño del texto ordinario, `1rem` por defecto contra la raíz del navegador. Todo lo demás de la escala se calcula desde él, en `rem`, para que la preferencia de tamaño del lector escale el sistema entero.\n• La escala: el conjunto cerrado de tamaños derivados del base por una razón constante. Con razón 1.25, cada paso multiplica al anterior: `0.8rem`, `1rem`, `1.25rem`, `1.563rem`, `1.953rem`. Ningún tamaño fuera de esa lista existe en el sitio: un titular que «pide» 1.4rem pide en realidad otro papel, y el papel se le asigna de la escala, no se inventa una medida.\n\nLa propiedad que hace sistema a la escala es que sus tamaños no se eligen: se derivan. Cambiar la razón o el base recalcula la jerarquía completa conservando sus proporciones, igual que cambiar una variable recalcula los colores."
+  },
+  {
+   "page": 4,
+   "kind": "definition",
+   "title": "4.2. Papeles tipográficos, interlineado y medida de línea",
+   "body": "Cada paso de la escala recibe un papel fijo, y el papel — no el elemento HTML — decide el tamaño: un `h2` de página y un `h2` de tarjeta pueden compartir nivel de encabezado (Tema 3) y llevar tamaños distintos si sus papeles difieren, porque el tamaño declara importancia visual, no estructura.\n\nTres decisiones acompañan a cada papel:\n\n• El interlineado (`line-height`), declarado sin unidad como multiplicador del tamaño: el texto corrido respira en torno a 1.5 y los titulares, más grandes, se cierran hacia 1.2, porque una línea corta y grande con interlineado de párrafo se desarma en franjas.\n• El peso (`font-weight`): la jerarquía se construye con tamaño primero y peso después; un mismo tamaño en dos pesos ya es una jerarquía completa para la mayoría de las piezas.\n• La medida de línea: el texto corrido se lee cómodo entre 45 y 75 caracteres por línea; el contenedor con límite del Tema 9 es el que la garantiza en el escritorio, y por eso el ancho de lectura también es una variable del sistema.\n\nLos papeles del mini sistema son cinco: pequeño (notas y datos secundarios), base (el texto), grande (entradillas y subtítulos), título (encabezados de sección) y titular (el encabezado principal de la página)."
+  },
+  {
+   "page": 4,
+   "kind": "code",
+   "title": "La escala tipográfica declarada en variables",
+   "body": "La escala se declara dentro del mismo bloque `:root` del sistema, agrupada bajo su comentario. La explicación va fuera de la caja.\n\n```\n:root {\n  --fuente-texto: \"Segoe UI\", Roboto,\n    Helvetica, Arial, sans-serif;\n  --texto-pequeno: 0.8rem;\n  --texto-base: 1rem;\n  --texto-grande: 1.25rem;\n  --texto-titulo: 1.563rem;\n  --texto-titular: 1.953rem;\n  --interlineado-base: 1.5;\n  --interlineado-titulos: 1.2;\n}\n```\n\nLectura: los cinco tamaños son la escala de razón 1.25 sobre la base de `1rem` (`0.8` es el paso inferior: `1 ÷ 1.25`). Cada tamaño se nombra por su papel — `--texto-titulo` — y no por su medida, por la regla de la Hoja 2.2: si la razón cambia, los valores cambian y los nombres siguen diciendo la verdad."
+  },
+  {
+   "page": 4,
+   "kind": "table",
+   "title": "Tabla — los papeles de la escala tipográfica",
+   "body": "Papel | Variable | Tamaño | Interlineado | Dónde vive\nPequeño | --texto-pequeno | 0.8rem | 1.5 | Notas, datos secundarios, pies de tabla\nBase | --texto-base | 1rem | 1.5 | El texto corrido de la página\nGrande | --texto-grande | 1.25rem | 1.5 | Entradillas, subtítulos, texto destacado\nTítulo | --texto-titulo | 1.563rem | 1.2 | Encabezados de sección y de tarjeta\nTitular | --texto-titular | 1.953rem | 1.2 | El encabezado principal de la página"
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.1. El color por papeles: cada color del sistema tiene un trabajo",
+   "body": "La paleta del sistema no es una lista de colores bonitos: es un reparto de papeles. Cada color declarado cumple una función nombrada, y un color sin función no entra en la paleta aunque «se vea bien» en una pieza suelta, porque entraría sin contrato: nadie sabría cuándo usarlo ni qué rompería al cambiarlo.\n\nLos papeles mínimos de un sistema son seis:\n\n• Fondo: el color de la página detrás de todo.\n• Superficie: el color de las piezas que se levantan sobre el fondo — tarjetas, paneles, la banda de una alerta.\n• Texto: el color del texto ordinario sobre fondo y sobre superficie; su versión suave cubre el texto secundario sin salir de la paleta.\n• Acento: el color de la acción y el énfasis — botones principales, enlaces, el dato que manda. Es el papel más escaso a propósito: si todo es acento, nada lo es.\n• Borde: el color de las líneas que separan sin gritar.\n• Estados: éxito, aviso y error, reservados a comunicar esos tres estados y a nada más; un rojo usado como decoración le roba su significado al rojo del error.\n\nCada papel es una variable de la Hoja 2, con su nombre por función. El color concreto que llena cada papel es la decisión de identidad del sitio; el sistema solo exige que el reparto exista y que el contraste de la Hoja 5.2 se cumpla."
+  },
+  {
+   "page": 5,
+   "kind": "definition",
+   "title": "5.2. El contraste: la legibilidad del color se mide, no se opina",
+   "body": "Definición: la razón de contraste entre un texto y su fondo es la relación entre la luminosidad de ambos, expresada como `X a 1`: `1 a 1` es ningún contraste (el mismo color) y `21 a 1` es el máximo (negro sobre blanco). Es un número calculable a partir de los dos colores, no una impresión: dos personas pueden discrepar sobre si una combinación «se lee bien», pero la razón es la misma para ambas y para la herramienta que la mide.\n\nEl criterio que el sistema adopta, de la norma de accesibilidad WCAG que el Tema 11 desarrolla:\n\n• Texto normal (el cuerpo y todo lo menor que un titular): razón mínima de `4.5 a 1` contra su fondo.\n• Texto grande (titulares y texto de 1.25rem o más en peso fuerte) y los elementos de interfaz que comunican estado: razón mínima de `3 a 1`.\n\nLa comprobación se hace par por par, y solo sobre los pares que de verdad se tocan en la página: texto sobre fondo, texto sobre superficie, texto del botón sobre el acento, texto de cada alerta sobre su superficie de estado. DevTools muestra la razón de un par al inspeccionar el color en el panel Styles, con su veredicto frente a esos dos mínimos: la verificación del sistema es recorrer sus pares y dejar registrada la razón de cada uno. Un par que no alcanza el mínimo se corrige oscureciendo o aclarando el valor EN SU VARIABLE, y la corrección se propaga sola a todos sus consumos."
+  },
+  {
+   "page": 5,
+   "kind": "table",
+   "title": "Tabla — los papeles del color y sus pares de contraste",
+   "body": "Papel | Variable | Su par de contraste | Mínimo\nFondo | --color-fondo | Texto sobre fondo | 4.5 a 1\nSuperficie | --color-superficie | Texto sobre superficie | 4.5 a 1\nTexto | --color-texto | Contra fondo y superficie | 4.5 a 1\nTexto suave | --color-texto-suave | Contra fondo y superficie | 4.5 a 1\nAcento | --color-acento | Texto del botón sobre el acento | 4.5 a 1\nEstados | --color-exito · --color-aviso · --color-error | El texto de la alerta va en --color-texto sobre la superficie teñida del estado | 4.5 a 1 el texto; 3 a 1 el borde y el signo del estado"
+  },
+  {
+   "page": 5,
+   "kind": "diagram",
+   "title": "Los papeles del color en una página",
+   "body": "FONDO — detrás de todo\n        ▼ contiene\nSUPERFICIE — la tarjeta, el panel\n        ▼ sostiene\nTEXTO — se lee sobre fondo y superficie\nACENTO — solo la acción y el énfasis ──►\nESTADOS — éxito · aviso · error"
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.1. El espaciado sobre una escala: múltiplos de una unidad base",
+   "body": "El espaciado — márgenes, rellenos y la separación `gap` de los Temas 8 y 9 — obedece a la misma idea que la tipografía: una escala cerrada de la que salen todos los valores. La escala de espaciado se construye sobre una unidad base de `0.25rem` y sus pasos son los múltiplos que el sitio de verdad usa: 1, 2, 3, 4, 6, 8 y 12 veces la base — `0.25rem`, `0.5rem`, `0.75rem`, `1rem`, `1.5rem`, `2rem` y `3rem`.\n\nCada paso es una variable nombrada por su número de paso (`--espacio-1` a `--espacio-12`), y toda separación de la página toma un paso, nunca un número libre. El efecto compositivo es el ritmo: cuando todas las separaciones son múltiplos de la misma base, las piezas guardan relaciones entre sí — la separación dentro de una tarjeta es la mitad de la separación entre tarjetas, y esa proporción se repite en todo el sitio sin que nadie la recalcule página a página.\n\nLa regla de asignación dentro de un componente es de proximidad: los elementos que forman una misma pieza se separan con pasos menores que los que separan piezas distintas. Una tarjeta respira por dentro con `--espacio-4`, y la parrilla que la separa de la siguiente tarjeta usa `--espacio-6`: la jerarquía del espacio repite la jerarquía del contenido."
+  },
+  {
+   "page": 6,
+   "kind": "definition",
+   "title": "6.2. Espaciado interno, externo y la coherencia entre páginas",
+   "body": "La escala ordena también la distinción del Tema 7 entre relleno y margen, leída ahora como decisión del sistema:\n\n• El espaciado interno (`padding`) pertenece a la pieza: lo declara el propio componente, con los pasos de su escala, y viaja con él a cualquier página donde se reuse.\n• El espaciado externo (`margin` y `gap`) pertenece a la composición: lo declara el contenedor que reparte las piezas — la página, la parrilla — también con pasos de la escala.\n• Ninguna pieza se empuja con márgenes «para que quede bien aquí»: esa era la práctica prohibida del Tema 8, y el sistema le cierra la puerta dos veces, porque un margen de empuje es además un número fuera de la escala.\n\nLa comprobación de coherencia entre dos páginas del mismo sitio es visual y rápida: las tarjetas de ambas tienen el mismo relleno, los encabezados de sección la misma separación sobre su texto, y los botones la misma altura. Si una página se ve «casi igual pero no», la diferencia vive en un paso distinto de la escala o en un valor fuera de ella, y la búsqueda es sobre esa lista cerrada, no sobre toda la hoja."
+  },
+  {
+   "page": 6,
+   "kind": "code",
+   "title": "La escala de espaciado declarada en variables",
+   "body": "La escala de espaciado se suma al mismo bloque `:root`, en su propio grupo. La explicación va fuera de la caja.\n\n```\n:root {\n  --espacio-1: 0.25rem;\n  --espacio-2: 0.5rem;\n  --espacio-3: 0.75rem;\n  --espacio-4: 1rem;\n  --espacio-6: 1.5rem;\n  --espacio-8: 2rem;\n  --espacio-12: 3rem;\n  --radio: 0.5rem;\n  --ancho-contenedor: 72rem;\n}\n```\n\nLectura: el nombre de cada paso declara sus múltiplos de la base de `0.25rem` — `--espacio-6` vale seis bases, `1.5rem`. La escala no es continua a propósito: faltan los pasos 5 y 7 porque el sitio no los usa, y un paso nuevo entra solo cuando una composición real lo pide y queda registrado como parte del sistema. `--radio` y `--ancho-contenedor` acompañan a la escala: el redondeo de las piezas y el límite de lectura del Tema 9 también son decisiones únicas del sistema."
+  },
+  {
+   "page": 6,
+   "kind": "table",
+   "title": "Tabla — los pasos de la escala de espaciado y su uso",
+   "body": "Paso | Variable | Valor | Uso típico\n1 | --espacio-1 | 0.25rem | Ajustes finos dentro de una línea o un grupo\n2 | --espacio-2 | 0.5rem | Separación entre el signo y el texto de una alerta, interior de un botón\n3 | --espacio-3 | 0.75rem | Relleno vertical de botones y campos\n4 | --espacio-4 | 1rem | Relleno de la tarjeta, separación estándar entre bloques\n6 | --espacio-6 | 1.5rem | Separación entre tarjetas de una parrilla, entre secciones cortas\n8 | --espacio-8 | 2rem | Separación entre la sección y la siguiente\n12 | --espacio-12 | 3rem | Respiro mayor: tras el encabezado principal, entre zonas de la página"
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.1. Componente: una pieza con nombre, estructura y estados",
+   "body": "Definición: un componente del sistema visual es una pieza de interfaz que se repite — el botón, la tarjeta — declarada una sola vez con tres cosas: su estructura HTML convenida, su regla de estilos alimentada solo por las variables del sistema y el repertorio cerrado de sus variantes y estados. Lo que un componente promete es que dondequiera que aparezca, es el mismo: misma forma, mismos estados, mismo comportamiento ante el cambio del sistema.\n\nLa declaración de un componente en la hoja ocupa un bloque con su nombre por clase (`.boton`, `.tarjeta`), abierto por su comentario de propósito como manda la práctica de esta ruta desde el Tema 7. Sus reglas hijas cuelgan del mismo nombre: las variantes con doble guion (`.boton--secundario`) y los estados con sus pseudoclases de siempre (`:hover`, `:focus-visible`, `:disabled`).\n\nLa frontera del componente es tan parte de su definición como su interior: un componente consume variables y declara su propia caja, pero no decide su posición en la página — eso sigue siendo trabajo del layout de los Temas 8 y 9 — ni el margen que lo separa del siguiente, que pertenece a la composición (Hoja 6.2). Un componente que se coloca a sí mismo deja de ser reutilizable, porque solo sirve en el sitio donde se le ocurrió su margen."
+  },
+  {
+   "page": 7,
+   "kind": "definition",
+   "title": "7.2. El botón: anatomía de un componente completo",
+   "body": "El botón es el componente mínimo que exhibe todas las piezas del concepto, y por eso abre la serie:\n\n• La base (`.boton`): lo que todo botón del sitio comparte — familia y tamaño de la escala, relleno de los pasos 3 y 4, radio del sistema, borde declarado y el cursor de acción. La base no decide el color: eso es de cada variante.\n• Las variantes: la primaria (`.boton--primario`), con el fondo de acento y su texto en el color calculado para ese par (Hoja 5.2), y la secundaria (`.boton--secundario`), con superficie y borde, para la acción que acompaña sin mandar. Una tercera variante solo nace cuando una tercera clase de acción existe de verdad en el sitio.\n• Los estados, declarados dentro del componente y no improvisados página a página: `:hover` oscurece o subraya la presencia, `:focus-visible` dibuja el anillo de foco con el color de acento y un desplazamiento que lo separa del borde — el foco es la forma de ver el teclado dentro de la página y su tratamiento completo llega en el Tema 11 — y `:disabled` baja la presencia y retira la acción, porque un botón desactivado que parece activo promete lo que no cumple.\n\nLa prueba de que el botón es un componente y no una regla suelta: aparece tres veces en la página de muestra (una por variante, una en estado desactivado) y las tres salen del mismo bloque de la hoja."
+  },
+  {
+   "page": 7,
+   "kind": "code",
+   "title": "El botón del sistema, completo",
+   "body": "El bloque del botón consume solo variables del sistema: ningún valor de apariencia está escrito en sus reglas. La explicación va fuera de la caja.\n\n```\n.boton {\n  font-family: var(--fuente-texto);\n  font-size: var(--texto-base);\n  padding: var(--espacio-3) var(--espacio-4);\n  border-radius: var(--radio);\n  border: 1px solid transparent;\n  cursor: pointer;\n}\n.boton--primario {\n  background: var(--color-acento);\n  color: var(--color-acento-texto);\n}\n.boton--secundario {\n  background: var(--color-superficie);\n  color: var(--color-acento);\n  border-color: var(--color-borde);\n}\n.boton:hover { filter: brightness(1.08); }\n.boton:focus-visible {\n  outline: 3px solid var(--color-acento);\n  outline-offset: 2px;\n}\n.boton:disabled {\n  opacity: 0.55;\n  cursor: not-allowed;\n}\n```\n\nLectura: la base fija la forma común y deja el color a las variantes; cada variante combina dos variables del reparto de papeles; los estados cierran el bloque. Un cambio de acento en `:root` recolorea a la vez la variante primaria, el texto de la secundaria y el anillo de foco, porque los tres piden el mismo nombre."
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.1. La tarjeta y el encabezado de sección: componentes de composición",
+   "body": "Dos componentes del mini sistema no son acciones sino piezas de composición, las que organizan el contenido de cualquier página del sitio:\n\n• La tarjeta (`.tarjeta`): la superficie levantada que agrupa una unidad de contenido — su imagen fluida (Tema 9), su título en el papel de título, su texto en el papel base y su acción con el botón del sistema. Su caja es superficie sobre el fondo, borde del papel de borde, radio del sistema y relleno del paso 4; su interior se separa con los pasos menores de la escala, por la regla de proximidad de la Hoja 6.1.\n• El encabezado de sección (`.encabezado-seccion`): el par título–entradilla que abre cada sección del sitio, con el título en su papel tipográfico, la entradilla en el papel grande y la separación entre ambos y hacia el contenido fijada en pasos de la escala. Su valor de sistema no es visual sino de ritmo: todas las secciones de todas las páginas empiezan igual, y el lector aprende esa señal una sola vez.\n\nLos dos componentes demuestran la regla de consumo en su forma completa: ninguna de sus reglas contiene un color, un tamaño ni una separación que no venga de una variable, y los dos heredan gratis cualquier cambio del sistema — al cambiar `--color-superficie` cambian todas las tarjetas del sitio a la vez."
+  },
+  {
+   "page": 8,
+   "kind": "definition",
+   "title": "8.2. La alerta: el componente que comunica un estado",
+   "body": "La alerta (`.alerta`) comunica un resultado — una acción que salió bien, una advertencia, un error — y es el componente donde los papeles de estado de la Hoja 5.1 cobran su sentido: su variante ES el estado que comunica (`.alerta--exito`, `.alerta--aviso`, `.alerta--error`).\n\nSu construcción respeta dos reglas que la separan de una caja coloreada:\n\n• El estado se comunica por tres canales a la vez — el color del borde y del signo, el signo o palabra inicial («Hecho», «Atención», «Error») y el texto completo del mensaje —, nunca solo por el color: una parte de los lectores no distingue ciertos pares de colores, y un mensaje que solo existe como tinte desaparece para ellos. El Tema 11 convierte esta regla en criterio completo; aquí queda aplicada como parte del componente.\n• El contraste se resuelve con el par seguro de la Hoja 5.2: el texto de la alerta va siempre en `--color-texto` sobre una superficie teñida suavemente del color de estado, y el color de estado puro queda para el borde y el signo, donde el mínimo es de `3 a 1` como elemento de interfaz. Así ninguna variante de alerta puede nacer ilegible por construcción.\n\nLas tres variantes comparten la base entera — relleno, radio, estructura — y difieren solo en las dos variables de estado que consumen: añadir la cuarta variante, si un cuarto estado existiera, sería declarar dos valores, no copiar el componente."
+  },
+  {
+   "page": 8,
+   "kind": "code",
+   "title": "Tarjeta y alerta con las variables del sistema, completas",
+   "body": "Los dos bloques consumen el mismo sistema que el botón de la Hoja 7. La explicación va fuera de la caja.\n\n```\n.tarjeta {\n  background: var(--color-superficie);\n  border: 1px solid var(--color-borde);\n  border-radius: var(--radio);\n  padding: var(--espacio-4);\n}\n.tarjeta h3 {\n  font-size: var(--texto-titulo);\n  line-height: var(--interlineado-titulos);\n  margin: 0 0 var(--espacio-2);\n}\n.alerta {\n  border: 1px solid var(--color-borde);\n  border-left: 6px solid var(--color-texto-suave);\n  border-radius: var(--radio);\n  padding: var(--espacio-3) var(--espacio-4);\n  color: var(--color-texto);\n}\n.alerta--exito { border-left-color: var(--color-exito); }\n.alerta--aviso { border-left-color: var(--color-aviso); }\n.alerta--error { border-left-color: var(--color-error); }\n```\n\nLectura: la tarjeta combina superficie, borde, radio y el paso 4; su título consume el papel de título y el paso 2. La alerta declara su forma una vez y cada variante cambia una sola variable de estado en el borde grueso: el texto permanece en `--color-texto`, con su contraste garantizado sobre cualquier superficie del sistema."
+  },
+  {
+   "page": 8,
+   "kind": "table",
+   "title": "Tabla — los componentes base del mini sistema",
+   "body": "Componente | Clases | Variantes | Estados declarados\nBotón | .boton · .boton--primario · .boton--secundario | Primario y secundario | hover · focus-visible · disabled\nTarjeta | .tarjeta | Sin variantes en el mini sistema | Sin estados: es composición\nEncabezado de sección | .encabezado-seccion | Sin variantes | Sin estados: es composición\nAlerta | .alerta · .alerta--exito · .alerta--aviso · .alerta--error | Éxito, aviso y error | Sin estados: su variante ES el estado"
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.1. Variantes y estados sin duplicar: la clase modificadora",
+   "body": "La tentación que el sistema corta de raíz es la copia: ante un botón que «en esta página debe ser más grande», la salida suelta es duplicar su bloque con otro nombre y cambiar dos valores; la salida del sistema es la variante declarada — una clase modificadora que se suma a la base y declara solo lo que cambia — o, si la diferencia es de papel, la variable correspondiente consumida en otro paso de la escala.\n\nEl criterio para distinguir los tres casos:\n\n• Es un estado cuando la misma pieza lo atraviesa en el tiempo: el botón al pasar el puntero, al recibir el foco, al desactivarse. Los estados se declaran con pseudoclases dentro del bloque del componente, nunca con clases sueltas repartidas por la hoja.\n• Es una variante cuando la pieza cumple otro papel estable: el botón secundario, la alerta de error. Las variantes se nombran con doble guion sobre la clase base y se aplican sumando las dos clases en el HTML — la base aporta la forma; la variante, solo su diferencia.\n• No es ni estado ni variante cuando la pieza es otra pieza: una tarjeta con estructura distinta no es «la tarjeta grande», es otro componente con su nombre, y nace como bloque propio consumiendo el mismo sistema.\n\nLa verificación mecánica del criterio: en la hoja no existen dos bloques con la misma estructura y valores casi iguales bajo nombres distintos; cada bloque repetido que se encuentra es una variante que no se declaró."
+  },
+  {
+   "page": 9,
+   "kind": "definition",
+   "title": "9.2. La página de muestra: el documento vivo del sistema",
+   "body": "Un sistema que vive solo dentro de la hoja de estilos es invisible: nadie — ni quien lo retoma en un mes — puede ver de un vistazo qué variables existen, qué valores guardan hoy y qué forma tiene cada componente con sus variantes y estados. La página de muestra es el documento del sistema: una página ordinaria del sitio, enlazada a la misma hoja, que presenta el sistema en uso y en este orden:\n\n• Las variables de color, una franja por papel con su nombre y su valor actual.\n• La escala tipográfica, un renglón por papel, escrito en el tamaño de su papel.\n• La escala de espaciado, un bloque por paso con su nombre y su medida.\n• Cada componente en todas sus variantes y en los estados que se pueden fijar sin interactuar (el botón desactivado, las tres alertas).\n• Un caso compuesto: la tarjeta completa con su encabezado, su texto y su botón, tal como vive en el sitio.\n\nLa página de muestra cumple además la función de banco de pruebas del sistema: cualquier cambio en `:root` se juzga primero ahí, donde sus efectos se ven todos juntos y comparados, antes de juzgarlo página a página. Un cambio que en la muestra rompe un par de contraste o una jerarquía no llega al sitio: se corrige en la variable, que es donde nació."
+  },
+  {
+   "page": 9,
+   "kind": "diagram",
+   "title": "Del sistema a su página de muestra",
+   "body": "Bloque :root — valores con nombre\n        ▼ alimenta\nComponentes — botón · tarjeta\n· encabezado · alerta\n        ▼ se presentan en\nPágina de muestra — cada variable y\ncada variante, visibles de un vistazo\n        ▼ se verifica antes que\nLas páginas del sitio que los consumen"
+  },
+  {
+   "page": 9,
+   "kind": "warning",
+   "title": "UN CAMBIO DE SISTEMA SE JUZGA EN LA MUESTRA, NO EN UNA PÁGINA SUELTA",
+   "body": "Juzgar un cambio de variable mirando una sola página esconde sus efectos en las demás: el acento nuevo que en la portada se ve bien puede dejar ilegible la alerta o invisible el anillo de foco en otra parte. La página de muestra existe para ese juicio completo: si el cambio no se sostiene en la muestra — contraste, jerarquía y estados incluidos —, no se sostiene en el sitio, aunque la primera página donde se mire parezca mejor."
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.1. Refactorizar al sistema: del inventario al reemplazo verificado",
+   "body": "Convertir una hoja existente — la hoja responsive del Tema 9 es el caso de este tema — en una hoja con sistema sigue un procedimiento cerrado, en este orden:\n\n1. El inventario: la hoja se recorre regla a regla y cada valor de apariencia que se repite, o que define la identidad del sitio, se anota con el número de veces que aparece. El inventario es la lista de candidatos a variable, y sale de contar, no de recordar.\n2. El reparto de papeles: cada candidato recibe su papel (color de qué, tamaño de qué papel, paso de qué escala) y su nombre por función. Los valores casi iguales que el inventario descubre — tres azules vecinos para «el mismo» acento — se unifican en un solo valor por papel: la unificación es la decisión de diseño que el sistema obliga a tomar una vez.\n3. La declaración única: el bloque `:root` se escribe al principio de la hoja con todas las variables del inventario, agrupadas por familias con su comentario.\n4. El reemplazo: cada valor anotado se sustituye en su regla por la llamada `var()` de su variable. El reemplazo es mecánico y se hace sobre la lista del inventario, valor a valor, hasta agotarla.\n5. La verificación: la página se recorre en los tres anchos del Tema 9 y debe verse idéntica a como se veía antes del reemplazo, salvo las unificaciones deliberadas del paso 2. Un cambio de apariencia no buscado en este punto es un reemplazo mal hecho — una variable por otra — y se localiza comparando la regla con el inventario."
+  },
+  {
+   "page": 10,
+   "kind": "definition",
+   "title": "10.2. Errores frecuentes del sistema visual y su diagnóstico",
+   "body": "Los fallos propios de un sistema ya nacido se reconocen por su síntoma, y cada uno apunta a su causa en este orden:\n\n• «Se cambió la variable y una pieza no se movió»: esa pieza no consume la variable — su valor está escrito suelto o consume otra variable de nombre parecido. La búsqueda es sobre el valor antiguo dentro de la hoja: cada aparición que queda fuera de `:root` es una fuga.\n• «Un texto salió con el color heredado y sin aviso»: una variable no definida consumida sin reserva (Hoja 3.1): el nombre pedido y el declarado difieren en una letra o en un guion.\n• «Dos piezas del mismo componente se ven distintas»: una de las dos nació por copia con retoques en vez de por variante declarada (Hoja 9.1), o lleva un estilo en línea que gana a la hoja. La corrección une ambas en el bloque único y traslada la diferencia a su variante o la elimina.\n• «La jerarquía se rompió al crecer el sitio»: un tamaño o un paso fuera de escala entró para resolver una página: la escala dejó de ser cerrada. La corrección asigna a ese contenido el papel que de verdad cumple, con el tamaño de la escala.\n• «El cambio de acento dejó una alerta ilegible»: el par de contraste de esa alerta no estaba en la lista de verificación de la Hoja 5.2. La corrección mide el par, ajusta el valor en su variable y la lista queda completa para el próximo cambio."
+  },
+  {
+   "page": 10,
+   "kind": "table",
+   "title": "Tabla — síntoma, causa probable y corrección en el sistema",
+   "body": "Síntoma | Causa probable | Corrección\nUna pieza no cambia al cambiar su variable | Valor suelto en su regla o consumo de otra variable | Sustituir el valor por var() de su función y revisar el nombre consumido\nUn color sale heredado, sin error visible | Variable no definida y sin valor de reserva | Corregir el nombre en el consumo o declarar la variable en :root\nEl mismo componente se ve distinto en dos páginas | Copia retocada o estilo en línea | Unificar en el bloque único; la diferencia real pasa a variante declarada\nUn titular no coincide con la escala | Tamaño libre escrito para esa página | Asignar el papel tipográfico y aplicar su variable\nUna alerta pierde legibilidad tras un cambio | Par de contraste fuera de la lista de verificación | Medir el par, ajustar el valor en su variable y registrar el par"
+  },
+  {
+   "page": 11,
+   "kind": "code",
+   "title": "El bloque :root completo del mini sistema",
+   "body": "El bloque entero del sistema, en el orden en que se escribe en la hoja: primero el color por papeles, después la tipografía con su escala, después el espaciado con la suya, y al final las decisiones sueltas que el sistema comparte. La explicación va fuera de la caja.\n\n```\n:root {\n  /* Color — por papeles */\n  --color-fondo: #fafaf7;\n  --color-superficie: #ffffff;\n  --color-texto: #212121;\n  --color-texto-suave: #4f4f4f;\n  --color-acento: #0d47a1;\n  --color-acento-texto: #ffffff;\n  --color-borde: #d8d8d2;\n  --color-exito: #1b5e20;\n  --color-aviso: #e65100;\n  --color-error: #b71c1c;\n\n  /* Tipografía — escala 1.25 */\n  --fuente-texto: \"Segoe UI\", Roboto,\n    Helvetica, Arial, sans-serif;\n  --texto-pequeno: 0.8rem;\n  --texto-base: 1rem;\n  --texto-grande: 1.25rem;\n  --texto-titulo: 1.563rem;\n  --texto-titular: 1.953rem;\n  --interlineado-base: 1.5;\n  --interlineado-titulos: 1.2;\n\n  /* Espaciado — base 0.25rem */\n  --espacio-1: 0.25rem;\n  --espacio-2: 0.5rem;\n  --espacio-3: 0.75rem;\n  --espacio-4: 1rem;\n  --espacio-6: 1.5rem;\n  --espacio-8: 2rem;\n  --espacio-12: 3rem;\n\n  /* Decisiones compartidas */\n  --radio: 0.5rem;\n  --ancho-contenedor: 72rem;\n}\n```\n\nLectura de conjunto: veintinueve decisiones escritas una sola vez. Todo lo que las hojas de componentes declaran después — botón, tarjeta, encabezado y alerta — pide estos nombres; ningún otro valor de apariencia existe en la hoja del sistema."
+  },
+  {
+   "page": 11,
+   "kind": "code",
+   "title": "Hoja del mini sistema completa de referencia",
+   "body": "La hoja entera en su orden de lectura: variables, base que las aplica al documento, y los cuatro componentes. La explicación va fuera de la caja.\n\n```\n/* ===== Sistema visual ===== */\n:root { /* el bloque completo de la\n  primera sección de esta hoja */ }\n\nbody {\n  background: var(--color-fondo);\n  color: var(--color-texto);\n  font-family: var(--fuente-texto);\n  font-size: var(--texto-base);\n  line-height: var(--interlineado-base);\n}\n.contenedor {\n  max-width: var(--ancho-contenedor);\n  margin: 0 auto;\n  padding: 0 var(--espacio-4);\n}\n\n/* ===== Componentes ===== */\n.boton { /* bloque completo: Hoja 7 */ }\n.tarjeta { /* bloque completo: Hoja 8 */ }\n.encabezado-seccion h2 {\n  font-size: var(--texto-titular);\n  line-height: var(--interlineado-titulos);\n  margin: 0 0 var(--espacio-2);\n}\n.encabezado-seccion p {\n  font-size: var(--texto-grande);\n  color: var(--color-texto-suave);\n  margin: 0 0 var(--espacio-6);\n}\n.alerta { /* bloque completo: Hoja 8 */ }\n```\n\nLectura de conjunto: la base consume el fondo, el texto y la tipografía del sistema para el documento entero; el contenedor del Tema 9 pide su límite a la variable; cada componente declara su bloque una vez, en su sitio de la hoja, y la página de muestra de la Hoja 9.2 es la que presenta todo en uso."
+  },
+  {
+   "page": 11,
+   "kind": "table",
+   "title": "Tabla de consulta — decisiones del sistema en una mirada",
+   "body": "Familia | La decisión | Dónde se declara | Quién la consume\nColor | Un color por papel: fondo, superficie, texto, texto suave, acento, borde y tres estados | Grupo de color de :root | body, botón, tarjeta, alerta, foco\nTipografía | Base de 1rem y escala de razón 1.25 con cinco papeles, dos interlineados | Grupo de tipografía de :root | Todo el texto; cada papel según su función\nEspaciado | Base de 0.25rem y pasos 1, 2, 3, 4, 6, 8 y 12 | Grupo de espaciado de :root | Rellenos internos de cada componente y separaciones de la composición\nComponentes | Cuatro piezas con nombre: botón, tarjeta, encabezado de sección y alerta | Sus bloques en la hoja, tras la base | Las páginas, por clase; las variantes, por clase modificadora"
+  },
+  {
+   "page": 12,
+   "kind": "list",
+   "title": "Práctica previa · Inventario de valores, primera variable y primer cambio de sistema, paso a paso",
+   "body": "Primer conteo de un valor repetido: en la hoja de estilos responsive construida en el Tema 9 se busca un mismo valor de color con la búsqueda del editor y se cuenta cuántas reglas lo escriben. → El conteo queda registrado: ese número es el tamaño real de la decisión suelta, y es el primer candidato del inventario de los ejercicios.\nEscritura de la primera variable: al principio de esa misma hoja se abre el bloque `:root` y dentro se declara la variable de ese color con su nombre por función, siguiendo la Hoja 2. → La decisión queda escrita una sola vez, con su nombre; la hoja aún no cambia en pantalla porque nada consume todavía la variable.\nPrimer consumo: en una sola de las reglas contadas, el valor escrito se sustituye por la llamada `var()` con ese nombre y el archivo se guarda. → La pieza presenta exactamente el mismo color que antes, ahora leído desde la variable: el reemplazo correcto no se nota, y esa invisibilidad es su verificación.\nPrimer cambio de sistema: el valor se modifica SOLO en la declaración de `:root` — por ejemplo, un tono vecino del mismo papel — y la página se recarga. → Solo la pieza ya conectada presenta el valor nuevo; las demás conservan el antiguo porque aún lo escriben suelto: la diferencia visible entre ambas es la definición misma de valor suelto frente a sistema.\nVariable inexistente provocada: en la regla conectada se cambia una letra del nombre pedido por `var()` y la página se recarga. → La declaración queda inválida en silencio y la propiedad cae a su valor heredado: el síntoma de la Hoja 3.1, reconocido en vivo; al restaurar el nombre exacto, la pieza vuelve a su valor."
+  },
+  {
+   "page": 12,
+   "kind": "list",
+   "title": "Ejercicios concretos del Tema 10 · Etapa 2: Práctica",
+   "body": "Ejercicio 1 · Inventario de valores y bloque :root del sistema — la hoja responsive del Tema 9 se recorre contando sus valores repetidos, cada uno recibe su papel y su nombre por función, y el bloque :root completo del sistema queda declarado y consumido en todas las reglas inventariadas.\nEjercicio 2 · Tipografía y espaciado sobre la escala del sistema — los textos de la página pasan a los cinco papeles de la escala tipográfica y todas sus separaciones a los pasos de la escala de espaciado, hasta que ningún tamaño ni ninguna separación viva fuera de las dos escalas.\nEjercicio 3 · Componentes base: botón, tarjeta, encabezado de sección y alerta — los cuatro componentes del mini sistema se declaran una vez en la hoja, alimentados solo por variables, con las variantes y los estados de cada uno, y se colocan en una página del sitio sustituyendo a las piezas sueltas equivalentes.\nEjercicio 4 · Página de muestra del sistema y cierre de la evidencia — la página de muestra presenta cada variable y cada componente en todas sus variantes, los pares de contraste quedan medidos y registrados, y la hoja entera pasa la revisión de valores sueltos hasta dejar el mini sistema de diseño reutilizable como evidencia del tema."
+  },
+  {
+   "page": 13,
+   "kind": "list",
+   "title": "12.1. El flujo completo para construir un sistema visual",
+   "body": "El inventario sale de contar: cada valor de apariencia repetido de la hoja queda anotado con sus apariciones antes de declarar ninguna variable.\nCada valor inventariado recibe su papel y su nombre por función; los valores casi iguales que cumplían el mismo papel se unifican en uno solo.\nEl bloque :root se declara al principio de la hoja con las familias agrupadas: color por papeles, tipografía con su escala derivada, espaciado con la suya y las decisiones compartidas.\nCada valor declarado se consume por su nombre en todas las reglas del inventario, hasta que fuera de :root no queda ningún valor de apariencia repetido.\nLos componentes se declaran una vez, con sus variantes por clase modificadora y sus estados por pseudoclase, alimentados solo por las variables del sistema.\nLa página terminada se recorre en los tres anchos del Tema 9 comparándola con su estado anterior: el reemplazo correcto es invisible, y toda diferencia no deliberada señala el reemplazo a corregir.\nLa página de muestra presenta el sistema entero en uso y los pares de contraste quedan medidos y registrados: con la muestra aprobada, el sistema está listo para alimentar cualquier página nueva del sitio."
+  },
+  {
+   "page": 13,
+   "kind": "warning",
+   "title": "REGLAS CRÍTICAS DE CIERRE",
+   "body": "• Cada decisión de apariencia se declara una sola vez, en :root, con su nombre por función: un valor de apariencia repetido fuera del bloque es una fuga del sistema y se corrige llevándolo a su variable, no copiándolo mejor.\n• Las escalas son cerradas: ningún tamaño de texto fuera de los papeles de la escala tipográfica y ninguna separación fuera de los pasos de la escala de espaciado; lo que no encaja en la escala pide un papel, no una medida libre.\n• Todo componente consume solo variables, declara sus variantes sin copiarse y sus estados dentro de su bloque; el contraste de cada par que se toca se mide contra su mínimo — 4.5 a 1 el texto, 3 a 1 el texto grande y los elementos de interfaz — y se corrige en la variable, nunca pieza a pieza.\n• El cambio de sistema se juzga en la página de muestra, donde todas sus consecuencias se ven juntas, antes de darse por bueno en cualquier página del sitio."
+  }
+ ],
+ "exercises": [
+  {
+   "n": 1,
+   "title": "Ejercicio 1 · Inventario de valores y bloque :root del sistema",
+   "objective": "Convertir la hoja de estilos responsive del Tema 9 en una hoja con sistema en su primera capa: el inventario contado de sus valores repetidos, el bloque :root completo declarado con nombres por función y cada valor inventariado consumido por su variable en todas sus reglas.",
+   "steps": [
+    {
+     "hacer": "Construcción del inventario sobre la hoja del Tema 9: con la búsqueda del editor se cuenta, valor a valor, cada color, cada tamaño de texto y cada separación que aparece más de una vez, y la lista queda escrita con sus apariciones antes de tocar ninguna regla.",
+     "esperado": "Cada decisión suelta de la hoja tiene su número: la lista es el alcance exacto del ejercicio, sin valores olvidados ni valores únicos convertidos en sistema por error."
+    },
+    {
+     "hacer": "Reparto de papeles sobre el inventario: a cada valor se le asigna su papel según las Hojas 4, 5 y 6 — color de qué, papel tipográfico de cuál, paso de la escala — y los valores casi iguales del mismo papel se unifican en uno solo, con la unificación anotada junto al inventario.",
+     "esperado": "La lista deja de ser un conteo y pasa a ser el reparto del sistema: cada variable futura tiene nombre por función y valor decididos antes de escribirse."
+    },
+    {
+     "hacer": "Declaración del bloque `:root` al principio de la hoja con todas las variables del reparto, agrupadas por familias bajo su comentario y con los valores de la hoja de consulta como referencia de forma.",
+     "esperado": "El sistema existe como texto: veintitantas decisiones escritas una sola vez, antes de cualquier regla que las consuma."
+    },
+    {
+     "hacer": "Reemplazo completo sobre la lista del inventario: en cada regla anotada, el valor escrito se sustituye por la llamada `var()` de su variable, familia a familia, tachando cada valor de la lista al agotarlo.",
+     "esperado": "Fuera de `:root` no queda ninguna aparición de los valores inventariados: la búsqueda del editor por cada valor antiguo devuelve solo su declaración única."
+    },
+    {
+     "hacer": "Recorrido de verificación en los tres anchos del Tema 9 — `360px`, `768px` y `1200px` — comparando la página con su aspecto anterior al ejercicio: debe verse idéntica salvo las unificaciones anotadas en el paso del reparto.",
+     "esperado": "Toda diferencia no anotada queda localizada en su regla y corregida como reemplazo equivocado antes de dar el ejercicio por cerrado."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la hoja del Tema 9 con su bloque :root completo en cabeza y todas sus reglas consumiendo variables — la misma página en los tres anchos, alimentada por un sistema — como primera capa de la evidencia «Mini sistema de diseño reutilizable».",
+   "verification": "(1) El inventario está registrado con sus conteos y sus unificaciones. (2) La búsqueda de cada valor antiguo solo lo encuentra en su declaración de :root. (3) La página se ve idéntica en 360px, 768px y 1200px, salvo las unificaciones deliberadas y anotadas."
+  },
+  {
+   "n": 2,
+   "title": "Ejercicio 2 · Tipografía y espaciado sobre la escala del sistema",
+   "objective": "Dejar la tipografía y el espaciado de la página enteramente sobre las dos escalas del sistema: cada texto con el tamaño de su papel tipográfico y cada separación con un paso de la escala de espaciado, sin ningún tamaño ni ninguna separación libres en la hoja.",
+   "steps": [
+    {
+     "hacer": "Asignación de papeles al texto real de la página: cada texto se clasifica por su función — titular de la página, título de sección, entradilla, texto corrido, nota secundaria — y la clasificación queda escrita antes de tocar la hoja.",
+     "esperado": "Cada tamaño que la hoja va a pedir ya tiene su papel decidido: el reemplazo posterior es mecánico porque la decisión ya está tomada."
+    },
+    {
+     "hacer": "Aplicación de la escala tipográfica: las reglas de cada papel pasan a consumir su variable de la escala (`--texto-titular`, `--texto-titulo`, `--texto-grande`, `--texto-base`, `--texto-pequeno`) con su interlineado declarado, y la familia queda aplicada desde la base del documento.",
+     "esperado": "La jerarquía completa de la página sale de los cinco tamaños derivados: ningún `font-size` de la hoja lleva un número propio."
+    },
+    {
+     "hacer": "Aplicación de la escala de espaciado: cada margen, relleno y `gap` de la hoja se sustituye por el paso de la escala que le corresponde según la regla de proximidad de la Hoja 6.1 — pasos menores dentro de cada pieza, pasos mayores entre piezas.",
+     "esperado": "Todas las separaciones de la página son múltiplos de la misma base y guardan proporción entre sí: el ritmo se puede verificar regla a regla contra la lista cerrada de pasos."
+    },
+    {
+     "hacer": "Caza de valores libres: la hoja se recorre buscando cualquier tamaño o separación que aún lleve su número escrito fuera de `:root`, y cada hallazgo se resuelve asignándole su papel o su paso — o registrando por qué ese valor es único y estructural y no pertenece a las escalas.",
+     "esperado": "La lista de excepciones queda en cero o justificada por escrito: nada libre sobrevive sin una razón que no sea la costumbre."
+    },
+    {
+     "hacer": "Verificación de la jerarquía en los tres anchos: la página se recorre en `360px`, `768px` y `1200px` leyendo solo la jerarquía — qué manda, qué acompaña, qué es nota — y el interlineado de un texto corrido completo.",
+     "esperado": "La jerarquía se lee igual en los tres anchos y ningún texto perdió legibilidad al pasar a la escala: los papeles responden al contenido, no al ancho."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la página con sus textos repartidos en los cinco papeles de la escala y sus separaciones en los siete pasos del sistema — jerarquía y ritmo derivados, no elegidos pieza a pieza — como segunda capa de la evidencia «Mini sistema de diseño reutilizable».",
+   "verification": "(1) Ningún font-size ni ninguna separación de la hoja lleva un número fuera de :root, o cada excepción está justificada por escrito como valor único estructural. (2) Los cinco papeles tipográficos están en uso según su función. (3) La jerarquía se lee igual en 360px, 768px y 1200px, con el texto corrido en su interlineado de 1.5."
+  },
+  {
+   "n": 3,
+   "title": "Ejercicio 3 · Componentes base: botón, tarjeta, encabezado de sección y alerta",
+   "objective": "Declarar los cuatro componentes del mini sistema — botón con sus dos variantes y tres estados, tarjeta, encabezado de sección y alerta con sus tres variantes — alimentados solo por variables, y colocarlos en la página sustituyendo a las piezas sueltas equivalentes que la hoja traía.",
+   "steps": [
+    {
+     "hacer": "Declaración del botón completo al final de la hoja, tras la base, con el bloque de la Hoja 7 como referencia de forma: base, variantes `--primario` y `--secundario`, y estados `:hover`, `:focus-visible` y `:disabled`, consumiendo solo variables del sistema.",
+     "esperado": "El componente existe entero en un solo bloque: cualquier botón del sitio, presente o futuro, sale de esas reglas y de ninguna otra."
+    },
+    {
+     "hacer": "Declaración de la tarjeta y del encabezado de sección con las referencias de la Hoja 8: la tarjeta con su superficie, borde, radio y relleno del sistema y su título en su papel; el encabezado con su título, su entradilla y sus separaciones fijadas en pasos.",
+     "esperado": "Las dos piezas de composición quedan declaradas una vez, con el mismo contrato de consumo que el botón."
+    },
+    {
+     "hacer": "Declaración de la alerta y sus tres variantes — `--exito`, `--aviso` y `--error` — con la construcción de la Hoja 8.2: texto siempre en `--color-texto` y el color de estado en el borde y el signo, con la palabra del estado abriendo cada mensaje.",
+     "esperado": "Las tres variantes difieren solo en su variable de estado: ninguna puede nacer ilegible y ninguna comunica solo por el color."
+    },
+    {
+     "hacer": "Sustitución en la página: cada botón, tarjeta, encabezado y aviso que la página traía como piezas sueltas se reemplaza por el componente correspondiente con sus clases, y las reglas sueltas que los vestían se retiran de la hoja.",
+     "esperado": "La página presenta las mismas piezas con la misma apariencia, ahora producidas por los bloques únicos del sistema: borrar un componente de la hoja desnuda su pieza en la página, y esa es la prueba de que no quedan dobles."
+    },
+    {
+     "hacer": "Prueba de propagación del sistema: el valor de `--color-acento` se cambia una sola vez en `:root` por un tono vecino y la página se recarga recorriendo todos los componentes.",
+     "esperado": "Botón primario, texto del secundario, anillo de foco y enlaces presentan el valor nuevo a la vez y ninguna pieza conserva el antiguo; al restaurar el valor del sistema, todos vuelven juntos."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la página vestida íntegramente por los cuatro componentes del sistema, con la prueba de propagación superada — un cambio en :root recolorea el sitio entero — como tercera capa de la evidencia «Mini sistema de diseño reutilizable».",
+   "verification": "(1) Los cuatro componentes existen en un solo bloque cada uno, con sus variantes y estados declarados, y ninguno contiene un valor de apariencia fuera de var(). (2) Las reglas sueltas equivalentes fueron retiradas: no quedan dobles de ningún componente. (3) La prueba de propagación cambia todos los componentes a la vez desde :root."
+  },
+  {
+   "n": 4,
+   "title": "Ejercicio 4 · Página de muestra del sistema y cierre de la evidencia",
+   "objective": "Construir la página de muestra que documenta el mini sistema en uso — cada variable presentada, cada componente en todas sus variantes y estados fijables —, medir y registrar los pares de contraste del sistema y pasar la revisión final de valores sueltos que cierra la evidencia del tema.",
+   "steps": [
+    {
+     "hacer": "Creación de la página de muestra como una página más del sitio: documento válido con la línea del viewport del Tema 9, el contenedor del sistema y el enlace a la misma hoja de estilos, guardada junto a las demás páginas del proyecto.",
+     "esperado": "La muestra es una página real alimentada por el sistema real: lo que presenta no es una maqueta del sistema, es el sistema funcionando."
+    },
+    {
+     "hacer": "Presentación de las variables con el orden de la Hoja 9.2: una franja por papel de color con su nombre y su valor, un renglón por papel tipográfico escrito en su propio tamaño, y un bloque por paso de espaciado con su medida.",
+     "esperado": "El inventario entero del sistema se ve de un vistazo y cada presentación coincide con el valor declarado en `:root`: cualquier discrepancia es un error de la muestra o del bloque, y queda localizada."
+    },
+    {
+     "hacer": "Presentación de los componentes en todas sus variantes y estados fijables: botón primario, secundario y desactivado; la tarjeta completa con su encabezado, texto y botón; el encabezado de sección; y las tres alertas con su palabra de estado.",
+     "esperado": "Cada variante declarada en la hoja aparece exactamente una vez en la muestra y se ve producida por su bloque único: la muestra y la hoja se corresponden pieza a pieza."
+    },
+    {
+     "hacer": "Medición de los pares de contraste con DevTools según la Hoja 5.2: texto sobre fondo, texto sobre superficie, texto suave sobre ambos, texto del botón primario sobre el acento y texto de las alertas sobre su superficie, con la razón de cada par registrada en la tabla de la evidencia.",
+     "esperado": "Cada par alcanza su mínimo — `4.5 a 1` el texto, `3 a 1` los elementos de interfaz — o su valor se corrige en su variable y la medición se repite hasta alcanzarlo, con la corrección anotada."
+    },
+    {
+     "hacer": "Revisión final de valores sueltos y registro de la evidencia: la hoja se busca por cada valor de apariencia del inventario inicial fuera de `:root`, la muestra se recorre una última vez en `360px` y en `1200px`, y la tabla de la evidencia queda registrada con el inventario de variables, los componentes y sus variantes, y los pares de contraste medidos.",
+     "esperado": "La evidencia «Mini sistema de diseño reutilizable» está completa y es auditable: cualquier página nueva del sitio puede vestirse entera desde esa hoja sin declarar un solo valor nuevo."
+    }
+   ],
+   "example": "Resultado de referencia al terminar: la evidencia oficial de este tema: «Mini sistema de diseño reutilizable» — el bloque :root completo, las dos escalas cerradas, los cuatro componentes con sus variantes y estados, la página de muestra que lo presenta todo en uso y la tabla de contraste registrada.",
+   "verification": "(1) La página de muestra presenta cada variable y cada componente en todas sus variantes, correspondientes pieza a pieza con la hoja. (2) Todos los pares de contraste registrados alcanzan su mínimo (4.5 a 1 el texto; 3 a 1 el texto grande y los elementos de interfaz). (3) La búsqueda final no encuentra ningún valor de apariencia del inventario fuera de :root."
+  }
+ ],
+ "trabajo": {
+  "title": "Trabajo del Tema 10 · Mini sistema de diseño reutilizable",
+  "description": "Situación nueva de este trabajo: los ejercicios del tema convirtieron la hoja de la práctica en sistema y lo documentaron en su página de muestra. Este trabajo da el paso que sigue: construir con ese sistema UNA PÁGINA NUEVA de tu sitio que todavía no existe (por ejemplo, la de contacto o la de próximos eventos), usando SOLO las variables y los componentes del sistema; si la página necesita algo que el sistema no tiene, primero crece el sistema — variable o variante nueva, declarada una sola vez — y después se usa en la página.\n\nEntrega aquí el enlace de tu mini sistema de diseño (la hoja de estilos con su bloque :root y sus componentes, en tu sitio publicado o en tu repositorio), acompañado de la página de muestra del sistema, de la página nueva construida con él y de la tabla de contraste registrada en el README o en tu registro del tema. El sistema debe demostrar el dominio completo del tema: (1) el bloque :root completo con las variables declaradas una sola vez y nombradas por función — color por papeles (fondo, superficie, texto, texto suave, acento, borde y estados), tipografía con su escala de cinco papeles derivada de la base por una razón constante, y espaciado con su escala de pasos múltiplos de la unidad base; (2) ningún valor de apariencia repetido fuera de :root en las reglas de la base ni de los componentes: todo se consume con var() por su nombre; (3) los cuatro componentes base declarados una sola vez y alimentados solo por variables — botón (variantes primario y secundario; estados hover, focus-visible y disabled), tarjeta, encabezado de sección y alerta (variantes éxito, aviso y error, con el estado comunicado también en texto, no solo en color); (4) cada par de contraste que se toca medido y alcanzado: 4.5 a 1 o más para el texto normal y 3 a 1 o más para el texto grande y los elementos de interfaz, con la tabla de pares registrada; (5) la página de muestra que presenta cada variable y cada componente en todas sus variantes, donde el cambio de sistema se juzga antes que en cualquier página del sitio.\n\nCómo se desbloquea: este trabajo está bloqueado hasta que termines la fundamentación del Tema 10 en el Cuaderno. Cuando lo envíes, se abre la evaluación Fácil de este tema. Califica el experto de 0 a 10, con retroalimentación, en un plazo máximo de 24 horas desde la entrega.",
+  "estimated_minutes": 300
+ }
+}

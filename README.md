@@ -1,34 +1,71 @@
-# Control y Seguimiento · Ruta Full Stack (versión independiente)
+# Ruta Full Stack
 
-Versión independiente y autocontenida de la plataforma de estudio Full Stack de Alejandro Osorio Loaiza (Alejo). Replica la plataforma que vive en Muse y **se alimenta del respaldo completo** exportado desde ella.
+Plataforma de estudio para aprender **desarrollo Full Stack de cero**: una ruta de 60 temas en 10 fases, con Cuaderno de teoría, ejercicios guiados, trabajos calificados por un tutor y exámenes autocalificados. Funciona en el computador y en el celular, y se instala como app (PWA) con modo sin conexión.
 
-## Qué contiene
+**Abrir:** https://straikker98.github.io/control-ruta-full-stack/
 
-- `index.html` · `styles.css` · `app.js` — la aplicación (sin dependencias ni paso de compilación).
-- `respaldo.json` — respaldo completo generado desde la app de Muse el 26 de octubre de 2026: 48 semanas, 289 acciones, 407 secciones del Cuaderno, 117 ejercicios, 48 trabajos, 144 evaluaciones, 191 preguntas y el progreso real al momento de exportar.
+## Cómo se estudia
 
-## Vistas
+Cada tema sigue la misma cadena, en orden, y un paso no se abre hasta cumplir el anterior:
 
-Hoy (semana en curso, checklist y contadores) · Ruta (8 fases, 48 semanas) · Cuaderno (fundamentación por hojas, con ejercicios) · Trabajos (consigna, estado, nota y retroalimentación del experto) · Evaluaciones (3 niveles con sus exámenes de selección única) · Insignias · Perfil.
+1. **Iniciar** el tema (solo uno en curso a la vez).
+2. **Fundamentación**: el Cuaderno, hoja por hoja, con código de 5 colores.
+3. **Ejercicios guiados**: objetivo, pasos, resultado esperado y verificación.
+4. **Trabajo**: una situación nueva, sin guía. Lo califica el tutor de 0 a 10 con retroalimentación.
+5. **Tres exámenes** (Fácil, Medio, Difícil) de selección única, autocalificados. 12 preguntas por intento que rotan entre un banco de 15 o más por nivel.
+6. **Cierre**: se aprueba todo con **9,0 o más**.
 
-## Cómo abrirla
+Extras: repaso espaciado de las preguntas falladas, cronómetro de sesión con meta diaria, XP y racha (desactivables), 18 insignias de habilidades con tres niveles y avatares generados.
 
-Es un sitio estático. Dos opciones:
+## La ruta
 
-1. **Local:** en la carpeta del proyecto ejecuta `python3 -m http.server 8000` y abre `http://localhost:8000`.
-2. **GitHub Pages:** en el repositorio, Settings → Pages → publicar desde la rama `main`, carpeta raíz.
+| Fases | Temas | Contenido |
+|---|---|---|
+| 1–2 | 1–12 | Web, terminal, HTML, formularios, Git, publicación; CSS, layout, responsive, sistema visual, accesibilidad |
+| 3–4 | 13–24 | JavaScript, módulos, asincronía, pruebas; DOM, fetch, estado de interfaz, persistencia |
+| 5–6 | 25–36 | SQL y PostgreSQL; Node.js, API REST, arquitectura, autenticación |
+| 7–8 | 37–48 | TypeScript y React; Supabase, Vercel, producción y capstone |
+| 9 | 49–54 | Linux avanzado, Docker, CI/CD, nube, Next.js, seguridad web |
+| 10 | 55–60 | Algoritmos, Python, diseño de sistemas, IA aplicada, portafolio y entrevistas |
 
-Abrir `index.html` directo con `file://` puede fallar en algunos navegadores porque bloquean la lectura del JSON local.
+Una línea transversal de **diseño UX/UI** recorre las fases 2, 4 y 7.
 
-## Diferencias frente a la app de Muse
+## Cómo está hecha
 
-- Los marcados del checklist y las respuestas de examen se guardan **solo en el navegador** (localStorage).
-- **No hay autocalificación:** las notas que se ven son las que el experto ya puso en la app de Muse; las evaluaciones nuevas se rinden y se califican allí.
-- Los retratos de los avatares viven en la app de Muse; aquí el avatar se representa con iniciales.
-- Es una foto de los datos al día del respaldo: no se actualiza sola.
+Sitio estático, **sin paso de compilación**: HTML, CSS y JavaScript con módulos ES.
 
-## Cómo actualizar los datos
+```
+index.html · manifest.webmanifest · sw.js
+css/        tokens, componentes y la hoja del Cuaderno
+js/         main (enrutador), logic (reglas), store (estado), sync (nube), views/
+content/    CONTENIDO PÚBLICO: route, checklist, badges, topics/NN, exams/NN
+apps-script/  backend en Google Apps Script sobre Google Sheets
+scripts/    validate_content.py, migrate_from_respaldo.py
+```
 
-1. En la app de Muse: Registro → Perfil y XP → **Descargar respaldo JSON**.
-2. Reemplaza `respaldo.json` de este repositorio por el archivo descargado.
-3. Sube el cambio (`git add respaldo.json && git commit -m "Actualiza respaldo" && git push`).
+**Contenido y progreso están separados.** El repositorio solo contiene contenido. El progreso (notas, XP, respuestas, retroalimentación) vive en el navegador de cada dispositivo y se sincroniza con una hoja de Google Sheets privada mediante una clave que **nunca** se guarda en el código.
+
+## Backend
+
+`apps-script/Code.gs` es una aplicación web de Apps Script con acciones para leer y guardar el estado, recibir entregas y registrar intentos. Cada petición exige una clave: una de estudiante (leer y escribir su progreso) y otra de tutor (listar y calificar entregas). Las claves viven en las propiedades del script, no en este repositorio.
+
+Despliegue con [clasp](https://github.com/google/clasp): `clasp push` y `clasp deploy`.
+
+## Contenido
+
+El contenido de cada tema se valida con:
+
+```bash
+python scripts/validate_content.py
+```
+
+Comprueba que cada examen tenga al menos 15 preguntas por nivel, cuatro opciones, una respuesta correcta con explicación, posiciones de respuesta balanceadas y que la correcta no sea sistemáticamente la más larga.
+
+## Desarrollo local
+
+```bash
+python -m http.server 8000
+# abrir http://localhost:8000
+```
+
+Abrir `index.html` con `file://` no funciona: el navegador bloquea la lectura de los JSON.
