@@ -9,7 +9,7 @@ import { avatar } from '../avatar.js';
 import { applyTheme } from '../theme.js';
 import { heading, note } from './ui.js';
 
-const ACCENTS = [['atardecer', 'Atardecer', '#d9480f'], ['oceano', 'Océano', '#0b7285'], ['bosque', 'Bosque', '#2b8a3e'], ['violeta', 'Violeta', '#6741d9'], ['grafito', 'Grafito', '#343a40']];
+const ACCENTS = [['violeta', 'Aurora', '#8b5cf6'], ['atardecer', 'Atardecer', '#f43f5e'], ['oceano', 'Océano', '#0ea5e9'], ['bosque', 'Bosque', '#10b981'], ['grafito', 'Grafito', '#64748b']];
 
 function section(title, ...kids) { return h('section', { class: 'card', style: { marginBottom: '16px' } }, h('h2', { style: { fontSize: '1.1rem' } }, title), ...kids); }
 

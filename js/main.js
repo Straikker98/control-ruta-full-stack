@@ -1,7 +1,8 @@
 // Arranque, enrutador y barra superior (cronómetro de sesión y estado de sincronización).
 import { h, clear, toast } from './util.js';
 import { icon } from './icons.js';
-import { state } from './store.js';
+import { state, subscribe } from './store.js';
+import { openPalette } from './palette.js';
 import { applyTheme } from './theme.js';
 import { initSync, pull, hasKey, syncStatus, onSyncStatus, isPristine } from './sync.js';
 import * as L from './logic.js';
@@ -97,12 +98,26 @@ function paintSync() {
 }
 function paintMe() { clear(avatarBox); avatarBox.append(h('a', { href: '#/perfil', 'aria-label': 'Perfil', style: { display: 'block' } }, avatar(state().profile.avatar, 40))); }
 
+// Tarjeta de nivel y racha (barra lateral) y botón de búsqueda
+const xpBox = document.getElementById('navxp');
+function paintXp() {
+  const S = state(), lv = L.level();
+  clear(xpBox); xpBox.hidden = !S.profile.gamification;
+  xpBox.append(h('div', { class: 'lv' }, h('span', null, `Nivel ${lv.n}`), h('span', { class: 'fire' }, icon('flame'), S.streak.count)),
+    h('div', { class: 'bar' }, h('i', { style: { width: (lv.into / lv.size * 100) + '%' } })),
+    h('small', { class: 'faint tnum' }, `${S.xp} XP · ${lv.size - lv.into} para el nivel ${lv.n + 1}`));
+}
+const searchBtn = document.getElementById('search');
+searchBtn.append(icon('search'), h('span', null, 'Buscar'), h('kbd', null, 'Ctrl K'));
+searchBtn.addEventListener('click', openPalette);
+
 // ------------------------------------------------------------------ inicio
 applyTheme();
 initSync(); paintSync(); onSyncStatus(paintSync);
-paintTimer(); paintMe();
+paintTimer(); paintMe(); paintXp(); subscribe(paintXp);
 document.addEventListener('avatar-changed', paintMe);
 window.addEventListener('hashchange', render);
+document.addEventListener('pointermove', e => { const c = e.target.closest?.('.card, .stat'); if (c) { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); } });
 if (!location.hash) location.replace('#/hoy');
 
 // Con clave, se espera (máx. 8 s) a la primera sincronización ANTES de mostrar la app:
@@ -112,7 +127,7 @@ if (!location.hash) location.replace('#/hoy');
     root.replaceChildren(loading());
     const sleep = ms => new Promise(r => setTimeout(r, ms));
     await Promise.race([pull(), sleep(8000)]);
-    applyTheme(); paintMe();
+    applyTheme(); paintMe(); paintXp();
   }
   render();
   try { const n = await L.refreshGrades(); if (n) { toast(`${n} calificación(es) nueva(s) de tu tutor`, 'ok'); render(); } } catch { /* sin conexión: se reintenta al abrir */ }

@@ -1,23 +1,27 @@
 <!doctype html>
-<html lang="es" data-theme="light" data-accent="atardecer">
+<html lang="es" data-theme="dark" data-accent="violeta">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Ruta Full Stack</title>
   <meta name="description" content="Plataforma de estudio para aprender Full Stack de cero: ruta de 60 temas, cuaderno, ejercicios, trabajos y exámenes.">
-  <meta name="theme-color" content="#fdf7f2">
+  <meta name="theme-color" content="#080914">
   <meta name="color-scheme" content="light dark">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Ruta Full Stack">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=JetBrains+Mono:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/cuaderno.css">
   <link rel="stylesheet" href="css/lab.css">
 </head>
 <body>
+  <div class="scrollbar" aria-hidden="true"></div>
   <a class="skip" href="#view">Saltar al contenido</a>
   <div class="app">
     <nav class="nav" aria-label="Principal">
@@ -29,12 +33,14 @@
       <a class="nav-link" data-nav="insignias" href="#/insignias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="7"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/></svg>Insignias</a>
       <a class="nav-link" data-nav="perfil" href="#/perfil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Perfil</a>
       <div class="nav-spacer"></div>
+      <a class="nav-xp" id="navxp" href="#/perfil" aria-label="Nivel y racha"></a>
       <div class="nav-foot">Aprender con evidencia: nada se da por aprendido por haberlo leído.</div>
     </nav>
 
     <main class="main">
       <div class="topbar" role="region" aria-label="Sesión de estudio">
         <div class="grow"></div>
+        <button class="search-btn" id="search" type="button" aria-label="Buscar o ir a… (Ctrl+K)"></button>
         <div id="sync"></div>
         <div class="timer" id="timer"></div>
         <div id="me"></div>

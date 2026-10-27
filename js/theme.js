@@ -9,6 +9,6 @@ export function applyTheme() {
   root.dataset.theme = dark ? 'dark' : 'light';
   root.dataset.accent = p.accent || 'atardecer';
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.content = dark ? '#121214' : '#f6f5f1';
+  if (meta) meta.content = dark ? '#080914' : '#f4f5fb';
 }
 mq.addEventListener('change', () => { if (state().profile.theme === 'auto') applyTheme(); });

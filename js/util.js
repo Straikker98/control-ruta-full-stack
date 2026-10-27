@@ -1,4 +1,5 @@
-// Utilidades de DOM, fechas y azar. Sin dependencias.
+// Utilidades de DOM, fechas y azar.
+import { confetti, xpPop } from './fx.js';
 export const $ = (sel, root = document) => root.querySelector(sel);
 
 /** Crea un elemento. Los hijos son texto (seguro) o nodos; nunca se interpreta HTML. */
@@ -67,6 +68,8 @@ export function toast(msg, kind = '') {
   const box = document.getElementById('toasts'); if (!box) return;
   const t = h('div', { class: 'toast ' + kind, role: 'status' }, msg);
   box.append(t);
+  const xp = /\+(\d+) XP/.exec(msg);
+  if (xp) { xpPop(`+${xp[1]} XP`); confetti({ big: /Tema \d+ completado/.test(msg) }); }
   setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 200); }, 3800);
 }
 

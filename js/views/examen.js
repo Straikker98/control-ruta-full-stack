@@ -5,6 +5,7 @@ import { getExam, weekInfo } from '../content.js';
 import * as L from '../logic.js';
 import { state } from '../store.js';
 import { back, heading, note, fmtScore } from './ui.js';
+import { confetti, countUp } from '../fx.js';
 
 /** Enunciado con bloques ``` y `código` en línea, sin interpretar HTML. */
 function promptNodes(text) {
@@ -127,7 +128,10 @@ export async function examenView({ w, lv }) {
           h('div', { class: 'prose-box q-expl' }, h('p', null, h('strong', null, 'Por qué: '), inline(it.q.explanation))));
       }));
     scrollTo({ top: 0 });
-    document.getElementById('view-title')?.focus({ preventScroll: true });
+    const big = document.getElementById('view-title');
+    big?.focus({ preventScroll: true });
+    if (big?.firstChild) countUp(big.firstChild, res.score, { dec: 1 });   // el nodo de texto, no el <small>
+    if (res.passed) confetti({ big: true });
   }
 
   intro();

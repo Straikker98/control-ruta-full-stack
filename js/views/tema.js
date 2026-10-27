@@ -26,8 +26,9 @@ export async function tema({ w }) {
   const nEx = topic?.exercises?.length || 0;
   const view = h('div', { class: 'view narrow' });
   view.append(back('#/ruta', 'Ruta'),
-    h('div', { class: 'row between wrap', style: { marginBottom: '8px' } }, h('div', { class: 'eyebrow', style: { margin: 0 } }, `Tema ${w} · Fase ${info.phase}`), statusChip(st)),
-    heading(info.title, info.mastery));
+    h('header', { class: 'tema-hero', 'data-n': w, style: { '--ph': `var(--ph-${info.phase})` } },
+      h('div', { class: 'row between wrap', style: { marginBottom: '8px' } }, h('div', { class: 'eyebrow', style: { margin: 0 } }, `Tema ${w} · Fase ${info.phase}`), statusChip(st)),
+      h('h1', { tabindex: '-1', id: 'view-title' }, info.title), h('p', { class: 'lead' }, info.mastery)));
   view.append(h('div', { class: 'card flat', style: { marginBottom: '16px' } },
     h('div', { class: 'eyebrow' }, 'Evidencia esperada'), h('p', { style: { margin: 0 } }, info.evidence),
     info.design ? h('div', { class: 'designnote', style: { marginTop: '10px' } }, info.design) : null));

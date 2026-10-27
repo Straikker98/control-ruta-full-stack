@@ -7,7 +7,7 @@ function load(path) {
       if (!r.ok) throw new Error(`No se pudo cargar ${path} (${r.status})`);
       return r.json();
     });
-    p.catch(() => cache.delete(path))
+    p.catch(() => cache.delete(path));
     cache.set(path, p);
   }
   return cache.get(path);

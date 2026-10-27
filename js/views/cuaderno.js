@@ -115,7 +115,7 @@ export async function cuadernoView({ w, p }) {
     h('div', { class: 'notebook' }, sheet,
       h('div', { class: 'sheet-foot' }, prev, h('span', { class: 'muted tnum' }, `${idx + 1} / ${total}`), next),
       h('div', { class: 'legend', style: { marginTop: '18px' }, 'aria-label': 'Código de colores' },
-        [['var(--c-rojo)', 'Título y advertencias'], ['var(--c-azul)', 'Subtítulos y definiciones'], ['var(--c-negro)', 'Teoría'], ['var(--c-verde)', 'Flechas, notas y tablas'], ['var(--c-naranja)', 'Código y comandos']].map(([c, t]) => h('span', null, h('i', { style: { background: c } }), t)))));
+        [['var(--rojo)', 'Título y advertencias'], ['var(--azul)', 'Subtítulos y definiciones'], ['var(--ink)', 'Teoría'], ['var(--verde)', 'Flechas, notas y tablas'], ['var(--naranja)', 'Código y comandos']].map(([c, t]) => h('span', null, h('i', { style: { background: c } }), t)))));
 
   // Teclado: ← → cambian de hoja (no interfiere al escribir)
   const key = e => { if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName) || e.altKey || e.ctrlKey || e.metaKey) return;
