@@ -270,15 +270,15 @@
    },
    {
     "id": "07-m-06",
-    "prompt": "Un color se repite en doce reglas de la hoja escritas a mano, y hay que cambiarlo en todo el sitio. ¿Qué habría evitado ese trabajo?",
+    "prompt": "Una caja se declara con `width: 300px; padding: 20px; border: 2px solid;` y no hay ninguna regla de `box-sizing`. ¿Cuánto ancho ocupa realmente en la página?",
     "options": [
-     "Usar `!important` en la primera regla, para que el resto de las reglas la copien",
-     "Copiar la hoja doce veces, una por regla, para cambiar cada copia por separado",
-     "Nombrar las clases con el color incluido en su nombre, de modo que se identifiquen mejor",
-     "Declarar el color una vez como variable en `:root` y usar `var()`"
+     "300 px, porque el ancho declarado ya incluye el relleno y el borde",
+     "340 px, porque solo el relleno se suma por fuera y el borde no cuenta",
+     "322 px, porque el borde se suma una vez y el relleno ya está incluido",
+     "344 px, porque con `content-box` el relleno y el borde se suman por fuera de los 300 px"
     ],
     "answer": 3,
-    "explanation": "Con una variable el cambio se hace en un solo sitio. `!important` solo altera quién gana un conflicto y no centraliza el valor."
+    "explanation": "Por defecto el valor es `content-box`: los 300 px miden solo el contenido y se suman 20 + 20 de relleno y 2 + 2 de borde, así que la caja ocupa 344 px. Con `border-box` ocuparía exactamente 300 px."
    },
    {
     "id": "07-m-07",
@@ -416,15 +416,15 @@
    },
    {
     "id": "07-d-02",
-    "prompt": "Diagnóstico: se cambia el valor del color de acento en `:root` y casi todo el sitio se actualiza, menos el botón principal, que conserva el color viejo. ¿Dónde está la causa?",
+    "prompt": "Diagnóstico: un botón con `class=\"boton\"` debería ser azul según `.boton { color: blue; }`, pero se ve rojo. En la hoja hay también `button { color: red !important; }`, escrita antes y sin ninguna otra marca. ¿Por qué gana el rojo y cuál es el arreglo sano?",
     "options": [
-     "La caché del navegador conserva la hoja anterior, por lo que el botón no recibe el valor nuevo aunque el resto del sitio sí lo reciba",
-     "El botón necesita `!important` en su color para poder recibir el valor actualizado de la variable declarada en `:root`",
-     "Las variables definidas en `:root` solo llegan a los elementos de texto y no a los botones, que son controles de formulario",
-     "El botón declara el color escrito directamente en su regla, sin consumir la variable: lo que no pasa por `var()` no se entera del cambio en `:root`"
+     "Gana porque `!important` saca esa declaración de la competencia normal; el arreglo sano es quitar el `!important` y resolver el conflicto con selectores, no añadir otro `!important`",
+     "Gana porque el selector de tipo `button` tiene más especificidad que una clase; basta con subir la clase a `button.boton`",
+     "Gana porque está escrita antes en la hoja; basta con mover `.boton` al principio",
+     "Gana porque el navegador prioriza siempre los selectores de etiqueta sobre las clases; no tiene arreglo"
     ],
-    "answer": 3,
-    "explanation": "Una variable solo cambia en los lugares que la usan con `var()`. Si fuera la caché, tampoco se habría actualizado el resto del sitio."
+    "answer": 0,
+    "explanation": "`!important` gana contra cualquier regla sin la marca, sin importar especificidad ni orden, por eso ni subir la especificidad ni reordenar sirve. La salida sana es quitar la marca y resolver con selectores; añadir otro `!important` solo inicia una guerra de marcas."
    },
    {
     "id": "07-d-03",
