@@ -43,11 +43,13 @@ apps-script/  backend en Google Apps Script sobre Google Sheets
 scripts/    validate_content.py, migrate_from_respaldo.py
 ```
 
-**Contenido y progreso están separados.** El repositorio solo contiene contenido. El progreso (notas, XP, respuestas, retroalimentación) vive en el navegador de cada dispositivo y se sincroniza con una hoja de Google Sheets privada mediante una clave que **nunca** se guarda en el código.
+**Contenido y progreso están separados.** El repositorio solo contiene contenido. El progreso (notas, XP, respuestas, retroalimentación) vive en el navegador de cada dispositivo y **se sincroniza solo, sin ninguna clave**, con una hoja de Google Sheets de la cuenta del dueño. Es una aplicación de uso personal.
 
 ## Backend
 
-`apps-script/Code.gs` es una aplicación web de Apps Script con acciones para leer y guardar el estado, recibir entregas y registrar intentos. Cada petición exige una clave: una de estudiante (leer y escribir su progreso) y otra de tutor (listar y calificar entregas). Las claves viven en las propiedades del script, no en este repositorio.
+`apps-script/Code.gs` es una aplicación web de Apps Script sobre Google Sheets. Las acciones del estudiante (leer y guardar el progreso, enviar entregas, ver calificaciones) no piden clave. Las del tutor (listar y calificar entregas, leer copias de seguridad) exigen una clave de tutor que vive en las propiedades del script y nunca en este repositorio.
+
+Como la URL es pública, el servidor se protege con un tope de tamaño, el rechazo de un estado vacío sobre uno con progreso y **copias de seguridad automáticas** (hoja `Respaldos`: una cada 30 minutos como máximo, últimas 60, comprimidas).
 
 Despliegue con [clasp](https://github.com/google/clasp): `clasp push` y `clasp deploy`.
 

@@ -128,7 +128,6 @@ export function recordAttempt(w, lv, result) {
 
 // ---------------------------------------------------------------- trabajos e insignias (calificación del tutor)
 export async function submitEntrega({ kind, week, title, text, badge, level }) {
-  if (!hasKey()) throw new Error('Configura la sincronización en Perfil para enviar entregas a tu tutor.');
   const r = await call('enviarTrabajo', { trabajo: { semana: week, titulo: title, contenido: text } });
   mutate(S => {
     S.entregas[r.id] = { kind, week, badge, level };
@@ -148,9 +147,11 @@ export async function submitEntrega({ kind, week, title, text, badge, level }) {
 export async function refreshGrades() {
   if (!hasKey()) return 0;
   const list = await call('leerCalificaciones');
+  const nuevas = list.filter(g => { const i = state().entregas[g.id]; return i && i.applied !== g.calificado; });
+  if (!nuevas.length) return 0;                      // sin novedades: no se toca el estado ni se sube nada
   let applied = 0;
   mutate(S => {
-    for (const g of list) {
+    for (const g of nuevas) {
       const info = S.entregas[g.id];
       if (!info || info.applied === g.calificado) continue;
       info.applied = g.calificado;

@@ -2,9 +2,12 @@
  * Backend de la plataforma Ruta Full Stack (Google Sheets + Apps Script).
  *
  * Despliegue: Web app, "Ejecutar como: yo", "Acceso: cualquier persona".
- * La seguridad NO depende de la URL: cada petición exige una clave que vive en
- * Propiedades del script (USER_KEY para el estudiante, ADMIN_KEY para el tutor).
- * Esas claves nunca se guardan en el repositorio.
+ * Aplicación de uso personal: las acciones del estudiante (leer/guardar progreso, enviar
+ * entregas, ver calificaciones) NO exigen clave. Solo las del tutor (listar y calificar
+ * entregas, restaurar copias) exigen ADMIN_KEY, que vive en Propiedades del script y
+ * nunca en el repositorio.
+ * Como la URL es pública, el servidor se protege con: tope de tamaño, rechazo de un
+ * estado vacío sobre uno con progreso y COPIAS DE SEGURIDAD automáticas (hoja Respaldos).
  *
  * Hojas (se crean con setup()):
  *   Estado       clave | json | actualizado
@@ -91,12 +94,11 @@ function doPost(e) {
     lock.waitLock(20000);
     var req = JSON.parse((e && e.postData && e.postData.contents) || '{}');
     var rol = autenticar_(req.key);
-    if (!rol) return responder_({ ok: false, error: 'clave inválida' });
     var accion = String(req.accion || '');
     var manejadores = {
       ping: function () { return { rol: rol }; },
       leerEstado: leerEstado_,
-      guardarEstado: guardarEstado_,
+      guardarEstado: function (r) { return guardarEstado_(r, rol); },
       enviarTrabajo: enviarTrabajo_,
       registrarIntento: registrarIntento_,
       registrarSesion: registrarSesion_,
@@ -104,6 +106,8 @@ function doPost(e) {
       // Solo tutor
       listarPendientes: soloAdmin_(rol, listarPendientes_),
       calificarTrabajo: soloAdmin_(rol, calificarTrabajo_),
+      listarRespaldos: soloAdmin_(rol, listarRespaldos_),
+      leerRespaldo: soloAdmin_(rol, leerRespaldo_),
     };
     if (!manejadores[accion]) return responder_({ ok: false, error: 'acción desconocida' });
     var resultado = manejadores[accion](req);
@@ -119,12 +123,10 @@ function responder_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
 }
 
+/** Sin clave (o con una vieja) se actúa como estudiante; solo la clave del tutor da rol 'admin'. */
 function autenticar_(key) {
-  if (!key) return null;
-  var p = PropertiesService.getScriptProperties();
-  if (key === p.getProperty('ADMIN_KEY')) return 'admin';
-  if (key === p.getProperty('USER_KEY')) return 'user';
-  return null;
+  if (key && key === PropertiesService.getScriptProperties().getProperty('ADMIN_KEY')) return 'admin';
+  return 'user';
 }
 
 function soloAdmin_(rol, fn) {
@@ -163,14 +165,14 @@ function leerEstado_() {
   return { estado: JSON.parse(json), actualizado: actualizado };
 }
 
-function guardarEstado_(req) {
+function guardarEstado_(req, rol) {
   var json = JSON.stringify(req.estado || {});
   if (json.length > MAX_JSON) throw new Error('estado demasiado grande');
   var actual = leerEstado_();
   var nuevo = Number(req.actualizado) || Date.now();
   // Defensa en profundidad: un estado sin progreso nunca sobrescribe uno que sí lo tiene.
   var conProgreso = function (e) { return !!e && ((e.topics && Object.keys(e.topics).length > 0) || Number(e.xp) > 0); };
-  if (actual.estado && conProgreso(actual.estado) && !conProgreso(req.estado) && !req.forzar) {
+  if (actual.estado && conProgreso(actual.estado) && !conProgreso(req.estado) && !(req.forzar && rol === 'admin')) {
     log_('guardarEstado', 'RECHAZADO: estado vacío sobre estado con progreso');
     return { guardado: false, estado: actual.estado, actualizado: actual.actualizado, motivo: 'vacio' };
   }
@@ -178,6 +180,7 @@ function guardarEstado_(req) {
   if (actual.estado && actual.actualizado > nuevo) {
     return { guardado: false, estado: actual.estado, actualizado: actual.actualizado };
   }
+  if (actual.estado && conProgreso(actual.estado)) respaldar_(actual);   // copia del estado que se va a reemplazar
   var hoja = hoja_('Estado');
   var ultima = hoja.getLastRow();
   if (ultima > 1) hoja.getRange(2, 1, ultima - 1, 3).clearContent();
@@ -241,4 +244,43 @@ function calificarTrabajo_(req) {
     }
   }
   throw new Error('entrega no encontrada');
+}
+
+
+/* ------------------------------ copias de seguridad ------------------------------ */
+var RESPALDO_CADA_MIN = 30, RESPALDOS_MAX = 60;
+
+function hojaRespaldos_() {
+  var ss = libro_(), h = ss.getSheetByName('Respaldos');
+  if (!h) { h = ss.insertSheet('Respaldos'); h.getRange(1, 1, 1, 3).setValues([['fecha', 'actualizado', 'estado_gz_base64']]).setFontWeight('bold'); h.setFrozenRows(1); }
+  return h;
+}
+
+/** Guarda una copia comprimida del estado, como mucho una cada 30 minutos; conserva las últimas 60. */
+function respaldar_(actual) {
+  try {
+    var h = hojaRespaldos_(), n = h.getLastRow();
+    if (n > 1) {
+      var ultimo = new Date(h.getRange(n, 1).getValue()).getTime();
+      if (Date.now() - ultimo < RESPALDO_CADA_MIN * 60000) return;
+    }
+    var blob = Utilities.gzip(Utilities.newBlob(JSON.stringify(actual.estado), 'application/json', 'estado.json'));
+    h.appendRow([new Date(), actual.actualizado, Utilities.base64Encode(blob.getBytes())]);
+    var total = h.getLastRow() - 1;
+    if (total > RESPALDOS_MAX) h.deleteRows(2, total - RESPALDOS_MAX);
+  } catch (e) { log_('respaldar', e); }
+}
+
+function listarRespaldos_() {
+  var h = hojaRespaldos_(), n = h.getLastRow();
+  if (n < 2) return [];
+  return h.getRange(2, 1, n - 1, 2).getValues().map(function (f, i) { return { i: i, fecha: f[0], actualizado: f[1] }; });
+}
+
+function leerRespaldo_(req) {
+  var h = hojaRespaldos_(), fila = Number(req.i) + 2;
+  if (!(fila >= 2 && fila <= h.getLastRow())) throw new Error('respaldo no encontrado');
+  var b64 = h.getRange(fila, 3).getValue();
+  var bytes = Utilities.ungzip(Utilities.newBlob(Utilities.base64Decode(b64), 'application/x-gzip')).getDataAsString();
+  return { estado: JSON.parse(bytes) };
 }

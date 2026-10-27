@@ -1,5 +1,6 @@
 // Cliente del backend (Google Apps Script sobre Google Sheets).
-// La URL es pública; el acceso lo protege una clave que cada dispositivo guarda solo en su navegador.
+// Aplicación de uso personal: está SIEMPRE conectada a tu cuenta (tu hoja de Google Sheets), sin claves.
+// La calificación de trabajos sigue siendo exclusiva del tutor (clave de tutor, que no existe en la app).
 //
 // Reglas que protegen el progreso (lecciones de un fallo real):
 //  1. Un dispositivo "virgen" (sin temas, XP ni sesiones) JAMÁS sobrescribe una nube con progreso,
@@ -8,7 +9,7 @@
 //     para que nadie pueda tocar un estado vacío mientras llega el real.
 //  3. El servidor también rechaza un estado vacío sobre uno con progreso (defensa en profundidad).
 import { getConfig } from './content.js';
-import { state, mutate, replaceState, getKey, onLocalChange } from './store.js';
+import { state, mutate, replaceState, onLocalChange } from './store.js';
 import { debounce } from './util.js';
 
 let status = 'off';           // off | idle | syncing | ok | error
@@ -19,7 +20,7 @@ export const syncStatus = () => ({ status, detail, lastOk, lastMs, dirty });
 export const onSyncStatus = fn => { listeners.add(fn); return () => listeners.delete(fn); };
 function set(s, d = '') { status = s; detail = d; if (s === 'ok') lastOk = Date.now(); listeners.forEach(f => f(syncStatus())); }
 
-export const hasKey = () => !!getKey();
+export const hasKey = () => true;      // siempre conectada: ya no hay clave de estudiante
 
 /** Un estado local sin nada de estudio: recién creado en un dispositivo nuevo. */
 export function isPristine(s = state()) {
@@ -31,7 +32,6 @@ function friendly(e) {
   const m = String(e && e.message || e);
   if (e && e.name === 'AbortError') return 'El servidor tardó demasiado en responder';
   if (/Failed to fetch|NetworkError|Load failed/i.test(m)) return 'Sin internet o bloqueado por el navegador';
-  if (/clave inválida/i.test(m)) return 'La clave no es correcta';
   if (/Unexpected token|JSON/i.test(m)) return 'El servidor devolvió una respuesta inesperada (¿despliegue desactualizado?)';
   return m;
 }
@@ -39,15 +39,13 @@ const transient = e => e && (e.name === 'AbortError' || /Failed to fetch|Network
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 async function once(accion, extra, timeout, keepalive) {
-  const key = getKey();
-  if (!key) throw new Error('sin-clave');
   const { url } = await getConfig();
   const ctl = new AbortController();
   const t = setTimeout(() => ctl.abort(), timeout);
   const t0 = performance.now();
   try {
     // text/plain evita la comprobación previa de CORS que Apps Script no admite
-    const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ accion, key, ...extra }), signal: ctl.signal, keepalive });
+    const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ accion, ...extra }), signal: ctl.signal, keepalive });
     const j = await r.json();
     lastMs = Math.round(performance.now() - t0);
     if (!j.ok) throw new Error(j.error || 'Error del servidor');
@@ -68,9 +66,8 @@ export async function ping() { return (await call('ping')).rol; }
 
 /** Prueba la conexión y devuelve un resultado legible para mostrar al usuario. */
 export async function diagnose() {
-  if (!hasKey()) return { ok: false, msg: 'No hay clave guardada en este dispositivo.' };
   if (!navigator.onLine) return { ok: false, msg: 'El dispositivo no tiene internet.' };
-  try { const rol = await ping(); return { ok: true, msg: `Conectado como ${rol === 'admin' ? 'tutor' : 'estudiante'} · ${lastMs} ms`, rol }; }
+  try { await ping(); return { ok: true, msg: `Conectado a tu cuenta · ${lastMs} ms` }; }
   catch (e) { return { ok: false, msg: friendly(e) }; }
 }
 
@@ -125,6 +122,6 @@ document.addEventListener('visibilitychange', () => { if (document.visibilitySta
 window.addEventListener('pagehide', flush);
 window.addEventListener('online', () => { if (hasKey()) pull(); });
 
-export function initSync() { set(hasKey() ? 'idle' : 'off'); if (!hasKey()) firstPullDone = true; }
+export function initSync() { set('idle'); }
 export async function syncNow() { await pull(); }
 export const isSyncReady = () => firstPullDone;

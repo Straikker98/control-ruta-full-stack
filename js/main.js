@@ -93,7 +93,7 @@ function paintSync() {
   const map = { off: ['cloudoff', 'Sin sincronizar', ''], idle: ['cloud', 'Nube', ''], syncing: ['refresh', 'Sincronizando', ''], ok: ['cloud', 'Sincronizado', 'ok'], error: ['cloudoff', 'Sin conexión', 'warn'] };
   const [ic, label, cls] = map[status];
   clear(syncBox);
-  syncBox.append(h('button', { class: 'chip syncchip ' + cls, title: detail || label, onclick: () => { if (!hasKey()) location.hash = '#/perfil'; else pull().then(changed => changed && render()); } }, icon(ic), h('span', null, label)));
+  syncBox.append(h('button', { class: 'chip syncchip ' + cls, title: detail || label, onclick: () => { pull().then(changed => changed && render()); } }, icon(ic), h('span', null, label)));
 }
 function paintMe() { clear(avatarBox); avatarBox.append(h('a', { href: '#/perfil', 'aria-label': 'Perfil', style: { display: 'block' } }, avatar(state().profile.avatar, 40))); }
 
@@ -108,14 +108,13 @@ if (!location.hash) location.replace('#/hoy');
 // Con clave, se espera (máx. 8 s) a la primera sincronización ANTES de mostrar la app:
 // así nadie toca un estado vacío mientras llega el progreso real de la nube.
 (async () => {
-  if (hasKey()) {
+  {
     root.replaceChildren(loading());
     const sleep = ms => new Promise(r => setTimeout(r, ms));
     await Promise.race([pull(), sleep(8000)]);
     applyTheme(); paintMe();
   }
   render();
-  if (!hasKey()) return;
   try { const n = await L.refreshGrades(); if (n) { toast(`${n} calificación(es) nueva(s) de tu tutor`, 'ok'); render(); } } catch { /* sin conexión: se reintenta al abrir */ }
 })();
 

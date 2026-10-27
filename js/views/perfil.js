@@ -2,9 +2,9 @@
 import { h, toast, confirmDialog, dayKey, addDays, fmtDate, fmtMin, clear } from '../util.js';
 import { icon } from '../icons.js';
 import { getRoute } from '../content.js';
-import { state, mutate, getKey, setKey, exportJSON, importJSON, resetAll } from '../store.js';
+import { state, mutate, exportJSON, importJSON, resetAll } from '../store.js';
 import * as L from '../logic.js';
-import { syncNow, ping, syncStatus, onSyncStatus, diagnose } from '../sync.js';
+import { syncNow, syncStatus, onSyncStatus, diagnose } from '../sync.js';
 import { avatar } from '../avatar.js';
 import { applyTheme } from '../theme.js';
 import { heading, note } from './ui.js';
@@ -47,26 +47,18 @@ export async function perfilView() {
     h('div', { class: 'field' }, h('label', { for: 'meta' }, 'Meta diaria (minutos)'), goal),
     h('label', { class: 'check', style: { borderTop: 0, padding: 0 } }, h('input', { type: 'checkbox', checked: P.gamification, onchange: e => mutate(S => { S.profile.gamification = e.target.checked; }) }), h('span', null, 'Mostrar XP, nivel y racha'))));
 
-  // ---- Sincronización
-  const keyIn = h('input', { class: 'input', id: 'clave', type: 'password', autocomplete: 'off', placeholder: 'Pega tu clave de estudiante', value: getKey() });
+  // ---- Sincronización (siempre activa, sin claves)
   const stBox = h('div', { class: 'hint', 'aria-live': 'polite' });
   const ago = ts => { if (!ts) return ''; const m = Math.round((Date.now() - ts) / 60000); return m < 1 ? 'hace un momento' : m < 60 ? `hace ${m} min` : `hace ${Math.round(m / 60)} h`; };
-  const paint = () => { const s = syncStatus(); stBox.textContent = ({ off: 'Sin clave: el progreso solo vive en este dispositivo.', idle: 'Clave guardada.', syncing: 'Sincronizando…', ok: 'Sincronizado con Google Sheets' + (s.lastOk ? ' · ' + ago(s.lastOk) : '') + (s.lastMs ? ` · ${s.lastMs} ms` : '') + '.', error: 'No se pudo sincronizar: ' + (s.detail || 'error desconocido') + '.' })[s.status] || ''; if (s.dirty && s.status !== 'syncing') stBox.textContent += ' Hay cambios pendientes de subir.'; };
+  const paint = () => { const s = syncStatus(); stBox.textContent = ({ idle: 'Conectada a tu cuenta.', syncing: 'Sincronizando…', ok: 'Sincronizado con tu cuenta' + (s.lastOk ? ' · ' + ago(s.lastOk) : '') + (s.lastMs ? ` · ${s.lastMs} ms` : '') + '.', error: 'No se pudo sincronizar: ' + (s.detail || 'error desconocido') + '. Lo local se conserva y se sube al volver la conexión.' })[s.status] || ''; if (s.dirty && s.status !== 'syncing') stBox.textContent += ' Hay cambios pendientes de subir.'; };
   const off = onSyncStatus(paint); paint();
   const diag = h('div', { class: 'note', role: 'status', hidden: true, style: { marginTop: '12px' } });
   view.append(section('Sincronización',
-    h('p', { class: 'muted' }, 'Tu progreso se guarda en una hoja de Google Sheets de tu cuenta para verlo igual en el celular y en el computador. La clave solo se guarda en este navegador.'),
-    h('div', { class: 'field' }, h('label', { for: 'clave' }, 'Clave de estudiante'), keyIn, stBox),
-    h('div', { class: 'row wrap' },
-      h('button', { class: 'btn primary', onclick: async e => {
-        const b = e.currentTarget; b.disabled = true; setKey(keyIn.value);
-        try { const rol = await ping(); toast(`Conectado (${rol === 'admin' ? 'tutor' : 'estudiante'})`, 'ok'); await syncNow(); await L.refreshGrades().catch(() => 0); location.hash = `#/perfil?r=${Date.now()}`; }
-        catch (x) { toast(x.message === 'sin-clave' ? 'Escribe la clave.' : 'No se pudo conectar: ' + x.message, 'bad'); setKey(''); paint(); }
-        b.disabled = false;
-      } }, icon('cloud'), 'Guardar y conectar'),
-      h('button', { class: 'btn', onclick: async () => { await syncNow(); try { const n = await L.refreshGrades(); toast(n ? `${n} calificación(es) nueva(s)` : 'Todo al día', 'ok'); } catch { toast('Sin conexión', 'bad'); } } }, icon('refresh'), 'Sincronizar ahora'),
-      getKey() ? h('button', { class: 'btn', onclick: async e => { const b = e.currentTarget; b.disabled = true; diag.textContent = 'Probando…'; const r = await diagnose(); diag.className = 'note ' + (r.ok ? 'ok' : 'bad'); diag.textContent = r.msg; diag.hidden = false; b.disabled = false; } }, icon('info'), 'Probar conexión') : null,
-      getKey() ? h('button', { class: 'btn ghost', onclick: () => { setKey(''); toast('Clave eliminada de este dispositivo'); location.hash = `#/perfil?r=${Date.now()}`; } }, 'Quitar clave') : null), diag));
+    h('p', { class: 'muted' }, 'Tu progreso se guarda automáticamente en tu hoja de Google Sheets y se ve igual en el celular y en el computador. No hay nada que configurar.'),
+    stBox,
+    h('div', { class: 'row wrap', style: { marginTop: '12px' } },
+      h('button', { class: 'btn primary', onclick: async e => { const b = e.currentTarget; b.disabled = true; await syncNow(); try { const n = await L.refreshGrades(); toast(n ? `${n} calificación(es) nueva(s)` : 'Todo al día', 'ok'); } catch { toast('Sin conexión', 'bad'); } b.disabled = false; } }, icon('refresh'), 'Sincronizar ahora'),
+      h('button', { class: 'btn', onclick: async e => { const b = e.currentTarget; b.disabled = true; diag.className = 'note'; diag.textContent = 'Probando…'; diag.hidden = false; const r = await diagnose(); diag.className = 'note ' + (r.ok ? 'ok' : 'bad'); diag.textContent = r.msg; b.disabled = false; } }, icon('info'), 'Probar conexión')), diag));
   view.cleanup = off;
 
   // ---- Copias

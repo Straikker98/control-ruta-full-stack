@@ -4,7 +4,6 @@ import { icon } from '../icons.js';
 import { getRoute, getTopic, getChecklist, topicReady, weekInfo } from '../content.js';
 import { state, topicOf } from '../store.js';
 import * as L from '../logic.js';
-import { hasKey, ping } from '../sync.js';
 import { back, heading, note, paragraphBoxes, statusChip, ring, fmtScore } from './ui.js';
 
 export async function startAndGo(w) {
@@ -139,11 +138,10 @@ export async function trabajoView({ w }) {
     try {
       await L.submitEntrega({ kind: 'trabajo', week: w, title: `Tema ${w} · ${topic.trabajo.title}`, text });
       toast('Trabajo enviado a tu tutor', 'ok');
-    } catch (e) { toast(e.message === 'sin-clave' ? 'Configura la sincronización en Perfil primero.' : e.message, 'bad'); }
+    } catch (e) { toast('No se pudo enviar: ' + e.message, 'bad'); }
     location.hash = `#/trabajo/${w}?r=${Date.now()}`;
   } }, icon('send'), tr.status === 'graded' ? 'Reenviar trabajo corregido' : 'Entregar al tutor');
   view.append(h('section', { class: 'card', 'aria-labelledby': 'ent' }, h('h2', { id: 'ent' }, tr.status === 'graded' ? 'Corrige y reenvía' : 'Tu entrega'),
-    !hasKey() ? note('warn', 'Para que tu tutor reciba la entrega, activa la sincronización en Perfil (clave de estudiante).', 'cloud') : null,
     h('div', { class: 'field', style: { marginTop: '12px' } }, h('label', { for: 'entrega' }, 'Enlace y explicación'), ta, h('span', { class: 'hint' }, 'El tutor solo ve lo que escribas aquí. No incluyas contraseñas ni datos personales.')), btn));
   return view;
 }

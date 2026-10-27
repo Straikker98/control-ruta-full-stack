@@ -53,9 +53,6 @@ export function replaceState(next, { keepUpdated = true } = {}) {
 export const topicOf = w => S.topics[w] || {};
 export const profile = () => S.profile;
 
-// ---- Clave de acceso al backend: solo local, jamás se sincroniza ni se guarda en el estado
-export const getKey = () => localStorage.getItem('rfs.key') || '';
-export const setKey = k => (k ? localStorage.setItem('rfs.key', k.trim()) : localStorage.removeItem('rfs.key'));
 
 // ---- Exportar / importar
 export function exportJSON() { return JSON.stringify({ app: 'ruta-full-stack', exported: new Date().toISOString(), state: S }, null, 1); }
