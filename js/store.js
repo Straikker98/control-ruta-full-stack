@@ -13,6 +13,9 @@ export const defaults = () => ({
   sessions: [],           // { date, min, week, note }
   badges: {},             // { [id]: { aplicado: {...}, avanzado: {...} } }
   review: {},             // repaso espaciado: { [qid]: { box, due } }
+  notes: {},              // notas del Cuaderno: { 'semana:hoja': texto }
+  marks: {},              // marcadores del Cuaderno: { 'semana:hoja': 1 }
+  cards: {},              // tarjetas propias de repaso: { id: { q, a, box, due } }
   entregas: {},           // { [idBackend]: { kind: 'trabajo'|'badge', week, badge?, level?, applied? } }
 });
 

@@ -1,4 +1,35 @@
+// Avatares: personajes de anime ordenados de menos a más famosos; se desbloquean al completar temas.
+// Si existe una imagen en assets/avatars/ (listada en index.json), se usa; si no, se dibuja un avatar geométrico.
+// Las ilustraciones originales tienen derechos de autor: este repositorio NO las incluye (ver assets/avatars/LEEME.md).
+export const ROSTER = [
+  ['Kirito', 'Sword Art Online'], ['Asuna', 'Sword Art Online'], ['Rem', 'Re:Zero'], ['Megumin', 'KonoSuba'],
+  ['Rock Lee', 'Naruto'], ['Kaneki Ken', 'Tokyo Ghoul'], ['Natsu Dragneel', 'Fairy Tail'], ['Erza Scarlet', 'Fairy Tail'],
+  ['Gon Freecss', 'Hunter x Hunter'], ['Killua Zoldyck', 'Hunter x Hunter'], ['Hinata Hyuga', 'Naruto'], ['Sakura Haruno', 'Naruto'],
+  ['Kakashi Hatake', 'Naruto'], ['Gaara', 'Naruto'], ['Nami', 'One Piece'], ['Sanji', 'One Piece'], ['Nico Robin', 'One Piece'],
+  ['Tony Tony Chopper', 'One Piece'], ['Usopp', 'One Piece'], ['Bulma', 'Dragon Ball'], ['Piccolo', 'Dragon Ball'], ['Gohan', 'Dragon Ball'],
+  ['Trunks', 'Dragon Ball'], ['Frieza', 'Dragon Ball'], ['Spike Spiegel', 'Cowboy Bebop'], ['Alphonse Elric', 'Fullmetal Alchemist'],
+  ['Roy Mustang', 'Fullmetal Alchemist'], ['Edward Elric', 'Fullmetal Alchemist'], ['Ryuk', 'Death Note'], ['L Lawliet', 'Death Note'],
+  ['Light Yagami', 'Death Note'], ['Armin Arlert', 'Attack on Titan'], ['Mikasa Ackerman', 'Attack on Titan'], ['Denji', 'Chainsaw Man'],
+  ['Power', 'Chainsaw Man'], ['Makima', 'Chainsaw Man'], ['Ochaco Uraraka', 'My Hero Academia'], ['Todoroki Shoto', 'My Hero Academia'],
+  ['Bakugo Katsuki', 'My Hero Academia'], ['All Might', 'My Hero Academia'], ['Deku', 'My Hero Academia'], ['Inosuke Hashibira', 'Demon Slayer'],
+  ['Zenitsu Agatsuma', 'Demon Slayer'], ['Rengoku Kyojuro', 'Demon Slayer'], ['Nezuko Kamado', 'Demon Slayer'], ['Nobara Kugisaki', 'Jujutsu Kaisen'],
+  ['Megumi Fushiguro', 'Jujutsu Kaisen'], ['Sukuna', 'Jujutsu Kaisen'], ['Yuji Itadori', 'Jujutsu Kaisen'], ['Genos', 'One Punch Man'],
+  ['Ichigo Kurosaki', 'Bleach'], ['Levi Ackerman', 'Attack on Titan'], ['Eren Yeager', 'Attack on Titan'], ['Tanjiro Kamado', 'Demon Slayer'],
+  ['Satoru Gojo', 'Jujutsu Kaisen'], ['Roronoa Zoro', 'One Piece'], ['Saitama', 'One Punch Man'], ['Vegeta', 'Dragon Ball'],
+  ['Itachi Uchiha', 'Naruto'], ['Sasuke Uchiha', 'Naruto'], ['Monkey D. Luffy', 'One Piece'], ['Naruto Uzumaki', 'Naruto'], ['Goku', 'Dragon Ball'],
+];
+export const STARTERS = 4;                      // disponibles desde el inicio; el resto, uno por tema completado
+export const unlockTopic = i => Math.max(0, i - STARTERS + 1);   // tema que se debe completar para el avatar i
+export const avatarInfo = id => { const n = parseInt(String(id).slice(1), 10) || 0; const r = ROSTER[n]; return { n, name: r ? r[0] : `Avatar ${n + 1}`, from: r ? r[1] : '' }; };
+
+const slug = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+let images = {};                                // { slug: archivo } según assets/avatars/index.json
+export async function loadAvatarImages() {
+  try { const r = await fetch('assets/avatars/index.json', { cache: 'no-cache' }); if (r.ok) images = await r.json(); } catch { images = {}; }
+}
+
 // Avatares geométricos generados (sin imágenes con derechos de autor): 100 diseños únicos y deterministas.
+const img = n => { const f = ROSTER[n] && images[slug(ROSTER[n][0])]; return f ? `<image href="assets/avatars/${f}" width="64" height="64" preserveAspectRatio="xMidYMid slice"/>` : ''; };
 export function avatar(id, size = 44) {
   const n = parseInt(String(id).slice(1), 10) || 0;
   const hue = (n * 47 + 12) % 360, hue2 = (hue + 40 + (n % 7) * 11) % 360;
@@ -15,8 +46,8 @@ export function avatar(id, size = 44) {
   ];
   const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   s.setAttribute('viewBox', '0 0 64 64'); s.setAttribute('width', size); s.setAttribute('height', size);
-  s.setAttribute('class', 'avatar'); s.setAttribute('role', 'img'); s.setAttribute('aria-label', 'Avatar ' + (n + 1));
+  s.setAttribute('class', 'avatar'); s.setAttribute('role', 'img'); s.setAttribute('aria-label', avatarInfo(id).name);
   s.style.setProperty('--size', size + 'px');
-  s.innerHTML = `<defs><linearGradient id="g${n}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${bg1}"/><stop offset="1" stop-color="${bg2}"/></linearGradient></defs><rect width="64" height="64" fill="url(#g${n})"/>${shapes[(n + Math.floor(n / 8)) % shapes.length]}`;
+  s.innerHTML = `<defs><linearGradient id="g${n}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${bg1}"/><stop offset="1" stop-color="${bg2}"/></linearGradient></defs><rect width="64" height="64" fill="url(#g${n})"/>${shapes[(n + Math.floor(n / 8)) % shapes.length]}${img(n)}`;
   return s;
 }

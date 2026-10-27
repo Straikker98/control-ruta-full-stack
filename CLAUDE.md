@@ -11,6 +11,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 python -m http.server 8000          # desarrollo local (file:// no funciona: se leen JSON por fetch)
 python scripts/validate_content.py  # valida exámenes (≥15 preguntas/nivel, 4 opciones, clave+explicación, posiciones balanceadas)
+node --test tests/logic.test.mjs     # pruebas de las reglas de desbloqueo, exámenes, avatares y tarjetas (sin dependencias)
+python scripts/avatars_index.py     # registra las imágenes puestas en assets/avatars/ (ver LEEME.md allí)
 python scripts/next_topic.py        # informa qué tema toca generar hoy (JSON); --mark N lo registra en content/index.json
 ```
 
@@ -25,6 +27,9 @@ Despliegue: GitHub Pages sirve la raíz; el backend se publica con `clasp push` 
 - `apps-script/Code.gs`: backend (doGet/doPost) sobre Google Sheets. Acciones del estudiante sin clave; las del tutor (calificar entregas, leer respaldos) exigen clave en las propiedades del script. `Claves.gs`, `.clasp.json` y `.clasprc.json` están en `.gitignore`: nunca versionarlos. Respaldos automáticos en hoja `Respaldos`.
 - `sw.js`: caché de "cascarón" + contenido, con actualización en segundo plano; nunca intercepta el backend. **Al añadir/renombrar archivos CSS/JS hay que actualizarlos en `SHELL` y subir `VERSION`** para que los clientes se actualicen.
 - `css/`: `tokens.css` (variables, tema claro/oscuro, acentos, color por fase `--ph-N`), `base.css` (todos los componentes), `cuaderno.css`, `lab.css`. `js/fx.js` (confeti, +XP, contadores) y `js/palette.js` (Ctrl+K) son efectos de interfaz; `util.toast` dispara confeti cuando el mensaje contiene `+N XP`.
+- **Avatares:** `js/avatar.js` define `ROSTER` (63 personajes, de menos a más famosos; 4 iniciales y uno por tema completado). El repositorio no incluye ilustraciones con derechos de autor: si hay imagen en `assets/avatars/`, se usa; si no, un avatar geométrico.
+- **Diseño por ancho:** `.view` llega a 1720 px; `.split`, `.cols2`, `.nb-layout` y `.phases` reparten el contenido en columnas en pantallas grandes.
+- Estado extra sincronizado en `store.js`: `notes`, `marks` (Cuaderno) y `cards` (tarjetas propias).
 
 ## Generar contenido de temas
 

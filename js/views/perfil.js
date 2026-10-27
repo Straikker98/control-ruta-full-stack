@@ -5,7 +5,7 @@ import { getRoute } from '../content.js';
 import { state, mutate, exportJSON, importJSON, resetAll } from '../store.js';
 import * as L from '../logic.js';
 import { syncNow, syncStatus, onSyncStatus, diagnose } from '../sync.js';
-import { avatar } from '../avatar.js';
+import { avatar, avatarInfo, STARTERS, unlockTopic } from '../avatar.js';
 import { applyTheme } from '../theme.js';
 import { canPrompt, promptInstall, isInstalled, isIOS, onInstallChange } from '../install.js';
 import { heading, note } from './ui.js';
@@ -16,23 +16,28 @@ function section(title, ...kids) { return h('section', { class: 'card', style: {
 
 export async function perfilView() {
   const S = state(), P = S.profile;
-  const view = h('div', { class: 'view narrow' });
+  const view = h('div', { class: 'view wide cols2' });
   view.append(heading('Perfil', 'Tu cuenta de estudio, la apariencia y la sincronización entre dispositivos.'));
 
   // ---- Identidad
   const unlocked = L.avatarsUnlocked();
   const name = h('input', { class: 'input', id: 'nombre', value: P.name, maxlength: 40, onchange: e => mutate(S => { S.profile.name = e.target.value.trim() || 'Alejo'; }) });
-  const grid = h('div', { class: 'avatar-grid', role: 'group', 'aria-label': 'Avatares' });
+  const grid = h('div', { class: 'avatar-grid', role: 'group', 'aria-label': 'Personajes' });
+  const cur = h('div', null);
+  const paintCur = () => { const i = avatarInfo(state().profile.avatar); cur.replaceChildren(h('b', null, i.name), h('div', { class: 'hint' }, i.from)); };
   for (let i = 0; i < L.AVATAR_COUNT; i++) {
-    const id = L.avatarId(i);
-    const b = h('button', { class: 'avatar-opt', type: 'button', disabled: i >= unlocked, 'aria-pressed': String(P.avatar === id), 'aria-label': `Avatar ${i + 1}${i >= unlocked ? ' (bloqueado)' : ''}`,
-      onclick: () => { mutate(S => { S.profile.avatar = id; }, { quiet: true }); grid.querySelectorAll('.avatar-opt').forEach(x => x.setAttribute('aria-pressed', String(x === b))); document.dispatchEvent(new Event('avatar-changed')); } }, avatar(id, 54));
+    const id = L.avatarId(i), info = avatarInfo(id), locked = i >= unlocked;
+    const b = h('button', { class: 'avatar-opt' + (locked ? ' locked' : ''), type: 'button', disabled: locked, 'aria-pressed': String(P.avatar === id),
+      title: locked ? `Se desbloquea al completar el tema ${unlockTopic(i)}` : `${info.name} · ${info.from}`, 'aria-label': `${info.name}${locked ? ` (bloqueado: completa el tema ${unlockTopic(i)})` : ''}`,
+      onclick: () => { mutate(S => { S.profile.avatar = id; }, { quiet: true }); grid.querySelectorAll('.avatar-opt').forEach(x => x.setAttribute('aria-pressed', String(x === b))); paintCur(); document.dispatchEvent(new Event('avatar-changed')); } },
+      avatar(id, 58), locked ? icon('lock') : null);
     grid.append(b);
   }
+  paintCur();
   view.append(section('Identidad',
-    h('div', { class: 'row', style: { marginBottom: '16px' } }, avatar(P.avatar, 64), h('div', { class: 'field', style: { margin: 0, flex: 1 } }, h('label', { for: 'nombre' }, 'Nombre'), name)),
-    h('div', { class: 'label', style: { marginBottom: '8px' } }, `Avatares (${unlocked} de ${L.AVATAR_COUNT} desbloqueados)`),
-    h('p', { class: 'hint' }, 'Empiezas con 4 y desbloqueas 2 más por cada tema completado.'), grid));
+    h('div', { class: 'row', style: { marginBottom: '16px' } }, avatar(P.avatar, 72), cur, h('div', { class: 'field', style: { margin: 0, flex: 1 } }, h('label', { for: 'nombre' }, 'Nombre'), name)),
+    h('div', { class: 'label', style: { marginBottom: '4px' } }, `Personajes (${unlocked} de ${L.AVATAR_COUNT} desbloqueados)`),
+    h('p', { class: 'hint' }, unlocked < L.AVATAR_COUNT ? `Empiezas con ${STARTERS} y desbloqueas uno por cada tema completado. Los más famosos están al final. Siguiente: ${avatarInfo(L.avatarId(unlocked)).name}, al completar el tema ${unlockTopic(unlocked)}.` : 'Los desbloqueaste todos.'), grid));
 
   // ---- Apariencia
   const theme = h('div', { class: 'row wrap', role: 'radiogroup', 'aria-label': 'Tema' }, [['auto', 'Automático'], ['light', 'Claro'], ['dark', 'Oscuro']].map(([v, t]) =>
@@ -86,6 +91,8 @@ export async function perfilView() {
       h('button', { class: 'btn', onclick: () => { const a = h('a', { href: URL.createObjectURL(new Blob([exportJSON()], { type: 'application/json' })), download: `progreso-ruta-fullstack-${dayKey()}.json` }); a.click(); URL.revokeObjectURL(a.href); } }, 'Descargar progreso'),
       h('button', { class: 'btn', onclick: () => file.click() }, 'Importar progreso'), file)));
 
+  view.append(section('Portafolio', h('p', { class: 'muted' }, 'Una hoja imprimible con tus temas, notas, insignias y horas de estudio. Útil para entrevistas.'), h('a', { class: 'btn', href: '#/portafolio' }, icon('print'), 'Abrir portafolio')));
+
   view.append(section('Zona delicada', h('p', { class: 'muted' }, 'Borra el progreso de este dispositivo. Si la nube está conectada, se recupera al volver a sincronizar.'),
     h('button', { class: 'btn danger', onclick: async () => { if (await confirmDialog('Borrar todo el progreso', 'No se puede deshacer. ¿Seguro?', 'Borrar todo', true)) { resetAll(); toast('Progreso borrado'); location.hash = '#/hoy'; } } }, 'Borrar progreso')));
   return view;
@@ -94,7 +101,7 @@ export async function perfilView() {
 // ------------------------------------------------------------------ Registro de sesiones
 export async function registroView() {
   const S = state();
-  const view = h('div', { class: 'view narrow' });
+  const view = h('div', { class: 'view wide cols2' });
   view.append(heading('Registro', 'La bitácora de tu estudio. Lo que no está registrado aquí no cuenta como avance.'));
   const days = []; for (let i = 13; i >= 0; i--) { const d = addDays(new Date(), -i); days.push({ key: dayKey(d), label: d.toLocaleDateString('es-CO', { weekday: 'narrow' }), min: L.minutesOn(dayKey(d)) }); }
   const goal = S.profile.goalMin, mx = Math.max(goal, ...days.map(d => d.min), 1);
@@ -105,6 +112,17 @@ export async function registroView() {
       h('div', { class: 'stat' }, h('b', { class: 'tnum' }, fmtMin(week)), h('span', null, 'Últimos 7 días')),
       h('div', { class: 'stat' }, h('b', { class: 'tnum' }, fmtMin(total)), h('span', null, 'Total registrado')),
       h('div', { class: 'stat' }, h('b', { class: 'tnum' }, S.streak.count), h('span', null, 'Racha actual (días)'))));
+
+  // ---- Calendario de actividad (26 semanas)
+  const today = new Date(), start = addDays(today, -today.getDay() - 25 * 7);
+  const heat = h('div', { class: 'heat', role: 'img', 'aria-label': 'Actividad de estudio de las últimas 26 semanas' });
+  for (let k = 0; k < 26 * 7; k++) {
+    const d = addDays(start, k), m = d > today ? -1 : L.minutesOn(dayKey(d));
+    const lvl = m <= 0 ? 0 : m < goal * .25 ? 1 : m < goal * .5 ? 2 : m < goal ? 3 : 4;
+    heat.append(h('i', { class: m < 0 ? 'fut' : 'l' + lvl, title: m < 0 ? '' : `${fmtDate(dayKey(d) + 'T12:00:00')}: ${m} min` }));
+  }
+  view.append(h('section', { class: 'card full' }, h('div', { class: 'row between wrap', style: { marginBottom: '14px' } }, h('h2', { style: { margin: 0, fontSize: '1.1rem' } }, 'Constancia · últimas 26 semanas'),
+    h('span', { class: 'hint' }, 'Más color = más minutos (el más intenso cumple tu meta)')), h('div', { style: { overflowX: 'auto', paddingBottom: '4px' } }, heat)));
 
   // ---- Sesión manual
   const min = h('input', { class: 'input', type: 'number', min: 5, max: 600, step: 5, value: 30, id: 'smin' });

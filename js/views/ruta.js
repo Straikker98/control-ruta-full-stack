@@ -43,6 +43,8 @@ export async function ruta() {
       heading('Tu ruta Full Stack', `${route.weeks.length} temas en ${route.phases.length} fases, de cero a un perfil profesional. El orden es acumulativo: no se salta ningún tema.`, 'Mapa del camino'),
       h('div', { class: 'row', style: { gap: '14px' } }, ring(pct, 84), h('div', null, h('b', { class: 'tnum', style: { fontSize: '1.5rem' } }, `${done}`), h('span', { class: 'muted' }, ` / ${route.weeks.length}`), h('div', { class: 'hint' }, 'temas completados')))));
 
+  const phases = h('div', { class: 'phases' });
+  view.append(phases);
   const cur = state().current || route.weeks.find(x => !L.isDone(x.week))?.week;
   for (const ph of route.phases) {
     const ws = route.weeks.filter(w => w.phase === ph.id);
@@ -54,7 +56,7 @@ export async function ruta() {
           h('div', { class: 'bar', role: 'progressbar', 'aria-valuenow': n, 'aria-valuemax': ws.length }, h('i', { style: { width: (n / ws.length * 100) + '%' } }))),
         h('span', { class: 'chip ' + (n === ws.length ? 'ok' : '') }, `${n}/${ws.length}`)),
       trail(ws));
-    view.append(block);
+    phases.append(block);
     if (ws.some(w => w.week === cur)) requestAnimationFrame(() => block.querySelector('.node.active, .node.available')?.scrollIntoView({ block: 'center', behavior: 'smooth' }));
   }
   return view;

@@ -24,7 +24,7 @@ export async function tema({ w }) {
   const chk = (await getChecklist())[w] || [];
   const st = L.statusOf(w), t = topicOf(w);
   const nEx = topic?.exercises?.length || 0;
-  const view = h('div', { class: 'view narrow' });
+  const view = h('div', { class: 'view wide' });
   view.append(back('#/ruta', 'Ruta'),
     h('header', { class: 'tema-hero', 'data-n': w, style: { '--ph': `var(--ph-${info.phase})` } },
       h('div', { class: 'row between wrap', style: { marginBottom: '8px' } }, h('div', { class: 'eyebrow', style: { margin: 0 } }, `Tema ${w} · Fase ${info.phase}`), statusChip(st)),
@@ -34,6 +34,7 @@ export async function tema({ w }) {
     info.design ? h('div', { class: 'designnote', style: { marginTop: '10px' } }, info.design) : null));
 
   if (st === 'locked') { view.append(note('warn', `Completa el tema ${w - 1} para abrir este.`, 'lock')); return view; }
+  if (ready) view.append(offlineRow(w));
   if (!ready) view.append(note('warn', 'El contenido de este tema (Cuaderno, ejercicios, trabajo y exámenes) se está preparando y aparecerá automáticamente.', 'clock'));
 
   if (st === 'available') {
@@ -55,7 +56,9 @@ export async function tema({ w }) {
     }),
   ];
   const firstOpen = steps.findIndex(s => s.state !== 'done' && s.state !== 'locked');
-  view.append(h('section', { class: 'card', 'aria-labelledby': 'pasos' },
+  const colL = h('div'), colR = h('div');
+  view.append(h('div', { class: 'split' }, colL, colR));
+  colL.append(h('section', { class: 'card', 'aria-labelledby': 'pasos' },
     h('div', { class: 'row between', style: { marginBottom: '12px' } }, h('h2', { id: 'pasos', style: { margin: 0 } }, 'Camino del tema'), ring(L.progress(w, nEx), 56)),
     h('ol', { class: 'steps' }, steps.map((s, i) => {
       const cls = 'step ' + (s.state === 'done' ? 'done' : s.state === 'locked' ? 'locked' : i === firstOpen ? 'now' : '');
@@ -66,7 +69,7 @@ export async function tema({ w }) {
 
   if (chk.length) {
     const doneN = chk.filter((_, i) => t.checklist?.[i]).length;
-    view.append(h('section', { class: 'card', style: { marginTop: '16px' }, 'aria-labelledby': 'chk' },
+    colR.append(h('section', { class: 'card', 'aria-labelledby': 'chk' },
       h('div', { class: 'row between' }, h('h2', { id: 'chk', style: { margin: 0 } }, 'Checklist de la semana'), h('span', { class: 'chip' }, `${doneN} de ${chk.length}`)),
       h('div', { style: { marginTop: '8px' } }, chk.map((txt, i) => h('label', { class: 'check' },
         h('input', { type: 'checkbox', checked: !!t.checklist?.[i], disabled: st === 'done' && false, onchange: e => L.toggleCheck(w, i, e.target.checked) }), h('span', null, txt))))));
@@ -83,7 +86,7 @@ export async function ejercicios({ w }) {
   view.append(back(`#/tema/${w}`, `Tema ${w}`), heading('Ejercicios guiados', `${info?.title || ''}. Cada ejercicio trae su objetivo, los pasos, el resultado esperado y cómo verificar que quedó bien.`));
   if (!topic || !topic.exercises.length) { view.append(note('warn', 'Los ejercicios de este tema se están preparando.', 'clock')); return view; }
   if (st === 'locked' || st === 'available') { view.append(note('warn', 'Inicia el tema para registrar tus ejercicios.', 'lock')); }
-  view.append(h('a', { class: 'btn sm', href: '#/lab', style: { marginBottom: '16px' } }, icon('play'), 'Abrir el laboratorio para practicar'));
+  view.append(h('a', { class: 'btn sm', href: '#/lab', onclick: () => labMode(info?.phase), style: { marginBottom: '16px' } }, icon('play'), 'Abrir el laboratorio para practicar'));
   for (const ex of topic.exercises) {
     const done = !!t.ex?.[ex.n];
     const card = h('section', { class: 'card', style: { marginBottom: '16px' } },
@@ -145,4 +148,28 @@ export async function trabajoView({ w }) {
   view.append(h('section', { class: 'card', 'aria-labelledby': 'ent' }, h('h2', { id: 'ent' }, tr.status === 'graded' ? 'Corrige y reenvía' : 'Tu entrega'),
     h('div', { class: 'field', style: { marginTop: '12px' } }, h('label', { for: 'entrega' }, 'Enlace y explicación'), ta, h('span', { class: 'hint' }, 'El tutor solo ve lo que escribas aquí. No incluyas contraseñas ni datos personales.')), btn));
   return view;
+}
+
+// ------------------------------------------------------------------ extras
+const pad2 = n => String(n).padStart(2, '0');
+/** Abre el Laboratorio en el modo que le sirve a la fase del tema (SQL, JavaScript o web). */
+function labMode(phase) {
+  try { const k = 'rfs.lab.v1', s = JSON.parse(localStorage.getItem(k) || '{}'); s.mode = phase === 5 ? 'sql' : (phase === 3 || phase === 6) ? 'js' : 'web'; localStorage.setItem(k, JSON.stringify(s)); } catch {}
+}
+/** Botón para dejar el tema (y su examen) guardado en el dispositivo para estudiar sin internet. */
+function offlineRow(w) {
+  const topicUrl = `content/topics/${pad2(w)}.json`, examUrl = `content/exams/${pad2(w)}.json`;
+  const row = h('div', { class: 'row wrap', style: { marginBottom: '16px' } });
+  const paint = async () => {
+    let saved = false; try { saved = !!(await caches.match(topicUrl)); } catch {}
+    row.replaceChildren(saved ? h('span', { class: 'chip ok' }, icon('check'), 'Guardado para estudiar sin internet')
+      : h('button', { class: 'btn sm', onclick: async e => {
+        e.currentTarget.disabled = true;
+        try { await Promise.all([topicUrl, examUrl].map(u => fetch(u).then(r => { if (!r.ok && r.status !== 404) throw new Error(r.status); }))); toast('Tema guardado: se puede estudiar sin conexión', 'ok'); }
+        catch { toast('No se pudo guardar: revisa la conexión', 'bad'); }
+        paint();
+      } }, icon('download'), 'Guardar para estudiar sin internet'));
+  };
+  paint();
+  return row;
 }

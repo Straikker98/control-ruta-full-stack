@@ -5,6 +5,7 @@ import { getBadges, getRoute } from '../content.js';
 import * as L from '../logic.js';
 import { state } from '../store.js';
 import { heading, note, fmtScore } from './ui.js';
+import { medal } from '../badge.js';
 
 const LV = [
   ['fundamentos', 'Fundamentos', 'Se obtiene al completar el tema base: fundamentación, trabajo y los tres exámenes con 9,0 o más.'],
@@ -39,26 +40,38 @@ function evidenceDialog(b, lv, label) {
   document.body.append(dlg); dlg.showModal(); ta.focus();
 }
 
+const STATE_TXT = { done: 'Obtenida', pending: 'En revisión', open: 'Disponible', retry: 'Por corregir', locked: 'Bloqueada' };
+
 export async function insigniasView() {
   const badges = await getBadges();
   const view = h('div', { class: 'view' });
-  const earned = badges.reduce((n, b) => n + LV.filter(([lv]) => levelState(b, lv).s === 'done').length, 0);
-  view.append(heading('Insignias', 'Cada insignia debe poder defenderse en una entrevista: solo salen de trabajos y entregas concretas.'),
-    h('div', { class: 'row between wrap', style: { marginBottom: '20px' } },
-      h('span', { class: 'chip accent' }, `${earned} de ${badges.length * 3} niveles`),
-      h('button', { class: 'btn sm', onclick: async e => { e.currentTarget.disabled = true; try { const n = await L.refreshGrades(); toast(n ? `${n} calificación(es) nueva(s)` : 'Sin novedades', n ? 'ok' : ''); } catch (x) { toast(x.message, 'bad'); } location.hash = `#/insignias?r=${Date.now()}`; } }, icon('refresh'), 'Consultar calificaciones')));
-  const grid = h('div', { class: 'grid auto' });
-  for (const b of badges) {
-    const states = LV.map(([lv, label, desc]) => ({ lv, label, desc, ...levelState(b, lv) }));
-    const has = states.some(x => x.s === 'done');
-    grid.append(h('article', { class: 'card badge-card' + (has ? ' has' : '') },
-      h('div', { class: 'row' }, h('div', { class: 'badge-ico' }, icon('award')), h('div', null, h('h3', { style: { margin: 0 } }, b.title), h('div', { class: 'muted', style: { fontSize: '.84rem' } }, `Tema base ${b.week}`))),
-      ...states.map(x => h('div', { class: 'row between', style: { gap: '8px' } },
-        h('span', { title: x.desc, style: { fontWeight: 600, fontSize: '.92rem' } }, x.label),
-        x.s === 'done' ? h('span', { class: 'chip ok' }, icon('check'), 'Obtenida')
-          : x.s === 'pending' ? h('span', { class: 'chip warn' }, 'En revisión')
-          : x.s === 'locked' ? h('span', { class: 'chip', title: x.why }, icon('lock'), x.why || 'Bloqueada')
-          : h('button', { class: 'btn sm', onclick: () => evidenceDialog(b, x.lv, x.label) }, x.s === 'retry' ? `Reenviar (${fmtScore(x.rec.nota)})` : 'Enviar evidencia')))));
+  const all = badges.map(b => ({ b, states: LV.map(([lv, label, desc]) => ({ lv, label, desc, ...levelState(b, lv) })) }));
+  const earnedList = all.flatMap(({ b, states }) => states.filter(x => x.s === 'done').map(x => ({ b, x })));
+  const total = badges.length * 3, pct = Math.round(earnedList.length / total * 100);
+
+  view.append(h('div', { class: 'row between wrap', style: { gap: '16px' } },
+    heading('Insignias', 'Cada insignia debe poder defenderse en una entrevista: solo salen de trabajos y entregas concretas.', 'Colección'),
+    h('button', { class: 'btn sm', onclick: async e => { e.currentTarget.disabled = true; try { const n = await L.refreshGrades(); toast(n ? `${n} calificación(es) nueva(s)` : 'Sin novedades', n ? 'ok' : ''); } catch (x) { toast(x.message, 'bad'); } location.hash = `#/insignias?r=${Date.now()}`; } }, icon('refresh'), 'Consultar calificaciones')));
+
+  // ---- Vitrina: lo ganado hasta ahora
+  view.append(h('section', { class: 'card shelf', 'aria-labelledby': 'vit' },
+    h('div', { class: 'row between wrap', style: { marginBottom: '16px' } },
+      h('div', null, h('h2', { id: 'vit', style: { margin: 0, fontSize: '1.15rem' } }, 'Tu vitrina'), h('div', { class: 'hint' }, `${earnedList.length} de ${total} niveles · Bronce = Fundamentos, Plata = Aplicado, Oro = Avanzado`)),
+      h('div', { class: 'row', style: { gap: '12px', minWidth: '220px' } }, h('div', { class: 'bar', style: { flex: 1 } }, h('i', { style: { width: pct + '%' } })), h('b', { class: 'tnum' }, pct + '%'))),
+    earnedList.length ? h('div', { class: 'shelf-row' }, earnedList.map(({ b, x }) => h('div', { class: 'trophy', title: `${b.title} · ${x.label}` }, medal(b.id, x.lv, 'done', 76), h('small', null, b.title))))
+      : h('p', { class: 'muted', style: { margin: 0 } }, 'Aún no hay medallas. Completa el tema base de una habilidad para ganar la de bronce.')));
+
+  // ---- Una tarjeta por habilidad, con sus tres medallas
+  const grid = h('div', { class: 'grid mgrid' });
+  for (const { b, states } of all) {
+    const n = states.filter(x => x.s === 'done').length;
+    const next = states.find(x => x.s === 'open' || x.s === 'retry');
+    grid.append(h('article', { class: 'card mcard' + (n ? ' has' : '') },
+      h('div', { class: 'row between' }, h('div', null, h('h3', { style: { margin: 0 } }, b.title), h('div', { class: 'hint' }, `Tema base ${b.week}`)), h('span', { class: 'chip ' + (n === 3 ? 'ok' : n ? 'accent' : '') }, `${n}/3`)),
+      h('div', { class: 'medals' }, states.map(x => h('div', { class: 'mslot ' + x.s, title: x.s === 'locked' ? (x.why || x.desc) : x.desc },
+        medal(b.id, x.lv, x.s, 84), h('b', null, x.label), h('small', null, x.s === 'locked' ? 'Bloqueada' : STATE_TXT[x.s])))),
+      next ? h('button', { class: 'btn sm block', onclick: () => evidenceDialog(b, next.lv, next.label) }, icon('send'), next.s === 'retry' ? `Reenviar ${next.label} (${fmtScore(next.rec.nota)})` : `Enviar evidencia · ${next.label}`)
+        : n === 3 ? h('div', { class: 'hint', style: { textAlign: 'center' } }, 'Habilidad completa') : h('div', { class: 'hint', style: { textAlign: 'center' } }, states.find(x => x.s === 'locked')?.why || '')));
   }
   view.append(grid);
   view.append(h('p', { class: 'hint', style: { marginTop: '16px' } }, 'Fundamentos se otorga solo al completar el tema. Aplicado y Avanzado requieren que envíes evidencia y que tu tutor la apruebe.'));

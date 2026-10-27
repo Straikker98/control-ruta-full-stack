@@ -62,7 +62,7 @@ export async function hoy() {
   // ---- Indicadores
   const goalPct = Math.min(100, Math.round(min / goal * 100));
   const gam = S.profile.gamification;
-  view.append(h('div', { class: 'grid', style: { gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', marginTop: '16px' } },
+  view.append(h('div', { class: 'grid', style: { gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', marginTop: '16px' } },
     stat('clock', [num(min), h('small', { class: 'faint', style: { fontSize: '.9rem', fontWeight: 600 } }, ` / ${goal} min`)], 'Meta de hoy',
       h('div', { class: 'bar' + (goalPct >= 100 ? ' ok' : ''), style: { marginTop: '10px' } }, h('i', { style: { width: goalPct + '%' } })), '#/registro'),
     gam ? stat('flame', num(S.streak.count), S.streak.count === 1 ? 'día de racha' : 'días de racha') : null,
@@ -72,9 +72,13 @@ export async function hoy() {
     stat('target', [num(doneCount), h('small', { class: 'faint', style: { fontSize: '.9rem', fontWeight: 600 } }, ` / ${total}`)], 'temas completados',
       h('div', { class: 'bar', style: { marginTop: '10px' } }, h('i', { style: { width: (doneCount / total * 100) + '%' } })), '#/ruta')));
 
+  const colL = h('div'), colR = h('div');
+  const split = h('div', { class: 'split' }, colL, colR);
+  view.append(split);
+
   // ---- Semana: últimos 7 días
   const days = Array.from({ length: 7 }, (_, i) => { const d = addDays(new Date(), i - 6); return { d, m: L.minutesOn(dayKey(d)) }; });
-  view.append(h('section', { class: 'card', style: { marginTop: '16px' }, 'aria-labelledby': 'sem-t' },
+  colL.append(h('section', { class: 'card', 'aria-labelledby': 'sem-t' },
     h('div', { class: 'row between wrap', style: { marginBottom: '14px' } }, h('h2', { id: 'sem-t', style: { margin: 0, fontSize: '1.1rem' } }, 'Tu semana'), h('span', { class: 'hint' }, 'Un cuadro encendido = estudiaste ese día')),
     h('div', { class: 'weekstrip' }, days.map(({ d, m }, i) => h('div', { class: 'wk' + (m ? ' on' : '') + (m >= goal ? ' goal' : '') + (i === 6 ? ' today' : ''), title: `${m} min` },
       h('i', null, m ? (m >= goal ? icon('check') : m) : ''), d.toLocaleDateString('es-CO', { weekday: 'short' }).replace('.', ''))))));
@@ -84,7 +88,7 @@ export async function hoy() {
     const items = chk[cur];
     const t = topicOf(cur);
     const doneN = items.filter((_, i) => t.checklist?.[i]).length;
-    view.append(h('section', { class: 'card', style: { marginTop: '16px' }, 'aria-labelledby': 'chk-t' },
+    colL.append(h('section', { class: 'card', 'aria-labelledby': 'chk-t' },
       h('div', { class: 'row between' }, h('h2', { id: 'chk-t', style: { margin: 0, fontSize: '1.1rem' } }, 'Checklist de la semana'), h('span', { class: 'chip' }, `${doneN} de ${items.length}`)),
       h('div', { style: { marginTop: '8px' } }, items.map((txt, i) => h('label', { class: 'check' },
         h('input', { type: 'checkbox', checked: !!t.checklist?.[i], onchange: e => L.toggleCheck(cur, i, e.target.checked) }), h('span', null, txt))))));
@@ -93,10 +97,11 @@ export async function hoy() {
   // ---- Lo que viene
   const after = route.weeks.filter(w => w.week > (weekRow?.week || 0) && !L.isDone(w.week)).slice(0, 3);
   if (after.length) {
-    view.append(h('h2', { style: { margin: '28px 0 12px', fontSize: '1.1rem' } }, 'Lo que viene'),
+    colR.append(h('h2', { style: { margin: '0', fontSize: '1.1rem' } }, 'Lo que viene'),
       h('div', { class: 'upnext' }, after.map(w => h('a', { href: `#/tema/${w.week}`, style: { '--ph': `var(--ph-${w.phase})` } },
         h('span', { class: 'chip', style: { color: 'var(--ph)', borderColor: 'var(--ph)' } }, w.week),
         h('div', null, h('b', null, w.title), h('small', null, `Fase ${w.phase}`))))));
   }
+  if (!colR.children.length) split.style.gridTemplateColumns = 'minmax(0, 1fr)';
   return view;
 }

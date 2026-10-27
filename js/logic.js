@@ -2,6 +2,7 @@
 import { state, mutate, topicOf } from './store.js';
 import { dayKey, addDays, toast } from './util.js';
 import { call, hasKey } from './sync.js';
+import { ROSTER, STARTERS } from './avatar.js';
 
 export const LEVELS = ['facil', 'medio', 'dificil'];
 export const LEVEL_LABEL = { facil: 'Fácil', medio: 'Medio', dificil: 'Difícil' };
@@ -204,9 +205,34 @@ export function gradeReview(qid, correct) {
 }
 
 // ---------------------------------------------------------------- avatares
-export const AVATAR_COUNT = 100;
+export const AVATAR_COUNT = ROSTER.length;
 export const avatarId = i => 'a' + String(i).padStart(2, '0');
-export const avatarsUnlocked = () => Math.min(AVATAR_COUNT, 4 + 2 * Object.values(state().topics).filter(t => t.done).length);
+export const avatarsUnlocked = () => Math.min(AVATAR_COUNT, STARTERS + Object.values(state().topics).filter(t => t.done).length);
 
 export function accumulatedXp() { return state().xp; }
 export function level() { const xp = state().xp; return { n: Math.floor(xp / 250) + 1, into: xp % 250, size: 250 }; }
+
+// ---------------------------------------------------------------- notas y marcadores del Cuaderno
+const nk = (w, p) => `${w}:${p}`;
+export const noteOf = (w, p) => (state().notes || {})[nk(w, p)] || '';
+export const isMarked = (w, p) => !!(state().marks || {})[nk(w, p)];
+export function setNote(w, p, text) {
+  mutate(S => { S.notes = S.notes || {}; const t = String(text).slice(0, 4000); if (t.trim()) S.notes[nk(w, p)] = t; else delete S.notes[nk(w, p)]; }, { quiet: true });
+}
+export function toggleMark(w, p) {
+  mutate(S => { S.marks = S.marks || {}; if (S.marks[nk(w, p)]) delete S.marks[nk(w, p)]; else S.marks[nk(w, p)] = 1; }, { quiet: true });
+}
+
+// ---------------------------------------------------------------- tarjetas propias (repaso espaciado)
+export const dueCards = (now = Date.now()) => Object.entries(state().cards || {}).filter(([, c]) => c.due <= now).map(([id, c]) => ({ id, ...c }));
+export function addCard(q, a) {
+  mutate(S => { S.cards = S.cards || {}; S.cards['c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5)] = { q: String(q).slice(0, 300), a: String(a).slice(0, 600), box: 0, due: Date.now() }; }, { quiet: true });
+}
+export function deleteCard(id) { mutate(S => { delete (S.cards || {})[id]; }, { quiet: true }); }
+export function gradeCard(id, ok) {
+  mutate(S => {
+    const c = (S.cards || {})[id]; if (!c) return;
+    if (!ok) { c.box = 0; c.due = Date.now() + 10 * 60 * 1000; return; }
+    c.box = Math.min(c.box + 1, INTERVALS.length - 1); c.due = Date.now() + INTERVALS[c.box] * 86400000;
+  }, { quiet: true });
+}

@@ -1,13 +1,13 @@
 // Arranque, enrutador y barra superior (cronómetro de sesión y estado de sincronización).
 import { h, clear, toast } from './util.js';
 import { icon } from './icons.js';
-import { state, subscribe } from './store.js';
+import { state, subscribe, mutate } from './store.js';
 import { openPalette } from './palette.js';
 import { canPrompt, promptInstall, onInstallChange } from './install.js';
 import { applyTheme } from './theme.js';
 import { initSync, pull, hasKey, syncStatus, onSyncStatus, isPristine } from './sync.js';
 import * as L from './logic.js';
-import { avatar } from './avatar.js';
+import { avatar, loadAvatarImages } from './avatar.js';
 import { loading } from './views/ui.js';
 import { hoy } from './views/hoy.js';
 import { ruta } from './views/ruta.js';
@@ -17,6 +17,8 @@ import { examenView, repasoView } from './views/examen.js';
 import { insigniasView } from './views/insignias.js';
 import { perfilView, registroView } from './views/perfil.js';
 import { labView } from './views/lab.js';
+import { tarjetasView } from './views/tarjetas.js';
+import { portafolioView } from './views/portafolio.js';
 
 const ROUTES = [
   [/^(?:hoy)?$/, () => hoy(), 'Hoy', 'hoy'],
@@ -28,6 +30,8 @@ const ROUTES = [
   [/^examen\/(\d+)\/(facil|medio|dificil)$/, (w, lv) => examenView({ w, lv }), 'Examen', 'ruta'],
   [/^repaso$/, () => repasoView(), 'Repaso', 'repaso'],
   [/^insignias$/, () => insigniasView(), 'Insignias', 'insignias'],
+  [/^tarjetas$/, () => tarjetasView(), 'Tarjetas', 'repaso'],
+  [/^portafolio$/, () => portafolioView(), 'Portafolio', 'perfil'],
   [/^lab$/, () => labView(), 'Laboratorio', 'lab'],
   [/^registro$/, () => registroView(), 'Registro', 'perfil'],
   [/^perfil$/, () => perfilView(), 'Perfil', 'perfil'],
@@ -108,6 +112,9 @@ function paintXp() {
     h('div', { class: 'bar' }, h('i', { style: { width: (lv.into / lv.size * 100) + '%' } })),
     h('small', { class: 'faint tnum' }, `${S.xp} XP · ${lv.size - lv.into} para el nivel ${lv.n + 1}`));
 }
+const themeBtn = document.getElementById('themebtn');
+const paintTheme = () => { const dark = document.documentElement.dataset.theme === 'dark'; clear(themeBtn); themeBtn.append(icon(dark ? 'sun' : 'moon')); themeBtn.setAttribute('aria-label', dark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'); };
+themeBtn.addEventListener('click', () => { const dark = document.documentElement.dataset.theme === 'dark'; mutate(S => { S.profile.theme = dark ? 'light' : 'dark'; }); applyTheme(); paintTheme(); });
 const searchBtn = document.getElementById('search');
 searchBtn.append(icon('search'), h('span', null, 'Buscar'), h('kbd', null, 'Ctrl K'));
 searchBtn.addEventListener('click', openPalette);
@@ -120,7 +127,7 @@ onInstallChange(paintInstall); paintInstall();
 // ------------------------------------------------------------------ inicio
 applyTheme();
 initSync(); paintSync(); onSyncStatus(paintSync);
-paintTimer(); paintMe(); paintXp(); subscribe(paintXp);
+paintTimer(); paintMe(); paintXp(); subscribe(paintXp); paintTheme();
 document.addEventListener('avatar-changed', paintMe);
 window.addEventListener('hashchange', render);
 document.addEventListener('pointermove', e => { const c = e.target.closest?.('.card, .stat'); if (c) { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px'); } });
@@ -132,7 +139,7 @@ if (!location.hash) location.replace('#/hoy');
   {
     root.replaceChildren(loading());
     const sleep = ms => new Promise(r => setTimeout(r, ms));
-    await Promise.race([pull(), sleep(8000)]);
+    await Promise.race([Promise.all([pull(), loadAvatarImages()]), sleep(8000)]);
     applyTheme(); paintMe(); paintXp();
   }
   render();
@@ -140,5 +147,12 @@ if (!location.hash) location.replace('#/hoy');
 })();
 
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  // Aviso cuando una versión nueva toma el control (no en la primera instalación)
+  const had = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    const box = document.getElementById('toasts');
+    if (!had || box.querySelector('.update')) return;
+    box.append(h('div', { class: 'toast update' }, 'Hay una versión nueva de la app', h('button', { class: 'btn sm primary', onclick: () => location.reload() }, 'Actualizar')));
+  });
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }

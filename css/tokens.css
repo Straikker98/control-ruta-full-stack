@@ -25,7 +25,8 @@
 
   --nav-w: 272px;
   --bar-h: 68px;
-  --read-w: 780px;
+  --read-w: 880px;
+  --view-w: 1720px;
 
   /* Una tonalidad por fase (1–10): la ruta cambia de color al avanzar */
   --ph-1: #38bdf8; --ph-2: #818cf8; --ph-3: #facc15; --ph-4: #fb923c; --ph-5: #34d399;

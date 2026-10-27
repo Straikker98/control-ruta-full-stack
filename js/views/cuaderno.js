@@ -1,5 +1,5 @@
 // El Cuaderno: libreta rayada con código de 5 colores. Solo lectura.
-import { h, inline, frag } from '../util.js';
+import { h, inline, frag, debounce } from '../util.js';
 import { icon } from '../icons.js';
 import { getTopic, weekInfo } from '../content.js';
 import * as L from '../logic.js';
@@ -107,15 +107,48 @@ export async function cuadernoView({ w, p }) {
             : h('button', { class: 'btn primary', onclick: () => { L.finishCuaderno(w); location.hash = `#/tema/${w}`; } }, icon('check'), 'Terminar fundamentación'))
     : h('button', { class: 'btn primary', onclick: () => go(idx + 2), 'aria-label': 'Hoja siguiente' }, 'Siguiente', icon('right'));
 
+  // ---- datos para el panel lateral
+  const norm = t => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const words = secs.reduce((n, x) => n + String(x.body).split(/\s+/).length, 0);
+  const mins = Math.max(1, Math.round(words / 200));
+  const titleOf = pg => (topic.sections.find(x => x.page === pg && x.kind !== 'warning') || topic.sections.find(x => x.page === pg)).title;
+  const mark = h('button', { class: 'btn sm', 'aria-pressed': String(L.isMarked(w, idx + 1)), title: 'Marcar esta hoja para volver', onclick: e => { L.toggleMark(w, idx + 1); const on = L.isMarked(w, idx + 1); e.currentTarget.setAttribute('aria-pressed', String(on)); e.currentTarget.classList.toggle('on', on); paintIndex(); } }, icon('award'), 'Marcador');
+  mark.classList.toggle('on', L.isMarked(w, idx + 1));
+
+  const indexBox = h('div', { class: 'nb-index' });
+  const results = h('div', { class: 'nb-index', hidden: true });
+  const search = h('input', { class: 'input', type: 'search', placeholder: 'Buscar en este tema…', 'aria-label': 'Buscar en este tema', oninput: () => {
+    const q = norm(search.value.trim());
+    results.hidden = !q; indexBox.hidden = !!q;
+    if (!q) return;
+    const hits = topic.sections.filter(x => norm(x.title + ' ' + x.body).includes(q)).slice(0, 14);
+    results.replaceChildren(...(hits.length ? hits.map(x => { const at = norm(x.body).indexOf(q); const snip = at >= 0 ? '…' + String(x.body).slice(Math.max(0, at - 30), at + 70).replace(/\s+/g, ' ') + '…' : '';
+      return h('a', { href: `#/cuaderno/${w}/${x.page}` }, h('b', null, `Hoja ${x.page} · ${x.title}`), snip ? h('small', null, snip) : null); }) : [h('p', { class: 'hint' }, 'Sin resultados.')]));
+  } });
+  function paintIndex() {
+    indexBox.replaceChildren(...pages.map((pg, k) => h('a', { href: `#/cuaderno/${w}/${k + 1}`, class: k === idx ? 'cur' : '', 'aria-current': k === idx ? 'page' : null },
+      h('span', { class: 'n' }, k + 1), h('span', { class: 't' }, titleOf(pg)), L.isMarked(w, k + 1) ? icon('award') : null)));
+  }
+  paintIndex();
+
+  const saveNote = debounce(v => L.setNote(w, idx + 1, v), 600);
+  const notes = h('textarea', { class: 'textarea', rows: 6, maxlength: 4000, placeholder: 'Tus apuntes de esta hoja: con tus palabras se aprende más.', 'aria-label': 'Notas de esta hoja', oninput: e => saveNote(e.target.value) }, L.noteOf(w, idx + 1));
+
+  const aside = h('aside', { class: 'nb-aside', 'aria-label': 'Índice, búsqueda y notas' },
+    h('section', { class: 'card' }, h('h3', { style: { fontSize: '1rem' } }, 'Mis notas · hoja ' + (idx + 1)), notes, h('p', { class: 'hint', style: { margin: '6px 0 0' } }, 'Se guardan solas y se sincronizan.')),
+    h('section', { class: 'card' }, h('h3', { style: { fontSize: '1rem' } }, 'Índice'), h('div', { class: 'field', style: { marginBottom: '8px' } }, search), indexBox, results));
+
   view.append(
-    h('div', { class: 'nb-top notebook' },
+    h('div', { class: 'nb-top' },
       back(`#/tema/${w}`, `Tema ${w} · ${info.title}`),
-      h('div', { class: 'row' }, h('span', { class: 'chip accent' }, `Hoja ${idx + 1} de ${total}`),
+      h('div', { class: 'row wrap' }, h('span', { class: 'chip' }, icon('clock'), `≈ ${mins} min`), mark, h('span', { class: 'chip accent' }, `Hoja ${idx + 1} de ${total}`),
         h('div', { class: 'bar', style: { width: '90px' }, role: 'progressbar', 'aria-valuenow': Math.round((idx + 1) / total * 100), 'aria-valuemin': 0, 'aria-valuemax': 100 }, h('i', { style: { width: ((idx + 1) / total * 100) + '%' } })))),
-    h('div', { class: 'notebook' }, sheet,
-      h('div', { class: 'sheet-foot' }, prev, h('span', { class: 'muted tnum' }, `${idx + 1} / ${total}`), next),
-      h('div', { class: 'legend', style: { marginTop: '18px' }, 'aria-label': 'Código de colores' },
-        [['var(--rojo)', 'Título y advertencias'], ['var(--azul)', 'Subtítulos y definiciones'], ['var(--ink)', 'Teoría'], ['var(--verde)', 'Flechas, notas y tablas'], ['var(--naranja)', 'Código y comandos']].map(([c, t]) => h('span', null, h('i', { style: { background: c } }), t)))));
+    h('div', { class: 'nb-layout' },
+      h('div', { class: 'notebook' }, sheet,
+        h('div', { class: 'sheet-foot' }, prev, h('span', { class: 'muted tnum' }, `${idx + 1} / ${total}`), next),
+        h('div', { class: 'legend', style: { marginTop: '18px' }, 'aria-label': 'Código de colores' },
+          [['var(--rojo)', 'Título y advertencias'], ['var(--azul)', 'Subtítulos y definiciones'], ['var(--ink)', 'Teoría'], ['var(--verde)', 'Flechas, notas y tablas'], ['var(--naranja)', 'Código y comandos']].map(([c, t]) => h('span', null, h('i', { style: { background: c } }), t)))),
+      aside));
 
   // Teclado: ← → cambian de hoja (no interfiere al escribir)
   const key = e => { if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName) || e.altKey || e.ctrlKey || e.metaKey) return;

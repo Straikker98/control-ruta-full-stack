@@ -61,6 +61,10 @@ export async function examenView({ w, lv }) {
 
   function run(items) {
     let i = 0; const chosen = new Array(items.length).fill(null);
+    const t0 = Date.now();
+    const mmss = ms => { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+    const clock = h('span', { class: 'chip tnum', title: 'Tiempo transcurrido (sin límite)' }, icon('clock'), '0:00');
+    const tick = setInterval(() => { clock.lastChild.textContent = mmss(Date.now() - t0); }, 1000);
     const onKey = e => {
       if (e.altKey || e.ctrlKey || e.metaKey) return;
       const k = e.key.toUpperCase(); const idx = ['1', '2', '3', '4'].includes(k) ? Number(k) - 1 : LETTERS.indexOf(k);
@@ -68,7 +72,7 @@ export async function examenView({ w, lv }) {
       else if (e.key === 'Enter' && !/BUTTON|A/.test(document.activeElement?.tagName)) document.getElementById('q-next')?.click();
     };
     document.addEventListener('keydown', onKey);
-    view.cleanup = () => document.removeEventListener('keydown', onKey);
+    view.cleanup = () => { document.removeEventListener('keydown', onKey); clearInterval(tick); };
 
     function paint() {
       const it = items[i];
@@ -83,7 +87,7 @@ export async function examenView({ w, lv }) {
       const nextBtn = h('button', { class: 'btn primary', id: 'q-next', disabled: chosen[i] == null, onclick: () => { if (lastQ) finish(); else { i++; paint(); } } }, lastQ ? 'Entregar examen' : 'Siguiente', icon(lastQ ? 'check' : 'right'));
       const prevBtn = h('button', { class: 'btn ghost', disabled: i === 0, onclick: () => { i--; paint(); } }, icon('left'), 'Anterior');
       stage.replaceChildren(
-        h('div', { class: 'row between', style: { marginBottom: '12px' } }, h('span', { class: 'eyebrow', style: { margin: 0 } }, `Examen ${L.LEVEL_LABEL[lv]} · Tema ${w}`), h('span', { class: 'chip tnum' }, `${i + 1} de ${items.length}`)),
+        h('div', { class: 'row between', style: { marginBottom: '12px' } }, h('span', { class: 'eyebrow', style: { margin: 0 } }, `Examen ${L.LEVEL_LABEL[lv]} · Tema ${w}`), h('div', { class: 'row', style: { gap: '8px' } }, clock, h('span', { class: 'chip tnum' }, `${i + 1} de ${items.length}`))),
         h('div', { class: 'bar', style: { marginBottom: '16px' }, role: 'progressbar', 'aria-valuenow': i + 1, 'aria-valuemin': 1, 'aria-valuemax': items.length }, h('i', { style: { width: ((i + 1) / items.length * 100) + '%' } })),
         h('section', { class: 'card q-card' }, h('div', { class: 'q-prompt', id: 'view-title', tabindex: '-1' }, promptNodes(it.q.prompt)), optsBox),
         h('div', { class: 'row between', style: { marginTop: '16px' } }, prevBtn, nextBtn),
@@ -91,23 +95,23 @@ export async function examenView({ w, lv }) {
     }
 
     function finish() {
-      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('keydown', onKey); clearInterval(tick);
       const wrong = items.filter((it, k) => chosen[k] !== it.correctPos).map(it => it.q.id);
       const correct = items.length - wrong.length;
       const res = L.recordAttempt(w, lv, { correct, total: items.length, wrong });
-      results(items, chosen, res, correct);
+      results(items, chosen, res, correct, mmss(Date.now() - t0));
     }
     paint();
   }
 
-  function results(items, chosen, res, correct) {
+  function results(items, chosen, res, correct, took) {
     const next = L.LEVELS[L.LEVELS.indexOf(lv) + 1];
     const topicDone = L.isDone(w);
     stage.replaceChildren(
       h('section', { class: 'card tint', style: { textAlign: 'center', padding: '32px 20px' }, 'aria-live': 'polite' },
         h('div', { class: 'eyebrow' }, res.passed ? 'Aprobado' : 'Todavía no'),
         h('div', { class: 'score-big', id: 'view-title', tabindex: '-1', style: { color: res.passed ? 'var(--ok)' : 'var(--bad)' } }, fmtScore(res.score), h('small', { class: 'faint', style: { fontSize: '1.2rem' } }, ' / 10')),
-        h('p', { class: 'muted', style: { margin: '10px 0 20px' } }, `${correct} de ${items.length} correctas.` + (res.passed ? '' : ` Necesitas ${needed} para aprobar; las que fallaste pasan a tu repaso.`)),
+        h('p', { class: 'muted', style: { margin: '10px 0 20px' } }, `${correct} de ${items.length} correctas · ${took}.` + (res.passed ? '' : ` Necesitas ${needed} para aprobar; las que fallaste pasan a tu repaso.`)),
         h('div', { class: 'row wrap', style: { justifyContent: 'center' } },
           !res.passed ? h('button', { class: 'btn primary', onclick: () => run(buildAttempt(bank, n)) }, icon('refresh'), 'Intentar de nuevo') : null,
           res.passed && next && !topicDone ? h('a', { class: 'btn primary', href: `#/examen/${w}/${next}` }, `Examen ${L.LEVEL_LABEL[next]}`, icon('right')) : null,
@@ -142,7 +146,7 @@ export async function examenView({ w, lv }) {
 export async function repasoView() {
   const view = h('div', { class: 'view narrow' });
   const due = L.dueReviews();
-  view.append(heading('Repaso', 'Las preguntas que fallaste vuelven a ti en intervalos crecientes (1, 3, 7, 14 y 30 días) hasta que las dominas.'));
+  view.append(heading('Repaso', 'Las preguntas que fallaste vuelven a ti en intervalos crecientes (1, 3, 7, 14 y 30 días) hasta que las dominas.'), h('a', { class: 'btn sm', href: '#/tarjetas', style: { marginBottom: '16px' } }, icon('sparkle'), 'Mis tarjetas'));
   if (!due.length) {
     const pending = Object.keys(state().review).length;
     view.append(h('div', { class: 'card', style: { textAlign: 'center', padding: '36px 20px' } },
