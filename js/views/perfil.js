@@ -7,6 +7,7 @@ import * as L from '../logic.js';
 import { syncNow, syncStatus, onSyncStatus, diagnose } from '../sync.js';
 import { avatar } from '../avatar.js';
 import { applyTheme } from '../theme.js';
+import { canPrompt, promptInstall, isInstalled, isIOS, onInstallChange } from '../install.js';
 import { heading, note } from './ui.js';
 
 const ACCENTS = [['violeta', 'Aurora', '#8b5cf6'], ['atardecer', 'Atardecer', '#f43f5e'], ['oceano', 'Océano', '#0ea5e9'], ['bosque', 'Bosque', '#10b981'], ['grafito', 'Grafito', '#64748b']];
@@ -41,6 +42,18 @@ export async function perfilView() {
       h('i', { style: { width: '12px', height: '12px', borderRadius: '50%', background: c, display: 'inline-block' } }), t)));
   view.append(section('Apariencia', h('div', { class: 'field' }, h('span', { class: 'label' }, 'Tema'), theme), h('div', { class: 'field', style: { margin: 0 } }, h('span', { class: 'label' }, 'Color de acento'), acc)));
 
+  // ---- Instalar como app
+  const inst = h('div');
+  const paintInst = () => {
+    inst.replaceChildren(...(isInstalled() ? [h('span', { class: 'chip ok' }, icon('check'), 'Ya está instalada en este dispositivo')]
+      : canPrompt() ? [h('button', { class: 'btn primary', onclick: promptInstall }, icon('down'), 'Instalar la app')]
+      : isIOS() ? [h('ol', { style: { paddingLeft: '1.2em', margin: 0 } }, h('li', null, 'Abre esta página en Safari (no en otro navegador).'), h('li', null, 'Toca el botón Compartir (el cuadrado con la flecha hacia arriba).'), h('li', null, 'Elige «Añadir a pantalla de inicio» y confirma.'))]
+      : [h('p', { class: 'hint', style: { margin: 0 } }, 'En Android abre el menú del navegador (⋮) y elige «Instalar aplicación» o «Añadir a pantalla de inicio». Requiere abrir la página por HTTPS.')]));
+  };
+  paintInst();
+  const offInst = onInstallChange(paintInst);
+  view.append(section('Instalar en el celular', h('p', { class: 'muted' }, 'Se abre como una app, a pantalla completa y con acceso sin conexión al contenido ya visto.'), inst));
+
   // ---- Estudio
   const goal = h('input', { class: 'input', type: 'number', id: 'meta', min: 15, max: 600, step: 15, value: P.goalMin, onchange: e => mutate(S => { S.profile.goalMin = Math.min(600, Math.max(15, Number(e.target.value) || 120)); }) });
   view.append(section('Estudio',
@@ -59,7 +72,7 @@ export async function perfilView() {
     h('div', { class: 'row wrap', style: { marginTop: '12px' } },
       h('button', { class: 'btn primary', onclick: async e => { const b = e.currentTarget; b.disabled = true; await syncNow(); try { const n = await L.refreshGrades(); toast(n ? `${n} calificación(es) nueva(s)` : 'Todo al día', 'ok'); } catch { toast('Sin conexión', 'bad'); } b.disabled = false; } }, icon('refresh'), 'Sincronizar ahora'),
       h('button', { class: 'btn', onclick: async e => { const b = e.currentTarget; b.disabled = true; diag.className = 'note'; diag.textContent = 'Probando…'; diag.hidden = false; const r = await diagnose(); diag.className = 'note ' + (r.ok ? 'ok' : 'bad'); diag.textContent = r.msg; b.disabled = false; } }, icon('info'), 'Probar conexión')), diag));
-  view.cleanup = off;
+  view.cleanup = () => { off(); offInst(); };
 
   // ---- Copias
   const file = h('input', { type: 'file', accept: 'application/json', hidden: true, onchange: async e => {

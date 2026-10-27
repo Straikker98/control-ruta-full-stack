@@ -7,11 +7,13 @@
   <meta name="description" content="Plataforma de estudio para aprender Full Stack de cero: ruta de 60 temas, cuaderno, ejercicios, trabajos y exámenes.">
   <meta name="theme-color" content="#080914">
   <meta name="color-scheme" content="light dark">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Ruta Full Stack">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=JetBrains+Mono:wght@400;500;700&display=swap">
@@ -41,6 +43,7 @@
       <div class="topbar" role="region" aria-label="Sesión de estudio">
         <div class="grow"></div>
         <button class="search-btn" id="search" type="button" aria-label="Buscar o ir a… (Ctrl+K)"></button>
+        <button class="search-btn" id="install" type="button" hidden aria-label="Instalar la app en este dispositivo"></button>
         <div id="sync"></div>
         <div class="timer" id="timer"></div>
         <div id="me"></div>

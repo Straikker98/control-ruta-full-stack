@@ -3,6 +3,7 @@ import { h, clear, toast } from './util.js';
 import { icon } from './icons.js';
 import { state, subscribe } from './store.js';
 import { openPalette } from './palette.js';
+import { canPrompt, promptInstall, onInstallChange } from './install.js';
 import { applyTheme } from './theme.js';
 import { initSync, pull, hasKey, syncStatus, onSyncStatus, isPristine } from './sync.js';
 import * as L from './logic.js';
@@ -110,6 +111,11 @@ function paintXp() {
 const searchBtn = document.getElementById('search');
 searchBtn.append(icon('search'), h('span', null, 'Buscar'), h('kbd', null, 'Ctrl K'));
 searchBtn.addEventListener('click', openPalette);
+const installBtn = document.getElementById('install');
+installBtn.append(icon('down'), h('span', null, 'Instalar'));
+installBtn.addEventListener('click', promptInstall);
+const paintInstall = () => { installBtn.hidden = !canPrompt(); };
+onInstallChange(paintInstall); paintInstall();
 
 // ------------------------------------------------------------------ inicio
 applyTheme();
