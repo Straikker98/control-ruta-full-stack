@@ -1,11 +1,516 @@
 {
- "week": 13,
- "estado": "pendiente",
- "sections": [],
- "exercises": [],
- "trabajo": {
-  "title": "Trabajo del Tema 13 · Tipos y flujo",
-  "description": "",
-  "estimated_minutes": 240
- }
+  "week": 13,
+  "estado": "completo",
+  "sections": [
+    {
+      "page": 1,
+      "kind": "heading",
+      "title": "1.1. JavaScript: el lenguaje que hace reaccionar a la página",
+      "body": "JavaScript es el lenguaje de programación que el navegador ejecuta dentro de cada página web. HTML declara qué elementos existen, CSS decide cómo se ven y JavaScript decide qué ocurre cuando algo cambia: responde a un clic, calcula un valor, valida un formulario o pide datos a un servidor.\n\nEste tema es el primero de la Fase 3 y enseña el núcleo del lenguaje antes de cualquier uso con el navegador: valores, variables, comparaciones, decisiones y repeticiones. Las funciones, las colecciones y los módulos llegan en las semanas 14 a 16, y todo lo que aquí se escribe se reutiliza allí sin cambios.\n\nLos ejemplos se ejecutan en la pestaña JavaScript del Laboratorio de la aplicación (ruta #/lab) o en la consola de DevTools del navegador, la misma que se usó en los temas 6 y 12. Ninguno requiere instalar programas."
+    },
+    {
+      "page": 1,
+      "kind": "warning",
+      "title": "REGLA FUNDAMENTAL",
+      "body": "JavaScript distingue mayúsculas de minúsculas: nombre y Nombre son dos identificadores distintos. Un paréntesis que falta, una comilla sin cerrar o una coma de más impiden que el programa arranque: el navegador informa un error de sintaxis y no ejecuta ni una sola línea. Ante un error, se revisa primero que el texto sea válido y después la lógica."
+    },
+    {
+      "page": 1,
+      "kind": "definition",
+      "title": "1.2. Sentencia, instrucción y punto y coma",
+      "body": "Definición: una sentencia es una instrucción completa que el motor de JavaScript ejecuta de principio a fin. Cada sentencia termina con punto y coma (;). Aunque el lenguaje permite omitirlo en algunos casos, en este curso se escribe siempre, porque evita ambigüedades y coincide con la práctica habitual de las guías de estilo profesionales.\n\nUn programa es una lista de sentencias que se ejecutan en orden, de arriba abajo, salvo que una decisión o un bucle cambien ese recorrido. El orden de las sentencias importa tanto como el orden de las etiquetas en el HTML."
+    },
+    {
+      "page": 1,
+      "kind": "code",
+      "title": "1.3. La primera sentencia",
+      "body": "```\nconsole.log(\"Hola, mundo\");\nconsole.log(2 + 3);\n```"
+    },
+    {
+      "page": 1,
+      "kind": "theory",
+      "title": "1.4. console.log: mostrar un valor para verificarlo",
+      "body": "console.log es una función integrada del navegador que imprime en la consola el valor que recibe entre paréntesis. En este tema, función significa únicamente algo que se invoca con paréntesis; la definición de funciones propias se estudia en la semana 14.\n\nSu uso principal aquí es comprobar lo que el programa calcula. Antes de escribir una decisión, se imprime el valor que se cree tener y se compara con lo que aparece.\n• Un número sin comillas se trata como número; el mismo número entre comillas es texto.\n• console.log acepta varios valores separados por comas y los imprime en una misma línea, separados por espacios.\n• La ausencia de salida significa que la sentencia no imprimió nada, no que haya fallado."
+    },
+    {
+      "page": 1,
+      "kind": "code",
+      "title": "1.5. Un script dentro de una página HTML",
+      "body": "```\n<!doctype html>\n<html lang=\"es\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>Primer script</title>\n  </head>\n  <body>\n    <script>\n      console.log(\"El script se ejecutó\");\n    </script>\n  </body>\n</html>\n```"
+    },
+    {
+      "page": 1,
+      "kind": "theory",
+      "title": "1.6. La etiqueta script y los archivos externos",
+      "body": "La etiqueta script incorpora código JavaScript en una página. Puede contener el código directamente, como en el ejemplo anterior, o apuntar a un archivo externo con el atributo src:\n• <script src=\"app.js\"></script> carga el archivo app.js y ejecuta su contenido.\n• El archivo app.js contiene solo código JavaScript, sin etiquetas HTML.\n• Cuando el script aparece dentro de body, al final de la página, el navegador ya construyó los elementos anteriores y el código puede encontrarlos. Este orden es el que se usa en todo el curso.\n• El navegador ejecuta los scripts en el orden en que aparecen. Si un archivo externo no se encuentra, lo informa en la consola y continúa con el resto de la página."
+    },
+    {
+      "page": 2,
+      "kind": "heading",
+      "title": "2.1. Valores y tipos primitivos",
+      "body": "Un valor es un dato con el que trabaja el programa. Cada valor tiene un tipo, y el tipo determina qué operaciones tienen sentido sobre él. Los tipos básicos de JavaScript que este tema usa son los llamados primitivos:\n• number: enteros y decimales, como 42, -3 o 0.5.\n• string: texto entre comillas, como \"Ana\".\n• boolean: verdadero o falso, escritos true y false sin comillas.\n• undefined: valor que el lenguaje asigna cuando una variable existe pero aún no tiene valor.\n• null: ausencia de valor que el programador asigna a propósito.\n• bigint: enteros de precisión arbitraria, escritos con la letra n al final (10n). Su uso es especial y no se detalla.\n• symbol: identificador único, fuera del alcance de este tema.\n\nLos objetos y las listas no son primitivos. Se estudian en la semana 15."
+    },
+    {
+      "page": 2,
+      "kind": "definition",
+      "title": "2.2. typeof: preguntar al programa el tipo de un valor",
+      "body": "Definición: typeof es un operador que devuelve, en forma de texto, el tipo de un valor. Se escribe antes del valor: typeof 42 produce \"number\". Es la herramienta de comprobación para saber con qué tipo se está trabajando antes de operar con él.\n\nEl resultado de typeof siempre es un string. Por eso la comprobación correcta se escribe entre comillas: typeof 42 === \"number\"."
+    },
+    {
+      "page": 2,
+      "kind": "table",
+      "title": "Tabla — resultado de typeof según el valor",
+      "body": "Valor | Resultado de typeof | Observación\n\"Ana\" | \"string\" | Cualquier texto entre comillas\n42 | \"number\" | Enteros y decimales comparten el tipo\ntrue | \"boolean\" | Sin comillas, es un valor lógico\nundefined | \"undefined\" | Variable declarada sin valor\nnull | \"object\" | Error histórico del lenguaje: null no es un objeto\n10n | \"bigint\" | Entero de precisión arbitraria"
+    },
+    {
+      "page": 2,
+      "kind": "theory",
+      "title": "2.3. Los números y sus límites",
+      "body": "• Todos los números, enteros y decimales, pertenecen al mismo tipo number. Internamente se guardan en coma flotante de 64 bits.\n• Los decimales no siempre se representan con exactitud: 0.1 + 0.2 produce 0.30000000000000004. Por eso no se compara un decimal calculado con === contra un valor escrito a mano.\n• Los enteros son exactos hasta Number.MAX_SAFE_INTEGER, que vale 9007199254740991. A partir de ese valor se pierde precisión y, si hace falta, se usa bigint.\n• Existen tres valores numéricos especiales: Infinity, -Infinity y NaN (Not a Number, resultado de una operación sin sentido numérico, como \"abc\" * 2).\n• Dividir un número positivo entre cero produce Infinity. No es un error y el programa continúa."
+    },
+    {
+      "page": 2,
+      "kind": "warning",
+      "title": "REGLA: null y undefined no son lo mismo",
+      "body": "undefined indica que nadie ha asignado un valor todavía. null lo asigna el programador para declarar, de forma explícita, que no hay valor. Confundirlos en una condición produce decisiones equivocadas. La comparación estricta con === los distingue: undefined === null es false."
+    },
+    {
+      "page": 3,
+      "kind": "heading",
+      "title": "3.1. Variables: nombres que guardan valores",
+      "body": "Una variable es un nombre que guarda un valor para usarlo después. Se declara con una de dos palabras reservadas:\n• let: el valor puede cambiar después de declararlo.\n• const: el valor no puede reasignarse una vez declarado.\n\nDeclarar es crear el nombre; asignar es darle un valor. La sentencia let edad = 17; declara la variable edad y le asigna 17 en la misma línea. Una sentencia posterior, edad = 18;, cambia el valor, y solo es válida porque la variable se declaró con let.\n\nPor convención, se usa const por defecto y let únicamente cuando el valor debe cambiar. La palabra var pertenece al JavaScript antiguo y no se usa en este curso."
+    },
+    {
+      "page": 3,
+      "kind": "code",
+      "title": "3.2. Declarar, asignar y leer",
+      "body": "```\nlet edad = 17;\nedad = edad + 1;\nconst ciudad = \"Manizales\";\nconsole.log(edad);\nconsole.log(ciudad);\n```\nSalida esperada: 18 y, en la línea siguiente, Manizales."
+    },
+    {
+      "page": 3,
+      "kind": "warning",
+      "title": "REGLA: const impide reasignar, no hace inmutable el contenido",
+      "body": "const ciudad = \"Pereira\"; seguido de ciudad = \"Cali\"; produce un error TypeError: Assignment to constant variable. El error ocurre en tiempo de ejecución, en la línea de la reasignación, y el resto del programa no se ejecuta. Para valores primitivos, const garantiza que el valor no cambiará."
+    },
+    {
+      "page": 3,
+      "kind": "theory",
+      "title": "3.3. Nombres válidos y convenciones",
+      "body": "Reglas que el motor exige:\n• El nombre empieza por letra, guion bajo (_) o signo de dólar ($).\n• No contiene espacios ni signos de puntuación, salvo los dos anteriores.\n• No es una palabra reservada del lenguaje, como let, const, if, for o while.\n• Distingue mayúsculas: Edad y edad son variables distintas.\n\nConvención de estilo: los nombres de variables usan camelCase, con la primera palabra en minúscula y las siguientes con inicial mayúscula (notaFinal, cantidadAlumnos). Las constantes con un valor fijo conocido pueden escribirse en mayúsculas con guiones bajos (LIMITE_NOTA), aunque en este curso se usa camelCase de forma uniforme.\n• let x; declara la variable sin valor: x vale undefined."
+    },
+    {
+      "page": 3,
+      "kind": "heading",
+      "title": "4.1. Operadores aritméticos",
+      "body": "Un operador es un símbolo que realiza una operación sobre uno o dos valores. Los operadores aritméticos trabajan con números:\n• + suma y - resta.\n• * multiplica y / divide.\n• % calcula el resto de una división entera (módulo).\n• ** eleva a una potencia.\n\nCuando una expresión tiene varios operadores, se resuelven primero la multiplicación, la división y el resto, y después la suma y la resta. Los paréntesis cambian ese orden: (2 + 3) * 4 produce 20, mientras que 2 + 3 * 4 produce 14."
+    },
+    {
+      "page": 4,
+      "kind": "table",
+      "title": "Tabla — operadores aritméticos y resultado",
+      "body": "Operador | Ejemplo | Resultado\n+ | 5 + 3 | 8\n- | 5 - 3 | 2\n* | 5 * 3 | 15\n/ | 5 / 2 | 2.5\n% | 5 % 2 | 1\n** | 5 ** 2 | 25"
+    },
+    {
+      "page": 4,
+      "kind": "theory",
+      "title": "4.2. Asignación compuesta e incremento",
+      "body": "Existen abreviaciones para modificar una variable sobre sí misma:\n• x += 5 equivale a x = x + 5.\n• x -= 5, x *= 5 y x /= 5 siguen el mismo patrón.\n• x++ suma 1 al valor de x; x-- resta 1.\n• El operador % sirve para comprobar si un número es par: n % 2 === 0 es verdadero cuando n es par.\n\nCon let total = 10; la secuencia total += 5; seguida de total++; deja total con el valor 16. Sobre una variable declarada con const, x++ produce el mismo TypeError que una reasignación, porque también cambia el valor."
+    },
+    {
+      "page": 4,
+      "kind": "heading",
+      "title": "5.1. Cadenas de texto: comillas, longitud y plantillas",
+      "body": "Un string es una secuencia de caracteres. Se escribe con comillas dobles (\"), simples (') o invertidas (`). Las tres producen el mismo tipo. Las comillas invertidas tienen una ventaja adicional: permiten insertar valores dentro del texto con la forma ${expresión}, lo que se llama plantilla literal.\n\n• La concatenación une textos con +: \"Hola, \" + \"Ana\" produce \"Hola, Ana\".\n• La propiedad length da el número de caracteres: \"casa\".length vale 4.\n• El carácter \\ escapa una comilla dentro de un texto del mismo tipo: \"Dijo \\\"hola\\\"\".\n• Los strings son inmutables: un método devuelve un texto nuevo y el original permanece igual."
+    },
+    {
+      "page": 4,
+      "kind": "code",
+      "title": "5.2. Plantillas: insertar valores en un texto",
+      "body": "```\nlet nombre = \"Ana\";\nlet nota = 9.5;\nconsole.log(`Hola, ${nombre}. Tu nota es ${nota}.`);\nconsole.log(\"Hola, \" + nombre + \". Tu nota es \" + nota + \".\");\n```\nAmbas líneas imprimen el mismo texto. La plantilla es más legible cuando hay varios valores."
+    },
+    {
+      "page": 4,
+      "kind": "theory",
+      "title": "5.3. Métodos básicos de texto",
+      "body": "Un método es una operación que pertenece a un valor y se invoca con un punto y paréntesis. Los métodos de texto más usados en este tema:\n• toUpperCase() devuelve el texto en mayúsculas: \"lunes\".toUpperCase() produce \"LUNES\".\n• trim() quita los espacios sobrantes al inicio y al final: \"  Ana \".trim() produce \"Ana\".\n• includes(parte) devuelve true si el texto contiene la parte indicada: \"Manizales\".includes(\"niza\") produce true.\n\nComo los strings son inmutables, let nombre = \"ana\"; nombre.toUpperCase(); no cambia la variable. Para conservar el resultado hay que asignarlo: nombre = nombre.toUpperCase();."
+    },
+    {
+      "page": 4,
+      "kind": "definition",
+      "title": "5.4. Conversión de tipos: Number, String y Boolean",
+      "body": "Definición: convertir es producir, a partir de un valor, otro del tipo pedido. Las funciones de conversión explícitas son Number(valor), String(valor) y Boolean(valor):\n• Number(\"42\") produce 42.\n• String(42) produce \"42\".\n• Boolean(0) produce false.\n\nLa conversión explícita es la forma correcta de cambiar de tipo, porque el resultado se conoce y se escribió en el código."
+    },
+    {
+      "page": 4,
+      "kind": "table",
+      "title": "Tabla — resultado de Number() con distintos valores",
+      "body": "Valor | Number(valor) | Observación\n\"42\" | 42 | Texto con dígitos válidos\n\"\" | 0 | Texto vacío: convierte a cero\n\"12px\" | NaN | Contiene letras: no es un número completo\n\"abc\" | NaN | Ningún número posible\ntrue | 1 | El booleano true equivale a 1\nnull | 0 | null se convierte en cero\nundefined | NaN | Ausencia de valor no numérica"
+    },
+    {
+      "page": 4,
+      "kind": "warning",
+      "title": "REGLA: la conversión automática produce resultados sorprendentes",
+      "body": "Cuando un operador recibe tipos distintos, JavaScript convierte uno de ellos sin avisar. \"5\" + 2 produce \"52\", porque el + concatena si uno de los operandos es texto. \"5\" - 2 produce 3, porque el - solo opera con números. true + 1 produce 2. Para evitar estas combinaciones, cada valor se convierte de forma explícita antes de operar."
+    },
+    {
+      "page": 5,
+      "kind": "heading",
+      "title": "6.1. Comparar valores: resultado booleano",
+      "body": "Una comparación produce siempre un booleano, true o false. Los operadores de comparación son:\n• === igual estricto: mismo tipo y mismo valor.\n• !== distinto estricto: el opuesto de ===.\n• < menor que, > mayor que.\n• <= menor o igual, >= mayor o igual.\n\nLas comparaciones de números siguen la aritmética habitual. Las de textos comparan carácter por carácter según su código, por lo que \"a\" < \"b\" es true y \"Z\" < \"a\" también es true, porque las mayúsculas tienen un código menor."
+    },
+    {
+      "page": 5,
+      "kind": "definition",
+      "title": "6.2. Igualdad estricta y igualdad débil",
+      "body": "Definición: la igualdad estricta (===) compara el tipo y el valor sin ninguna conversión. La igualdad débil (==) convierte los tipos antes de comparar, y su resultado es difícil de predecir: \"5\" == 5 produce true, mientras que \"5\" === 5 produce false.\n\nRegla del curso: se usan siempre === y !==. La igualdad débil queda fuera del alcance de este tema."
+    },
+    {
+      "page": 5,
+      "kind": "table",
+      "title": "Tabla — resultado de algunas comparaciones",
+      "body": "Expresión | Resultado | Motivo\n5 === 5 | true | Mismo tipo y valor\n\"5\" === 5 | false | Tipos distintos: texto y número\n\"5\" == 5 | true | == convierte el texto antes de comparar\nnull === undefined | false | Tipos distintos en la comparación estricta\nnull == undefined | true | == los considera iguales\nNaN === NaN | false | NaN no es igual a nada, ni a sí mismo\n0 === -0 | true | Ambos representan cero"
+    },
+    {
+      "page": 5,
+      "kind": "code",
+      "title": "6.3. Comparaciones con números y textos",
+      "body": "```\nconsole.log(NaN === NaN);\nconsole.log(Number.isNaN(NaN));\nconsole.log(\"a\" < \"b\");\nconsole.log(\"Z\" < \"a\");\nconsole.log(\"10\" < \"9\");\nconsole.log(10 < 9);\n```\nSalida esperada: false, true, true, true, true, false."
+    },
+    {
+      "page": 5,
+      "kind": "warning",
+      "title": "REGLA: NaN solo se detecta con Number.isNaN",
+      "body": "Como NaN no es igual a ningún valor, incluso a sí mismo, la comparación x === NaN nunca es verdadera. Para comprobar si un valor es NaN se usa Number.isNaN(x). El caso de \"10\" < \"9\" muestra otra trampa: al comparar dos textos, se comparan los caracteres en orden y \"1\" es menor que \"9\", aunque el número 10 sea mayor que 9."
+    },
+    {
+      "page": 6,
+      "kind": "heading",
+      "title": "7.1. Booleanos y operadores lógicos",
+      "body": "Los operadores lógicos combinan booleanos:\n• && (y): produce true solo si ambos operandos son verdaderos.\n• || (o): produce true si al menos uno de los operandos es verdadero.\n• ! (no): invierte el valor: !true produce false.\n\nUna condición compuesta se construye con estos operadores: edad >= 18 && tieneCedula produce true solo cuando se cumplen las dos condiciones."
+    },
+    {
+      "page": 6,
+      "kind": "table",
+      "title": "Tabla — resultados de los operadores lógicos",
+      "body": "a | b | a && b | a || b | !a\ntrue | true | true | true | false\ntrue | false | false | true | false\nfalse | true | false | true | true\nfalse | false | false | false | true"
+    },
+    {
+      "page": 6,
+      "kind": "definition",
+      "title": "7.2. Valores falsy y truthy",
+      "body": "Definición: un valor es falsy cuando, al convertirse a booleano, produce false; un valor truthy produce true. Los valores falsy son exactamente ocho: false, 0, -0, 0n, la cadena vacía \"\", null, undefined y NaN.\n\nTodo lo demás es truthy, incluidos el texto \"0\", el texto \"false\", la lista vacía [] y el objeto vacío {}. Esta regla decide el resultado de if, de while y de los operadores lógicos cuando reciben valores que no son booleanos."
+    },
+    {
+      "page": 6,
+      "kind": "code",
+      "title": "7.3. Cortocircuito y valores por defecto",
+      "body": "```\nconsole.log(true && \"ok\");\nconsole.log(false && \"ok\");\nconsole.log(\"\" || \"invitado\");\nconsole.log(0 ?? 10);\nconsole.log(null ?? 10);\n```\nSalida esperada: ok, false, invitado, 0, 10."
+    },
+    {
+      "page": 6,
+      "kind": "theory",
+      "title": "7.4. Cortocircuito y el operador ??",
+      "body": "El cortocircuito consiste en evaluar el segundo operando solo cuando el primero no decide el resultado:\n• a && b evalúa b únicamente si a es truthy. Si a es falsy, devuelve a sin evaluar b.\n• a || b evalúa b únicamente si a es falsy. Si a es truthy, devuelve a.\n• a ?? b devuelve b solo si a es null o undefined. Así, 0 y \"\" se conservan como valores válidos.\n\nLa diferencia entre || y ?? aparece con los valores falsy que son datos legítimos. Para un puerto configurado a 0 o un texto vacío intencional, || lo reemplaza por el valor de respaldo, y ?? no."
+    },
+    {
+      "page": 7,
+      "kind": "heading",
+      "title": "8.1. if, else if y else: elegir un camino",
+      "body": "La sentencia if ejecuta un bloque solo cuando su condición es truthy. El bloque va entre llaves { }, y la condición entre paréntesis. La cláusula else if añade otra condición que se evalúa si la anterior fue falsa, y else ejecuta su bloque cuando ninguna condición anterior se cumplió.\n\nUn if puede aparecer sin else, y puede haber tantos else if como sean necesarios. El bloque de else no lleva condición."
+    },
+    {
+      "page": 7,
+      "kind": "code",
+      "title": "8.2. Clasificar una nota",
+      "body": "```\nconst nota = 7.5;\nif (nota >= 9) {\n  console.log(\"Aprobado\");\n} else if (nota >= 6) {\n  console.log(\"Recuperar\");\n} else {\n  console.log(\"Reprobado\");\n}\n```\nSalida esperada: Recuperar."
+    },
+    {
+      "page": 7,
+      "kind": "theory",
+      "title": "8.3. El orden de las condiciones",
+      "body": "JavaScript evalúa las condiciones de arriba abajo y ejecuta únicamente el primer bloque cuya condición sea verdadera. Las condiciones siguientes no se evalúan. Por eso los rangos más exigentes van primero.\n\nSi el orden se invierte y la primera condición es nota >= 6, la nota 9.5 caería en el bloque de Recuperar, porque 9.5 también es mayor o igual que 6. El orden del código es parte de la lógica, no un detalle de estilo."
+    },
+    {
+      "page": 7,
+      "kind": "diagram",
+      "title": "Flujo de la clasificación de una nota",
+      "body": "nota >= 9 ──► sí ──► Aprobado\n   │ no\n   ▼\nnota >= 6 ──► sí ──► Recuperar\n   │ no\n   ▼\nReprobado"
+    },
+    {
+      "page": 7,
+      "kind": "warning",
+      "title": "REGLA: la condición compara, no asigna",
+      "body": "En una condición, el operador = asigna un valor y no compara. La expresión if (x = 5) guarda 5 en x, y como 5 es truthy, el bloque se ejecuta siempre. La comparación correcta es if (x === 5). Este error produce decisiones que parecen aleatorias y se detecta imprimiendo la variable antes de la condición."
+    },
+    {
+      "page": 7,
+      "kind": "theory",
+      "title": "8.4. El operador ternario",
+      "body": "El operador ternario produce uno de dos valores según una condición, y tiene esta forma: condición ? valorSiVerdadero : valorSiFalso. Se usa cuando la decisión es simple y el resultado es un valor que se guarda en una variable:\nconst estado = nota >= 6 ? \"aprobado\" : \"reprobado\";\n\nSu uso es adecuado para dos caminos. Con más de dos ramas, o cuando ambas ramas ejecutan acciones, la estructura if es más clara."
+    },
+    {
+      "page": 8,
+      "kind": "heading",
+      "title": "9.1. switch: un valor contra varios casos",
+      "body": "La sentencia switch compara un valor con una lista de casos y ejecuta el bloque del caso que coincide. Cada caso se escribe con case valor: y termina con break; para salir del switch. La cláusula default se ejecuta cuando ningún caso coincide.\n\nLa comparación que usa switch es estricta (===). Por eso un valor de texto \"2\" no coincide con un caso numérico 2."
+    },
+    {
+      "page": 8,
+      "kind": "code",
+      "title": "9.2. Varios casos para un mismo bloque",
+      "body": "```\nconst dia = 6;\nswitch (dia) {\n  case 6:\n  case 7:\n    console.log(\"Fin de semana\");\n    break;\n  default:\n    console.log(\"Día laboral\");\n}\n```\nSalida esperada: Fin de semana. Los casos 6 y 7 no tienen bloque propio: al no haber break entre ellos, ambos comparten el mismo código."
+    },
+    {
+      "page": 8,
+      "kind": "warning",
+      "title": "REGLA: sin break, el código sigue ejecutándose",
+      "body": "Cuando un caso no termina con break, la ejecución continúa con el caso siguiente, sin comparar, hasta encontrar un break o el final del switch. Este comportamiento se llama caída (fall-through). Algunas veces se usa a propósito, como en el ejemplo de los casos 6 y 7, pero olvidar el break es el error más frecuente de esta estructura."
+    },
+    {
+      "page": 8,
+      "kind": "table",
+      "title": "Tabla — comparación entre if, switch y el operador ternario",
+      "body": "Herramienta | Mejor uso | Limitación\nif / else if | Rangos y condiciones compuestas | Se vuelve largo con muchas ramas\nswitch | Un valor exacto contra varios casos | Solo compara igualdad estricta\n?: | Elegir entre dos valores dentro de una expresión | Difícil de leer si se anida"
+    },
+    {
+      "page": 9,
+      "kind": "heading",
+      "title": "10.1. while: repetir mientras la condición sea verdadera",
+      "body": "Un bucle repite un bloque de código. El bucle while repite mientras su condición sea truthy. La condición se evalúa antes de cada vuelta: si es falsa desde el principio, el bloque no se ejecuta ni una vez.\n\nUn bucle necesita dos elementos para terminar: una condición que en algún momento se vuelva falsa, y una sentencia dentro del bloque que modifique las variables de esa condición. Sin el segundo, el bucle no termina nunca."
+    },
+    {
+      "page": 9,
+      "kind": "code",
+      "title": "10.2. Un contador con while",
+      "body": "```\nlet cuenta = 1;\nwhile (cuenta <= 3) {\n  console.log(\"Vuelta\", cuenta);\n  cuenta++;\n}\n```\nSalida esperada: Vuelta 1, Vuelta 2 y Vuelta 3, cada una en su línea."
+    },
+    {
+      "page": 9,
+      "kind": "warning",
+      "title": "REGLA: todo bucle tiene una salida",
+      "body": "Un bucle cuya condición nunca se vuelve falsa se ejecuta sin fin y bloquea la pestaña del navegador: la página deja de responder. Antes de escribir un while, se identifica la variable que controla la condición y la sentencia que la cambia en cada vuelta. Si la pestaña se bloquea, se cierra y se corrige el código."
+    },
+    {
+      "page": 9,
+      "kind": "definition",
+      "title": "10.3. for: inicialización, condición y actualización",
+      "body": "Definición: el bucle for agrupa en un mismo encabezado las tres partes de un contador: for (inicialización; condición; actualización) { bloque }.\n• La inicialización se ejecuta una sola vez, antes de la primera vuelta.\n• La condición se evalúa antes de cada vuelta; si es falsa, el bucle termina.\n• La actualización se ejecuta al final de cada vuelta, después del bloque.\n\nEl for es equivalente a un while con su contador, y se prefiere cuando el número de vueltas es conocido de antemano."
+    },
+    {
+      "page": 9,
+      "kind": "code",
+      "title": "10.4. Cuadrados de 1 a 5",
+      "body": "```\nfor (let i = 1; i <= 5; i++) {\n  console.log(i * i);\n}\n```\nSalida esperada: 1, 4, 9, 16 y 25, uno por línea. La variable i se declara con let en el encabezado y existe solo dentro del bucle."
+    },
+    {
+      "page": 10,
+      "kind": "theory",
+      "title": "11.1. do…while: ejecutar al menos una vez",
+      "body": "La variante do…while ejecuta el bloque primero y evalúa la condición después. Por eso el bloque se ejecuta al menos una vez, aunque la condición sea falsa desde el inicio. Se usa con menos frecuencia que while y for, en casos como pedir una entrada hasta que sea válida, donde la primera vuelta siempre hace falta."
+    },
+    {
+      "page": 10,
+      "kind": "code",
+      "title": "11.2. Un do…while con condición falsa desde el inicio",
+      "body": "```\nlet intento = 0;\ndo {\n  intento++;\n  console.log(\"Intento\", intento);\n} while (intento < 0);\n```\nSalida esperada: Intento 1. El bloque se ejecuta una vez, porque la condición se evalúa al final de la vuelta y resulta falsa."
+    },
+    {
+      "page": 10,
+      "kind": "heading",
+      "title": "12.1. break y continue: controlar cada vuelta",
+      "body": "Dentro de un bucle, dos sentencias alteran el recorrido normal:\n• break termina el bucle completo y continúa con la primera sentencia posterior a él.\n• continue termina la vuelta actual y pasa a la siguiente, sin ejecutar el resto del bloque.\n\nAmbas se combinan con if para expresar casos como «saltar los impares» o «detener al encontrar un valor»."
+    },
+    {
+      "page": 10,
+      "kind": "code",
+      "title": "12.2. Saltar una vuelta y detener el bucle",
+      "body": "```\nfor (let i = 1; i <= 6; i++) {\n  if (i === 3) {\n    continue;\n  }\n  if (i === 5) {\n    break;\n  }\n  console.log(i);\n}\n```\nSalida esperada: 1, 2 y 4. La vuelta 3 se omite con continue y el bucle termina en la vuelta 5 con break; el 6 no llega a ejecutarse."
+    },
+    {
+      "page": 10,
+      "kind": "theory",
+      "title": "12.3. Bucles anidados",
+      "body": "Un bucle puede contener otro. El bucle interior se ejecuta completo en cada vuelta del exterior, así que las vueltas totales son el producto de las dos cantidades: un bucle de 3 vueltas dentro de otro de 3 vueltas ejecuta el bloque interior 9 veces.\n\nLos bucles anidados son la base de las tablas y las cuadrículas. El coste crece con el producto de las vueltas: dos bucles de mil vueltas cada uno ejecutan un millón de veces el bloque interior."
+    },
+    {
+      "page": 10,
+      "kind": "code",
+      "title": "12.4. Una tabla de multiplicar pequeña",
+      "body": "```\nfor (let fila = 1; fila <= 3; fila++) {\n  let linea = \"\";\n  for (let col = 1; col <= 3; col++) {\n    linea += fila * col + \" \";\n  }\n  console.log(linea);\n}\n```\nSalida esperada: \"1 2 3 \", \"2 4 6 \" y \"3 6 9 \". La variable linea se reinicia en cada vuelta del bucle exterior."
+    },
+    {
+      "page": 10,
+      "kind": "warning",
+      "title": "REGLA: los errores de un solo paso (off-by-one)",
+      "body": "La causa más común de un bucle incorrecto es un límite desplazado en una unidad: empezar en 0 cuando el conteo empieza en 1, o usar < cuando debería usarse <=. Un bucle que debe imprimir de 1 a 5 se escribe for (let i = 1; i <= 5; i++). Con i < 5, la vuelta del 5 se pierde; con i = 0, aparece una vuelta de más."
+    },
+    {
+      "page": 11,
+      "kind": "theory",
+      "title": "13.1. Depurar un bucle: imprimir la variable en cada vuelta",
+      "body": "El procedimiento para depurar un bucle consta de cuatro pasos:\n• Predecir, antes de ejecutar, los valores que tomará la variable en cada vuelta y cuántas vueltas habrá.\n• Insertar console.log dentro del bloque para imprimir la variable en cada vuelta.\n• Comparar la salida con la predicción: la primera diferencia indica la sentencia que falla.\n• Revisar la condición de salida y la actualización con los valores de la primera y de la última vuelta.\n\nQuitar el console.log cuando el problema está resuelto evita la salida innecesaria."
+    },
+    {
+      "page": 11,
+      "kind": "heading",
+      "title": "13.2. Síntomas habituales y causas probables",
+      "body": "Los errores de este tema se agrupan en pocas causas. La tabla siguiente relaciona lo que se observa con lo que conviene revisar primero."
+    },
+    {
+      "page": 11,
+      "kind": "table",
+      "title": "Tabla — síntomas, causas y revisión",
+      "body": "Síntoma | Causa probable | Revisión\nUnexpected token en la consola | Paréntesis, llaves o comillas sin cerrar | Contar los pares de cada signo\nNaN o 0 inesperado en un cálculo | Texto usado como número sin Number() | Comprobar typeof de la variable\nUn bloque se ejecuta siempre | Asignación = usada en lugar de === | Revisar el operador de la condición\nEl bucle nunca termina | Variable de control sin actualizar | Revisar la actualización del bucle\nUna vuelta de más o de menos | Límite con < en lugar de <= o inicio incorrecto | Probar la primera y la última vuelta"
+    },
+    {
+      "page": 11,
+      "kind": "diagram",
+      "title": "Ciclo de trabajo con decisiones y bucles",
+      "body": "Predecir el resultado ──► ejecutar ──► comparar\n        ▲                                 │\n        └──── corregir la hipótesis ◄─────┘ (si no coincide)"
+    },
+    {
+      "page": 11,
+      "kind": "theory",
+      "title": "13.3. Relación con las semanas siguientes",
+      "body": "Las herramientas de este tema reaparecen en todo el resto de la Fase 3. Las funciones de la semana 14 contienen condicionales y bucles en su cuerpo; el scope determina en qué bloque existe cada variable. Las colecciones de la semana 15 se recorren con bucles. El Laboratorio, la consola y la comparación estricta siguen siendo las herramientas de verificación."
+    },
+    {
+      "page": 11,
+      "kind": "warning",
+      "title": "REGLA DE CIERRE: no se ejecuta lo que no se puede predecir",
+      "body": "Un fragmento que no se puede predecir con lápiz y papel no se debe ejecutar para averiguar qué hace, sino descomponerse en partes más pequeñas hasta que cada parte sea predecible. La predicción previa a la ejecución es el hábito que separa a quien depura de quien prueba al azar."
+    }
+  ],
+  "exercises": [
+    {
+      "n": 1,
+      "title": "Ejercicio 1 · Tipos de valores y typeof",
+      "objective": "Predecir el tipo de cada valor y comprobarlo con typeof, incluido el caso especial de null.",
+      "steps": [
+        {
+          "hacer": "Abrir el Laboratorio (#/lab), pestaña JavaScript, y ejecutar console.log(typeof 42, typeof \"42\", typeof true).",
+          "esperado": "Salida: number string boolean."
+        },
+        {
+          "hacer": "Antes de ejecutar, escribir en un papel el resultado de typeof undefined y de typeof 10n, y luego ejecutar console.log(typeof undefined, typeof 10n).",
+          "esperado": "Salida: undefined bigint. La predicción debe coincidir."
+        },
+        {
+          "hacer": "Ejecutar console.log(typeof null).",
+          "esperado": "Salida: object. Es un error histórico del lenguaje: null no es un objeto."
+        },
+        {
+          "hacer": "Ejecutar console.log(undefined === null, undefined == null).",
+          "esperado": "Salida: false true. La comparación estricta los distingue; la débil no."
+        }
+      ],
+      "example": "Tabla de referencia: 42 → number; \"42\" → string; true → boolean; undefined → undefined; 10n → bigint; null → object.",
+      "verification": "Cada predicción escrita antes de ejecutar coincide con la salida, o la diferencia queda explicada con la tabla de la hoja 2."
+    },
+    {
+      "n": 2,
+      "title": "Ejercicio 2 · Comparaciones y conversiones razonadas",
+      "objective": "Predecir el resultado de comparaciones y conversiones, y explicar cada diferencia con el tipo de los operandos.",
+      "steps": [
+        {
+          "hacer": "Escribir la predicción de 5 == \"5\" y de 5 === \"5\", y ejecutar console.log(5 == \"5\", 5 === \"5\").",
+          "esperado": "Salida: true false. La igualdad débil convierte el texto antes de comparar."
+        },
+        {
+          "hacer": "Ejecutar console.log(\"\" == 0, \"\" === 0).",
+          "esperado": "Salida: true false."
+        },
+        {
+          "hacer": "Ejecutar console.log(Number(\"12px\"), Number(\"\"), Number(\"42\")).",
+          "esperado": "Salida: NaN 0 42."
+        },
+        {
+          "hacer": "Ejecutar console.log(\"5\" + 2, \"5\" - 2).",
+          "esperado": "Salida: 52 3. El + concatena cuando hay texto; el - opera con números."
+        },
+        {
+          "hacer": "Ejecutar console.log(0.1 + 0.2 === 0.3, Number.isNaN(NaN)).",
+          "esperado": "Salida: false true."
+        }
+      ],
+      "example": "Un formulario que recibe \"12px\" como edad la convierte en NaN; un campo vacío se convierte en 0. Ambos casos deben validarse antes de usar el número.",
+      "verification": "Ninguna predicción se acepta sin escribir el motivo: tipo de cada operando y regla aplicada."
+    },
+    {
+      "n": 3,
+      "title": "Ejercicio 3 · Clasificar con if y con switch",
+      "objective": "Escribir la misma clasificación con if/else if/else y con switch, y comprobar que el orden de las condiciones cambia el resultado.",
+      "steps": [
+        {
+          "hacer": "Declarar const nota = 9.5 y escribir una cadena if / else if / else que imprima Aprobado si nota >= 9, Recuperar si nota >= 6 y Reprobado en otro caso.",
+          "esperado": "Salida: Aprobado."
+        },
+        {
+          "hacer": "Invertir el orden de las dos primeras condiciones (primero nota >= 6) y ejecutar de nuevo con nota = 9.5.",
+          "esperado": "Salida: Recuperar. El orden de las condiciones decide el resultado."
+        },
+        {
+          "hacer": "Restaurar el orden correcto. Declarar const letra = \"B\" y escribir un switch con los casos \"A\" (Excelente), \"B\" (Bueno), \"C\" (Suficiente) y default (Insuficiente), con break en cada caso.",
+          "esperado": "Salida: Bueno."
+        },
+        {
+          "hacer": "Cambiar letra a \"b\" en minúscula y ejecutar.",
+          "esperado": "Salida: Insuficiente. switch compara con ===, y \"b\" no es igual a \"B\"."
+        }
+      ],
+      "example": "Tabla de referencia: nota 9.5 con el orden correcto → Aprobado; letra \"B\" → Bueno.",
+      "verification": "Las dos versiones producen la misma salida con los mismos datos, y se explica con una frase por qué cambia el resultado con el orden invertido."
+    },
+    {
+      "n": 4,
+      "title": "Ejercicio 4 · Bucles: suma, duplicación y tabla",
+      "objective": "Escribir tres bucles distintos (for, while y anidado) y predecir el número de vueltas antes de ejecutarlos.",
+      "steps": [
+        {
+          "hacer": "Escribir un for que sume los números pares del 2 al 20 y guarde el total en una variable let suma. Imprimir suma.",
+          "esperado": "Salida: 110."
+        },
+        {
+          "hacer": "Escribir un while que empiece con let x = 1, imprima x y lo duplique (x *= 2) mientras x <= 100.",
+          "esperado": "Salida: 1, 2, 4, 8, 16, 32 y 64, uno por línea. Son siete vueltas."
+        },
+        {
+          "hacer": "Escribir dos bucles for anidados, con fila y col de 1 a 3, que impriman el producto fila * col en cada línea, separado por espacios.",
+          "esperado": "Salida: 1 2 3, 2 4 6 y 3 6 9, cada una en su línea. El bloque interior se ejecuta nueve veces."
+        },
+        {
+          "hacer": "Usar continue dentro del for de la suma para que omita los múltiplos de 4 y volver a imprimir la suma.",
+          "esperado": "Salida: 50. Los múltiplos de 4 entre 2 y 20 son 4, 8, 12, 16 y 20 (suman 60), y 110 − 60 = 50."
+        }
+      ],
+      "example": "Referencia del paso 4: los pares 2, 4, 6, 8, 10, 12, 14, 16, 18 y 20 suman 110; los múltiplos de 4 son 4, 8, 12, 16 y 20 y suman 60. Como se omiten, la suma final es 110 − 60 = 50.",
+      "verification": "El número de vueltas predicho de cada bucle coincide con la salida. El paso 4 debe imprimir 50: si imprime 110 o 60, la condición de continue está mal escrita o invertida."
+    },
+    {
+      "n": 5,
+      "title": "Ejercicio 5 · Depurar un bucle con error de límite",
+      "objective": "Diagnosticar un bucle que omite una vuelta, usando la técnica de imprimir la variable en cada vuelta.",
+      "steps": [
+        {
+          "hacer": "Ejecutar el siguiente código: let total = 0; for (let i = 1; i < 10; i++) { total += i; } console.log(\"Total de 1 a 10:\", total);",
+          "esperado": "Salida: Total de 1 a 10: 45. Falta la vuelta del 10."
+        },
+        {
+          "hacer": "Añadir dentro del bloque console.log(\"vuelta\", i) y ejecutar de nuevo.",
+          "esperado": "Aparecen las vueltas 1 a 9. La última vuelta impresa es la 9."
+        },
+        {
+          "hacer": "Corregir la condición a i <= 10 y ejecutar.",
+          "esperado": "Salida: Total de 1 a 10: 55, con diez vueltas. Quitar el console.log de depuración."
+        }
+      ],
+      "example": "El límite i < 10 detiene el bucle antes del valor 10. La condición i <= 10 incluye el último valor.",
+      "verification": "El total final es 55 y el número de vueltas es 10. La explicación del error menciona el límite y no un cambio de otra parte del código."
+    }
+  ],
+  "trabajo": {
+    "title": "Trabajo del Tema 13 · Simulador de cuotas de un préstamo educativo",
+    "description": "Situación nueva de este trabajo: ningún paso de los ejercicios resolvía un préstamo. Un estudiante pide prestados 1 000 000 COP para pagar un curso, con interés del 1 % mensual sobre el saldo y una cuota fija de 100 000 COP cada mes. Escribir un archivo index.html con un único bloque script (sin funciones) que calcule mes a mes el saldo y muestre en la consola del navegador: una línea por mes con el número de mes, el interés y el saldo restante; el total pagado y el número de meses hasta saldar la deuda.\n\nRequisitos: usar let o const según corresponda; comparar siempre con === y !==; usar un while para recorrer los meses mientras el saldo sea positivo; usar un if o un switch para imprimir la etiqueta Pago final cuando el saldo llegue a cero y Pago normal en los demás meses; y redondear el saldo con toFixed(2) solo al imprimir. Incluir en el mismo repositorio un archivo predicciones.txt con 30 ejercicios breves: cada línea contiene una expresión de JavaScript, la predicción escrita antes de ejecutarla y la razón del resultado.\n\nEntrega: enlace al repositorio y enlace a la página publicada en GitHub Pages, con una nota de tres líneas sobre el número de meses obtenido y la comprobación que se hizo.",
+    "estimated_minutes": 300
+  }
 }

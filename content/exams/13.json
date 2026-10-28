@@ -1,0 +1,587 @@
+{
+  "week": 13,
+  "levels": {
+    "facil": [
+      {
+        "id": "13-f-01",
+        "prompt": "¿Qué devuelve typeof \"Ana\"?",
+        "options": [
+          "\"string\"",
+          "\"text\"",
+          "\"char\"",
+          "\"object\""
+        ],
+        "answer": 0,
+        "explanation": "Cualquier texto entre comillas es de tipo string. «text» y «char» no son tipos de JavaScript, y las cadenas no son objetos."
+      },
+      {
+        "id": "13-f-02",
+        "prompt": "¿Cuál de estos valores es de tipo boolean?",
+        "options": [
+          "\"true\"",
+          "\"verdadero\"",
+          "true",
+          "1"
+        ],
+        "answer": 2,
+        "explanation": "true sin comillas es el valor booleano verdadero. Con comillas, \"true\" es texto, y 1 es un número."
+      },
+      {
+        "id": "13-f-03",
+        "prompt": "¿Qué hace console.log en el Laboratorio?",
+        "options": [
+          "Guarda el valor en el disco del computador",
+          "Imprime en la consola el valor que recibe",
+          "Envía el valor a un servidor remoto",
+          "Cambia el color del texto de la página"
+        ],
+        "answer": 1,
+        "explanation": "console.log muestra el valor en la consola para verificarlo. No guarda datos ni envía nada, y no modifica la página."
+      },
+      {
+        "id": "13-f-04",
+        "prompt": "¿Qué palabra declara una variable cuyo valor no puede reasignarse?",
+        "options": [
+          "let",
+          "var",
+          "fixed",
+          "const"
+        ],
+        "answer": 3,
+        "explanation": "const impide la reasignación. let permite cambiar el valor, var pertenece al JavaScript antiguo y «fixed» no es una palabra reservada."
+      },
+      {
+        "id": "13-f-05",
+        "prompt": "¿Cuál es el resultado de 7 % 3?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "2.33"
+        ],
+        "answer": 0,
+        "explanation": "% calcula el resto de la división entera: 7 = 2 × 3 + 1. El resultado es 1; 2.33 corresponde a una división, no a un resto."
+      },
+      {
+        "id": "13-f-06",
+        "prompt": "¿Cuál es el valor de 2 ** 3?",
+        "options": [
+          "6",
+          "9",
+          "8",
+          "5"
+        ],
+        "answer": 2,
+        "explanation": "** es la potencia: 2 elevado a 3 es 2 × 2 × 2 = 8. Multiplicar 2 por 3 daría 6, y sumarlos daría 5."
+      },
+      {
+        "id": "13-f-07",
+        "prompt": "¿Qué devuelve la comparación 5 === \"5\"?",
+        "options": [
+          "true, porque ambos representan el número cinco",
+          "false, porque el tipo es distinto",
+          "true, porque JavaScript convierte los tipos",
+          "Un error de sintaxis"
+        ],
+        "answer": 1,
+        "explanation": "=== compara tipo y valor sin convertir. El número 5 y el texto \"5\" tienen tipos distintos, así que el resultado es false."
+      },
+      {
+        "id": "13-f-08",
+        "prompt": "¿Cuál es el resultado de 0.1 + 0.2 === 0.3?",
+        "options": [
+          "true",
+          "undefined",
+          "Un error de ejecución",
+          "false"
+        ],
+        "answer": 3,
+        "explanation": "Los decimales binarios no son exactos: 0.1 + 0.2 produce 0.30000000000000004, que no es igual a 0.3."
+      },
+      {
+        "id": "13-f-09",
+        "prompt": "¿Qué muestra typeof undefined?",
+        "options": [
+          "\"undefined\"",
+          "\"null\"",
+          "\"void\"",
+          "\"empty\""
+        ],
+        "answer": 0,
+        "explanation": "El resultado de typeof es el nombre del tipo, y el tipo de undefined se llama undefined."
+      },
+      {
+        "id": "13-f-10",
+        "prompt": "¿Cuál de los siguientes valores es falsy?",
+        "options": [
+          "\"0\" (cero entre comillas)",
+          "[] (lista vacía)",
+          "\"\" (cadena vacía)",
+          "\"false\" (texto)"
+        ],
+        "answer": 2,
+        "explanation": "La cadena vacía es uno de los ocho valores falsy. Los otros tres son texto no vacío o un objeto, y todos se evalúan como truthy."
+      },
+      {
+        "id": "13-f-11",
+        "prompt": "¿Qué resultado produce \"Hola, \" + \"mundo\"?",
+        "options": [
+          "\"Holamundo\"",
+          "\"Hola, mundo\"",
+          "\"Hola,mundo\"",
+          "Un error de sintaxis"
+        ],
+        "answer": 1,
+        "explanation": "El operador + une los textos conservando los espacios que contienen. La coma y el espacio de «Hola, » se mantienen."
+      },
+      {
+        "id": "13-f-12",
+        "prompt": "¿Cuál es el operador que compara de forma estricta la igualdad?",
+        "options": [
+          "=",
+          "==",
+          "=>",
+          "==="
+        ],
+        "answer": 3,
+        "explanation": "= asigna un valor, == compara con conversión de tipos, y => define funciones de flecha. === es la comparación estricta."
+      },
+      {
+        "id": "13-f-13",
+        "prompt": "¿Cuál es el resultado de la expresión true && false?",
+        "options": [
+          "false",
+          "true",
+          "null",
+          "undefined"
+        ],
+        "answer": 0,
+        "explanation": "&& es verdadero solo si ambos operandos son verdaderos. Como el segundo es false, el resultado es false."
+      },
+      {
+        "id": "13-f-14",
+        "prompt": "¿Cuál es la longitud de la cadena \"casa\"?",
+        "options": [
+          "3",
+          "5",
+          "4",
+          "casa"
+        ],
+        "answer": 2,
+        "explanation": "length cuenta los caracteres: c, a, s y a. Son cuatro."
+      },
+      {
+        "id": "13-f-15",
+        "prompt": "¿Qué muestra console.log(typeof 10n)?",
+        "options": [
+          "\"number\"",
+          "\"bigint\"",
+          "\"int\"",
+          "\"integer\""
+        ],
+        "answer": 1,
+        "explanation": "El sufijo n marca un entero bigint. Su tipo es bigint, no number, y JavaScript no tiene tipos llamados int o integer."
+      },
+      {
+        "id": "13-f-16",
+        "prompt": "¿Qué devuelve Number(\"42\")?",
+        "options": [
+          "\"42\" (texto)",
+          "NaN",
+          "Un error de ejecución",
+          "42 (número)"
+        ],
+        "answer": 3,
+        "explanation": "Number convierte el texto de dígitos válidos a número. El resultado es el número 42, sin comillas."
+      }
+    ],
+    "medio": [
+      {
+        "id": "13-m-01",
+        "prompt": "¿Qué imprime este código? `console.log(\"5\" + 2);`",
+        "options": [
+          "52",
+          "7",
+          "3",
+          "Un error de sintaxis"
+        ],
+        "answer": 0,
+        "explanation": "El + concatena cuando uno de los operandos es texto. El 2 se convierte en \"2\" y el resultado es el texto 52."
+      },
+      {
+        "id": "13-m-02",
+        "prompt": "¿Qué imprime este código? `console.log(\"5\" - 2);`",
+        "options": [
+          "52",
+          "NaN",
+          "3",
+          "\"3\" (con comillas)"
+        ],
+        "answer": 2,
+        "explanation": "El - solo opera con números, así que \"5\" se convierte en 5 y el resultado es el número 3. console.log lo imprime sin comillas."
+      },
+      {
+        "id": "13-m-03",
+        "prompt": "¿Qué imprime este código? `let n = 10; n += 5; n++; console.log(n);`",
+        "options": [
+          "15",
+          "16",
+          "11",
+          "10"
+        ],
+        "answer": 1,
+        "explanation": "n pasa a 15 con +=, y n++ suma 1 más, dando 16. Olvidar el incremento lleva a 15."
+      },
+      {
+        "id": "13-m-04",
+        "prompt": "¿Qué imprime este código? `if (\"0\") { console.log(\"sí\"); } else { console.log(\"no\"); }`",
+        "options": [
+          "no",
+          "nada",
+          "Un error de sintaxis",
+          "sí"
+        ],
+        "answer": 3,
+        "explanation": "El texto \"0\" no está vacío, así que es truthy. Solo el número 0 sin comillas es falsy."
+      },
+      {
+        "id": "13-m-05",
+        "prompt": "¿Qué imprime este código? `const nota = 6; if (nota > 5) { console.log(\"A\"); } else if (nota === 6) { console.log(\"B\"); }`",
+        "options": [
+          "A",
+          "B",
+          "A y B",
+          "No imprime nada"
+        ],
+        "answer": 0,
+        "explanation": "La primera condición es verdadera, y en una cadena if/else if solo se ejecuta el primer bloque verdadero. La segunda no se evalúa."
+      },
+      {
+        "id": "13-m-06",
+        "prompt": "¿Qué imprime este código? `console.log(0 || \"vacío\", 0 ?? \"vacío\");`",
+        "options": [
+          "vacío vacío",
+          "0 vacío",
+          "vacío 0",
+          "0 0"
+        ],
+        "answer": 2,
+        "explanation": "|| reemplaza el 0 por el respaldo, porque 0 es falsy. ?? solo reemplaza null o undefined, así que conserva el 0."
+      },
+      {
+        "id": "13-m-07",
+        "prompt": "¿Qué imprime este código? `switch (2) { case 1: console.log(\"uno\"); case 2: console.log(\"dos\"); case 3: console.log(\"tres\"); break; default: console.log(\"otro\"); }`",
+        "options": [
+          "solo dos",
+          "dos y después tres",
+          "solo tres",
+          "otro"
+        ],
+        "answer": 1,
+        "explanation": "El caso 2 coincide y, al no tener break, la ejecución cae en el caso 3, que termina con break. El resultado son las dos líneas."
+      },
+      {
+        "id": "13-m-08",
+        "prompt": "¿Qué imprime este código? `let s = 0; for (let i = 1; i < 4; i++) { s += i; } console.log(s);`",
+        "options": [
+          "10",
+          "4",
+          "3",
+          "6"
+        ],
+        "answer": 3,
+        "explanation": "El bucle recorre 1, 2 y 3 porque i < 4 se detiene antes del 4. La suma es 1 + 2 + 3 = 6."
+      },
+      {
+        "id": "13-m-09",
+        "prompt": "¿Qué imprime este código? `let x = 1; while (x < 20) { x *= 3; } console.log(x);`",
+        "options": [
+          "27",
+          "20",
+          "9",
+          "81"
+        ],
+        "answer": 0,
+        "explanation": "x toma los valores 1, 3, 9 y 27. Cuando x vale 27, la condición x < 20 es falsa y el bucle termina."
+      },
+      {
+        "id": "13-m-10",
+        "prompt": "¿Qué imprime este código? `for (let i = 0; i < 5; i++) { if (i % 2 === 0) { continue; } console.log(i); }`",
+        "options": [
+          "0, 2 y 4",
+          "1, 2, 3 y 4",
+          "1 y 3",
+          "2 y 4"
+        ],
+        "answer": 2,
+        "explanation": "continue salta los valores pares (i % 2 === 0). Quedan 1 y 3, que son los impares menores que 5."
+      },
+      {
+        "id": "13-m-11",
+        "prompt": "¿Qué imprime este código? `console.log(typeof null === \"object\");`",
+        "options": [
+          "false",
+          "true",
+          "null",
+          "Un error de sintaxis"
+        ],
+        "answer": 1,
+        "explanation": "typeof null produce el texto \"object\" por el error histórico del lenguaje. La comparación con \"object\" es verdadera."
+      },
+      {
+        "id": "13-m-12",
+        "prompt": "¿Qué imprime este código? `console.log(NaN === NaN, Number.isNaN(NaN));`",
+        "options": [
+          "true true",
+          "false false",
+          "NaN true",
+          "false true"
+        ],
+        "answer": 3,
+        "explanation": "NaN no es igual a nada, ni a sí mismo, así que la comparación estricta da false. Number.isNaN detecta correctamente el NaN y da true."
+      },
+      {
+        "id": "13-m-13",
+        "prompt": "¿Qué imprime este código? `const dias = \"lunes\"; console.log(dias.length, dias.toUpperCase());`",
+        "options": [
+          "5 LUNES",
+          "5 lunes",
+          "6 LUNES",
+          "lunes 5"
+        ],
+        "answer": 0,
+        "explanation": "«lunes» tiene cinco caracteres, y toUpperCase devuelve una copia en mayúsculas. La variable original no cambia."
+      },
+      {
+        "id": "13-m-14",
+        "prompt": "¿Qué imprime este código? `console.log(!0 && \"sí\");`",
+        "options": [
+          "true",
+          "0",
+          "sí",
+          "false"
+        ],
+        "answer": 2,
+        "explanation": "!0 es true porque 0 es falsy. Como el primer operando de && es true, el resultado es el segundo: \"sí\"."
+      },
+      {
+        "id": "13-m-15",
+        "prompt": "¿Qué imprime este código? `let c = 0; for (let i = 1; i <= 3; i++) { for (let j = 1; j <= 2; j++) { c++; } } console.log(c);`",
+        "options": [
+          "5",
+          "6",
+          "9",
+          "3"
+        ],
+        "answer": 1,
+        "explanation": "El bucle interior da 2 vueltas por cada una de las 3 del exterior: 3 × 2 = 6 incrementos."
+      },
+      {
+        "id": "13-m-16",
+        "prompt": "¿Qué imprime este código? `let total = 0; for (let i = 10; i > 0; i -= 3) { total += i; } console.log(total);`",
+        "options": [
+          "18",
+          "26",
+          "10",
+          "22"
+        ],
+        "answer": 3,
+        "explanation": "i toma los valores 10, 7, 4 y 1; la siguiente sería -2, que no cumple i > 0. La suma es 10 + 7 + 4 + 1 = 22."
+      }
+    ],
+    "dificil": [
+      {
+        "id": "13-d-01",
+        "prompt": "Un programa muestra «TypeError: Assignment to constant variable». El código es const x = 5; seguido de x = 6;. ¿Cuál es la causa y la corrección adecuada?",
+        "options": [
+          "x se declaró con const y no admite reasignación; si el valor debe cambiar, se declara con let",
+          "El navegador no admite reasignar variables en ningún caso, por lo que hay que declarar x con var en todo el archivo y reiniciar la pestaña",
+          "El error proviene del punto y coma de la declaración; hay que quitarlo de la línea y dejar la asignación sin terminador para que se ejecute",
+          "Falta un paréntesis alrededor del número 6; la corrección es escribir x = (6) para que la asignación se considere una expresión completa"
+        ],
+        "answer": 0,
+        "explanation": "const impide reasignar la variable en tiempo de ejecución. La corrección depende de la intención: si el valor cambia, se usa let; si no, se conserva const y se crea otra variable."
+      },
+      {
+        "id": "13-d-02",
+        "prompt": "Un control de acceso contiene if (clave = \"1234\") y deja pasar a cualquiera. ¿Cuál es la causa?",
+        "options": [
+          "El texto entre comillas nunca se evalúa como verdadero dentro de un if, así que el bloque se ejecuta por un error interno del navegador que hay que reportar",
+          "El if solo admite números y textos vacíos, por lo que debe cambiarse por un switch con break para que la clave se compare correctamente",
+          "= asigna \"1234\" a clave, y el texto no vacío es truthy; debe usarse === para comparar",
+          "La clave debe compararse con == para que el navegador ignore las diferencias de mayúsculas y de espacios en la contraseña ingresada"
+        ],
+        "answer": 2,
+        "explanation": "El operador = modifica la variable y devuelve un valor truthy, por lo que la condición se cumple siempre. La comparación correcta es ===, y el error se detecta imprimiendo la variable antes de la condición."
+      },
+      {
+        "id": "13-d-03",
+        "prompt": "Se espera imprimir los números del 1 al 5, pero el código imprime del 0 al 5: for (let i = 0; i <= 5; i++). ¿Qué corrección produce la salida esperada?",
+        "options": [
+          "Cambiar i++ por i += 2 en la actualización, de manera que el bucle se salte el valor cero y avance de dos en dos hasta el final",
+          "Cambiar el inicio a let i = 1 y mantener i <= 5",
+          "Cambiar la condición <= por < sin tocar el inicio, porque el operador menor o igual incluye el cero en todas las vueltas del bucle",
+          "Sustituir el for por un while, porque el encabezado de for no puede empezar en 1 y siempre comienza en cero por diseño del lenguaje"
+        ],
+        "answer": 1,
+        "explanation": "El bucle empieza en 0 porque la inicialización lo indica. Con let i = 1 y i <= 5 se obtienen exactamente las vueltas 1 a 5."
+      },
+      {
+        "id": "13-d-04",
+        "prompt": "Un programa imprime NaN en la línea console.log(\"Hola\" + 5 - 2). ¿Cuál es la explicación correcta?",
+        "options": [
+          "La resta no puede aplicarse a números y textos al mismo tiempo, así que el navegador devuelve NaN por una medida de seguridad interna del motor",
+          "El + con un texto devuelve el número 5 y la resta da 3, pero la consola muestra NaN por un fallo de formato en la presentación de resultados",
+          "El paréntesis que falta hace que la suma se ejecute al final de la expresión, lo que produce NaN como resultado de la concatenación completa",
+          "\"Hola\" + 5 produce el texto \"Hola5\"; después la resta intenta convertirlo en número y el resultado no es numérico"
+        ],
+        "answer": 3,
+        "explanation": "Los operadores se evalúan de izquierda a derecha con la misma precedencia. El + concatena primero y el texto resultante no se puede convertir en número completo."
+      },
+      {
+        "id": "13-d-05",
+        "prompt": "Una página recibe la edad desde un formulario como texto \"18\". La suma edad + 1 produce \"181\". ¿Cuál es la corrección adecuada?",
+        "options": [
+          "Convertir antes de operar con Number(edad) + 1, de modo que la suma sea numérica",
+          "Cambiar edad + 1 por edad - 1, porque la resta siempre devuelve un número y así el resultado deja de ser texto en cualquier caso posible",
+          "Declarar la variable edad con const en lugar de let, porque las constantes se convierten automáticamente en números al momento de la declaración",
+          "Comparar primero edad >= 18 y sumar después, porque la comparación cambia el tipo del valor y la suma queda numérica en la vuelta siguiente"
+        ],
+        "answer": 0,
+        "explanation": "El valor sigue siendo texto y el + lo concatena. La conversión explícita con Number antes de operar produce el resultado numérico esperado."
+      },
+      {
+        "id": "13-d-06",
+        "prompt": "Una lista de tareas ejecuta su bloque una y otra vez y el navegador deja de responder. El código es let i = 0; while (i < 3) { console.log(i); }. ¿Cuál es la causa?",
+        "options": [
+          "El while no puede comparar números, por eso la condición siempre se evalúa como falsa y el bloque nunca llega a ejecutarse en absoluto",
+          "El console.log bloquea la pestaña del navegador durante la ejecución, por lo que la sentencia debe quitarse para que el bucle termine por sí solo",
+          "La variable i nunca cambia, así que la condición siempre es verdadera; falta la actualización i++",
+          "La variable debe declararse con const en lugar de let, porque solo las constantes permiten que un bucle while termine de forma finita y controlada"
+        ],
+        "answer": 2,
+        "explanation": "Un bucle necesita una sentencia que cambie la variable de su condición. Sin i++, el valor 0 se imprime indefinidamente y la pestaña se bloquea."
+      },
+      {
+        "id": "13-d-07",
+        "prompt": "Una variable declarada con let no tiene valor asignado. ¿Por qué la comparación precio === null da false?",
+        "options": [
+          "La comparación con null nunca es verdadera en JavaScript, sin importar el valor de la variable, por lo que siempre devuelve false como resultado",
+          "precio vale undefined, y undefined no es igual estrictamente a null",
+          "precio vale null desde la declaración, pero el operador === no compara los valores ausentes, así que devuelve false en cualquier caso posible",
+          "precio vale cero porque las variables no asignadas siempre valen cero en JavaScript, y cero no es igual a null en la comparación estricta"
+        ],
+        "answer": 1,
+        "explanation": "undefined es el valor de una variable sin asignar, y null es un valor que el programador asigna. La comparación estricta los considera distintos."
+      },
+      {
+        "id": "13-d-08",
+        "prompt": "Un sistema calcula 0.1 + 0.2 y compara el resultado con 0.3 usando ===; el programa dice que no son iguales. ¿Cuál es la explicación y la práctica correcta?",
+        "options": [
+          "El operador === no funciona con decimales en ningún caso, así que la comparación debe hacerse siempre con == para obtener resultados confiables",
+          "El resultado es correcto porque 0.1 y 0.2 suman exactamente 0.3 en JavaScript, y el fallo está en la impresión del valor en la consola",
+          "El navegador redondea los decimales a cero al operar con ellos, por lo que la comparación debe hacerse siempre contra el valor cero exacto",
+          "Los decimales binarios no son exactos; para dinero se trabaja con enteros de centavos"
+        ],
+        "answer": 3,
+        "explanation": "La representación en coma flotante no permite decimales exactos como 0.1. Para dinero se usan enteros de la menor unidad, y para comparar decimales se acepta una diferencia mínima."
+      },
+      {
+        "id": "13-d-09",
+        "prompt": "Un campo de edad vacío se convierte con Number y el sistema admite una edad de 0. ¿Qué falla?",
+        "options": [
+          "Number(\"\") devuelve 0; el campo debe validarse como no vacío antes de convertirlo",
+          "Number no acepta textos de ninguna clase, por lo que el campo siempre devuelve NaN y el sistema admite ese valor sin ningún control adicional",
+          "La edad 0 es válida por definición en cualquier formulario, así que el error está en la experiencia de usuario y no en la lógica del código de conversión",
+          "El valor vacío se convierte en null, que es igual a 0 con ==, por lo que la corrección consiste en usar == en la validación del campo"
+        ],
+        "answer": 0,
+        "explanation": "Number de un texto vacío produce 0. La validación debe comprobar explícitamente que el campo tiene contenido antes de convertirlo."
+      },
+      {
+        "id": "13-d-10",
+        "prompt": "Un programa usa const puerto = configuracion.puerto || 3000; y, si el puerto configurado es 0, usa 3000. ¿Qué operador corrige el caso?",
+        "options": [
+          "=== , porque compara el puerto con 3000 y devuelve siempre el valor correcto según la configuración que el usuario haya guardado en el archivo",
+          "&& , porque evalúa el puerto solo si es truthy y así protege el valor cero del reemplazo que hace el operador de respaldo original",
+          "?? (nullish), porque solo reemplaza null y undefined y conserva el 0",
+          "switch con un caso por cada puerto posible, porque cada valor de configuración debe tener su propio bloque de ejecución explícito en el código"
+        ],
+        "answer": 2,
+        "explanation": "|| reemplaza cualquier valor falsy, incluido el 0, que aquí es un dato válido. ?? solo actúa cuando el valor es null o undefined."
+      },
+      {
+        "id": "13-d-11",
+        "prompt": "Un bucle para repetir 10 veces se escribe for (let i = 0; i <= 10; i++) y muestra 11 líneas. ¿Cuál es la causa y el arreglo?",
+        "options": [
+          "La condición <= añade siempre una vuelta de más en cualquier bucle, por lo que debe escribirse solo con < y sin ningún valor de inicio explícito",
+          "Empieza en 0 y llega hasta 10 inclusive, sumando 11 vueltas; con let i = 1 y i <= 10 se obtienen 10",
+          "El i++ se ejecuta dos veces por vuelta cuando el encabezado es correcto, por lo que debe escribirse i += 1 para corregir la duplicación",
+          "El for no admite diez vueltas de forma nativa, de modo que el bucle debe reemplazarse por un do…while con un contador fijo de diez"
+        ],
+        "answer": 1,
+        "explanation": "El intervalo [0, 10] tiene 11 valores. Para diez vueltas hace falta un intervalo de diez valores, como [1, 10]."
+      },
+      {
+        "id": "13-d-12",
+        "prompt": "La expresión console.log(3 > 2 > 1) imprime false. ¿Cuál es la explicación?",
+        "options": [
+          "3 > 2 no es una expresión válida en JavaScript, por lo que el motor toma el resultado únicamente del último operador de la cadena de comparación",
+          "Las comparaciones encadenadas se evalúan de derecha a izquierda, de modo que primero se calcula 1 > 2, que es false, y ese valor se mantiene",
+          "El resultado es false porque JavaScript no permite comparar números enteros en cadenas de más de dos operadores de comparación al mismo tiempo",
+          "3 > 2 produce true; luego true se convierte en 1 y se compara 1 > 1, que es false"
+        ],
+        "answer": 3,
+        "explanation": "Los operadores de comparación se evalúan de izquierda a derecha. El primer resultado es un booleano, que se convierte en número al compararlo con 1."
+      },
+      {
+        "id": "13-d-13",
+        "prompt": "Un usuario escribe el texto \"false\" en un campo de configuración, y el código ejecuta if (ok) { ... } como si fuera falso. ¿Cuál es la causa?",
+        "options": [
+          "\"false\" es texto no vacío, y todo texto no vacío es truthy",
+          "El if no admite textos en ningún caso y siempre ejecuta el bloque por omisión del motor, sin importar el contenido que tenga la variable de control",
+          "El texto \"false\" se convierte en 0 al evaluarse dentro del if, y como 0 es falsy el bloque no llega a ejecutarse en esa comprobación",
+          "La condición debe escribirse con == para que el texto se compare con el booleano false antes de decidir si el bloque se ejecuta o no"
+        ],
+        "answer": 0,
+        "explanation": "Un string no vacío es truthy. Solo el booleano false sin comillas es falso; el texto requiere una conversión explícita."
+      },
+      {
+        "id": "13-d-14",
+        "prompt": "Un switch con la expresión \"2\" no entra al caso case 2. ¿Cuál es la causa?",
+        "options": [
+          "El switch solo funciona con números enteros positivos, por lo que cualquier caso que reciba un texto nunca llega a ejecutarse en absoluto",
+          "El caso debe escribirse entre comillas porque la comparación de switch se hace siempre por texto y no por el valor numérico de la expresión",
+          "switch compara con ===, y el texto \"2\" no es igual estricto al número 2",
+          "Falta la cláusula default, y sin ella ningún caso se ejecuta cuando la expresión de entrada no coincide con alguno de los valores escritos"
+        ],
+        "answer": 2,
+        "explanation": "La comparación de switch es estricta. Para que coincidan, el caso debe tener el mismo tipo que la expresión, o la expresión debe convertirse antes."
+      },
+      {
+        "id": "13-d-15",
+        "prompt": "Un programa usa do…while con una condición que es falsa desde el inicio, y el bloque se ejecuta una vez. ¿Es un error?",
+        "options": [
+          "Sí: el bloque nunca debe ejecutarse si la condición es falsa desde el principio, por lo que el código contiene un error de lógica que debe corregirse",
+          "No: do…while ejecuta el bloque antes de evaluar la condición, así que una vuelta es esperable",
+          "Sí: do…while solo ejecuta el bloque cuando la condición es verdadera desde el principio, de modo que la vuelta extra es un fallo del navegador",
+          "No: el bloque no debería ejecutarse nunca porque la condición se evalúa al inicio, pero la consola muestra una vuelta por un registro interno"
+        ],
+        "answer": 1,
+        "explanation": "La diferencia con while es que do…while garantiza al menos una ejecución, porque la condición se comprueba al final de cada vuelta."
+      },
+      {
+        "id": "13-d-16",
+        "prompt": "Un switch(letra) con case \"A\" recibe letra = \"a\" y cae en default. ¿Cuál es la causa?",
+        "options": [
+          "La letra minúscula no es un valor válido en JavaScript y el motor la sustituye por el caso por defecto del switch en cualquier situación posible",
+          "El caso debe escribirse con dos letras, una mayúscula y otra minúscula, para que el switch compare ambas formas dentro del mismo bloque de ejecución",
+          "El default se ejecuta siempre que aparece un caso con letra mayúscula, así que hay que eliminar el break de la sentencia para que el caso coincida",
+          "\"a\" y \"A\" son textos distintos y switch compara con ===; el valor debe normalizarse con toUpperCase() antes"
+        ],
+        "answer": 3,
+        "explanation": "switch distingue mayúsculas de minúsculas porque compara con ===. Convertir la entrada a mayúsculas antes del switch resuelve la discrepancia."
+      }
+    ]
+  }
+}

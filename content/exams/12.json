@@ -116,7 +116,7 @@
     "options": [
      "Muestra la imagen entera dentro del contenedor y deja bandas vacías en los lados que sobran",
      "Llena todo el contenedor manteniendo la proporción de la imagen y recorta lo que sobra",
-     "Estira la imagen en ambas direcciones hasta ocupar todo el contenedor aunque quede deformada",
+     "Estira la imagen en los dos ejes hasta ocupar todo el contenedor aunque quede deformada",
      "Mueve el punto de recorte hacia la parte alta de la imagen para conservar los rostros visibles"
     ],
     "answer": 1,
